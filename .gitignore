@@ -1,0 +1,10 @@
+archives/
+test_files/
+*.pyc
+*~
+*.csv
+*.webloc
+*.mdb
+*.log
+.DS_Store
+
