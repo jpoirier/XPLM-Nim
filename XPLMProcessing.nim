@@ -17,21 +17,21 @@
 # *****************************************************************************
 
 
-
 # XPLMFlightLoopPhaseType
 #
 # You can register a flight loop callback to run either before or after the
 # flight model is integrated by X-Plane.
 #
-enum {
+const
      # Your callback runs before X-Plane integrates the flight model.
-     xplm_FlightLoop_Phase_BeforeFlightModel  = 0
+     xplm_FlightLoop_Phase_BeforeFlightModel = 0
 
      # Your callback runs after X-Plane integrates the flight model.
-    ,xplm_FlightLoop_Phase_AfterFlightModel   = 1
-};
-typedef int XPLMFlightLoopPhaseType;
+     xplm_FlightLoop_Phase_AfterFlightModel = 1
 
+# typedef int XPLMFlightLoopPhaseType;
+type
+     XPLMFlightLoopPhaseType* = cint
 
 # XPLMFlightLoopID
 #
@@ -39,8 +39,9 @@ typedef int XPLMFlightLoopPhaseType;
 # identifier to easily track and remove your callbacks, or to use the new
 # flight loop APIs.
 #
-typedef void * XPLMFlightLoopID;
-
+# typedef void * XPLMFlightLoopID;
+type
+     XPLMFlightLoopID* = ptr cvoid
 
 # XPLMFlightLoop_f
 #
@@ -63,12 +64,13 @@ typedef void * XPLMFlightLoopID;
 #
 # The reference constant you passed to your loop is passed back to you.
 #
-typedef float (* XPLMFlightLoop_f)(
-                                   float                inElapsedSinceLastCall,
-                                   float                inElapsedTimeSinceLastFlightLoop,
-                                   int                  inCounter,
-                                   void *               inRefcon);
-
+type
+     # typedef float (*XPLMFlightLoop_f)(float inElapsedSinceLastCall,
+     #                                    float inElapsedTimeSinceLastFlightLoop,
+     #                                    int inCounter,
+     #                                    void* inRefcon);
+    XPLMGetDatai_f* = proc (inElapsedSinceLastCall, inElapsedTimeSinceLastFlightLoop: cfloat,
+                            inCounter: cint, inRefcon: ptr cvoid): cfloat {.stdcall.}
 
 # XPLMCreateFlightLoop_t
 #
@@ -76,21 +78,27 @@ typedef float (* XPLMFlightLoop_f)(
 # callback.  The strsucture can be expanded in future SDKs - always set
 # structSize to the size of your structure in bytes.
 #
-typedef struct {
-     int                       structSize;
-     XPLMFlightLoopPhaseType   phase;
-     XPLMFlightLoop_f          callbackFunc;
-     void *                    refcon;
-} XPLMCreateFlightLoop_t;
-
-
+# typedef struct {
+#      int                       structSize;
+#      XPLMFlightLoopPhaseType   phase;
+#      XPLMFlightLoop_f          callbackFunc;
+#      void *                    refcon;
+# } XPLMCreateFlightLoop_t;
+type
+    PXPLMCameraPosition_t* = ptr XPLMCreateFlightLoop_t
+    XPLMCreateFlightLoop_t*{.final.} = object
+        structSize*: cint
+        phase*: XPLMFlightLoopPhaseType
+        callbackFunc*: XPLMGetDatai_f
+        refcon*: ptr cvoid
 
 # XPLMGetElapsedTime
 #
 # This routine returns the elapsed time since the sim started up in decimal
 # seconds.
 #
-XPLM_API float                XPLMGetElapsedTime(void);
+# XPLM_API float XPLMGetElapsedTime(void);
+proc XPLMGetElapsedTime(): cfloat {importc: "XPLMGetElapsedTime", nodecl.}
 
 
 # XPLMGetCycleNumber
@@ -98,8 +106,8 @@ XPLM_API float                XPLMGetElapsedTime(void);
 # This routine returns a counter starting at zero for each sim cycle
 # computed/video frame rendered.
 #
-XPLM_API int                  XPLMGetCycleNumber(void);
-
+# XPLM_API int XPLMGetCycleNumber(void);
+proc XPLMGetCycleNumber(): cint {importc: "XPLMGetCycleNumber", nodecl.}
 
 # XPLMRegisterFlightLoopCallback
 #
@@ -110,11 +118,8 @@ XPLM_API int                  XPLMGetCycleNumber(void);
 # will be called (e.g. pass -1 to be called at the next cylcle).  Pass 0 to
 # not be called; your callback will be inactive.
 #
-XPLM_API void                 XPLMRegisterFlightLoopCallback(
-                                   XPLMFlightLoop_f     inFlightLoop,
-                                   float                inInterval,
-                                   void *               inRefcon);
-
+# XPLM_API void XPLMRegisterFlightLoopCallback(XPLMFlightLoop_f inFlightLoop, float inInterval, void* inRefcon);
+proc XPLMRegisterFlightLoopCallback(inFlightLoop: XPLMFlightLoop_f, inInterval: cfloat, inRefcon: ptr cvoid) {importc: "XPLMRegisterFlightLoopCallback", nodecl.}
 
 # XPLMUnregisterFlightLoopCallback
 #
@@ -122,10 +127,8 @@ XPLM_API void                 XPLMRegisterFlightLoopCallback(
 # your  flight loop callback.  Once your flight loop callback is
 # unregistered, it will not be called again.
 #
-XPLM_API void                 XPLMUnregisterFlightLoopCallback(
-                                   XPLMFlightLoop_f     inFlightLoop,
-                                   void *               inRefcon);
-
+XPLM_API void XPLMUnregisterFlightLoopCallback(XPLMFlightLoop_f inFlightLoop, void* inRefcon);
+proc XPLMUnregisterFlightLoopCallback(inFlightLoop: XPLMFlightLoop_f, inRefcon: ptr cvooid) {importc: "XPLMUnregisterFlightLoopCallback", nodecl.}
 
 # XPLMSetFlightLoopCallbackInterval
 #
@@ -139,12 +142,11 @@ XPLM_API void                 XPLMUnregisterFlightLoopCallback(
 # otherwise they are from the time the callback was last called (or the time
 # it was registered if it has never been called.
 #
-XPLM_API void                 XPLMSetFlightLoopCallbackInterval(
-                                   XPLMFlightLoop_f     inFlightLoop,
-                                   float                inInterval,
-                                   int                  inRelativeToNow,
-                                   void *               inRefcon);
-
+# XPLM_API void XPLMSetFlightLoopCallbackInterval(XPLMFlightLoop_f inFlightLoop,
+#                                                   float inInterval,
+#                                                   int inRelativeToNow,
+#                                                   void * inRefcon);
+proc XPLMSetFlightLoopCallbackInterval(inFlightLoop: XPLMFlightLoop_f, inInterval: cfloat, inRelativeToNow: cint, inRefcon: ptr cvoid) {importc: "XPLMSetFlightLoopCallbackInterval", nodecl.}
 
 # XPLMCreateFlightLoop
 #
@@ -152,15 +154,15 @@ XPLM_API void                 XPLMSetFlightLoopCallbackInterval(
 # loop callback is created using the input param struct, and is inited to be
 # unscheduled.
 #
-XPLM_API XPLMFlightLoopID     XPLMCreateFlightLoop(
-                                   XPLMCreateFlightLoop_t * inParams);
+# XPLM_API XPLMFlightLoopID XPLMCreateFlightLoop(XPLMCreateFlightLoop_t* inParams);
+proc XPLMCreateFlightLoop(inParams: PXPLMCreateFlightLoop_t): XPLMFlightLoopID {importc: "XPLMCreateFlightLoop", nodecl.}
 
 # XPLMDestroyFlightLoop
 #
 # This routine destroys a flight loop callback by ID.
 #
-XPLM_API void                 XPLMDestroyFlightLoop(
-                                   XPLMFlightLoopID     inFlightLoopID);
+# XPLM_API void XPLMDestroyFlightLoop(XPLMFlightLoopID inFlightLoopID);
+proc XPLMDestroyFlightLoop(inFlightLoopID: XPLMFlightLoopID): cint {importc: "XPLMDestroyFlightLoop", nodecl.}
 
 # XPLMScheduleFlightLoop
 #
@@ -194,8 +196,5 @@ XPLM_API void                 XPLMDestroyFlightLoop(
 # 4. The object must be unscheduled if this routine is to be called from a
 # thread other than the main thread.
 #
-XPLM_API void                 XPLMScheduleFlightLoop(
-                                   XPLMFlightLoopID     inFlightLoopID,
-                                   float                inInterval,
-                                   int                  inRelativeToNow);
-
+# XPLM_API void XPLMScheduleFlightLoop(XPLMFlightLoopID inFlightLoopID, float inInterval, int inRelativeToNow);
+proc XPLMScheduleFlightLoop(inFlightLoopID: XPLMFlightLoopID, inInterval: cfloat, inRelativeToNow: cint) {importc: "XPLMScheduleFlightLoop", nodecl.}
