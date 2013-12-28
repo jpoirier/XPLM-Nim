@@ -1,52 +1,58 @@
-import XPLMDefs, XPLMProcessing
+#import XPLMDefs
+#import XPLMProcessing
 
+const libName = "XPLM_64.dll"
 
-# proc XPluginStart(outName, outSig, outDesc: ptr cchar): cint {.exportc: "XPluginStart", dynlib.}
-# proc XPluginStop()
-# proc XPluginDisable()
-# proc XPluginEnable(): cint
-# proc XPluginReceiveMessage(inFrom: cint, inMsg: clong, inParam: ptr cvoid)
+type
+  XPLMFlightLoop_CB* = proc (inElapsedSinceLastCall: cfloat, inElapsedTimeSinceLastFlightLoop: cfloat, inCounter: cint, inRefcon: Pointer): cfloat {.stdcall.}
 
+# .stdcall.
+proc XPLMRegisterFlightLoopCallback(callback: XPLMFlightLoop_CB, inInterval: cfloat, inRefcon: Pointer) {.stdcall, importc: "XPLMRegisterFlightLoopCallback", dynlib: libName}
+proc XPLMDebugString(inString: cstring)  {.stdcall, importc: "XPLMDebugString", dynlib: libName} 
 
 
 # // Flightloop Callback INterval
 # static const float FL_CB_INTERVAL = -1.0;
 
 ## ----------------------------------------------------------------------------
-proc XPluginStart(outName, outSig, outDesc: ptr cchar): cint {.exportc: "XPluginStart", dynlib.} =
+proc XFlightLoopCallback(inElapsedSinceLastCall: cfloat, inElapsedTimeSinceLastFlightLoop: cfloat, inCounter: cint, inRefcon: Pointer): cfloat {.exportc: "XFlightLoopCallback", dynlib.} =
 
-  echo("-- XPluginStart called...")
-
-  XPLMRegisterFlightLoopCallback(FlightLoopCallback, -1.0, 0);
-
-  return 1
-
-## ----------------------------------------------------------------------------
-proc FlightLoopCallback(inElapsedSinceLastCall, inElapsedTimeSinceLastFlightLoop: cfloat,
-                        inCounter: cint, inRefcon: ptr void): cfloat =
-
-  echo("-- RadioPanelFlightLoopCallback called...")
+  XPLMDebugString("-- RadioPanelFlightLoopCallback called...\n")
 
   return 1.0
 
 ## ----------------------------------------------------------------------------
-proc XPluginStop() {.exportc: "XPluginStart", dynlib.} =
+proc XPluginStart(outName: ptr cchar, outSig: ptr cchar, outDesc: ptr cchar): cint {.exportc: "XPluginStart", dynlib.} =
 
-  echo("-- XPluginStop called...")
+  #outName = "TestTest\0"
+  #outSig = "TestTest\0"
+  #outDesc = "TestTest\0"
+  XPLMDebugString("-- XPluginStart called...\n")
+  XPLMDebugString("-- err XPluginStart called...\n")
 
-## ----------------------------------------------------------------------------
-proc XPluginDisable() {.exportc: "XPluginStart", dynlib.} =
-
-  echo("-- XPluginDisable called...")
-
-## ----------------------------------------------------------------------------
-proc XPluginEnable(): cint {.exportc: "XPluginStart", dynlib.} =
-
-  echo("-- XPluginEnable called...")
+  XPLMRegisterFlightLoopCallback(cast[XPLMFlightLoop_CB](XFlightLoopCallback), cfloat(-1.0), Pointer(nil))
 
   return 1
 
 ## ----------------------------------------------------------------------------
-proc XPluginReceiveMessage(inFrom: cint, inMsg: clong, inParam: ptr cvoid) {.exportc: "XPluginStart", dynlib.} =
+proc XPluginStop() {.exportc: "XPluginStop", dynlib.} =
 
-  echo("-- XPluginReceiveMessage called...")
+  XPLMDebugString("-- XPluginStop called...\n")
+
+## ----------------------------------------------------------------------------
+proc XPluginDisable() {.exportc: "XPluginDisable", dynlib.} =
+
+  XPLMDebugString("-- XPluginDisable called...\n")
+
+## ----------------------------------------------------------------------------
+proc XPluginEnable(): cint {.exportc: "XPluginEnable", dynlib.} =
+
+  XPLMDebugString("-- XPluginEnable called...\n")
+
+  return 1
+
+## ----------------------------------------------------------------------------
+proc XPluginReceiveMessage(inFrom: int, inMsg: int, inParam: pointer) {.exportc: "XPluginReceiveMessage", dynlib.} =
+
+   XPLMDebugString("-- XPluginReceiveMessage called...\n")
+
