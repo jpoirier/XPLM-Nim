@@ -1,0 +1,9 @@
+
+compile the Nimrod rtl: nimrod c -d:release nimrtl.nim
+
+Link against the dll: nimrod c -d:useNimRtl myprog.nim
+
+
+
+nimrod c -d:useNimRtl myprog.nim
+
