@@ -16,7 +16,7 @@
 # *****************************************************************************
 #
 #  These definitions are used in all parts of the SDK.
-
+#
 
 #  XPLMPluginID
 #
@@ -36,15 +36,15 @@ type
 
 # No plugin.
 const
-  XPLM_NO_PLUGIN_ID* = (- 1)
+  XPLM_NO_PLUGIN_ID* = - 1
 
 # X-Plane itself
 const
-  XPLM_PLUGIN_XPLANE* = (0)
+  XPLM_PLUGIN_XPLANE* = 0
 
 # The current XPLM revision is 2.10 (210).
 const
-  kXPLM_Version* = (210)
+  kXPLM_Version* = 210
 
 
 #  XPLMKeyFlags
@@ -63,12 +63,12 @@ const
 #  #ifdefed code.
 #
 #
-const                       # The shift key is down
-  xplm_ShiftFlag* = 1       # The option or alt key is down
-  xplm_OptionAltFlag* = 2   # The control key is down*
-  xplm_ControlFlag* = 4     # The key is being pressed down
-  xplm_DownFlag* = 8        # The key is being released
-  xplm_UpFlag* = 16
+const
+  xplm_ShiftFlag* = 1       # The shift key is down
+  xplm_OptionAltFlag* = 2   # The option or alt key is down
+  xplm_ControlFlag* = 4     # The control key is down
+  xplm_DownFlag* = 8        # The key is being pressed down
+  xplm_UpFlag* = 16         # The key is being released
 
 type
   XPLMKeyFlags* = cint

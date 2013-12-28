@@ -633,7 +633,7 @@ XPLM_API void XPLMCommandOnce(XPLMCommandRef inCommand);
 # description may appear in user interface contexts, such as the joystick
 # configuration screen.
 #
-XPLM_API XPLMCommandRef XPLMCreateCommand( const char* inName, const char* inDescription);
+XPLM_API XPLMCommandRef XPLMCreateCommand(const char* inName, const char* inDescription);
 
 
 # XPLMRegisterCommandHandler

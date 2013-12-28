@@ -58,7 +58,6 @@
 # of the sim.
 #
 
-{.deadCodeElim: on.}
 
 #******************************************************************************
 # Drawing Callbacks
@@ -102,6 +101,9 @@ const
     xplm_Phase_LocalMap2D* = 101
     xplm_Phase_LocalMapProfile* = 102
 
+type
+    XPLMDrawingPhase: cint
+
 # XPLMDrawCallback_f
 #
 # This is the prototype for a low level drawing callback.  You are passed in
@@ -116,7 +118,10 @@ const
 # will be in 'local' coordinates for 3d drawing and panel coordinates for 2d
 # drawing.  The OpenGL state (texturing, etc.) will be unknown.
 #
-typedef int (* XPLMDrawCallback_f)(XPLMDrawingPhase inPhase, int inIsBefore, void* inRefcon);
+# typedef int (* XPLMDrawCallback_f)(XPLMDrawingPhase inPhase, int inIsBefore, void* inRefcon);
+type
+    XPLMDrawCallback_f* = proc (inPhase: XPLMDrawingPhase, inIsBefore: cint, inRefcon: ptr void)
+
 
 # XPLMKeySniffer_f
 #
@@ -138,7 +143,9 @@ typedef int (* XPLMDrawCallback_f)(XPLMDrawingPhase inPhase, int inIsBefore, voi
 # (that is 0x80 instead of -0x80).  So you may need to cast the incoming vkey
 # to an unsigned char to get correct comparisons in C.
 #
-typedef int (* XPLMKeySniffer_f)(char inChar, XPLMKeyFlags inFlags, char inVirtualKey, void* inRefcon);
+#typedef int (* XPLMKeySniffer_f)(char inChar, XPLMKeyFlags inFlags, char inVirtualKey, void* inRefcon);
+type
+    XPLMKeySniffer_f* = proc (inChar: cchar, inFlags: XPLMKeyFlags, inVirtualKey: cchar, inRefcon: ptr void): cint {.stdcall.}
 
 # XPLMRegisterDrawCallback
 #
@@ -149,7 +156,8 @@ typedef int (* XPLMKeySniffer_f)(char inChar, XPLMKeyFlags inFlags, char inVirtu
 # callback multiple times for the same or different phases as long as the
 # refcon is unique each time.
 #
-XPLM_API int XPLMRegisterDrawCallback(XPLMDrawCallback_f inCallback, XPLMDrawingPhase inPhase, int inWantsBefore, void* inRefcon);
+# XPLM_API int XPLMRegisterDrawCallback(XPLMDrawCallback_f inCallback, XPLMDrawingPhase inPhase, int inWantsBefore, void* inRefcon);
+proc XPLMRegisterDrawCallback(inCallback: XPLMDrawCallback_f, inPhase: XPLMDrawingPhase, inWantsBefore: cint, inRefcon: ptr void): cint
 
 # XPLMUnregisterDrawCallback
 #
@@ -158,7 +166,9 @@ XPLM_API int XPLMRegisterDrawCallback(XPLMDrawCallback_f inCallback, XPLMDrawing
 # times with different refcons.  The routine returns 1 if it can find the
 # callback to unregister, 0 otherwise.
 #
-XPLM_API int XPLMUnregisterDrawCallback(XPLMDrawCallback_f inCallback, XPLMDrawingPhase inPhase, int inWantsBefore, void* inRefcon);
+# XPLM_API int XPLMUnregisterDrawCallback(XPLMDrawCallback_f inCallback, XPLMDrawingPhase inPhase, int inWantsBefore, void* inRefcon);
+proc XPLMUnregisterDrawCallback(inCallback: XPLMDrawCallback_f, inPhase: XPLMDrawingPhase, inWantsBefore: cint, inRefcon: ptr void): cint
+
 
 # XPLMRegisterKeySniffer
 #
@@ -170,7 +180,8 @@ XPLM_API int XPLMUnregisterDrawCallback(XPLMDrawCallback_f inCallback, XPLMDrawi
 # action based on the key will produce very weird results.  Returns 1 if
 # successful.
 #
-XPLM_API int XPLMRegisterKeySniffer(XPLMKeySniffer_f inCallback, int inBeforeWindows, void* inRefcon);
+# XPLM_API int XPLMRegisterKeySniffer(XPLMKeySniffer_f inCallback, int inBeforeWindows, void* inRefcon);
+proc XPLMRegisterKeySniffer(inCallback: XPLMKeySniffer_f, inBeforeWindows: cint, inRefcon: ptr void): cint
 
 # XPLMUnregisterKeySniffer
 #
@@ -179,7 +190,7 @@ XPLM_API int XPLMRegisterKeySniffer(XPLMKeySniffer_f inCallback, int inBeforeWin
 # if successful.
 #
 XPLM_API int XPLMUnregisterKeySniffer(XPLMKeySniffer_f inCallback, int inBeforeWindows, void* inRefcon);
-
+proc XPLMUnregisterKeySniffer(inCallback: XPLMKeySniffer_f, inBeforeWindows: cint, inRefcon: ptr void): cint
 
 #******************************************************************************
 # Window API
@@ -205,7 +216,9 @@ const
     xplm_MouseDrag* = 2
     xplm_MouseUp* = 3
 
-typedef int XPLMMouseStatus;
+# typedef int XPLMMouseStatus;
+type
+    XPLMMouseStatus: cint
 
 # XPLMCursorStatus
 #
@@ -219,7 +232,9 @@ const
     xplm_CursorCustom* = 3
 
 
-typedef int XPLMCursorStatus;
+# typedef int XPLMCursorStatus;
+type
+    XPLMCursorStatus: cint
 
 # XPLMWindowID
 #
@@ -227,7 +242,9 @@ typedef int XPLMCursorStatus;
 # window. When you create a window, you will specify callbacks to handle
 # drawing and mouse interaction, etc.
 #
-typedef void * XPLMWindowID;
+# typedef void * XPLMWindowID;
+type
+    XPLMWindowID: ptr void
 
 # XPLMDrawWindow_f
 #
@@ -238,7 +255,9 @@ typedef void * XPLMWindowID;
 # drawing your window over a background, you can make a translucent window
 # easily by simply not filling in your entire window's bounds.
 #
-typedef void (*XPLMDrawWindow_f)(XPLMWindowID inWindowID, void* inRefcon);
+# typedef void (*XPLMDrawWindow_f)(XPLMWindowID inWindowID, void* inRefcon);
+type
+    proc XPLMDrawWindow_f(inWindowID: XPLMWindowID, inRefcon: ptr void) {.stdcall.}
 
 # XPLMHandleKey_f
 #
@@ -251,7 +270,9 @@ typedef void (*XPLMDrawWindow_f)(XPLMWindowID inWindowID, void* inRefcon);
 # -0x80).  So you may need to cast the incoming vkey to an unsigned char to
 # get correct comparisons in C.
 #
-typedef void (* XPLMHandleKey_f)(XPLMWindowID inWindowID, char inKey, XPLMKeyFlags inFlags, char inVirtualKey, void* inRefcon, int losingFocus);
+# typedef void (* XPLMHandleKey_f)(XPLMWindowID inWindowID, char inKey, XPLMKeyFlags inFlags, char inVirtualKey, void* inRefcon, int losingFocus);
+type
+    XPLMHandleKey_f(inWindowID: XPLMWindowID, inKey: cchar, inFlags: XPLMKeyFlags, inVirtualKey: cchar, inRefcon: ptr void, losingFocus: cint) {.stdcall.}
 
 # XPLMHandleMouseClick_f
 #
@@ -263,8 +284,9 @@ typedef void (* XPLMHandleKey_f)(XPLMWindowID inWindowID, char inKey, XPLMKeyFla
 # WARNING: passing clicks through windows (as of this writing) causes mouse
 # tracking problems in X-Plane; do not use this feature!
 #
-typedef int (* XPLMHandleMouseClick_f)(XPLMWindowID inWindowID, int x,
-                                   int y, XPLMMouseStatus inMouse, void* inRefcon);
+# typedef int (* XPLMHandleMouseClick_f)(XPLMWindowID inWindowID, int x, int y, XPLMMouseStatus inMouse, void* inRefcon);
+type
+    XPLMHandleMouseClick_f(inWindowID: XPLMWindowID, x: cint, y: cint, inMouse: XPLMMouseStatus, inRefcon: ptr void): cint {.stdcall.}
 
 # XPLMHandleCursor_f
 #
