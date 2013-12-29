@@ -116,16 +116,14 @@ typedef struct {
 #
 # Creates a new probe object of a given type and returns.
 #
-XPLM_API XPLMProbeRef XPLMCreateProbe(
-                                   XPLMProbeType inProbeType);
+XPLM_API XPLMProbeRef XPLMCreateProbe(XPLMProbeType inProbeType);
 
 
 # XPLMDestroyProbe
 #
 # Deallocates an existing probe object.
 #
-XPLM_API void XPLMDestroyProbe(
-                                   XPLMProbeRef inProbe);
+XPLM_API void XPLMDestroyProbe(XPLMProbeRef inProbe);
 
 
 # XPLMProbeTerrainXYZ
@@ -135,12 +133,11 @@ XPLM_API void XPLMDestroyProbe(
 # properly.  Other fields are filled in if we hit terrain, and a probe result
 # is returned.
 #
-XPLM_API XPLMProbeResult XPLMProbeTerrainXYZ(
-                                   XPLMProbeRef inProbe,
-                                   float inX,
-                                   float inY,
-                                   float inZ,
-                                   XPLMProbeInfo_t * outInfo);
+XPLM_API XPLMProbeResult XPLMProbeTerrainXYZ(XPLMProbeRef inProbe,
+                                             float inX,
+                                             float inY,
+                                             float inZ,
+                                             XPLMProbeInfo_t * outInfo);
 
 
 #******************************************************************************
@@ -198,9 +195,7 @@ typedef struct {
 # plugin is re-enabled.  If your plugin is unloaded before this callback is
 # ever called, the SDK will release the object handle for you.
 #
-typedef void (* XPLMObjectLoaded_f)(
-                                   XPLMObjectRef inObject,
-                                   void * inRefcon);
+typedef void (* XPLMObjectLoaded_f)(XPLMObjectRef inObject, void * inRefcon);
 
 
 # XPLMLoadObject
@@ -225,8 +220,7 @@ typedef void (* XPLMObjectLoaded_f)(
 # loaded before you load the object.  For this reason it may be necessary to
 # defer object loading until the sim has fully started.
 #
-XPLM_API XPLMObjectRef XPLMLoadObject(
-                                   const char * inPath);
+XPLM_API XPLMObjectRef XPLMLoadObject(const char * inPath);
 
 # XPLMLoadObjectAsync
 #
@@ -243,8 +237,7 @@ XPLM_API XPLMObjectRef XPLMLoadObject(
 # the load to complete and then release the object if it is no longer
 # desired.
 #
-XPLM_API void XPLMLoadObjectAsync(
-                                   const char * inPath,
+XPLM_API void XPLMLoadObjectAsync(const char * inPath,
                                    XPLMObjectLoaded_f inCallback,
                                    void * inRefcon);
 
@@ -271,12 +264,11 @@ XPLM_API void XPLMLoadObjectAsync(
 # pointing down the -Z axis and the Y axis of the object matches the local
 # coordinate Y axis.
 #
-XPLM_API void XPLMDrawObjects(
-                                   XPLMObjectRef inObject,
-                                   int inCount,
-                                   XPLMDrawInfo_t * inLocations,
-                                   int lighting,
-                                   int earth_relative);
+XPLM_API void XPLMDrawObjects(XPLMObjectRef inObject,
+                              int inCount,
+                              XPLMDrawInfo_t * inLocations,
+                              int lighting,
+                              int earth_relative);
 
 
 # XPLMUnloadObject
@@ -286,8 +278,7 @@ XPLM_API void XPLMDrawObjects(
 # purged from memory.  Make sure to call XPLMUnloadObject once for each
 # successful call to XPLMLoadObject.
 #
-XPLM_API void XPLMUnloadObject(
-                                   XPLMObjectRef inObject);
+XPLM_API void XPLMUnloadObject(XPLMObjectRef inObject);
 
 #******************************************************************************
 # Library Access
@@ -306,9 +297,7 @@ XPLM_API void XPLMUnloadObject(
 # for each library element that is located. The returned paths will be
 # relative to the X-System folder.
 #
-typedef void (* XPLMLibraryEnumerator_f)(
-                                   const char * inFilePath,
-                                   void * inRef);
+typedef void (* XPLMLibraryEnumerator_f)(const char * inFilePath, void * inRef);
 
 
 # XPLMLookupObjects
@@ -323,10 +312,9 @@ typedef void (* XPLMLibraryEnumerator_f)(
 # objects to certain local locations.  Only objects that are allowed at the
 # latitude/longitude you provide will be returned.
 #
-XPLM_API int XPLMLookupObjects(
-                                   const char * inPath,
-                                   float inLatitude,
-                                   float inLongitude,
-                                   XPLMLibraryEnumerator_f enumerator,
-                                   void * ref);
+XPLM_API int XPLMLookupObjects(const char * inPath,
+                               float inLatitude,
+                               float inLongitude,
+                               XPLMLibraryEnumerator_f enumerator,
+                               void * ref);
 

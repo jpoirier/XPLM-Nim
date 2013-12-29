@@ -19,16 +19,14 @@
 # the user to be on the nearest airport's first runway.  Pass in a full path
 # (hard drive and everything including the .acf extension) to the .acf file.
 #
-XPLM_API void XPLMSetUsersAircraft(
-                                   const char *         inAircraftPath);
+XPLM_API void XPLMSetUsersAircraft(const char* inAircraftPath);
 
 # XPLMPlaceUserAtAirport
 #
 # This routine places the user at a given airport.  Specify the airport by
 # its ICAO code (e.g. 'KBOS').
 #
-XPLM_API void XPLMPlaceUserAtAirport(
-                                   const char *         inAirportCode);
+XPLM_API void XPLMPlaceUserAtAirport(const char* inAirportCode);
 
 #******************************************************************************
 # GLOBAL AIRCRAFT ACCESS
@@ -56,27 +54,27 @@ XPLM_API void XPLMPlaceUserAtAirport(
 #
 typedef struct {
      # The size of the draw state struct.
-     int                       structSize;
+     int structSize;
      # A ratio from [0..1] describing how far the landing gear is extended.
-     float                     gearPosition;
+     float gearPosition;
      # Ratio of flap deployment, 0 = up, 1 = full deploy.
-     float                     flapRatio;
+     float flapRatio;
      # Ratio of spoiler deployment, 0 = none, 1 = full deploy.
-     float                     spoilerRatio;
+     float spoilerRatio;
      # Ratio of speed brake deployment, 0 = none, 1 = full deploy.
-     float                     speedBrakeRatio;
+     float speedBrakeRatio;
      # Ratio of slat deployment, 0 = none, 1 = full deploy.
-     float                     slatRatio;
+     float slatRatio;
      # Wing sweep ratio, 0 = forward, 1 = swept.
-     float                     wingSweep;
+     float wingSweep;
      # Thrust power, 0 = none, 1 = full fwd, -1 = full reverse.
-     float                     thrust;
+     float thrust;
      # Total pitch input for this plane.
-     float                     yokePitch;
+     float yokePitch;
      # Total Heading input for this plane.
-     float                     yokeHeading;
+     float yokeHeading;
      # Total Roll input for this plane.
-     float                     yokeRoll;
+     float yokeRoll;
 } XPLMPlaneDrawState_t;
 
 # XPLMCountAircraft
@@ -87,10 +85,9 @@ typedef struct {
 # controlling aircraft.  In X-Plane 7, this routine reflects the number of
 # aircraft the user has enabled in the rendering options window.
 #
-XPLM_API void XPLMCountAircraft(
-                                   int *                outTotalAircraft,
-                                   int *                outActiveAircraft,
-                                   XPLMPluginID *       outController);
+XPLM_API void XPLMCountAircraft(int* outTotalAircraft,
+                                   int* outActiveAircraft,
+                                   XPLMPluginID* outController);
 
 # XPLMGetNthAircraftModel
 #
@@ -99,10 +96,7 @@ XPLM_API void XPLMCountAircraft(
 # at least 256 chars in length; the path should be at least 512 chars in
 # length.
 #
-XPLM_API void XPLMGetNthAircraftModel(
-                                   int                  inIndex,
-                                   char *               outFileName,
-                                   char *               outPath);
+XPLM_API void XPLMGetNthAircraftModel(int inIndex, char* outFileName, char* outPath);
 
 #******************************************************************************
 # EXCLUSIVE AIRCRAFT ACCESS
@@ -118,8 +112,7 @@ XPLM_API void XPLMGetNthAircraftModel(
 # access to the multiplayer planes.  Use this to wait for access to
 # multiplayer.
 #
-typedef void (* XPLMPlanesAvailable_f)(
-                                   void *               inRefcon);
+typedef void (* XPLMPlanesAvailable_f)(void* inRefcon);
 
 
 # XPLMAcquirePlanes
@@ -134,10 +127,9 @@ typedef void (* XPLMPlanesAvailable_f)(
 # called when the airplanes are available. If you do receive airplane access,
 # your callback will not be called.
 #
-XPLM_API int XPLMAcquirePlanes(
-                                   char **              inAircraft,    /* Can be NULL */
-                                   XPLMPlanesAvailable_f inCallback,
-                                   void *               inRefcon);
+XPLM_API int XPLMAcquirePlanes(char ** inAircraft,    /* Can be NULL */
+                              XPLMPlanesAvailable_f inCallback,
+                              void* inRefcon);
 
 
 # XPLMReleasePlanes
@@ -154,8 +146,7 @@ XPLM_API void XPLMReleasePlanes(void);
 # higher than the total number of planes availables, only the total number of
 # planes available is actually used.
 #
-XPLM_API void XPLMSetActiveAircraftCount(
-                                   int                  inCount);
+XPLM_API void XPLMSetActiveAircraftCount(int inCount);
 
 
 # XPLMSetAircraftModel
@@ -165,9 +156,7 @@ XPLM_API void XPLMSetActiveAircraftCount(
 # the .acf extension.  The index is zero based, but you  may not pass in 0
 # (use XPLMSetUsersAircraft to load the user's aircracft).
 #
-XPLM_API void XPLMSetAircraftModel(
-                                   int                  inIndex,
-                                   const char *         inAircraftPath);
+XPLM_API void XPLMSetAircraftModel(int inIndex, const char* inAircraftPath);
 
 
 # XPLMDisableAIForPlane
@@ -175,8 +164,7 @@ XPLM_API void XPLMSetAircraftModel(
 # This routine turns off X-Plane's AI for a given plane.  The plane will
 # continue to draw and be a real plane in X-Plane, but will not  move itself.
 #
-XPLM_API void XPLMDisableAIForPlane(
-                                   int                  inPlaneIndex);
+XPLM_API void XPLMDisableAIForPlane(int inPlaneIndex);
 
 
 # XPLMDrawAircraft
@@ -187,16 +175,15 @@ XPLM_API void XPLMDisableAIForPlane(
 # whole plane must be drawn; a 0 indicates you only need the nav lights
 # drawn. (This saves rendering time when planes are far away.)
 #
-XPLM_API void XPLMDrawAircraft(
-                                   int                  inPlaneIndex,
-                                   float                inX,
-                                   float                inY,
-                                   float                inZ,
-                                   float                inPitch,
-                                   float                inRoll,
-                                   float                inYaw,
-                                   int                  inFullDraw,
-                                   XPLMPlaneDrawState_t * inDrawStateInfo);
+XPLM_API void XPLMDrawAircraft(int inPlaneIndex,
+                               float inX,
+                               float inY,
+                               float inZ,
+                               float inPitch,
+                               float inRoll,
+                               float inYaw,
+                               int inFullDraw,
+                               XPLMPlaneDrawState_t * inDrawStateInfo);
 
 
 # XPLMReinitUsersPlane

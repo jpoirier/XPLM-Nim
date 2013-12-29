@@ -60,7 +60,7 @@ const
 
 # typedef int XPLMNavType;
 type
-    XPLMNavType: cint
+    XPLMNavType*: cint
 
 # XPLMNavRef
 #
@@ -76,7 +76,7 @@ type
 #
 # typedef int XPLMNavRef;
 type
-    XPLMNavRef: cint
+    XPLMNavRef*: cint
 
 #define XPLM_NAV_NOT_FOUND   -1
 const
@@ -164,8 +164,8 @@ proc XPLMFindLastNavAidOfType*(inType: XPLMNavType): XPLMNavRef {importc: "XPLMF
 #                                    float* inLon,
 #                                    int* inFrequency,
 #                                    XPLMNavType inType);
-proc XPLMFindNavAid*(inNameFragment: ptr cchar,
-                     inIDFragment: ptr cchar,
+proc XPLMFindNavAid*(inNameFragment: cstring,
+                     inIDFragment: cstring,
                      inLat: ptr cfloat,
                      inLon: ptr cfloat,
                      inFrequency: ptr cint,
@@ -206,9 +206,9 @@ proc XPLMGetNavAidInfo*(inRef: XPLMNavRef,
                         outHeight: ptr cfloat,
                         outHeading: ptr cfloat,
                         outFrequency: ptr cint,
-                        outID: ptr cchar,
-                        outName: ptr cchar,
-                        outReg: ptr cchar) {importc: "XPLMGetNavAidInfo", dynlib.}
+                        outID: cstring,
+                        outName: cstring,
+                        outReg: cstring) {importc: "XPLMGetNavAidInfo", dynlib.}
 
 
 #******************************************************************************
@@ -273,8 +273,8 @@ proc XPLMGetFMSEntryInfo*(inIndex: cint,
                           outType: ptr cint,
                           outRef: ptr cint,
                           outAltitude: ptr cint,
-                          outID: ptr cchar,
-                          outLat: ptr cchar,
+                          outID: cstring,
+                          outLat: cstring,
                           outLon: ptr cflout) {importc: "XPLMGetFMSEntryInfo", dynlib.}
 
 # XPLMSetFMSEntryInfo

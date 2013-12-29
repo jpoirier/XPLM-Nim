@@ -29,13 +29,13 @@
 #
 enum {
      # there is no symbol to the left of the menu item.
-     xplm_Menu_NoCheck                        = 0
+     xplm_Menu_NoCheck = 0
 
      # the menu has a mark next to it that is unmarked (not lit).
-    ,xplm_Menu_Unchecked                      = 1
+    ,xplm_Menu_Unchecked = 1
 
      # the menu has a mark next to it that is checked (lit).
-    ,xplm_Menu_Checked                        = 2
+    ,xplm_Menu_Checked = 2
 };
 typedef int XPLMMenuCheck;
 
@@ -53,9 +53,7 @@ typedef void * XPLMMenuID;
 # (specified when the menu was created) and one for the item (specified when
 # the item was created).
 #
-typedef void (* XPLMMenuHandler_f)(
-                                   void *               inMenuRef,
-                                   void *               inItemRef);
+typedef void (*XPLMMenuHandler_f)(void* inMenuRef, void* inItemRef);
 
 
 # XPLMFindPluginsMenu
@@ -79,12 +77,11 @@ XPLM_API XPLMMenuID XPLMFindPluginsMenu(void);
 # Important: you must pass a valid, non-empty menu title even if the menu is
 # a submenu where the title is not visible.
  *
-XPLM_API XPLMMenuID XPLMCreateMenu(
-                                   const char *         inName,
-                                   XPLMMenuID           inParentMenu,
-                                   int                  inParentItem,
-                                   XPLMMenuHandler_f    inHandler,
-                                   void *               inMenuRef);
+XPLM_API XPLMMenuID XPLMCreateMenu(const char* inName,
+                                   XPLMMenuID inParentMenu,
+                                   int inParentItem,
+                                   XPLMMenuHandler_f inHandler,
+                                   void* inMenuRef);
 
 
 # XPLMDestroyMenu
@@ -92,8 +89,7 @@ XPLM_API XPLMMenuID XPLMCreateMenu(
 # This function destroys a menu that you have created.  Use this to remove a
 # submenu if necessary.  (Normally this function will not be necessary.)
 #
-XPLM_API void XPLMDestroyMenu(
-                                   XPLMMenuID           inMenuID);
+XPLM_API void XPLMDestroyMenu(XPLMMenuID inMenuID);
 
 
 # XPLMClearAllMenuItems
@@ -101,8 +97,7 @@ XPLM_API void XPLMDestroyMenu(
 # This function removes all menu items from a menu, allowing you to rebuild
 # it.  Use this function if you need to change the number of items on a menu.
 #
-XPLM_API void XPLMClearAllMenuItems(
-                                   XPLMMenuID           inMenuID);
+XPLM_API void XPLMClearAllMenuItems(XPLMMenuID inMenuID);
 
 
 # XPLMAppendMenuItem
@@ -115,19 +110,14 @@ XPLM_API void XPLMClearAllMenuItems(
 # of why you'd want to do this is for a proper name.)  See XPLMUtilities for
 # determining the current langauge.
 #
-XPLM_API int XPLMAppendMenuItem(
-                                   XPLMMenuID           inMenu,
-                                   const char *         inItemName,
-                                   void *               inItemRef,
-                                   int                  inForceEnglish);
+XPLM_API int XPLMAppendMenuItem(XPLMMenuID inMenu, const char* inItemName, void* inItemRef, int inForceEnglish);
 
 
 # XPLMAppendMenuSeparator
 #
 # This routine adds a seperator to the end of a menu.
 #
-XPLM_API void XPLMAppendMenuSeparator(
-                                   XPLMMenuID           inMenu);
+XPLM_API void XPLMAppendMenuSeparator(XPLMMenuID inMenu);
 
 
 # XPLMSetMenuItemName
@@ -135,21 +125,14 @@ XPLM_API void XPLMAppendMenuSeparator(
 # This routine changes the name of an existing menu item.  Pass in the menu
 # ID and the index of the menu item.
 #
-XPLM_API void XPLMSetMenuItemName(
-                                   XPLMMenuID           inMenu,
-                                   int                  inIndex,
-                                   const char *         inItemName,
-                                   int                  inForceEnglish);
+XPLM_API void XPLMSetMenuItemName(XPLMMenuID inMenu, int inIndex, const char* inItemName, int inForceEnglish);
 
 
 # XPLMCheckMenuItem
 #
 # Set whether a menu item is checked.  Pass in the menu ID and item index.
 #
-XPLM_API void XPLMCheckMenuItem(
-                                   XPLMMenuID           inMenu,
-                                   int                  index,
-                                   XPLMMenuCheck        inCheck);
+XPLM_API void XPLMCheckMenuItem(XPLMMenuID inMenu, int index, XPLMMenuCheck inCheck);
 
 
 # XPLMCheckMenuItemState
@@ -157,19 +140,13 @@ XPLM_API void XPLMCheckMenuItem(
 # This routine returns whether a menu item is checked or not. A menu item's
 # check mark may be on or off, or a menu may not have an icon at all.
 #
-XPLM_API void XPLMCheckMenuItemState(
-                                   XPLMMenuID           inMenu,
-                                   int                  index,
-                                   XPLMMenuCheck *      outCheck);
+XPLM_API void XPLMCheckMenuItemState(XPLMMenuID inMenu, int index, XPLMMenuCheck* outCheck);
 
 # XPLMEnableMenuItem
 #
 # Sets whether this menu item is enabled.  Items start out enabled.
 #
-XPLM_API void XPLMEnableMenuItem(
-                                   XPLMMenuID           inMenu,
-                                   int                  index,
-                                   int                  enabled);
+XPLM_API void XPLMEnableMenuItem(XPLMMenuID inMenu, int index, int enabled);
 
 
 # XPLMRemoveMenuItem
@@ -177,7 +154,5 @@ XPLM_API void XPLMEnableMenuItem(
 # Removes one item from a menu.  Note that all menu items below are moved up
 # one; your plugin must track the change in index numbers.
 #
-XPLM_API void XPLMRemoveMenuItem(
-                                   XPLMMenuID           inMenu,
-                                   int                  inIndex);
+XPLM_API void XPLMRemoveMenuItem(XPLMMenuID inMenu, int inIndex);
 

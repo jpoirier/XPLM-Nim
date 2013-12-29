@@ -99,7 +99,7 @@ type
 # seconds.
 #
 # XPLM_API float XPLMGetElapsedTime(void);
-proc XPLMGetElapsedTime(): cfloat {.importc: "XPLMGetElapsedTime", nodecl.}
+proc XPLMGetElapsedTime*(): cfloat {.importc: "XPLMGetElapsedTime", nodecl.}
 
 
 # XPLMGetCycleNumber
@@ -108,7 +108,7 @@ proc XPLMGetElapsedTime(): cfloat {.importc: "XPLMGetElapsedTime", nodecl.}
 # computed/video frame rendered.
 #
 # XPLM_API int XPLMGetCycleNumber(void);
-proc XPLMGetCycleNumber(): cint {.importc: "XPLMGetCycleNumber", nodecl.}
+proc XPLMGetCycleNumber*(): cint {.importc: "XPLMGetCycleNumber", nodecl.}
 
 # XPLMRegisterFlightLoopCallback
 #
@@ -120,7 +120,7 @@ proc XPLMGetCycleNumber(): cint {.importc: "XPLMGetCycleNumber", nodecl.}
 # not be called; your callback will be inactive.
 #
 # XPLM_API void XPLMRegisterFlightLoopCallback(XPLMFlightLoop_f inFlightLoop, float inInterval, void* inRefcon);
-proc XPLMRegisterFlightLoopCallback(inFlightLoop: XPLMFlightLoop_f, inInterval: cfloat, inRefcon: ptr void) {.importc: "XPLMRegisterFlightLoopCallback", nodecl.}
+proc XPLMRegisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f, inInterval: cfloat, inRefcon: ptr void) {.importc: "XPLMRegisterFlightLoopCallback", nodecl.}
 
 # XPLMUnregisterFlightLoopCallback
 #
@@ -129,7 +129,7 @@ proc XPLMRegisterFlightLoopCallback(inFlightLoop: XPLMFlightLoop_f, inInterval: 
 # unregistered, it will not be called again.
 #
 # XPLM_API void XPLMUnregisterFlightLoopCallback(XPLMFlightLoop_f inFlightLoop, void* inRefcon);
-proc XPLMUnregisterFlightLoopCallback(inFlightLoop: XPLMFlightLoop_f, inRefcon: ptr void) {.importc: "XPLMUnregisterFlightLoopCallback", nodecl.}
+proc XPLMUnregisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f, inRefcon: ptr void) {.importc: "XPLMUnregisterFlightLoopCallback", nodecl.}
 
 # XPLMSetFlightLoopCallbackInterval
 #
@@ -147,7 +147,7 @@ proc XPLMUnregisterFlightLoopCallback(inFlightLoop: XPLMFlightLoop_f, inRefcon: 
 #                                                   float inInterval,
 #                                                   int inRelativeToNow,
 #                                                   void * inRefcon);
-proc XPLMSetFlightLoopCallbackInterval(inFlightLoop: XPLMFlightLoop_f, inInterval: cfloat, inRelativeToNow: cint, inRefcon: ptr void) {.importc: "XPLMSetFlightLoopCallbackInterval", nodecl.}
+proc XPLMSetFlightLoopCallbackInterval*(inFlightLoop: XPLMFlightLoop_f, inInterval: cfloat, inRelativeToNow: cint, inRefcon: ptr void) {.importc: "XPLMSetFlightLoopCallbackInterval", nodecl.}
 
 # XPLMCreateFlightLoop
 #
@@ -156,14 +156,14 @@ proc XPLMSetFlightLoopCallbackInterval(inFlightLoop: XPLMFlightLoop_f, inInterva
 # unscheduled.
 #
 # XPLM_API XPLMFlightLoopID XPLMCreateFlightLoop(XPLMCreateFlightLoop_t* inParams);
-proc XPLMCreateFlightLoop(inParams: PXPLMCreateFlightLoop_t): XPLMFlightLoopID {.importc: "XPLMCreateFlightLoop", nodecl.}
+proc XPLMCreateFlightLoop*(inParams: PXPLMCreateFlightLoop_t): XPLMFlightLoopID {.importc: "XPLMCreateFlightLoop", nodecl.}
 
 # XPLMDestroyFlightLoop
 #
 # This routine destroys a flight loop callback by ID.
 #
 # XPLM_API void XPLMDestroyFlightLoop(XPLMFlightLoopID inFlightLoopID);
-proc XPLMDestroyFlightLoop(inFlightLoopID: XPLMFlightLoopID): cint {.importc: "XPLMDestroyFlightLoop", nodecl.}
+proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID): cint {.importc: "XPLMDestroyFlightLoop", nodecl.}
 
 # XPLMScheduleFlightLoop
 #
@@ -198,4 +198,4 @@ proc XPLMDestroyFlightLoop(inFlightLoopID: XPLMFlightLoopID): cint {.importc: "X
 # thread other than the main thread.
 #
 # XPLM_API void XPLMScheduleFlightLoop(XPLMFlightLoopID inFlightLoopID, float inInterval, int inRelativeToNow);
-proc XPLMScheduleFlightLoop(inFlightLoopID: XPLMFlightLoopID, inInterval: cfloat, inRelativeToNow: cint) {.importc: "XPLMScheduleFlightLoop", nodecl.}
+proc XPLMScheduleFlightLoop*(inFlightLoopID: XPLMFlightLoopID, inInterval: cfloat, inRelativeToNow: cint) {.importc: "XPLMScheduleFlightLoop", nodecl.}

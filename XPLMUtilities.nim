@@ -445,9 +445,14 @@ XPLM_API char* XPLMExtractFileAndPath(char* inFullPath);
 # directories.  If X-Plane 6 compatibility is needed, use your own code to
 # iterate directories.
 #
-XPLM_API int XPLMGetDirectoryContents( const char* inDirectoryPath,
-                                   int inFirstReturn, char* outFileNames, int inFileNameBufSize,  char** outIndices,
-                                   int inIndexCount, int* outTotalFiles, int* outReturnedFiles);
+XPLM_API int XPLMGetDirectoryContents(const char* inDirectoryPath,
+                                      int inFirstReturn,
+                                      char* outFileNames,
+                                      int inFileNameBufSize,
+                                      char** outIndices,
+                                      int inIndexCount,
+                                      int* outTotalFiles,
+                                      int* outReturnedFiles);
 
 
 # XPLMInitialized
@@ -655,6 +660,6 @@ XPLM_API void XPLMRegisterCommandHandler(XPLMCommandRef inComand, XPLMCommandCal
 # XPLMUnregisterCommandHandler removes a command callback registered with
 # XPLMRegisterCommandHandler.
 #
-XPLM_API void XPLMUnregisterCommandHandler( XPLMCommandRef inComand, XPLMCommandCallback_f inHandler, int inBefore, void* inRefcon);
+XPLM_API void XPLMUnregisterCommandHandler(XPLMCommandRef inComand, XPLMCommandCallback_f inHandler, int inBefore, void* inRefcon);
 
 

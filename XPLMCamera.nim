@@ -47,7 +47,7 @@ const
     xplm_ControlCameraForever* = 2
 
 type
-    XPLMCameraControlDuration: cint
+    XPLMCameraControlDuration*: cint
 
 # XPLMCameraPosition_t
 #
@@ -91,7 +91,7 @@ XPLMCameraControl_f* = proc(outCameraPosition: PXPLMCameraPosition_t: cint, inIs
 # control  (indefinitely or until a key is pressed).
 #
 # XPLM_API void XPLMControlCamera(XPLMCameraControlDuration inHowLong, XPLMCameraControl_f inControlFunc, void *inRefcon);
-proc XPLMControlCamera(inHowLong: XPLMCameraControlDuration, inControlFunc: PXPLMCameraPosition_t, inRefcon: Pointer) {importc: "XPLMControlCamera", dynlib.}
+proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration, inControlFunc: PXPLMCameraPosition_t, inRefcon: Pointer) {importc: "XPLMControlCamera", dynlib.}
 
 # XPLMDontControlCamera
 #

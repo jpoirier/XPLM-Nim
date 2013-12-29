@@ -66,7 +66,7 @@
 # get them from XPLMFindDataRef.
 #
 type
-    XPLMDataRef: ptr void
+    XPLMDataRef*: ptr void
 
 # XPLMDataTypeID
 #
@@ -87,7 +87,7 @@ const
     xplmType_Data* = 32
 
 type
-    XPLMDataTypeID: cint
+    XPLMDataTypeID*: cint
 
 # XPLMFindDataRef
 #
@@ -102,7 +102,7 @@ type
 # every time you need to read or write it.
 #
 # XPLM_API XPLMDataRef XPLMFindDataRef(const char* inDataRefName);
-proc XPLMFindDataRef*(inDataRefName: ptr cchar): XPLMDataRef {importc: "XPLMFindDataRef", dynlib.}
+proc XPLMFindDataRef*(inDataRefName: cstring): XPLMDataRef {importc: "XPLMFindDataRef", dynlib.}
 
 # XPLMCanWriteDataRef
 #
@@ -414,23 +414,23 @@ type
                                                # XPLMSetDatab_f inWriteData,
                                                # void * inReadRefcon,
                                                # void * inWriteRefcon);
-proc XPLMRegisterDataAccessor(inDataName: ptr cchar,
-                              inDataType: XPLMDataTypeID,
-                              inIsWritable: cint,
-                              inReadInt: XPLMGetDatai_f,
-                              inWriteInt: XPLMSetDatai_f,
-                              inReadFloat: XPLMGetDataf_f,
-                              inWriteFloat: XPLMSetDataf_f,
-                              inReadDouble: XPLMGetDatad_f,
-                              inWriteDouble: XPLMSetDatad_f,
-                              inReadIntArray: XPLMGetDatavi_f,
-                              inWriteIntArray: XPLMSetDatavi_f,
-                              inReadFloatArray: XPLMGetDatavf_f,
-                              inWriteFloatArray: XPLMSetDatavf_f,
-                              inReadData: XPLMGetDatab_f,
-                              inWriteData: XPLMSetDatab_f,
-                              inReadRefcon: ptr void,
-                              inWriteRefcon: ptr void): cint {importc: "XPLMRegisterDataAccessor", dynlib.}
+proc XPLMRegisterDataAccessor*(inDataName: cstring,
+                               inDataType: XPLMDataTypeID,
+                               inIsWritable: cint,
+                               inReadInt: XPLMGetDatai_f,
+                               inWriteInt: XPLMSetDatai_f,
+                               inReadFloat: XPLMGetDataf_f,
+                               inWriteFloat: XPLMSetDataf_f,
+                               inReadDouble: XPLMGetDatad_f,
+                               inWriteDouble: XPLMSetDatad_f,
+                               inReadIntArray: XPLMGetDatavi_f,
+                               inWriteIntArray: XPLMSetDatavi_f,
+                               inReadFloatArray: XPLMGetDatavf_f,
+                               inWriteFloatArray: XPLMSetDatavf_f,
+                               inReadData: XPLMGetDatab_f,
+                               inWriteData: XPLMSetDatab_f,
+                               inReadRefcon: ptr void,
+                               inWriteRefcon: ptr void): cint {importc: "XPLMRegisterDataAccessor", dynlib.}
 
 # XPLMUnregisterDataAccessor
 #
@@ -445,7 +445,7 @@ proc XPLMRegisterDataAccessor(inDataName: ptr cchar,
 # time of operation.
 #
 # XPLM_API void XPLMUnregisterDataAccessor(XPLMDataRef inDataRef);
-proc XPLMUnregisterDataAccessor(inDataRef: XPLMDataRef) {importc: "XPLMUnregisterDataAccessor", dynlib.}
+proc XPLMUnregisterDataAccessor*(inDataRef: XPLMDataRef) {importc: "XPLMUnregisterDataAccessor", dynlib.}
 
 
 #******************************************************************************
@@ -516,7 +516,7 @@ type
 # zero if  the data already exists but is of the wrong type.
 #
 # XPLM_API int XPLMShareData(const char * inDataName, XPLMDataTypeID inDataType, XPLMDataChanged_f inNotificationFunc, void * inNotificationRefcon);
-proc XPLMShareData(inDataName: ptr cchar, inDataType: XPLMDataTypeID, inNotificationFunc: XPLMDataChanged_f, inNotificationRefcon: ptr void): cint {importc: "XPLMShareData", dynlib.}
+proc XPLMShareData*(inDataName: cstring, inDataType: XPLMDataTypeID, inNotificationFunc: XPLMDataChanged_f, inNotificationRefcon: ptr void): cint {importc: "XPLMShareData", dynlib.}
 
 # XPLMUnshareData
 #
@@ -526,6 +526,6 @@ proc XPLMShareData(inDataName: ptr cchar, inDataType: XPLMDataTypeID, inNotifica
 # since other plug-ins could be using it.
 #
 # XPLM_API int XPLMUnshareData(const char * inDataName, XPLMDataTypeID inDataType, XPLMDataChanged_f inNotificationFunc, void * inNotificationRefcon);
-proc XPLMUnshareData(inDataName: ptr cchar, inDataType: XPLMDataTypeID, inNotificationFunc: XPLMDataChanged_f, inNotificationRefcon: ptr void): cint{importc: "XPLMUnshareData", dynlib.}
+proc XPLMUnshareData*(inDataName: cstring, inDataType: XPLMDataTypeID, inNotificationFunc: XPLMDataChanged_f, inNotificationRefcon: ptr void): cint{importc: "XPLMUnshareData", dynlib.}
 
 
