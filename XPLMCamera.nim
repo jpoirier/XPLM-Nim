@@ -85,7 +85,7 @@ type
 # called with inIsLosingControl set to 1 and ioCameraPosition NULL.
 #
 # typedef int (* XPLMCameraControl_f)(XPLMCameraPosition_t* outCameraPosition, int inIsLosingControl, void* inRefcon);
-XPLMCameraControl_f* = proc(outCameraPosition: PXPLMCameraPosition_t: cint, inIsLosingControl: cint, inRefcon: Pointer): cint {.stdcall.}
+XPLMCameraControl_f* = proc(outCameraPosition: PXPLMCameraPosition_t: cint, inIsLosingControl: cint, inRefcon: pointer): cint {.stdcall.}
 
 ##
 # XPLMControlCamera
@@ -95,7 +95,7 @@ XPLMCameraControl_f* = proc(outCameraPosition: PXPLMCameraPosition_t: cint, inIs
 # control  (indefinitely or until a key is pressed).
 #
 # XPLM_API void XPLMControlCamera(XPLMCameraControlDuration inHowLong, XPLMCameraControl_f inControlFunc, void *inRefcon);
-proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration, inControlFunc: PXPLMCameraPosition_t, inRefcon: Pointer) {importc: "XPLMControlCamera", dynlib.}
+proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration, inControlFunc: PXPLMCameraPosition_t, inRefcon: pointer) {importc: "XPLMControlCamera", dynlib.}
 
 ##
 # XPLMDontControlCamera
