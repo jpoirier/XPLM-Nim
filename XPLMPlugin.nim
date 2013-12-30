@@ -50,7 +50,8 @@ proc XPLMGetMyID*(inIndex: cint): cint {importc: "XPLMGetMyID", nodecl.}
 # path does not point to a currently loaded plug-in.
 #
 # XPLM_API XPLMPluginID XPLMFindPluginByPath(const char* inPath);
-proc XPLMFindPluginByPath*(inPath: cstring): cint {importc: "XPLMFindPluginByPath", nodecl.}
+proc XPLMFindPluginByPath*(inPath: cstring): cint
+                                    {importc: "XPLMFindPluginByPath", nodecl.}
 
 ##
 # XPLMFindPluginBySignature
@@ -63,7 +64,8 @@ proc XPLMFindPluginByPath*(inPath: cstring): cint {importc: "XPLMFindPluginByPat
 # locate another plugin that your plugin interoperates with
 #
 # XPLM_API XPLMPluginID XPLMFindPluginBySignature(const char* inSignature);
-proc XPLMFindPluginBySignature*(inSignature: cstring): cint {importc: "XPLMFindPluginBySignature", nodecl.}
+proc XPLMFindPluginBySignature*(inSignature: cstring): cint
+                                {importc: "XPLMFindPluginBySignature", nodecl.}
 
 ##
 # XPLMGetPluginInfo
@@ -82,7 +84,12 @@ proc XPLMFindPluginBySignature*(inSignature: cstring): cint {importc: "XPLMFindP
 #                                 char* outFilePath,    /* Can be NULL */
 #                                 char* outSignature,    /* Can be NULL */
 #                                 char* outDescription);    /* Can be NULL */
-proc XPLMGetPluginInfo*(inPlugin: cint, outName, outFilePath, outSignature, outDescription: cstring) {importc: "XPLMGetPluginInfo", nodecl.}
+proc XPLMGetPluginInfo*(inPlugin: cint,
+                        outName,
+                        outFilePath,
+                        outSignature,
+                        outDescription: cstring)
+                                        {importc: "XPLMGetPluginInfo", nodecl.}
 
 #******************************************************************************
 # ENABLING/DISABLING PLUG-INS
@@ -98,7 +105,8 @@ proc XPLMGetPluginInfo*(inPlugin: cint, outName, outFilePath, outSignature, outD
 # Returns whether the specified plug-in is enabled for running.
 #
 # XPLM_API int XPLMIsPluginEnabled(XPLMPluginID inPluginID);
-proc XPLMIsPluginEnabled*(inPluginID: cint): cint {importc: "XPLMIsPluginEnabled", nodecl.}
+proc XPLMIsPluginEnabled*(inPluginID: cint): cint
+                                      {importc: "XPLMIsPluginEnabled", nodecl.}
 
 ##
 # XPLMEnablePlugin
@@ -109,7 +117,8 @@ proc XPLMIsPluginEnabled*(inPluginID: cint): cint {importc: "XPLMIsPluginEnabled
 # by returning 0 from their XPluginEnable callback.
 #
 # XPLM_API int XPLMEnablePlugin(XPLMPluginID inPluginID);
-proc XPLMEnablePlugin*(inPluginID: cint): cint {importc: "XPLMEnablePlugin", nodecl.}
+proc XPLMEnablePlugin*(inPluginID: cint): cint
+                                        {importc: "XPLMEnablePlugin", nodecl.}
 
 ##
 # XPLMDisablePlugin
@@ -117,7 +126,8 @@ proc XPLMEnablePlugin*(inPluginID: cint): cint {importc: "XPLMEnablePlugin", nod
 # This routine disableds an enabled plug-in.
 #
 # XPLM_API void XPLMDisablePlugin(XPLMPluginID inPluginID);
-proc XPLMDisablePlugin*(inPluginID: cint) {importc: "XPLMDisablePlugin", nodecl.}
+proc XPLMDisablePlugin*(inPluginID: cint)
+                                        {importc: "XPLMDisablePlugin", nodecl.}
 
 ##
 # XPLMReloadPlugins
@@ -219,7 +229,10 @@ const
 # a message receive function receive the message.
 #
 # XPLM_API void XPLMSendMessageToPlugin*(XPLMPluginID inPlugin, int inMessage, void* inParam);
-proc XPLMSendMessageToPlugin*(inPlugin, inMessage: cint, inParam: ptr cvoid) {importc: "XPLMSendMessageToPlugin", nodecl.}
+proc XPLMSendMessageToPlugin*(inPlugin,
+                              inMessage: cint,
+                              inParam: pointer)
+                                  {importc: "XPLMSendMessageToPlugin", nodecl.}
 
 #******************************************************************************
 # Plugin Features API
@@ -244,7 +257,8 @@ proc XPLMSendMessageToPlugin*(inPlugin, inMessage: cint, inParam: ptr cvoid) {im
 #
 type
     # typedef void (*XPLMFeatureEnumerator_f)(const char* inFeature, void* inRef);
-    XPLMFeatureEnumerator_f* = proc (inFeature: cstring, inRefcon: ptr cvoid) {.stdcall.}
+    XPLMFeatureEnumerator_f* = proc (inFeature: cstring,
+                                     inRefcon: pointer) {.stdcall.}
 
 ##
 # XPLMHasFeature
@@ -253,7 +267,8 @@ type
 # 0 if it does not.
 #
 # XPLM_API int XPLMHasFeature(const char* inFeature);
-proc XPLMHasFeature*(inFeature: cstring): cint {importc: "XPLMHasFeature", nodecl.}
+proc XPLMHasFeature*(inFeature: cstring): cint
+                                          {importc: "XPLMHasFeature", nodecl.}
 
 ##
 # XPLMIsFeatureEnabled
@@ -263,7 +278,8 @@ proc XPLMHasFeature*(inFeature: cstring): cint {importc: "XPLMHasFeature", nodec
 # feature.
 #
 # XPLM_API int XPLMIsFeatureEnabled(const char* inFeature);
-proc XPLMIsFeatureEnabled*(inFeature: cstring): cint {importc: "XPLMIsFeatureEnabled", nodecl.}
+proc XPLMIsFeatureEnabled*(inFeature: cstring): cint
+                                    {importc: "XPLMIsFeatureEnabled", nodecl.}
 
 ##
 # XPLMEnableFeature
@@ -273,7 +289,8 @@ proc XPLMIsFeatureEnabled*(inFeature: cstring): cint {importc: "XPLMIsFeatureEna
 # depending on the feature.
 #
 # XPLM_API void XPLMEnableFeature(const char * inFeature, int inEnable);
-proc XPLMEnableFeature*(inFeature: cstring, inEnable: cint) {importc: "XPLMEnableFeature", nodecl.}
+proc XPLMEnableFeature*(inFeature: cstring, inEnable: cint)
+                                        {importc: "XPLMEnableFeature", nodecl.}
 
 ##
 # XPLMEnumerateFeatures
@@ -283,5 +300,7 @@ proc XPLMEnableFeature*(inFeature: cstring, inEnable: cint) {importc: "XPLMEnabl
 # the features that X-Plane can support.
 #
 # XPLM_API void XPLMEnumerateFeatures(XPLMFeatureEnumerator_f inEnumerator, void* inRef);
-proc XPLMEnumerateFeatures*(inEnumerator: XPLMFeatureEnumerator_f, inRef: ptr cvoid) {importc: "XPLMEnumerateFeatures", nodecl.}
+proc XPLMEnumerateFeatures*(inEnumerator: XPLMFeatureEnumerator_f,
+                            inRef: pointer)
+                                    {importc: "XPLMEnumerateFeatures", nodecl.}
 

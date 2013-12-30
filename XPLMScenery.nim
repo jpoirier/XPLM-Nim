@@ -162,7 +162,8 @@ proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
                           inX: cfloat,
                           inY: cfloat,
                           inZ cfloat,
-                          outInfo: ptr XPLMProbeInfo_t): XPLMProbeResult {importc: "XPLMProbeTerrainXYZ", dynlib.}
+                          outInfo: ptr XPLMProbeInfo_t): XPLMProbeResult
+                                    {importc: "XPLMProbeTerrainXYZ", dynlib.}
 
 #******************************************************************************
 # Object Drawing
@@ -232,7 +233,8 @@ type
 #
 # typedef void (* XPLMObjectLoaded_f)(XPLMObjectRef inObject, void * inRefcon);
 type
-     XPLMObjectLoaded_f* = proc (inObject: XPLMObjectRef, inRefcon: pointer) {.stdcall.}
+     XPLMObjectLoaded_f* = proc (inObject: XPLMObjectRef,
+                                 inRefcon: pointer) {.stdcall.}
 
 ##
 # XPLMLoadObject
@@ -258,7 +260,8 @@ type
 # defer object loading until the sim has fully started.
 #
 # XPLM_API XPLMObjectRef XPLMLoadObject(const char * inPath);
-proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef {importc: "XPLMLoadObject", dynlib.}
+proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef
+                                        {importc: "XPLMLoadObject", dynlib.}
 
 ##
 # XPLMLoadObjectAsync
@@ -281,7 +284,8 @@ proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef {importc: "XPLMLoadObject",
 #                                    void * inRefcon);
 proc XPLMLoadObjectAsync*(inPath: cstring,
                           inCallback: XPLMObjectLoaded_f,
-                         inRefcon: pointer) {importc: "XPLMLoadObjectAsync", dynlib.}
+                          inRefcon: pointer)
+                                    {importc: "XPLMLoadObjectAsync", dynlib.}
 
 ##
 # XPLMDrawObjects
@@ -315,7 +319,8 @@ proc XPLMDrawObjects*(inObject: XPLMObjectRef,
                       inCount: cint,
                       inLocations: ptr XPLMDrawInfo_t,
                       lighting: cint,
-                      earth_relative: cint) {importc: "XPLMDrawObjects", dynlib.}
+                      earth_relative: cint)
+                                        {importc: "XPLMDrawObjects", dynlib.}
 
 ##
 # XPLMUnloadObject
@@ -326,7 +331,8 @@ proc XPLMDrawObjects*(inObject: XPLMObjectRef,
 # successful call to XPLMLoadObject.
 #
 # XPLM_API void XPLMUnloadObject(XPLMObjectRef inObject);
-proc XPLMUnloadObject*(inObject: XPLMObjectRef) {importc: "XPLMUnloadObject", dynlib.}
+proc XPLMUnloadObject*(inObject: XPLMObjectRef)
+                                        {importc: "XPLMUnloadObject", dynlib.}
 
 #******************************************************************************
 # Library Access
@@ -347,7 +353,8 @@ proc XPLMUnloadObject*(inObject: XPLMObjectRef) {importc: "XPLMUnloadObject", dy
 #
 # typedef void (*XPLMLibraryEnumerator_f)(const char * inFilePath, void * inRef);
 type
-     XPLMLibraryEnumerator_f* = proc (inFilePath: cstring, inRef: pointer) {.stdcall.}
+     XPLMLibraryEnumerator_f* = proc (inFilePath: cstring,
+                                      inRef: pointer) {.stdcall.}
 
 ##
 # XPLMLookupObjects
@@ -371,5 +378,6 @@ proc XPLMLookupObjects*(inPath: cstring,
                         inLatitude: cfloat,
                         inLongitude: cfloat,
                         enumerator: XPLMLibraryEnumerator_f,
-                        ref: pointer): cint {importc: "XPLMLookupObjects", dynlib.}
+                        ref: pointer): cint
+                                        {importc: "XPLMLookupObjects", dynlib.}
 
