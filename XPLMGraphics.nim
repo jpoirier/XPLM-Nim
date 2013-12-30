@@ -34,8 +34,6 @@
 #
 
 
-{.deadCodeElim: on.}
-
 #******************************************************************************
 # X-PLANE GRAPHICS
 # *****************************************************************************
@@ -43,6 +41,7 @@
 # These routines allow you to use OpenGL with X-Plane.
 #
 
+##
 # XPLMTextureID
 #
 # XPLM Texture IDs name well-known textures in the sim for you to use. This
@@ -60,7 +59,7 @@ enum {
 };
 typedef int XPLMTextureID;
 
-
+##
 # XPLMSetGraphicsState
 #
 # XPLMSetGraphicsState changes OpenGL's graphics state in a number of ways:
@@ -111,7 +110,7 @@ XPLM_API void XPLMSetGraphicsState(int inEnableFog,
                                    int inEnableDepthTesting,
                                    int inEnableDepthWriting);
 
-
+##
 # XPLMBindTexture2d
 #
 # XPLMBindTexture2d changes what texture is bound to the 2d texturing target.
@@ -130,7 +129,7 @@ XPLM_API void XPLMSetGraphicsState(int inEnableFog,
 #
 XPLM_API void XPLMBindTexture2d(int inTextureNum, int inTextureUnit);
 
-
+##
 # XPLMGenerateTextureNumbers
 #
 # This routine generates unused texture numbers that a plug-in can use to
@@ -144,7 +143,7 @@ XPLM_API void XPLMBindTexture2d(int inTextureNum, int inTextureUnit);
 #
 XPLM_API void XPLMGenerateTextureNumbers(int * outTextureIDs, int inCount);
 
-
+##
 # XPLMGetTexture
 #
 # XPLMGetTexture returns the OpenGL texture enumeration of an X-Plane texture
@@ -159,7 +158,7 @@ XPLM_API void XPLMGenerateTextureNumbers(int * outTextureIDs, int inCount);
 #
 XPLM_API int XPLMGetTexture(XPLMTextureID inTexture);
 
-
+##
 # XPLMWorldToLocal
 #
 # This routine translates coordinates from latitude, longitude, and altitude
@@ -174,7 +173,7 @@ XPLM_API void XPLMWorldToLocal(double inLatitude,
                                    double * outY,
                                    double * outZ);
 
-
+##
 # XPLMLocalToWorld
 #
 # This routine translates a local coordinate triplet back into latitude,
@@ -192,7 +191,7 @@ XPLM_API void XPLMLocalToWorld(double inX,
                                    double * outLongitude,
                                    double * outAltitude);
 
-
+##
 # XPLMDrawTranslucentDarkBox
 #
 # This routine draws a translucent dark box, partially obscuring parts of the
@@ -205,20 +204,20 @@ XPLM_API void XPLMDrawTranslucentDarkBox(int inLeft, int inTop, int inRight, int
 # X-PLANE TEXT
 # *****************************************************************************
 
-
- # XPLMFontID
- #
- # X-Plane features some fixed-character fonts.  Each font may have its own
- # metrics.
- #
- # WARNING: Some of these fonts are no longer supported or may have changed
- # geometries. For maximum copmatibility, see the comments below.
- #
- # Note: X-Plane 7 supports proportional-spaced fonts.  Since no measuring
- # routine is available yet, the SDK will normally draw using a fixed-width
- # font.  You can use a dataref to enable proportional font drawing on XP7 if
- # you want to.
- #
+##
+# XPLMFontID
+#
+# X-Plane features some fixed-character fonts.  Each font may have its own
+# metrics.
+#
+# WARNING: Some of these fonts are no longer supported or may have changed
+# geometries. For maximum copmatibility, see the comments below.
+#
+# Note: X-Plane 7 supports proportional-spaced fonts.  Since no measuring
+# routine is available yet, the SDK will normally draw using a fixed-width
+# font.  You can use a dataref to enable proportional font drawing on XP7 if
+# you want to.
+#
 enum {
      # Mono-spaced font for user interface.  Available in all versions of the SDK.
      xplmFont_Basic = 0
@@ -279,7 +278,7 @@ enum {
 };
 typedef int XPLMFontID;
 
-
+##
 # XPLMDrawString
 #
 # This routine draws a NULL termianted string in a given font.  Pass in the
@@ -296,7 +295,7 @@ XPLM_API void XPLMDrawString(float* inColorRGB,
                                    int* inWordWrapWidth,    /* Can be NULL */
                                    XPLMFontID inFontID);
 
-
+##
 # XPLMDrawNumber
 #
 # This routine draws a number similar to the digit editing fields in
@@ -315,7 +314,7 @@ XPLM_API void XPLMDrawNumber(float * inColorRGB,
                                    int inShowSign,
                                    XPLMFontID inFontID);
 
-
+##
 # XPLMGetFontDimensions
 #
 # This routine returns the width and height of a character in a given font.
@@ -325,7 +324,7 @@ XPLM_API void XPLMDrawNumber(float * inColorRGB,
 #
 XPLM_API void XPLMGetFontDimensions(XPLMFontID inFontID, int* outCharWidth, int* outCharHeight, int* outDigitsOnly);
 
-
+##
 # XPLMMeasureString
 #
 # This routine returns the width in pixels of a string using a given font.

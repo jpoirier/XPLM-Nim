@@ -33,6 +33,7 @@
 # *****************************************************************************
 #
 
+##
 # XPLMCameraControlDuration
 #
 # This enumeration states how long you want to retain control of the camera.
@@ -49,6 +50,7 @@ const
 type
     XPLMCameraControlDuration*: cint
 
+##
 # XPLMCameraPosition_t
 #
 # This structure contains a full specification of the camera.  X, Y, and Z
@@ -61,14 +63,15 @@ type
 type
     PXPLMCameraPosition_t* = ptr XPLMCameraPosition_t
     XPLMCameraPosition_t*{.final.} = object
-        x*: cfloat
-        y*: cfloat
-        z*: cfloat
-        pitch*: cfloat
-        heading*: cfloat
-        roll*: cfloat
-        zoom*: cfloat
+        x: cfloat
+        y: cfloat
+        z: cfloat
+        pitch: cfloat
+        heading: cfloat
+        roll: cfloat
+        zoom: cfloat
 
+##
 # XPLMCameraControl_f
 #
 # You use an XPLMCameraControl function to provide continuous control over
@@ -84,6 +87,7 @@ type
 # typedef int (* XPLMCameraControl_f)(XPLMCameraPosition_t* outCameraPosition, int inIsLosingControl, void* inRefcon);
 XPLMCameraControl_f* = proc(outCameraPosition: PXPLMCameraPosition_t: cint, inIsLosingControl: cint, inRefcon: Pointer): cint {.stdcall.}
 
+##
 # XPLMControlCamera
 #
 # This function repositions the camera on the next drawing cycle.  You must
@@ -93,6 +97,7 @@ XPLMCameraControl_f* = proc(outCameraPosition: PXPLMCameraPosition_t: cint, inIs
 # XPLM_API void XPLMControlCamera(XPLMCameraControlDuration inHowLong, XPLMCameraControl_f inControlFunc, void *inRefcon);
 proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration, inControlFunc: PXPLMCameraPosition_t, inRefcon: Pointer) {importc: "XPLMControlCamera", dynlib.}
 
+##
 # XPLMDontControlCamera
 #
 # This function stops you from controlling the camera.  If you have a camera
@@ -105,6 +110,7 @@ proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration, inControlFunc: PXP
 # XPLM_API void XPLMDontControlCamera(void);
 proc XPLMDontControlCamera*() {importc: "XPLMDontControlCamera", dynlib.}
 
+##
 # XPLMIsCameraBeingControlled
 #
 # This routine returns 1 if the camera is being controlled, zero if it is
@@ -114,6 +120,7 @@ proc XPLMDontControlCamera*() {importc: "XPLMDontControlCamera", dynlib.}
 # XPLM_API int XPLMIsCameraBeingControlled(XPLMCameraControlDuration *outCameraControlDuration);
 proc XPLMIsCameraBeingControlled*(outCameraControlDuration: ptr XPLMCameraControlDuration): cint {importc: "XPLMIsCameraBeingControlled", dynlib.}
 
+##
 # XPLMReadCameraPosition
 #
 # This function reads the current camera position.

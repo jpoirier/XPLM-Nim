@@ -16,6 +16,7 @@
 # *****************************************************************************
 #
 
+##
 # XPLMNavType
 #
 # These enumerations define the different types of navaids.  They are each
@@ -62,6 +63,7 @@ const
 type
     XPLMNavType*: cint
 
+##
 # XPLMNavRef
 #
 # XPLMNavRef is an iterator into the navigation database.  The navigation
@@ -82,6 +84,7 @@ type
 const
     XPLM_NAV_NOT_FOUND* = -1
 
+##
 # XPLMGetFirstNavAid
 #
 # This returns the very first navaid in the database.  Use this to traverse
@@ -91,6 +94,7 @@ const
 # XPLM_API XPLMNavRef XPLMGetFirstNavAid(void);
 proc XPLMGetFirstNavAid*(): XPLMNavRef {importc: "XPLMGetFirstNavAid", dynlib.}
 
+##
 # XPLMGetNextNavAid
 #
 # Given a nav aid ref, this routine returns the next navaid.  It returns
@@ -105,6 +109,7 @@ proc XPLMGetFirstNavAid*(): XPLMNavRef {importc: "XPLMGetFirstNavAid", dynlib.}
 # XPLM_API XPLMNavRef XPLMGetNextNavAid(XPLMNavRef inNavAidRef);
 proc XPLMGetNextNavAid*(inNavAidRef: XPLMNavRef): XPLMNavRef {importc: "XPLMGetNextNavAid", dynlib.}
 
+##
 # XPLMFindFirstNavAidOfType
 #
 # This routine returns the ref of the first navaid of the given type in the
@@ -118,6 +123,7 @@ proc XPLMGetNextNavAid*(inNavAidRef: XPLMNavRef): XPLMNavRef {importc: "XPLMGetN
 # XPLM_API XPLMNavRef XPLMFindFirstNavAidOfType(XPLMNavType inType);
 proc XPLMFindFirstNavAidOfType*(inType: XPLMNavType): XPLMNavRef {importc: "XPLMFindFirstNavAidOfType", dynlib.}
 
+##
 # XPLMFindLastNavAidOfType
 #
 # This routine returns the ref of the last navaid of the given type in the
@@ -131,7 +137,7 @@ proc XPLMFindFirstNavAidOfType*(inType: XPLMNavType): XPLMNavRef {importc: "XPLM
 # XPLM_API XPLMNavRef XPLMFindLastNavAidOfType(XPLMNavType inType);
 proc XPLMFindLastNavAidOfType*(inType: XPLMNavType): XPLMNavRef {importc: "XPLMFindLastNavAidOfType", dynlib.}
 
-
+##
 # XPLMFindNavAid
 #
 # This routine provides a number of searching capabilities for the nav
@@ -171,6 +177,7 @@ proc XPLMFindNavAid*(inNameFragment: cstring,
                      inFrequency: ptr cint,
                      inType: cint): XPLMNavRef {importc: "XPLMFindNavAid", dynlib.}
 
+##
 # XPLMGetNavAidInfo
 #
 # This routine returns information about a navaid.  Any non-null field is
@@ -224,12 +231,14 @@ proc XPLMGetNavAidInfo*(inRef: XPLMNavRef,
 # waypoints in the flight plan.
 #
 
+##
 # XPLMCountFMSEntries
 #
 # This routine returns the number of entries in the FMS.
 #
 # XPLM_API int XPLMCountFMSEntries(void);
 proc XPLMCountFMSEntries*(): cint {importc: "XPLMCountFMSEntries", dynlib.}
+
 
 # XPLMGetDisplayedFMSEntry
 #
@@ -238,12 +247,15 @@ proc XPLMCountFMSEntries*(): cint {importc: "XPLMCountFMSEntries", dynlib.}
 # XPLM_API int XPLMGetDisplayedFMSEntry(void);
 proc XPLMGetDisplayedFMSEntry*(): cint {importc: "XPLMGetDisplayedFMSEntry", dynlib.}
 
+##
+# XPLMGetDestinationFMSEntry
 #
 # This routine returns the index of the entry the FMS is flying to.
 #
 # XPLM_API int XPLMGetDestinationFMSEntry(void);
 proc XPLMGetDestinationFMSEntry*(): cint {importc: "XPLMGetDestinationFMSEntry", dynlib.}
 
+##
 # XPLMSetDisplayedFMSEntry
 #
 # This routine changes which entry the FMS is showing to the index specified.
@@ -251,6 +263,7 @@ proc XPLMGetDestinationFMSEntry*(): cint {importc: "XPLMGetDestinationFMSEntry",
 # XPLM_API void XPLMSetDisplayedFMSEntry(int inIndex);
 proc XPLMSetDisplayedFMSEntry*(inIndex: cint) {importc: "XPLMSetDisplayedFMSEntry", dynlib.}
 
+##
 # XPLMSetDestinationFMSEntry
 #
 # This routine changes which entry the FMS is flying the aircraft toward.
@@ -258,6 +271,7 @@ proc XPLMSetDisplayedFMSEntry*(inIndex: cint) {importc: "XPLMSetDisplayedFMSEntr
 # XPLM_API void XPLMSetDestinationFMSEntry(int inIndex);
 proc XPLMSetDestinationFMSEntry*(inIndex: cint) {importc: "XPLMSetDestinationFMSEntry", dynlib.}
 
+##
 # XPLMGetFMSEntryInfo
 #
 # This routine returns information about a given FMS entry.  A reference to a
@@ -277,6 +291,7 @@ proc XPLMGetFMSEntryInfo*(inIndex: cint,
                           outLat: cstring,
                           outLon: ptr cflout) {importc: "XPLMGetFMSEntryInfo", dynlib.}
 
+
 # XPLMSetFMSEntryInfo
 #
 # This routine changes an entry in the FMS to have the destination navaid
@@ -287,6 +302,7 @@ proc XPLMGetFMSEntryInfo*(inIndex: cint,
 # XPLM_API void XPLMSetFMSEntryInfo(int inIndex, XPLMNavRef inRef, int inAltitude);
 proc XPLMSetFMSEntryInfo*(inIndex: cint, inRef: XPLMNavRef, inAltitude: cint) {importc: "XPLMSetFMSEntryInfo", dynlib.}
 
+##
 # XPLMSetFMSEntryLatLon
 #
 # This routine changes the entry in the FMS to a lat/lon entry with the given
@@ -295,6 +311,7 @@ proc XPLMSetFMSEntryInfo*(inIndex: cint, inRef: XPLMNavRef, inAltitude: cint) {i
 # XPLM_API void XPLMSetFMSEntryLatLon(int inIndex, float inLat, float inLon, int inAltitude);
 proc XPLMSetFMSEntryLatLon*(inIndex: cint, inLat: cfloat, inLon: cfloat, inAltitude: cint) {importc: "XPLMSetFMSEntryLatLon", dynlib.}
 
+##
 # XPLMClearFMSEntry
 #
 # This routine clears the given entry, potentially shortening the flight
@@ -310,6 +327,7 @@ proc XPLMClearFMSEntry*(inIndex: cint) {importc: "XPLMClearFMSEntry", dynlib.}
 # These APIs let you read data from the GPS unit.
 #
 
+##
 # XPLMGetGPSDestinationType
 #
 # This routine returns the type of the currently selected GPS destination,
@@ -318,6 +336,7 @@ proc XPLMClearFMSEntry*(inIndex: cint) {importc: "XPLMClearFMSEntry", dynlib.}
 # XPLM_API XPLMNavType XPLMGetGPSDestinationType(void);
 proc XPLMGetGPSDestinationType*(): cint {importc: "XPLMGetGPSDestinationType", dynlib.}
 
+##
 # XPLMGetGPSDestination
 #
 # This routine returns the current GPS destination.

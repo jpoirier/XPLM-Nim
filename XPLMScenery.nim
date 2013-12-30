@@ -1,10 +1,8 @@
 
 
-
+##
 # This package contains APIs to interact with X-Plane's scenery system.
 #
-
-
 
 #******************************************************************************
 # Terrain Y-Testing
@@ -36,14 +34,13 @@
 # will return the height of a 0 MSL sphere.
 #
 
-
+##
 # XPLMProbeType
 #
 # XPLMProbeType defines the type of terrain probe - each probe has a
 # different algorithm.  (Only one type of probe is provided right now, but
 # future APIs will expose more flexible or poewrful or useful probes.
 #
-
 const
      # The Y probe gives you the location of the tallest physical scenery along
      # the Y axis going through the queried point.
@@ -53,7 +50,7 @@ const
 type
      XPLMProbeType*: cint
 
-
+##
 # XPLMProbeResult
 #
 # Probe results - possible results from a probe query.
@@ -74,6 +71,7 @@ const
 type
      XPLMProbeResult*: cint
 
+##
 # XPLMProbeRef
 #
 # An XPLMProbeRef is an opaque handle to a probe, used for querying the
@@ -83,7 +81,7 @@ type
 type
      XPLMProbeRef*: pointer
 
-
+##
 # XPLMProbeInfo_t
 #
 # XPLMProbeInfo_t contains the results of a probe call.  Make sure to set
@@ -131,7 +129,7 @@ type
         velocityZ: cfloat
         is_wet: cint
 
-
+##
 # XPLMCreateProbe
 #
 # Creates a new probe object of a given type and returns.
@@ -139,6 +137,7 @@ type
 # XPLM_API XPLMProbeRef XPLMCreateProbe(XPLMProbeType inProbeType);
 proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {importc: "XPLMCreateProbe", dynlib.}
 
+##
 # XPLMDestroyProbe
 #
 # Deallocates an existing probe object.
@@ -146,7 +145,7 @@ proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {importc: "XPLMC
 # XPLM_API void XPLMDestroyProbe(XPLMProbeRef inProbe);
 proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {importc: "XPLMDestroyProbe", dynlib.}
 
-
+##
 # XPLMProbeTerrainXYZ
 #
 # Probes the terrain.  Pass in the XYZ coordinate of the probe point, a probe
@@ -175,7 +174,7 @@ proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
 # every successful call to XPLMLoadObject with a call to XPLMUnloadObject!
 #
 
-
+##
 # XPLMObjectRef
 #
 # An XPLMObjectRef is a opaque handle to an .obj file that has been loaded
@@ -185,8 +184,7 @@ proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
 type
      XPLMObjectRef*: pointer
 
-
-
+##
 # XPLMDrawInfo_t
 #
 # The XPLMDrawInfo_t structure contains positioning info for one object that
@@ -220,7 +218,7 @@ type
         heading: cfloat
         roll: cfloat
 
-
+##
 # XPLMObjectLoaded_f
 #
 # You provide this callback when loading an object asynchronously; it will be
@@ -236,6 +234,7 @@ type
 type
      XPLMObjectLoaded_f* = proc (inObject: XPLMObjectRef, inRefcon: pointer) {.stdcall.}
 
+##
 # XPLMLoadObject
 #
 # This routine loads an OBJ file and returns a handle to it.  If X-plane has
@@ -261,6 +260,7 @@ type
 # XPLM_API XPLMObjectRef XPLMLoadObject(const char * inPath);
 proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef {importc: "XPLMLoadObject", dynlib.}
 
+##
 # XPLMLoadObjectAsync
 #
 # This routine loads an object asynchronously; control is returned to you
@@ -283,6 +283,7 @@ proc XPLMLoadObjectAsync*(inPath: cstring,
                           inCallback: XPLMObjectLoaded_f,
                          inRefcon: pointer) {importc: "XPLMLoadObjectAsync", dynlib.}
 
+##
 # XPLMDrawObjects
 #
 # XPLMDrawObjects draws an object from an OBJ file one or more times.  You
@@ -316,6 +317,7 @@ proc XPLMDrawObjects*(inObject: XPLMObjectRef,
                       lighting: cint,
                       earth_relative: cint) {importc: "XPLMDrawObjects", dynlib.}
 
+##
 # XPLMUnloadObject
 #
 # This routine marks an object as no longer being used by your plugin.
@@ -336,7 +338,7 @@ proc XPLMUnloadObject*(inObject: XPLMObjectRef) {importc: "XPLMUnloadObject", dy
 # system.
 #
 
-
+##
 # XPLMLibraryEnumerator_f
 #
 # An XPLMLibraryEnumerator_f is a callback you provide that is called once
@@ -347,7 +349,7 @@ proc XPLMUnloadObject*(inObject: XPLMObjectRef) {importc: "XPLMUnloadObject", dy
 type
      XPLMLibraryEnumerator_f* = proc (inFilePath: cstring, inRef: pointer) {.stdcall.}
 
-
+##
 # XPLMLookupObjects
 #
 # This routine looks up a virtual path in the library system and returns all

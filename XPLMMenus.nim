@@ -12,15 +12,13 @@
 # are zero based.
 #
 
-{.deadCodeElim: on.}
+
 
 #******************************************************************************
 # XPLM MENUS
 # *****************************************************************************
 
-
-
-
+##
 # XPLMMenuCheck
 #
 # These enumerations define the various 'check' states for an X-Plane menu.
@@ -39,14 +37,14 @@ enum {
 };
 typedef int XPLMMenuCheck;
 
-
+##
 # XPLMMenuID
 #
 # This is a unique ID for each menu you create.
 #
 typedef void * XPLMMenuID;
 
-
+##
 # XPLMMenuHandler_f
 #
 # A menu handler function takes two reference pointers, one for the menu
@@ -55,7 +53,7 @@ typedef void * XPLMMenuID;
 #
 typedef void (*XPLMMenuHandler_f)(void* inMenuRef, void* inItemRef);
 
-
+##
 # XPLMFindPluginsMenu
 #
 # This function returns the ID of the plug-ins menu, which is created for you
@@ -63,7 +61,7 @@ typedef void (*XPLMMenuHandler_f)(void* inMenuRef, void* inItemRef);
 #
 XPLM_API XPLMMenuID XPLMFindPluginsMenu(void);
 
-
+##
 # XPLMCreateMenu
 #
 # This function creates a new menu and returns its ID.  It returns NULL if
@@ -83,7 +81,7 @@ XPLM_API XPLMMenuID XPLMCreateMenu(const char* inName,
                                    XPLMMenuHandler_f inHandler,
                                    void* inMenuRef);
 
-
+##
 # XPLMDestroyMenu
 #
 # This function destroys a menu that you have created.  Use this to remove a
@@ -91,7 +89,7 @@ XPLM_API XPLMMenuID XPLMCreateMenu(const char* inName,
 #
 XPLM_API void XPLMDestroyMenu(XPLMMenuID inMenuID);
 
-
+##
 # XPLMClearAllMenuItems
 #
 # This function removes all menu items from a menu, allowing you to rebuild
@@ -99,7 +97,7 @@ XPLM_API void XPLMDestroyMenu(XPLMMenuID inMenuID);
 #
 XPLM_API void XPLMClearAllMenuItems(XPLMMenuID inMenuID);
 
-
+##
 # XPLMAppendMenuItem
 #
 # This routine appends a new menu item to the bottom of a menu and returns
@@ -112,14 +110,14 @@ XPLM_API void XPLMClearAllMenuItems(XPLMMenuID inMenuID);
 #
 XPLM_API int XPLMAppendMenuItem(XPLMMenuID inMenu, const char* inItemName, void* inItemRef, int inForceEnglish);
 
-
+##
 # XPLMAppendMenuSeparator
 #
 # This routine adds a seperator to the end of a menu.
 #
 XPLM_API void XPLMAppendMenuSeparator(XPLMMenuID inMenu);
 
-
+##
 # XPLMSetMenuItemName
 #
 # This routine changes the name of an existing menu item.  Pass in the menu
@@ -127,14 +125,14 @@ XPLM_API void XPLMAppendMenuSeparator(XPLMMenuID inMenu);
 #
 XPLM_API void XPLMSetMenuItemName(XPLMMenuID inMenu, int inIndex, const char* inItemName, int inForceEnglish);
 
-
+##
 # XPLMCheckMenuItem
 #
 # Set whether a menu item is checked.  Pass in the menu ID and item index.
 #
 XPLM_API void XPLMCheckMenuItem(XPLMMenuID inMenu, int index, XPLMMenuCheck inCheck);
 
-
+##
 # XPLMCheckMenuItemState
 #
 # This routine returns whether a menu item is checked or not. A menu item's
@@ -142,13 +140,14 @@ XPLM_API void XPLMCheckMenuItem(XPLMMenuID inMenu, int index, XPLMMenuCheck inCh
 #
 XPLM_API void XPLMCheckMenuItemState(XPLMMenuID inMenu, int index, XPLMMenuCheck* outCheck);
 
+##
 # XPLMEnableMenuItem
 #
 # Sets whether this menu item is enabled.  Items start out enabled.
 #
 XPLM_API void XPLMEnableMenuItem(XPLMMenuID inMenu, int index, int enabled);
 
-
+##
 # XPLMRemoveMenuItem
 #
 # Removes one item from a menu.  Note that all menu items below are moved up

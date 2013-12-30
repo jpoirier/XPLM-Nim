@@ -5,14 +5,11 @@
 # both the user's and the sim's.
 #
 
-
-
-
 #******************************************************************************
 # USER AIRCRAFT ACCESS
 # *****************************************************************************
 
-
+##
 # XPLMSetUsersAircraft
 #
 # This routine changes the user's aircraft.  Note that this will reinitialize
@@ -31,12 +28,11 @@ XPLM_API void XPLMPlaceUserAtAirport(const char* inAirportCode);
 #******************************************************************************
 # GLOBAL AIRCRAFT ACCESS
 # *****************************************************************************
-
-
-
+#
 # The user's aircraft is always index 0.
 #define XPLM_USER_AIRCRAFT   0
 
+##
 # XPLMPlaneDrawState_t
 #
 # This structure contains additional plane parameter info to be passed to
@@ -89,6 +85,7 @@ XPLM_API void XPLMCountAircraft(int* outTotalAircraft,
                                    int* outActiveAircraft,
                                    XPLMPluginID* outController);
 
+##
 # XPLMGetNthAircraftModel
 #
 # This function returns the aircraft model for the Nth aircraft.  Indices are
@@ -106,6 +103,7 @@ XPLM_API void XPLMGetNthAircraftModel(int inIndex, char* outFileName, char* outP
 # one plugin may have this access at a time.
 #
 
+##
 # XPLMPlanesAvailable_f
 #
 # Your airplanes available callback is called when another plugin gives up
@@ -114,7 +112,7 @@ XPLM_API void XPLMGetNthAircraftModel(int inIndex, char* outFileName, char* outP
 #
 typedef void (* XPLMPlanesAvailable_f)(void* inRefcon);
 
-
+##
 # XPLMAcquirePlanes
 #
 # XPLMAcquirePlanes grants your plugin exclusive access to the aircraft.  It
@@ -131,7 +129,7 @@ XPLM_API int XPLMAcquirePlanes(char ** inAircraft,    /* Can be NULL */
                               XPLMPlanesAvailable_f inCallback,
                               void* inRefcon);
 
-
+##
 # XPLMReleasePlanes
 #
 # Call this function to release access to the planes.  Note that if you are
@@ -139,7 +137,7 @@ XPLM_API int XPLMAcquirePlanes(char ** inAircraft,    /* Can be NULL */
 #
 XPLM_API void XPLMReleasePlanes(void);
 
-
+##
 # XPLMSetActiveAircraftCount
 #
 # This routine sets the number of active planes.  If you pass in a number
@@ -148,7 +146,7 @@ XPLM_API void XPLMReleasePlanes(void);
 #
 XPLM_API void XPLMSetActiveAircraftCount(int inCount);
 
-
+##
 # XPLMSetAircraftModel
 #
 # This routine loads an aircraft model.  It may only be called if you  have
@@ -158,7 +156,7 @@ XPLM_API void XPLMSetActiveAircraftCount(int inCount);
 #
 XPLM_API void XPLMSetAircraftModel(int inIndex, const char* inAircraftPath);
 
-
+##
 # XPLMDisableAIForPlane
 #
 # This routine turns off X-Plane's AI for a given plane.  The plane will
@@ -166,7 +164,7 @@ XPLM_API void XPLMSetAircraftModel(int inIndex, const char* inAircraftPath);
 #
 XPLM_API void XPLMDisableAIForPlane(int inPlaneIndex);
 
-
+##
 # XPLMDrawAircraft
 #
 # This routine draws an aircraft.  It can only be called from a 3-d drawing
@@ -185,7 +183,7 @@ XPLM_API void XPLMDrawAircraft(int inPlaneIndex,
                                int inFullDraw,
                                XPLMPlaneDrawState_t * inDrawStateInfo);
 
-
+##
 # XPLMReinitUsersPlane
 #
 # This function recomputes the derived flight model data from the aircraft

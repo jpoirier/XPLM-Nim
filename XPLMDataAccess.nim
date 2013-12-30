@@ -58,6 +58,7 @@
 # x-plane and modify some of it.
 #
 
+##
 # XPLMDataRef
 #
 # A data ref is an opaque handle to data provided by the simulator or another
@@ -66,8 +67,9 @@
 # get them from XPLMFindDataRef.
 #
 type
-    XPLMDataRef*: ptr void
+    XPLMDataRef*: pointer
 
+##
 # XPLMDataTypeID
 #
 # This is an enumeration that defines the type of the data behind a data
@@ -89,6 +91,7 @@ const
 type
     XPLMDataTypeID*: cint
 
+##
 # XPLMFindDataRef
 #
 # Given a c-style string that names the data ref, this routine looks up the
@@ -104,6 +107,7 @@ type
 # XPLM_API XPLMDataRef XPLMFindDataRef(const char* inDataRefName);
 proc XPLMFindDataRef*(inDataRefName: cstring): XPLMDataRef {importc: "XPLMFindDataRef", dynlib.}
 
+##
 # XPLMCanWriteDataRef
 #
 # Given a data ref, this routine returns true if you can successfully set
@@ -112,6 +116,7 @@ proc XPLMFindDataRef*(inDataRefName: cstring): XPLMDataRef {importc: "XPLMFindDa
 # XPLM_API int XPLMCanWriteDataRef(XPLMDataRef inDataRef);
 proc XPLMCanWriteDataRef*(inDataRef: XPLMDataRef): cint {importc: "XPLMCanWriteDataRef", dynlib.}
 
+##
 # XPLMIsDataRefGood
 #
 # WARNING: This function is deprecated and should not be used. Datarefs are
@@ -128,6 +133,7 @@ proc XPLMCanWriteDataRef*(inDataRef: XPLMDataRef): cint {importc: "XPLMCanWriteD
 # XPLM_API int XPLMIsDataRefGood(XPLMDataRef inDataRef);
 proc XPLMIsDataRefGood*(inDataRef: XPLMDataRef): cint {importc: "XPLMIsDataRefGood", dynlib.}
 
+##
 # XPLMGetDataRefTypes
 #
 # This routine returns the types of the data ref for accessor use.  If a data
@@ -156,6 +162,7 @@ proc XPLMGetDataRefTypes*(inDataRef: XPLMDataRef): cint {importc: "XPLMGetDataRe
 # returned.  This may be less to prevent an array-out-of-bounds error.
 #
 
+##
 # XPLMGetDatai
 #
 # Read an integer data ref and return its value. The return value is the
@@ -165,6 +172,7 @@ proc XPLMGetDataRefTypes*(inDataRef: XPLMDataRef): cint {importc: "XPLMGetDataRe
 # XPLM_API int XPLMGetDatai(XPLMDataRef inDataRef);
 proc XPLMGetDatai*(inDataRef: XPLMDataRef): cint {importc: "XPLMGetDatai", dynlib.}
 
+##
 # XPLMSetDatai
 #
 # Write a new value to an integer data ref.   This routine is a no-op if the
@@ -174,6 +182,7 @@ proc XPLMGetDatai*(inDataRef: XPLMDataRef): cint {importc: "XPLMGetDatai", dynli
 # XPLM_API void XPLMSetDatai(XPLMDataRef inDataRef, int inValue);
 proc XPLMSetDatai*(inDataRef: XPLMDataRef, inValue: cint) {importc: "XPLMSetDatai", dynlib.}
 
+##
 # XPLMGetDataf
 #
 # Read a single precision floating point dataref and return its value. The
@@ -183,6 +192,7 @@ proc XPLMSetDatai*(inDataRef: XPLMDataRef, inValue: cint) {importc: "XPLMSetData
 # XPLM_API float XPLMGetDataf(XPLMDataRef inDataRef);
 proc XPLMGetDataf*(inDataRef: XPLMDataRef): cfloat {importc: "XPLMGetDataf", dynlib.}
 
+##
 # XPLMSetDataf
 #
 # Write a new value to a single precision floating point data ref.   This
@@ -192,6 +202,7 @@ proc XPLMGetDataf*(inDataRef: XPLMDataRef): cfloat {importc: "XPLMGetDataf", dyn
 # XPLM_API void XPLMSetDataf(XPLMDataRef inDataRef, float inValue);
 proc XPLMSetDataf*(inDataRef: XPLMDataRef, inValue: cfloat) {importc: "XPLMSetDataf", dynlib.}
 
+##
 # XPLMGetDatad
 #
 # Read a double precision floating point dataref and return its value. The
@@ -201,6 +212,7 @@ proc XPLMSetDataf*(inDataRef: XPLMDataRef, inValue: cfloat) {importc: "XPLMSetDa
 # XPLM_API double XPLMGetDatad(XPLMDataRef inDataRef);
 proc XPLMGetDatad*(inDataRef: XPLMDataRef): cdouble {importc: "XPLMGetDatad", dynlib.}
 
+##
 # XPLMSetDatad
 #
 # Write a new value to a double precision floating point data ref.   This
@@ -210,6 +222,7 @@ proc XPLMGetDatad*(inDataRef: XPLMDataRef): cdouble {importc: "XPLMGetDatad", dy
 # XPLM_API void XPLMSetDatad(XPLMDataRef inDataRef, double inValue);
 proc XPLMSetDatad*(inDataRef: XPLMDataRef, inValue: cdouble) {importc: "XPLMSetDatad", dynlib.}
 
+##
 # XPLMGetDatavi
 #
 # Read a part of an integer array dataref.  If you pass NULL for outVaules,
@@ -229,6 +242,7 @@ proc XPLMSetDatad*(inDataRef: XPLMDataRef, inValue: cdouble) {importc: "XPLMSetD
 # XPLM_API int XPLMGetDatavi(XPLMDataRef inDataRef, int * outValues, int inOffset, int inMax);
 proc XPLMGetDatavi*(inDataRef: XPLMDataRef, outValues: ptr cint, inOffset, inMax: cint): cint {importc: "XPLMGetDatavi", dynlib.}
 
+##
 # XPLMSetDatavi
 #
 # Write part or all of an integer array dataref.  The values passed by
@@ -244,6 +258,7 @@ proc XPLMGetDatavi*(inDataRef: XPLMDataRef, outValues: ptr cint, inOffset, inMax
 # XPLM_API void XPLMSetDatavi(XPLMDataRef inDataRef, int * inValues, int inoffset, int inCount);
 proc XPLMSetDatavi*(inDataRef: XPLMDataRef, inValues: ptr cint, inoffset, inCount: cint) {importc: "XPLMSetDatavi", dynlib.}
 
+##
 # XPLMGetDatavf
 #
 # Read a part of a single precision floating point array dataref.  If you
@@ -263,6 +278,7 @@ proc XPLMSetDatavi*(inDataRef: XPLMDataRef, inValues: ptr cint, inoffset, inCoun
 # XPLM_API int XPLMGetDatavf(XPLMDataRef inDataRef, float * outValues, int inOffset, int inMax);
 proc XPLMGetDatavf*(inDataRef: XPLMDataRef, outValues: ptr cfloat, inOffset, inMax: int): cint {importc: "XPLMGetDatavf", dynlib.}
 
+##
 # XPLMSetDatavf
 #
 # Write part or all of a single precision floating point array dataref.  The
@@ -278,6 +294,7 @@ proc XPLMGetDatavf*(inDataRef: XPLMDataRef, outValues: ptr cfloat, inOffset, inM
 # XPLM_API void XPLMSetDatavf(XPLMDataRef inDataRef, float * inValues, int inoffset, int inCount);
 proc XPLMSetDatavf*(inDataRef: XPLMDataRef, inValues: ptr cfloat, inoffset, inCount: cint) {importc: "XPLMSetDatavf", dynlib.}
 
+##
 # XPLMGetDatab
 #
 # Read a part of a byte array dataref.  If you pass NULL for outVaules, the
@@ -296,6 +313,7 @@ proc XPLMSetDatavf*(inDataRef: XPLMDataRef, inValues: ptr cfloat, inoffset, inCo
 # XPLM_API int XPLMGetDatab(XPLMDataRef inDataRef, void * outValue, int inOffset, int inMaxBytes);
 proc XPLMGetDatab*(inDataRef, outValue: XPLMDataRef, inOffset, inMaxBytes: cint): cint {importc: "XPLMGetDatab", dynlib.}
 
+##
 # XPLMSetDatab
 #
 # Write part or all of a byte array dataref.  The values passed by inValues
@@ -332,6 +350,7 @@ proc XPLMSetDatab*(inDataRef: XPLMDataRef, inValue: ptr void, inOffset, inLength
 # prevent dataref collisions between plugins.
 #
 
+##
 # XPLMGetDatai_f
 #
 # Data provider function pointers.
@@ -384,7 +403,7 @@ type
     # typedef void (* XPLMSetDatab_f)(void * inRefcon, void * inValue, int inOffset, int inLength);
     XPLMSetDatab_f* = proc (inRefcon, inValue: ptr void, inOffset, inLength: cint) {.stdcall.}
 
-
+##
 # XPLMRegisterDataAccessor
 #
 # This routine creates a new item of data that can be read and written.  Pass
@@ -432,6 +451,7 @@ proc XPLMRegisterDataAccessor*(inDataName: cstring,
                                inReadRefcon: ptr void,
                                inWriteRefcon: ptr void): cint {importc: "XPLMRegisterDataAccessor", dynlib.}
 
+##
 # XPLMUnregisterDataAccessor
 #
 # Use this routine to unregister any data accessors you may have registered.
@@ -486,6 +506,7 @@ proc XPLMUnregisterDataAccessor*(inDataRef: XPLMDataRef) {importc: "XPLMUnregist
 # data is changed, use shared data references.
 #
 
+##
 # XPLMDataChanged_f
 #
 # An XPLMDataChanged_f is a callback that the XPLM calls whenever any other
@@ -497,6 +518,7 @@ type
     # typedef void (* XPLMDataChanged_f)(void * inRefcon);
     XPLMDataChanged_f* = proc (inRefcon: ptr void) {.stdcall.}
 
+##
 # XPLMShareData
 #
 # This routine connects a plug-in to shared data, creating the shared data if
@@ -516,8 +538,12 @@ type
 # zero if  the data already exists but is of the wrong type.
 #
 # XPLM_API int XPLMShareData(const char * inDataName, XPLMDataTypeID inDataType, XPLMDataChanged_f inNotificationFunc, void * inNotificationRefcon);
-proc XPLMShareData*(inDataName: cstring, inDataType: XPLMDataTypeID, inNotificationFunc: XPLMDataChanged_f, inNotificationRefcon: ptr void): cint {importc: "XPLMShareData", dynlib.}
+proc XPLMShareData*(inDataName: cstring,
+                    inDataType: XPLMDataTypeID,
+                    inNotificationFunc: XPLMDataChanged_f,
+                    inNotificationRefcon: pointer): cint {importc: "XPLMShareData", dynlib.}
 
+##
 # XPLMUnshareData
 #
 # This routine removes your notification function for shared data.  Call it
@@ -526,6 +552,9 @@ proc XPLMShareData*(inDataName: cstring, inDataType: XPLMDataTypeID, inNotificat
 # since other plug-ins could be using it.
 #
 # XPLM_API int XPLMUnshareData(const char * inDataName, XPLMDataTypeID inDataType, XPLMDataChanged_f inNotificationFunc, void * inNotificationRefcon);
-proc XPLMUnshareData*(inDataName: cstring, inDataType: XPLMDataTypeID, inNotificationFunc: XPLMDataChanged_f, inNotificationRefcon: ptr void): cint{importc: "XPLMUnshareData", dynlib.}
+proc XPLMUnshareData*(inDataName: cstring,
+                      inDataType: XPLMDataTypeID,
+                      inNotificationFunc: XPLMDataChanged_f,
+                      inNotificationRefcon: pointer): cint{importc: "XPLMUnshareData", dynlib.}
 
 
