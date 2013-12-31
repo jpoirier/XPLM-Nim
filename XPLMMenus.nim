@@ -25,24 +25,28 @@
 # 'checking' in x-plane actually appears as a light which may or may not be
 # lit.  So there are  three possible states.
 #
-enum {
-     # there is no symbol to the left of the menu item.
-     xplm_Menu_NoCheck = 0
+const
+    # there is no symbol to the left of the menu item.
+    xplm_Menu_NoCheck = 0
 
-     # the menu has a mark next to it that is unmarked (not lit).
-    ,xplm_Menu_Unchecked = 1
+    # the menu has a mark next to it that is unmarked (not lit).
+    xplm_Menu_Unchecked = 1
 
-     # the menu has a mark next to it that is checked (lit).
-    ,xplm_Menu_Checked = 2
-};
-typedef int XPLMMenuCheck;
+    # the menu has a mark next to it that is checked (lit).
+    xplm_Menu_Checked = 2
+
+# typedef int XPLMMenuCheck;
+type
+    XPLMMenuCheck: cint
 
 ##
 # XPLMMenuID
 #
 # This is a unique ID for each menu you create.
 #
-typedef void * XPLMMenuID;
+# typedef void * XPLMMenuID;
+type
+    XPLMMenuID: pointer
 
 ##
 # XPLMMenuHandler_f
@@ -51,7 +55,11 @@ typedef void * XPLMMenuID;
 # (specified when the menu was created) and one for the item (specified when
 # the item was created).
 #
-typedef void (*XPLMMenuHandler_f)(void* inMenuRef, void* inItemRef);
+# typedef void (*XPLMMenuHandler_f)(void* inMenuRef, void* inItemRef);
+type
+    XPLMMenuHandler_f = proc (inMenuRef: pointer,
+                              inItemRef: pointer) {.stdcall.}
+
 
 ##
 # XPLMFindPluginsMenu
@@ -59,7 +67,8 @@ typedef void (*XPLMMenuHandler_f)(void* inMenuRef, void* inItemRef);
 # This function returns the ID of the plug-ins menu, which is created for you
 # at startup.
 #
-XPLM_API XPLMMenuID XPLMFindPluginsMenu(void);
+# XPLM_API XPLMMenuID XPLMFindPluginsMenu(void);
+proc XPLMFindPluginsMenu() {importc: "XPLMFindPluginsMenu", dynlib.}
 
 ##
 # XPLMCreateMenu
@@ -75,11 +84,17 @@ XPLM_API XPLMMenuID XPLMFindPluginsMenu(void);
 # Important: you must pass a valid, non-empty menu title even if the menu is
 # a submenu where the title is not visible.
  *
-XPLM_API XPLMMenuID XPLMCreateMenu(const char* inName,
-                                   XPLMMenuID inParentMenu,
-                                   int inParentItem,
-                                   XPLMMenuHandler_f inHandler,
-                                   void* inMenuRef);
+# XPLM_API XPLMMenuID XPLMCreateMenu(const char* inName,
+#                                    XPLMMenuID inParentMenu,
+#                                    int inParentItem,
+#                                    XPLMMenuHandler_f inHandler,
+#                                    void* inMenuRef);
+proc XPLMCreateMenu(inName: cstring,
+                    inParentMenu: XPLMMenuID,
+                    inParentItem: cint,
+                    inHandler: XPLMMenuHandler_f,
+                    inMenuRef: pointer): XPLMMenuID
+                                          {importc: "XPLMCreateMenu", dynlib.}
 
 ##
 # XPLMDestroyMenu
@@ -87,7 +102,10 @@ XPLM_API XPLMMenuID XPLMCreateMenu(const char* inName,
 # This function destroys a menu that you have created.  Use this to remove a
 # submenu if necessary.  (Normally this function will not be necessary.)
 #
-XPLM_API void XPLMDestroyMenu(XPLMMenuID inMenuID);
+# XPLM_API void XPLMDestroyMenu(XPLMMenuID inMenuID);
+proc XPLMDestroyMenu*(inMenuID: XPLMMenuID)
+                                     {importc: "XPLMClearFMSEntry", dynlib.}
+
 
 ##
 # XPLMClearAllMenuItems
@@ -95,7 +113,10 @@ XPLM_API void XPLMDestroyMenu(XPLMMenuID inMenuID);
 # This function removes all menu items from a menu, allowing you to rebuild
 # it.  Use this function if you need to change the number of items on a menu.
 #
-XPLM_API void XPLMClearAllMenuItems(XPLMMenuID inMenuID);
+# XPLM_API void XPLMClearAllMenuItems(XPLMMenuID inMenuID);
+proc XPLMClearAllMenuItems*(inMenuID: XPLMMenuID)
+                                    {importc: "XPLMClearAllMenuItems", dynlib.}
+
 
 ##
 # XPLMAppendMenuItem
@@ -108,14 +129,25 @@ XPLM_API void XPLMClearAllMenuItems(XPLMMenuID inMenuID);
 # of why you'd want to do this is for a proper name.)  See XPLMUtilities for
 # determining the current langauge.
 #
-XPLM_API int XPLMAppendMenuItem(XPLMMenuID inMenu, const char* inItemName, void* inItemRef, int inForceEnglish);
+# XPLM_API int XPLMAppendMenuItem(XPLMMenuID inMenu,
+#                                 const char* inItemName,
+#                                 void* inItemRef,
+#                                 int inForceEnglish);
+proc XPLMAppendMenuItem*(inMenu: XPLMMenuID,
+                         inItemName cstring,
+                         inItemRef: pointer,
+                         inForceEnglish: cint): cint
+                                      {importc: "XPLMAppendMenuItem", dynlib.}
 
 ##
 # XPLMAppendMenuSeparator
 #
 # This routine adds a seperator to the end of a menu.
 #
-XPLM_API void XPLMAppendMenuSeparator(XPLMMenuID inMenu);
+# XPLM_API void XPLMAppendMenuSeparator(XPLMMenuID inMenu);
+proc XPLMAppendMenuSeparator*(inMenu: XPLMMenuID)
+                                  {importc: "XPLMAppendMenuSeparator", dynlib.}
+
 
 ##
 # XPLMSetMenuItemName
@@ -123,14 +155,28 @@ XPLM_API void XPLMAppendMenuSeparator(XPLMMenuID inMenu);
 # This routine changes the name of an existing menu item.  Pass in the menu
 # ID and the index of the menu item.
 #
-XPLM_API void XPLMSetMenuItemName(XPLMMenuID inMenu, int inIndex, const char* inItemName, int inForceEnglish);
+# XPLM_API void XPLMSetMenuItemName(XPLMMenuID inMenu,
+#                                   int inIndex,
+#                                   const char* inItemName,
+#                                    int inForceEnglish);
+proc XPLMSetMenuItemName*(nMenu; XPLMMenuID,
+                          inIndex: cint,
+                          inItemName: cstring,
+                          inForceEnglish: cint)
+                                      {importc: "XPLMSetMenuItemName", dynlib.}
 
 ##
 # XPLMCheckMenuItem
 #
 # Set whether a menu item is checked.  Pass in the menu ID and item index.
 #
-XPLM_API void XPLMCheckMenuItem(XPLMMenuID inMenu, int index, XPLMMenuCheck inCheck);
+# XPLM_API void XPLMCheckMenuItem(XPLMMenuID inMenu,
+#                                 int index,
+#                                 XPLMMenuCheck inCheck);
+proc XPLMCheckMenuItem*(inMenu: XPLMMenuID,
+                        index: cint,
+                         inCheck: XPLMMenuCheck)
+                                        {importc: "XPLMCheckMenuItem", dynlib.}
 
 ##
 # XPLMCheckMenuItemState
@@ -138,14 +184,26 @@ XPLM_API void XPLMCheckMenuItem(XPLMMenuID inMenu, int index, XPLMMenuCheck inCh
 # This routine returns whether a menu item is checked or not. A menu item's
 # check mark may be on or off, or a menu may not have an icon at all.
 #
-XPLM_API void XPLMCheckMenuItemState(XPLMMenuID inMenu, int index, XPLMMenuCheck* outCheck);
+# XPLM_API void XPLMCheckMenuItemState(XPLMMenuID inMenu,
+#                                      int index,
+#                                      XPLMMenuCheck* outCheck);
+proc XPLMCheckMenuItemState*(inMenu: XPLMMenuID,
+                             index: cint,
+                             outCheck: ptr XPLMMenuCheck)
+                                  {importc: "XPLMCheckMenuItemState", dynlib.}
 
 ##
 # XPLMEnableMenuItem
 #
 # Sets whether this menu item is enabled.  Items start out enabled.
 #
-XPLM_API void XPLMEnableMenuItem(XPLMMenuID inMenu, int index, int enabled);
+# XPLM_API void XPLMEnableMenuItem(XPLMMenuID inMenu,
+#                                  int index,
+#                                  int enabled);
+proc XPLMEnableMenuItem*(inMenu: XPLMMenuID,
+                         index: cint,
+                         enabled: cint)
+                                      {importc: "XPLMEnableMenuItem", dynlib.}
 
 ##
 # XPLMRemoveMenuItem
@@ -153,5 +211,10 @@ XPLM_API void XPLMEnableMenuItem(XPLMMenuID inMenu, int index, int enabled);
 # Removes one item from a menu.  Note that all menu items below are moved up
 # one; your plugin must track the change in index numbers.
 #
-XPLM_API void XPLMRemoveMenuItem(XPLMMenuID inMenu, int inIndex);
+# XPLM_API void XPLMRemoveMenuItem(XPLMMenuID inMenu,
+#                                  int inIndex);
+proc XPLMRemoveMenuItem*(inMenu: XPLMMenuID,
+                         inIndex: cint)
+                                      {importc: "XPLMRemoveMenuItem", dynlib.}
+
 

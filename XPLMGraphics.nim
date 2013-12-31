@@ -409,5 +409,3 @@ proc XPLMMeasureString*(inFontID; XPLMFontID,
                         inChar: cstring,
                         inNumChars: cint)
                                         {importc: "XPLMMeasureString", dynlib.}
-
-
