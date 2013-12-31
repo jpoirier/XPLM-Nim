@@ -47,17 +47,19 @@
 # XPLM Texture IDs name well-known textures in the sim for you to use. This
 # allows you to recycle textures from X-Plane, saving VRAM.
 #
-enum {
-     # The bitmap that contains window outlines, button outlines, fonts, etc.
-     xplm_Tex_GeneralInterface = 0
+const
+    # The bitmap that contains window outlines, button outlines, fonts, etc.
+    xplm_Tex_GeneralInterface = 0
 
-     # The exterior paint for the user's aircraft (daytime).
-    ,xplm_Tex_AircraftPaint = 1
+    # The exterior paint for the user's aircraft (daytime).
+    xplm_Tex_AircraftPaint = 1
 
-     # The exterior light map for the user's aircraft.
-    ,xplm_Tex_AircraftLiteMap = 2
-};
-typedef int XPLMTextureID;
+    # The exterior light map for the user's aircraft.
+    xplm_Tex_AircraftLiteMap = 2
+
+# typedef int XPLMTextureID;
+type
+    XPLMTextureID: cint
 
 ##
 # XPLMSetGraphicsState
@@ -102,13 +104,21 @@ typedef int XPLMTextureID;
 # code) may change X-Plane's state.  Always set state before drawing after
 # unknown code has executed.
 #
-XPLM_API void XPLMSetGraphicsState(int inEnableFog,
-                                   int inNumberTexUnits,
-                                   int inEnableLighting,
-                                   int inEnableAlphaTesting,
-                                   int inEnableAlphaBlending,
-                                   int inEnableDepthTesting,
-                                   int inEnableDepthWriting);
+# XPLM_API void XPLMSetGraphicsState(int inEnableFog,
+#                                    int inNumberTexUnits,
+#                                    int inEnableLighting,
+#                                    int inEnableAlphaTesting,
+#                                    int inEnableAlphaBlending,
+#                                    int inEnableDepthTesting,
+#                                    int inEnableDepthWriting);
+proc XPLMSetGraphicsState*(inEnableFog: cint,
+                           inNumberTexUnits: cint,
+                           inEnableLighting: cint,
+                           inEnableAlphaTesting: cint,
+                           inEnableAlphaBlending: cint,
+                           inEnableDepthTesting: cint,
+                           inEnableDepthWriting: cint)
+                                    {importc: "XPLMSetGraphicsState", dynlib.}
 
 ##
 # XPLMBindTexture2d
@@ -127,7 +137,11 @@ XPLM_API void XPLMSetGraphicsState(int inEnableFog,
 #
 # Use this routine instead of glBindTexture(GL_TEXTURE_2D, ....);
 #
-XPLM_API void XPLMBindTexture2d(int inTextureNum, int inTextureUnit);
+# XPLM_API void XPLMBindTexture2d(int inTextureNum,
+#                                 int inTextureUnit);
+proc XPLMBindTexture2d*(inTextureNum: cint,
+                        inTextureUnit; cint)
+                                        {importc: "XPLMBindTexture2d", dynlib.}
 
 ##
 # XPLMGenerateTextureNumbers
@@ -141,7 +155,11 @@ XPLM_API void XPLMBindTexture2d(int inTextureNum, int inTextureUnit);
 # X-Plane will then  overwrite the plug-ins texture.  This routine returns
 # texture IDs that are out of X-Plane's usage range.
 #
-XPLM_API void XPLMGenerateTextureNumbers(int * outTextureIDs, int inCount);
+# XPLM_API void XPLMGenerateTextureNumbers(int * outTextureIDs,
+#                                          int inCount);
+proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr outTextureIDs,
+                                 inCount: cint)
+                              {importc: "XPLMGenerateTextureNumbers", dynlib.}
 
 ##
 # XPLMGetTexture
@@ -156,7 +174,9 @@ XPLM_API void XPLMGenerateTextureNumbers(int * outTextureIDs, int inCount);
 # OPEN ISSUE: We really need a way to make sure X-Plane loads this texture if
 # it isn't around, or at least a way to find out whether it is loaded or not.
 #
-XPLM_API int XPLMGetTexture(XPLMTextureID inTexture);
+# XPLM_API int XPLMGetTexture(XPLMTextureID inTexture);
+proc XPLMGetTexture*(inTexture: XPLMTextureID)
+                             {              importc: "XPLMGetTexture", dynlib.}
 
 ##
 # XPLMWorldToLocal
@@ -166,12 +186,19 @@ XPLM_API int XPLMGetTexture(XPLMTextureID inTexture);
 # and altitude is in meters MSL (mean sea level).  The XYZ coordinates are in
 # meters in the local OpenGL coordinate system.
 #
-XPLM_API void XPLMWorldToLocal(double inLatitude,
-                                   double inLongitude,
-                                   double inAltitude,
-                                   double * outX,
-                                   double * outY,
-                                   double * outZ);
+# XPLM_API void XPLMWorldToLocal(double inLatitude,
+#                                double inLongitude,
+#                                double inAltitude,
+#                                double* outX,
+#                                double* outY,
+#                                double* outZ);
+proc XPLMWorldToLocal*(inLatitude: cdouble,
+                       inLongitude: cdouble,
+                       inAltitude: cdouble,
+                       outX: ptr cdouble,
+                       outY: ptr cdouble,
+                       outZ: ptr cdouble)
+                                        {importc: "XPLMWorldToLocal", dynlib.}
 
 ##
 # XPLMLocalToWorld
@@ -184,12 +211,19 @@ XPLM_API void XPLMWorldToLocal(double inLatitude,
 # NOTE: world coordinates are less precise than local coordinates; you should
 # try to avoid round tripping from local to world and back.
 #
-XPLM_API void XPLMLocalToWorld(double inX,
-                                   double inY,
-                                   double inZ,
-                                   double * outLatitude,
-                                   double * outLongitude,
-                                   double * outAltitude);
+# XPLM_API void XPLMLocalToWorld(double inX,
+#                                double inY,
+#                                double inZ,
+#                                double * outLatitude,
+#                                double * outLongitude,
+#                                double * outAltitude);
+proc XPLMLocalToWorld*(inX; cdouble,
+                       inY; cdouble,
+                       inZ; cdouble,
+                       outLatitude: ptr cdouble,
+                       outLongitude: ptr cdouble,
+                       outAltitude: ptr cdouble)
+                                        {importc: "XPLMLocalToWorld", dynlib.}
 
 ##
 # XPLMDrawTranslucentDarkBox
@@ -198,7 +232,15 @@ XPLM_API void XPLMLocalToWorld(double inX,
 # screen but making text easy to read.  This is the same graphics primitive
 # used by X-Plane to show text files and ATC info.
 #
-XPLM_API void XPLMDrawTranslucentDarkBox(int inLeft, int inTop, int inRight, int inBottom);
+# XPLM_API void XPLMDrawTranslucentDarkBox(int inLeft,
+#                                          int inTop,
+#                                          int inRight,
+#                                          int inBottom);
+proc XPLMDrawTranslucentDarkBox*(inLeft: cint,
+                                 inTop: cint,
+                                 inRight: cint,
+                                 inBottom: cint)
+                              {importc: "XPLMDrawTranslucentDarkBox", dynlib.}
 
 #******************************************************************************
 # X-PLANE TEXT
@@ -218,65 +260,68 @@ XPLM_API void XPLMDrawTranslucentDarkBox(int inLeft, int inTop, int inRight, int
 # font.  You can use a dataref to enable proportional font drawing on XP7 if
 # you want to.
 #
-enum {
-     # Mono-spaced font for user interface.  Available in all versions of the SDK.
-     xplmFont_Basic = 0
+type
+    XPLMFontIDEnums* = enum
+        # Mono-spaced font for user interface.  Available in all versions of the SDK.
+        xplmFont_Basic = 0,
 
-     # Deprecated, do not use.
-    ,xplmFont_Menus = 1
+        # Deprecated, do not use.
+        xplmFont_Menus,
 
-     # Deprecated, do not use.
-    ,xplmFont_Metal = 2
+        # Deprecated, do not use.
+        xplmFont_Metal,
 
-     # Deprecated, do not use.
-    ,xplmFont_Led = 3
+        # Deprecated, do not use.
+        xplmFont_Led,
 
-     # Deprecated, do not use.
-    ,xplmFont_LedWide = 4
+        # Deprecated, do not use.
+        xplmFont_LedWide,
 
-     # Deprecated, do not use.
-    ,xplmFont_PanelHUD = 5
+        # Deprecated, do not use.
+        xplmFont_PanelHUD,
 
-     # Deprecated, do not use.
-    ,xplmFont_PanelEFIS = 6
+        # Deprecated, do not use.
+        xplmFont_PanelEFIS,
 
-     # Deprecated, do not use.
-    ,xplmFont_PanelGPS = 7
+        # Deprecated, do not use.
+        xplmFont_PanelGPS,
 
-     # Deprecated, do not use.
-    ,xplmFont_RadiosGA = 8
+        # Deprecated, do not use.
+        xplmFont_RadiosGA,
 
-     # Deprecated, do not use.
-    ,xplmFont_RadiosBC = 9
+        # Deprecated, do not use.
+        xplmFont_RadiosBC,
 
-     # Deprecated, do not use.
-    ,xplmFont_RadiosHM = 10
+        # Deprecated, do not use.
+        xplmFont_RadiosHM ,
 
-     # Deprecated, do not use.
-    ,xplmFont_RadiosGANarrow = 11
+        # Deprecated, do not use.
+        xplmFont_RadiosGANarrow,
 
-     # Deprecated, do not use.
-    ,xplmFont_RadiosBCNarrow = 12
+        # Deprecated, do not use.
+        xplmFont_RadiosBCNarrow,
 
-     # Deprecated, do not use.
-    ,xplmFont_RadiosHMNarrow = 13
+        # Deprecated, do not use.
+        xplmFont_RadiosHMNarrow,
 
-     # Deprecated, do not use.
-    ,xplmFont_Timer = 14
+        # Deprecated, do not use.
+        xplmFont_Timer,
 
-     # Deprecated, do not use.
-    ,xplmFont_FullRound = 15
+        # Deprecated, do not use.
+        xplmFont_FullRound,
 
-     # Deprecated, do not use.
-    ,xplmFont_SmallRound = 16
+        # Deprecated, do not use.
+        xplmFont_SmallRound,
 
-     # Deprecated, do not use.
-    ,xplmFont_Menus_Localized = 17
+        # Deprecated, do not use.
+        xplmFont_Menus_Localized ,
 
-     # Proportional UI font.
-    ,xplmFont_Proportional = 18
-};
-typedef int XPLMFontID;
+        # Proportional UI font.
+        xplmFont_Proportional
+
+# typedef int XPLMFontID;
+type
+    XPLMFontID: cint
 
 ##
 # XPLMDrawString
@@ -288,12 +333,19 @@ typedef int XPLMFontID;
 # array of three floating point colors, representing RGB intensities from 0.0
 # to 1.0.
 #
-XPLM_API void XPLMDrawString(float* inColorRGB,
-                                   int inXOffset,
-                                   int inYOffset,
-                                   char* inChar,
-                                   int* inWordWrapWidth,    /* Can be NULL */
-                                   XPLMFontID inFontID);
+# XPLM_API void XPLMDrawString(float* inColorRGB,
+#                              int inXOffset,
+#                              int inYOffset,
+#                              char* inChar,
+#                              int* inWordWrapWidth,    /* Can be NULL */
+#                              XPLMFontID inFontID);
+proc XPLMDrawString*(inColorRGB: ptr cfloat,
+                     inXOffset: cint,
+                     inYOffset: cint,
+                     inChar: cstring,
+                     inWordWrapWidth: ptr cint,
+                     inFontID: XPLMFontID)
+                                          {importc: "XPLMDrawString", dynlib.}
 
 ##
 # XPLMDrawNumber
@@ -305,14 +357,23 @@ XPLM_API void XPLMDrawString(float* inColorRGB,
 # well as a character set. This routine returns the xOffset plus width of the
 # string drawn.
 #
-XPLM_API void XPLMDrawNumber(float * inColorRGB,
-                                   int inXOffset,
-                                   int inYOffset,
-                                   double inValue,
-                                   int inDigits,
-                                   int inDecimals,
-                                   int inShowSign,
-                                   XPLMFontID inFontID);
+# XPLM_API void XPLMDrawNumber(float * inColorRGB,
+#                              int inXOffset,
+#                              int inYOffset,
+#                              double inValue,
+#                              int inDigits,
+#                              int inDecimals,
+#                              int inShowSign,
+#                              XPLMFontID inFontID);
+proc XPLMDrawNumber*(inColorRGB: ptr cfloat,
+                     inXOffset; cint,
+                     inYOffset: cint,
+                     inValue: cdouble,
+                     inDigits; cint,
+                     inDecimals; cint,
+                     inShowSign; cint,
+                     inFontID: XPLMFontID)
+                                          {importc: "XPLMDrawNumber", dynlib.}
 
 ##
 # XPLMGetFontDimensions
@@ -322,7 +383,15 @@ XPLM_API void XPLMDrawNumber(float * inColorRGB,
 # you don't need a given field.  Note that for a proportional font the width
 # will be an arbitrary, hopefully average width.
 #
-XPLM_API void XPLMGetFontDimensions(XPLMFontID inFontID, int* outCharWidth, int* outCharHeight, int* outDigitsOnly);
+# XPLM_API void XPLMGetFontDimensions(XPLMFontID inFontID,
+#                                     int* outCharWidth,
+#                                     int* outCharHeight,
+#                                     int* outDigitsOnly);
+proc XPLMGetFontDimensions*(inFontID: XPLMFontID,
+                            outCharWidth: ptr cint,
+                            outCharHeight: ptr cint,
+                            outDigitsOnly: ptr cint)
+                                    {importc: "XPLMGetFontDimensions", dynlib.}
 
 ##
 # XPLMMeasureString
@@ -333,5 +402,12 @@ XPLM_API void XPLMGetFontDimensions(XPLMFontID inFontID, int* outCharWidth, int*
 # value is floating point; it is possible that future font drawing may allow
 # for fractional pixels.
 #
-XPLM_API float XPLMMeasureString(XPLMFontID inFontID, const char* inChar, int inNumChars);
+# XPLM_API float XPLMMeasureString(XPLMFontID inFontID,
+#                                  const char* inChar,
+#                                  int inNumChars);
+proc XPLMMeasureString*(inFontID; XPLMFontID,
+                        inChar: cstring,
+                        inNumChars: cint)
+                                        {importc: "XPLMMeasureString", dynlib.}
+
 

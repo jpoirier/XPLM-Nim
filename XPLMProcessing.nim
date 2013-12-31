@@ -138,7 +138,8 @@ proc XPLMRegisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
 # your  flight loop callback.  Once your flight loop callback is
 # unregistered, it will not be called again.
 #
-# XPLM_API void XPLMUnregisterFlightLoopCallback(XPLMFlightLoop_f inFlightLoop, void* inRefcon);
+# XPLM_API void XPLMUnregisterFlightLoopCallback(XPLMFlightLoop_f inFlightLoop,
+#                                                void* inRefcon);
 proc XPLMUnregisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
                                        inRefcon: pointer)
                         {.importc: "XPLMUnregisterFlightLoopCallback", nodecl.}
@@ -219,7 +220,9 @@ proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID): cint
 # 4. The object must be unscheduled if this routine is to be called from a
 # thread other than the main thread.
 #
-# XPLM_API void XPLMScheduleFlightLoop(XPLMFlightLoopID inFlightLoopID, float inInterval, int inRelativeToNow);
+# XPLM_API void XPLMScheduleFlightLoop(XPLMFlightLoopID inFlightLoopID,
+#                                      float inInterval,
+#                                      int inRelativeToNow);
 proc XPLMScheduleFlightLoop*(inFlightLoopID: XPLMFlightLoopID,
                              inInterval: cfloat,
                              inRelativeToNow: cint)

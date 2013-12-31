@@ -228,7 +228,9 @@ const
 # XPLM_NO_PLUGIN_ID to broadcast to all plug-ins.  Only enabled plug-ins with
 # a message receive function receive the message.
 #
-# XPLM_API void XPLMSendMessageToPlugin*(XPLMPluginID inPlugin, int inMessage, void* inParam);
+# XPLM_API void XPLMSendMessageToPlugin*(XPLMPluginID inPlugin,
+#                                        int inMessage,
+#                                        void* inParam);
 proc XPLMSendMessageToPlugin*(inPlugin,
                               inMessage: cint,
                               inParam: pointer)
@@ -256,7 +258,8 @@ proc XPLMSendMessageToPlugin*(inPlugin,
 # for each feature.
 #
 type
-    # typedef void (*XPLMFeatureEnumerator_f)(const char* inFeature, void* inRef);
+    # typedef void (*XPLMFeatureEnumerator_f)(const char* inFeature,
+    #                                         void* inRef);
     XPLMFeatureEnumerator_f* = proc (inFeature: cstring,
                                      inRefcon: pointer) {.stdcall.}
 
@@ -299,7 +302,8 @@ proc XPLMEnableFeature*(inFeature: cstring, inEnable: cint)
 # running version of X-Plane supports. Use this routine to determine all of
 # the features that X-Plane can support.
 #
-# XPLM_API void XPLMEnumerateFeatures(XPLMFeatureEnumerator_f inEnumerator, void* inRef);
+# XPLM_API void XPLMEnumerateFeatures(XPLMFeatureEnumerator_f inEnumerator,
+#                                     void* inRef);
 proc XPLMEnumerateFeatures*(inEnumerator: XPLMFeatureEnumerator_f,
                             inRef: pointer)
                                     {importc: "XPLMEnumerateFeatures", nodecl.}

@@ -119,9 +119,13 @@ type
 # will be in 'local' coordinates for 3d drawing and panel coordinates for 2d
 # drawing.  The OpenGL state (texturing, etc.) will be unknown.
 #
-# typedef int (* XPLMDrawCallback_f)(XPLMDrawingPhase inPhase, int inIsBefore, void* inRefcon);
+# typedef int (* XPLMDrawCallback_f)(XPLMDrawingPhase inPhase,
+#                                      int inIsBefore,
+#                                      void* inRefcon);
 type
-    XPLMDrawCallback_f* = proc (inPhase: XPLMDrawingPhase, inIsBefore: cint, inRefcon: ptr void) {.stdcall.}
+    XPLMDrawCallback_f* = proc (inPhase: XPLMDrawingPhase,
+                                inIsBefore: cint,
+                                inRefcon: pointer) {.stdcall.}
 
 ##
 # XPLMKeySniffer_f
@@ -144,9 +148,15 @@ type
 # (that is 0x80 instead of -0x80).  So you may need to cast the incoming vkey
 # to an unsigned char to get correct comparisons in C.
 #
-#typedef int (* XPLMKeySniffer_f)(char inChar, XPLMKeyFlags inFlags, char inVirtualKey, void* inRefcon);
+# typedef int (* XPLMKeySniffer_f)(char inChar,
+#                                  XPLMKeyFlags inFlags,
+#                                  char inVirtualKey,
+#                                  void* inRefcon);
 type
-    XPLMKeySniffer_f* = proc (inChar: cchar, inFlags: XPLMKeyFlags, inVirtualKey: cchar, inRefcon: ptr void): cint {.stdcall.}
+    XPLMKeySniffer_f* = proc (inChar: cchar,
+                              inFlags: XPLMKeyFlags,
+                              inVirtualKey: cchar,
+                              inRefcon: pointer): cint {.stdcall.}
 
 ##
 # XPLMRegisterDrawCallback
@@ -158,8 +168,15 @@ type
 # callback multiple times for the same or different phases as long as the
 # refcon is unique each time.
 #
-# XPLM_API int XPLMRegisterDrawCallback(XPLMDrawCallback_f inCallback, XPLMDrawingPhase inPhase, int inWantsBefore, void* inRefcon);
-proc XPLMRegisterDrawCallback*(inCallback: XPLMDrawCallback_f, inPhase: XPLMDrawingPhase, inWantsBefore: cint, inRefcon: ptr void): cint {importc: "XPLMRegisterDrawCallback", dynlib.}
+# XPLM_API int XPLMRegisterDrawCallback(XPLMDrawCallback_f inCallback,
+#                                       XPLMDrawingPhase inPhase,
+#                                       int inWantsBefore,
+#                                       void* inRefcon);
+proc XPLMRegisterDrawCallback*(inCallback: XPLMDrawCallback_f,
+                               inPhase: XPLMDrawingPhase,
+                               inWantsBefore: cint,
+                               inRefcon: pointer): cint
+                                {importc: "XPLMRegisterDrawCallback", dynlib.}
 
 ##
 # XPLMUnregisterDrawCallback
@@ -169,8 +186,15 @@ proc XPLMRegisterDrawCallback*(inCallback: XPLMDrawCallback_f, inPhase: XPLMDraw
 # times with different refcons.  The routine returns 1 if it can find the
 # callback to unregister, 0 otherwise.
 #
-# XPLM_API int XPLMUnregisterDrawCallback(XPLMDrawCallback_f inCallback, XPLMDrawingPhase inPhase, int inWantsBefore, void* inRefcon);
-proc XPLMUnregisterDrawCallback*(inCallback: XPLMDrawCallback_f, inPhase: XPLMDrawingPhase, inWantsBefore: cint, inRefcon: ptr void): cint {importc: "XPLMUnregisterDrawCallback", dynlib.}
+# XPLM_API int XPLMUnregisterDrawCallback(XPLMDrawCallback_f inCallback,
+#                                         XPLMDrawingPhase inPhase,
+#                                         int inWantsBefore,
+#                                         void* inRefcon);
+proc XPLMUnregisterDrawCallback*(inCallback: XPLMDrawCallback_f,
+                                 inPhase: XPLMDrawingPhase,
+                                 inWantsBefore: cint,
+                                 inRefcon: pointer): cint
+                            {importc: "XPLMUnregisterDrawCallback", dynlib.}
 
 ##
 # XPLMRegisterKeySniffer
@@ -183,8 +207,13 @@ proc XPLMUnregisterDrawCallback*(inCallback: XPLMDrawCallback_f, inPhase: XPLMDr
 # action based on the key will produce very weird results.  Returns 1 if
 # successful.
 #
-# XPLM_API int XPLMRegisterKeySniffer(XPLMKeySniffer_f inCallback, int inBeforeWindows, void* inRefcon);
-proc XPLMRegisterKeySniffer*(inCallback: XPLMKeySniffer_f, inBeforeWindows: cint, inRefcon: ptr void): cint {importc: "XPLMRegisterKeySniffer", dynlib.}
+# XPLM_API int XPLMRegisterKeySniffer(XPLMKeySniffer_f inCallback,
+#                                       int inBeforeWindows,
+#                                       void* inRefcon);
+proc XPLMRegisterKeySniffer*(inCallback: XPLMKeySniffer_f,
+                             inBeforeWindows: cint,
+                             inRefcon: pointer): cint
+                                {importc: "XPLMRegisterKeySniffer", dynlib.}
 
 ##
 # XPLMUnregisterKeySniffer
@@ -193,8 +222,13 @@ proc XPLMRegisterKeySniffer*(inCallback: XPLMKeySniffer_f, inBeforeWindows: cint
 # for every time you register one with the exact same signature.  Returns 1
 # if successful.
 #
-# XPLM_API int XPLMUnregisterKeySniffer(XPLMKeySniffer_f inCallback, int inBeforeWindows, void* inRefcon);
-proc XPLMUnregisterKeySniffer*(inCallback: XPLMKeySniffer_f, inBeforeWindows: cint, inRefcon: ptr void): cint {importc: "XPLMUnregisterKeySniffer", dynlib.}
+# XPLM_API int XPLMUnregisterKeySniffer(XPLMKeySniffer_f inCallback,
+#                                       int inBeforeWindows,
+#                                       void* inRefcon);
+proc XPLMUnregisterKeySniffer*(inCallback: XPLMKeySniffer_f,
+                               inBeforeWindows: cint,
+                               inRefcon: pointer): cint
+                                {importc: "XPLMUnregisterKeySniffer", dynlib.}
 
 #******************************************************************************
 # Window API
@@ -264,7 +298,8 @@ type
 #
 # typedef void (*XPLMDrawWindow_f)(XPLMWindowID inWindowID, void* inRefcon);
 type
-    proc XPLMDrawWindow_f*(inWindowID: XPLMWindowID, inRefcon: ptr void) {.stdcall.}
+    proc XPLMDrawWindow_f*(inWindowID: XPLMWindowID,
+                           inRefcon: pointer) {.stdcall.}
 
 ##
 # XPLMHandleKey_f
@@ -278,9 +313,19 @@ type
 # -0x80).  So you may need to cast the incoming vkey to an unsigned char to
 # get correct comparisons in C.
 #
-# typedef void (* XPLMHandleKey_f)(XPLMWindowID inWindowID, char inKey, XPLMKeyFlags inFlags, char inVirtualKey, void* inRefcon, int losingFocus);
+# typedef void (* XPLMHandleKey_f)(XPLMWindowID inWindowID,
+#                                  char inKey,
+#                                  XPLMKeyFlags inFlags,
+#                                  char inVirtualKey,
+#                                  void* inRefcon,
+#                                  int losingFocus);
 type
-    XPLMHandleKey_f*(inWindowID: XPLMWindowID, inKey: cchar, inFlags: XPLMKeyFlags, inVirtualKey: cchar, inRefcon: ptr void, losingFocus: cint) {.stdcall.}
+    XPLMHandleKey_f*(inWindowID: XPLMWindowID,
+                     inKey: cchar,
+                     inFlags: XPLMKeyFlags,
+                     inVirtualKey: cchar,
+                     inRefcon: pointer,
+                     losingFocus: cint) {.stdcall.}
 
 ##
 # XPLMHandleMouseClick_f
@@ -293,9 +338,17 @@ type
 # WARNING: passing clicks through windows (as of this writing) causes mouse
 # tracking problems in X-Plane; do not use this feature!
 #
-# typedef int (* XPLMHandleMouseClick_f)(XPLMWindowID inWindowID, int x, int y, XPLMMouseStatus inMouse, void* inRefcon);
+# typedef int (* XPLMHandleMouseClick_f)(XPLMWindowID inWindowID,
+#                                        int x,
+#                                        int y,
+#                                        XPLMMouseStatus inMouse,
+#                                        void* inRefcon);
 type
-    XPLMHandleMouseClick_f*(inWindowID: XPLMWindowID, x: cint, y: cint, inMouse: XPLMMouseStatus, inRefcon: ptr void): cint {.stdcall.}
+    XPLMHandleMouseClick_f*(inWindowID: XPLMWindowID,
+                            x: cint,
+                            y: cint,
+                            inMouse: XPLMMouseStatus,
+                            inRefcon: pointer): cint {.stdcall.}
 
 ##
 # XPLMHandleCursor_f
@@ -318,9 +371,15 @@ type
 # OS specific call like SetThemeCursor (Mac) or SetCursor/LoadCursor
 # (Windows).
 #
-# typedef void XPLMCursorStatus (* XPLMHandleCursor_f)(XPLMWindowID inWindowID, int x, int y, void* inRefcon);
+# typedef void XPLMCursorStatus (* XPLMHandleCursor_f)(XPLMWindowID inWindowID,
+#                                                      int x,
+#                                                      int y,
+#                                                      void* inRefcon);
 type
-    XPLMHandleCursor_f*(inWindowID: XPLMWindowID, x: cint, y: cint, inRefcon: ptr void) {.stdcall.}
+    XPLMHandleCursor_f*(inWindowID: XPLMWindowID,
+                        x: cint,
+                        y: cint,
+                        inRefcon: pointer) {.stdcall.}
 
 ##
 # XPLMHandleMouseWheel_f
@@ -333,9 +392,19 @@ type
 # callback. The wheel is 0 for the vertical axis or 1 for the horizontal axis
 # (for OS/mouse combinations that support this).
 #
-# typedef int (* XPLMHandleMouseWheel_f)(XPLMWindowID inWindowID, int x, int y, int wheel, int clicks, void* inRefcon);
+# typedef int (* XPLMHandleMouseWheel_f)(XPLMWindowID inWindowID,
+#                                        int x,
+#                                        int y,
+#                                        int wheel,
+#                                        int clicks,
+#                                        void* inRefcon);
 type
-    XPLMHandleMouseWheel_f*(inWindowID: XPLMWindowID, x: cint, y: cint, wheel: cint, clicks: cint, inRefcon: ptr void) {.stdcall.}
+    XPLMHandleMouseWheel_f*(inWindowID: XPLMWindowID,
+                            x: cint,
+                            y: cint,
+                            wheel: cint,
+                            clicks: cint,
+                            inRefcon: pointer) {.stdcall.}
 
 ##
 # XPLMCreateWindow_t
@@ -372,7 +441,7 @@ type
         handleKeyFunc: XPLMHandleKey_f
         handleCursorFunc: XPLMHandleCursor_f
         handleMouseWheelFunc: XPLMHandleMouseWheel_f
-        refcon: ptr void
+        refcon: pointer
 
 ##
 # XPLMGetScreenSize
@@ -385,7 +454,9 @@ type
 # will be able to see when drawing in 3-d.
 #
 # XPLM_API void XPLMGetScreenSize(int* outWidth, int* outHeight);
-proc XPLMGetScreenSize*(outWidth: ptr cint, outHeight: ptr cint) {importc: "XPLMGetScreenSize", dynlib.}
+proc XPLMGetScreenSize*(outWidth: ptr cint,
+                        outHeight: ptr cint)
+                                        {importc: "XPLMGetScreenSize", dynlib.}
 
 ##
 # XPLMGetMouseLocation
@@ -395,7 +466,9 @@ proc XPLMGetScreenSize*(outWidth: ptr cint, outHeight: ptr cint) {importc: "XPLM
 # about either parameter.
 #
 # XPLM_API void XPLMGetMouseLocation(int* outX, int* outY);
-proc XPLMGetScreenSize*(outWidth: ptr outX, outHeight: ptr outY) {importc: "XPLMGetScreenSize", dynlib.}
+proc XPLMGetScreenSize*(outX: ptr cint,
+                        outY: ptr cint)
+                                        {importc: "XPLMGetScreenSize", dynlib.}
 
 ##
 # XPLMCreateWindow
@@ -410,7 +483,15 @@ proc XPLMGetScreenSize*(outWidth: ptr outX, outHeight: ptr outY) {importc: "XPLM
 # background and frame of the window.  Higher level libraries have routines
 # which make this easy.
 #
-# XPLM_API XPLMWindowID XPLMCreateWindow(int inLeft, int inTop, int inRight, int inBottom, int inIsVisible, XPLMDrawWindow_f inDrawCallback, XPLMHandleKey_f inKeyCallback, XPLMHandleMouseClick_f inMouseCallback, void* inRefcon);
+# XPLM_API XPLMWindowID XPLMCreateWindow(int inLeft,
+#                                        int inTop,
+#                                        int inRight,
+#                                        int inBottom,
+#                                        int inIsVisible,
+#                                        XPLMDrawWindow_f inDrawCallback,
+#                                        XPLMHandleKey_f inKeyCallback,
+#                                        XPLMHandleMouseClick_f inMouseCallback,
+#                                        void* inRefcon);
 proc XPLMCreateWindow*(inLeft: cint,
                        inTop: cint,
                        inRight: cint,
@@ -419,7 +500,8 @@ proc XPLMCreateWindow*(inLeft: cint,
                        inDrawCallback: XPLMDrawWindow_f,
                        inKeyCallback: XPLMHandleKey_f,
                        inMouseCallback: XPLMHandleMouseClick_f,
-                       inRefcon: pointer): XPLMWindowID {importc: "XPLMCreateWindow", dynlib.}
+                       inRefcon: pointer): XPLMWindowID
+                                        {importc: "XPLMCreateWindow", dynlib.}
 
 ##
 # XPLMCreateWindowEx
@@ -433,7 +515,8 @@ proc XPLMCreateWindow*(inLeft: cint,
 # correspond to the parameters of XPLMCreateWindow.
 #
 # XPLM_API XPLMWindowID XPLMCreateWindowEx(XPLMCreateWindow_t* inParams);
-proc XPLMCreateWindowEx*(inParams: PXPLMCreateWindow_t): XPLMWindowID {importc: "XPLMCreateWindowEx", dynlib.}
+proc XPLMCreateWindowEx*(inParams: PXPLMCreateWindow_t): XPLMWindowID
+                                    {importc: "XPLMCreateWindowEx", dynlib.}
 
 ##
 # XPLMDestroyWindow
@@ -442,7 +525,8 @@ proc XPLMCreateWindowEx*(inParams: PXPLMCreateWindow_t): XPLMWindowID {importc: 
 # call. Keyboard focus is removed from the window before destroying it.
 #
 # XPLM_API void XPLMDestroyWindow(XPLMWindowID inWindowID);
-proc XPLMDestroyWindow*(inWindowID: XPLMWindowID) {importc: "XPLMDestroyWindow", dynlib.}
+proc XPLMDestroyWindow*(inWindowID: XPLMWindowID)
+                                        {importc: "XPLMDestroyWindow", dynlib.}
 
 ##
 # XPLMGetWindowGeometry
@@ -450,16 +534,34 @@ proc XPLMDestroyWindow*(inWindowID: XPLMWindowID) {importc: "XPLMDestroyWindow",
 # This routine returns the position and size of a window in cockpit pixels.
 # Pass NULL to not receive any paramter.
 #
-# XPLM_API void XPLMGetWindowGeometry(XPLMWindowID inWindowID, int* outLeft, int* outTop, int* outRight, int* outBottom);
-proc XPLMGetWindowGeometry*(inWindowID: XPLMWindowID, outLeft: ptr cint, outTop: ptr cint, outRight: ptr cint, outBottom: ptr cint) {importc: "XPLMGetWindowGeometry", dynlib.}
+# XPLM_API void XPLMGetWindowGeometry(XPLMWindowID inWindowID,
+#                                     int* outLeft,
+#                                     int* outTop,
+#                                     int* outRight,
+#                                     int* outBottom);
+proc XPLMGetWindowGeometry*(inWindowID: XPLMWindowID,
+                            outLeft: ptr cint,
+                            outTop: ptr cint,
+                            outRight: ptr cint,
+                            outBottom: ptr cint)
+                                    {importc: "XPLMGetWindowGeometry", dynlib.}
 
 ##
 # XPLMSetWindowGeometry
 #
 # This routine allows you to set the position or height aspects of a window.
 #
-# XPLM_API void XPLMSetWindowGeometry(XPLMWindowID inWindowID, int inLeft, int inTop, int inRight, int inBottom);
-proc XPLMSetWindowGeometry*(inWindowID: XPLMWindowID, inLeft: ptr cint, inTop: ptr cint, inRight: ptr cint, inBottom: ptr cint) {importc: "XPLMSetWindowGeometry", dynlib.}
+# XPLM_API void XPLMSetWindowGeometry(XPLMWindowID inWindowID,
+#                                     int inLeft,
+#                                     int inTop,
+#                                     int inRight,
+#                                     int inBottom);
+proc XPLMSetWindowGeometry*(inWindowID: XPLMWindowID,
+                            inLeft: ptr cint,
+                            inTop: ptr cint,
+                            inRight: ptr cint,
+                            inBottom: ptr cint)
+                                    {importc: "XPLMSetWindowGeometry", dynlib.}
 
 ##
 # XPLMGetWindowIsVisible
@@ -467,7 +569,8 @@ proc XPLMSetWindowGeometry*(inWindowID: XPLMWindowID, inLeft: ptr cint, inTop: p
 # This routine returns whether a window is visible.
 #
 # XPLM_API int XPLMGetWindowIsVisible(XPLMWindowID inWindowID);
-proc XPLMGetWindowIsVisible*(inWindowID: XPLMWindowID): cint {importc: "XPLMGetWindowIsVisible", dynlib.}
+proc XPLMGetWindowIsVisible*(inWindowID: XPLMWindowID): cint
+                                {importc: "XPLMGetWindowIsVisible", dynlib.}
 
 ##
 # XPLMSetWindowIsVisible
@@ -475,7 +578,9 @@ proc XPLMGetWindowIsVisible*(inWindowID: XPLMWindowID): cint {importc: "XPLMGetW
 # This routine shows or hides a window.
 #
 # XPLM_API void XPLMSetWindowIsVisible(XPLMWindowID inWindowID, int inIsVisible);
-proc XPLMSetWindowIsVisible*(inWindowID: XPLMWindowID, inIsVisible: cint) {importc: "XPLMSetWindowIsVisible", dynlib.}
+proc XPLMSetWindowIsVisible*(inWindowID: XPLMWindowID,
+                             inIsVisible: cint)
+                                {importc: "XPLMSetWindowIsVisible", dynlib.}
 
 ##
 # XPLMGetWindowRefCon
@@ -484,7 +589,8 @@ proc XPLMSetWindowIsVisible*(inWindowID: XPLMWindowID, inIsVisible: cint) {impor
 # your own purposes.
 #
 # XPLM_API void * XPLMGetWindowRefCon(XPLMWindowID inWindowID);
-proc XPLMGetWindowRefCon*(inWindowID: XPLMWindowID): ptr void {importc: "XPLMGetWindowRefCon", dynlib.}
+proc XPLMGetWindowRefCon*(inWindowID: XPLMWindowID): pointer
+                                    {importc: "XPLMGetWindowRefCon", dynlib.}
 
 ##
 # XPLMSetWindowRefCon
@@ -493,7 +599,8 @@ proc XPLMGetWindowRefCon*(inWindowID: XPLMWindowID): ptr void {importc: "XPLMGet
 # yourself in the callbacks.
 #
 # XPLM_API void XPLMSetWindowRefCon(XPLMWindowID inWindowID, void* inRefcon);
-proc XPLMSetWindowRefCon*(inWindowID: XPLMWindowID, inRefcon: ptr void) {importc: "XPLMSetWindowRefCon", dynlib.}
+proc XPLMSetWindowRefCon*(inWindowID: XPLMWindowID, inRefcon: pointer)
+                                    {importc: "XPLMSetWindowRefCon", dynlib.}
 
 ##
 # XPLMTakeKeyboardFocus
@@ -503,7 +610,8 @@ proc XPLMSetWindowRefCon*(inWindowID: XPLMWindowID, inRefcon: ptr void) {importc
 # directly to X-Plane.
 #
 # XPLM_API void XPLMTakeKeyboardFocus(XPLMWindowID inWindow);
-proc XPLMTakeKeyboardFocus*(inWindowID: XPLMWindowID) {importc: "XPLMTakeKeyboardFocus", dynlib.}
+proc XPLMTakeKeyboardFocus*(inWindowID: XPLMWindowID)
+                                    {importc: "XPLMTakeKeyboardFocus", dynlib.}
 
 ##
 # XPLMBringWindowToFront
@@ -513,7 +621,8 @@ proc XPLMTakeKeyboardFocus*(inWindowID: XPLMWindowID) {importc: "XPLMTakeKeyboar
 # sure you are front before handling mouse clicks.
 #
 # XPLM_API void XPLMBringWindowToFront(XPLMWindowID inWindow);
-proc XPLMBringWindowToFront*(inWindowID: XPLMWindowID) {importc: "XPLMBringWindowToFront", dynlib.}
+proc XPLMBringWindowToFront*(inWindowID: XPLMWindowID)
+                                {importc: "XPLMBringWindowToFront", dynlib.}
 
 ##
 # XPLMIsWindowInFront
@@ -522,7 +631,8 @@ proc XPLMBringWindowToFront*(inWindowID: XPLMWindowID) {importc: "XPLMBringWindo
 # window.
 #
 # XPLM_API int XPLMIsWindowInFront(XPLMWindowID inWindow);
-proc XPLMIsWindowInFront*(inWindowID: XPLMWindowID) {importc: "XPLMIsWindowInFront", dynlib.}
+proc XPLMIsWindowInFront*(inWindowID: XPLMWindowID)
+                                    {importc: "XPLMIsWindowInFront", dynlib.}
 
 #******************************************************************************
 # Hot Keys
@@ -538,7 +648,7 @@ proc XPLMIsWindowInFront*(inWindowID: XPLMWindowID) {importc: "XPLMIsWindowInFro
 #
 # typedef void (* XPLMHotKey_f)(void* inRefcon);
 type
-    XPLMHotKey_f* = proc (inRefcon: ptr void) {.stdcall.}
+    XPLMHotKey_f* = proc (inRefcon: pointer) {.stdcall.}
 
 ##
 # XPLMHotKeyID
@@ -547,7 +657,7 @@ type
 #
 # typedef void * XPLMHotKeyID;
 type
-    XPLMHotKeyID*: ptr void
+    XPLMHotKeyID*: pointer
 
 ##
 # XPLMRegisterHotKey
@@ -559,8 +669,17 @@ type
 # returned.  During execution, the actual key associated with your hot key
 # may change, but you are insulated from this.
 #
-# XPLM_API XPLMHotKeyID XPLMRegisterHotKey(char inVirtualKey, XPLMKeyFlags inFlags, const char* inDescription, XPLMHotKey_f inCallback, void* inRefcon);
-proc XPLMRegisterHotKey*(inVirtualKey: cchar, inFlags: XPLMKeyFlags, inDescription: cstriing, inCallback: XPLMHotKey_f, inRefcon: ptr void): XPLMHotKeyID {importc: "XPLMRegisterHotKey", dynlib.}
+# XPLM_API XPLMHotKeyID XPLMRegisterHotKey(char inVirtualKey,
+#                                          XPLMKeyFlags inFlags,
+#                                          const char* inDescription,
+#                                          XPLMHotKey_f inCallback,
+#                                          void* inRefcon);
+proc XPLMRegisterHotKey*(inVirtualKey: cchar,
+                         inFlags: XPLMKeyFlags,
+                         inDescription: cstriing,
+                         inCallback: XPLMHotKey_f,
+                         inRefcon: pointer): XPLMHotKeyID
+                                    {importc: "XPLMRegisterHotKey", dynlib.}
 
 ##
 # XPLMUnregisterHotKey
@@ -568,7 +687,8 @@ proc XPLMRegisterHotKey*(inVirtualKey: cchar, inFlags: XPLMKeyFlags, inDescripti
 # This API unregisters a hot key.  You can only register your own hot keys.
 #
 # XPLM_API void XPLMUnregisterHotKey(XPLMHotKeyID inHotKey);
-proc XPLMUnregisterHotKey*(inHotKey: XPLMHotKeyID) {importc: "XPLMUnregisterHotKey", dynlib.}
+proc XPLMUnregisterHotKey*(inHotKey: XPLMHotKeyID)
+                                    {importc: "XPLMUnregisterHotKey", dynlib.}
 
 ##
 # XPLMCountHotKeys
@@ -584,7 +704,8 @@ proc XPLMCountHotKeys*(): cint {importc: "XPLMCountHotKeys", dynlib.}
 # Returns a hot key by index, for iteration on all hot keys.
 #
 # XPLM_API XPLMHotKeyID XPLMGetNthHotKey(int inIndex);
-proc XPLMGetNthHotKey*(inIndex: cint): XPLMHotKeyID {importc: "XPLMGetNthHotKey", dynlib.}
+proc XPLMGetNthHotKey*(inIndex: cint): XPLMHotKeyID
+                                        {importc: "XPLMGetNthHotKey", dynlib.}
 
 ##
 # XPLMGetHotKeyInfo
@@ -592,8 +713,17 @@ proc XPLMGetNthHotKey*(inIndex: cint): XPLMHotKeyID {importc: "XPLMGetNthHotKey"
 # Returns information about the hot key.  Return NULL for any  parameter you
 # don't want info about.  The description should be at least 512 chars long.
 #
-# XPLM_API void XPLMGetHotKeyInfo(XPLMHotKeyID inHotKey, char* outVirtualKey, XPLMKeyFlags* outFlags, char* outDescription, XPLMPluginID* outPlugin);
-proc XPLMGetHotKeyInfo*(inHotKey: XPLMHotKeyID, outVirtualKey: cstriing, outFlags: ptr XPLMKeyFlags, outDescription: cstriing, outPlugin: ptr XPLMPluginID) {importc: "XPLMGetHotKeyInfo", dynlib.}
+# XPLM_API void XPLMGetHotKeyInfo(XPLMHotKeyID inHotKey,
+#                                 char* outVirtualKey,
+#                                 XPLMKeyFlags* outFlags,
+#                                 char* outDescription,
+#                                 XPLMPluginID* outPlugin);
+proc XPLMGetHotKeyInfo*(inHotKey: XPLMHotKeyID,
+                        outVirtualKey: cstring,
+                        outFlags: ptr XPLMKeyFlags,
+                        outDescription: cstring,
+                        outPlugin: ptr XPLMPluginID)
+                                        {importc: "XPLMGetHotKeyInfo", dynlib.}
 
 ##
 # XPLMSetHotKeyCombination
@@ -601,5 +731,10 @@ proc XPLMGetHotKeyInfo*(inHotKey: XPLMHotKeyID, outVirtualKey: cstriing, outFlag
 # XPLMSetHotKeyCombination remaps a hot keys keystrokes.  You may remap
 # another plugin's keystrokes.
 #
-# XPLM_API void XPLMSetHotKeyCombination(XPLMHotKeyID inHotKey, char inVirtualKey, XPLMKeyFlags inFlags);
-proc XPLMSetHotKeyCombination*(inHotKey: XPLMHotKeyID, inVirtualKey: cchar, inFlags: XPLMKeyFlags) {importc: "XPLMSetHotKeyCombination", dynlib.}
+# XPLM_API void XPLMSetHotKeyCombination(XPLMHotKeyID inHotKey,
+#                                        char inVirtualKey,
+#                                        XPLMKeyFlags inFlags);
+proc XPLMSetHotKeyCombination*(inHotKey: XPLMHotKeyID,
+                               inVirtualKey: cchar,
+                               inFlags: XPLMKeyFlags)
+                                {importc: "XPLMSetHotKeyCombination", dynlib.}

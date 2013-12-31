@@ -84,8 +84,13 @@ type
 # If X-Plane is taking camera control away from you, this function will be
 # called with inIsLosingControl set to 1 and ioCameraPosition NULL.
 #
-# typedef int (* XPLMCameraControl_f)(XPLMCameraPosition_t* outCameraPosition, int inIsLosingControl, void* inRefcon);
-XPLMCameraControl_f* = proc(outCameraPosition: PXPLMCameraPosition_t: cint, inIsLosingControl: cint, inRefcon: pointer): cint {.stdcall.}
+# typedef int (* XPLMCameraControl_f)(XPLMCameraPosition_t* outCameraPosition,
+#                                     int inIsLosingControl,
+#                                     void* inRefcon);
+type
+    XPLMCameraControl_f* = proc (outCameraPosition: PXPLMCameraPosition_t,
+                                 inIsLosingControl: cint,
+                                 inRefcon: pointer): cint {.stdcall.}
 
 ##
 # XPLMControlCamera
@@ -94,8 +99,13 @@ XPLMCameraControl_f* = proc(outCameraPosition: PXPLMCameraPosition_t: cint, inIs
 # pass a non-null control function.  Specify in inHowLong how long you'd like
 # control  (indefinitely or until a key is pressed).
 #
-# XPLM_API void XPLMControlCamera(XPLMCameraControlDuration inHowLong, XPLMCameraControl_f inControlFunc, void *inRefcon);
-proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration, inControlFunc: PXPLMCameraPosition_t, inRefcon: pointer) {importc: "XPLMControlCamera", dynlib.}
+# XPLM_API void XPLMControlCamera(XPLMCameraControlDuration inHowLong,
+#                                 XPLMCameraControl_f inControlFunc,
+#                                 void *inRefcon);
+proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration,
+                        inControlFunc: XPLMCameraControl_f,
+                        inRefcon: pointer)
+                                        {importc: "XPLMControlCamera", dynlib.}
 
 ##
 # XPLMDontControlCamera
@@ -118,7 +128,8 @@ proc XPLMDontControlCamera*() {importc: "XPLMDontControlCamera", dynlib.}
 # current control duration will be returned.
 #
 # XPLM_API int XPLMIsCameraBeingControlled(XPLMCameraControlDuration *outCameraControlDuration);
-proc XPLMIsCameraBeingControlled*(outCameraControlDuration: ptr XPLMCameraControlDuration): cint {importc: "XPLMIsCameraBeingControlled", dynlib.}
+proc XPLMIsCameraBeingControlled*(outCameraControlDuration: ptr XPLMCameraControlDuration):
+                        cint {importc: "XPLMIsCameraBeingControlled", dynlib.}
 
 ##
 # XPLMReadCameraPosition
@@ -126,4 +137,5 @@ proc XPLMIsCameraBeingControlled*(outCameraControlDuration: ptr XPLMCameraContro
 # This function reads the current camera position.
 #
 # XPLM_API void XPLMReadCameraPosition(XPLMCameraPosition_t *outCameraPosition);
-proc XPLMReadCameraPosition*(outCameraPosition: PXPLMCameraPosition_t) {importc: "XPLMReadCameraPosition", dynlib.}
+proc XPLMReadCameraPosition*(outCameraPosition: PXPLMCameraPosition_t)
+                                {importc: "XPLMReadCameraPosition", dynlib.}

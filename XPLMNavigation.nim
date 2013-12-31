@@ -107,7 +107,8 @@ proc XPLMGetFirstNavAid*(): XPLMNavRef {importc: "XPLMGetFirstNavAid", dynlib.}
 # returns a bogus nav aid.  Using this nav aid can crash x-plane.
 #
 # XPLM_API XPLMNavRef XPLMGetNextNavAid(XPLMNavRef inNavAidRef);
-proc XPLMGetNextNavAid*(inNavAidRef: XPLMNavRef): XPLMNavRef {importc: "XPLMGetNextNavAid", dynlib.}
+proc XPLMGetNextNavAid*(inNavAidRef: XPLMNavRef): XPLMNavRef
+                                        {importc: "XPLMGetNextNavAid", dynlib.}
 
 ##
 # XPLMFindFirstNavAidOfType
@@ -121,7 +122,8 @@ proc XPLMGetNextNavAid*(inNavAidRef: XPLMNavRef): XPLMNavRef {importc: "XPLMGetN
 # nav aid.  Using this nav aid can crash x-plane.
 #
 # XPLM_API XPLMNavRef XPLMFindFirstNavAidOfType(XPLMNavType inType);
-proc XPLMFindFirstNavAidOfType*(inType: XPLMNavType): XPLMNavRef {importc: "XPLMFindFirstNavAidOfType", dynlib.}
+proc XPLMFindFirstNavAidOfType*(inType: XPLMNavType): XPLMNavRef
+                                {importc: "XPLMFindFirstNavAidOfType", dynlib.}
 
 ##
 # XPLMFindLastNavAidOfType
@@ -135,7 +137,8 @@ proc XPLMFindFirstNavAidOfType*(inType: XPLMNavType): XPLMNavRef {importc: "XPLM
 # nav aid.  Using this nav aid can crash x-plane.
 #
 # XPLM_API XPLMNavRef XPLMFindLastNavAidOfType(XPLMNavType inType);
-proc XPLMFindLastNavAidOfType*(inType: XPLMNavType): XPLMNavRef {importc: "XPLMFindLastNavAidOfType", dynlib.}
+proc XPLMFindLastNavAidOfType*(inType: XPLMNavType): XPLMNavRef
+                                {importc: "XPLMFindLastNavAidOfType", dynlib.}
 
 ##
 # XPLMFindNavAid
@@ -175,7 +178,8 @@ proc XPLMFindNavAid*(inNameFragment: cstring,
                      inLat: ptr cfloat,
                      inLon: ptr cfloat,
                      inFrequency: ptr cint,
-                     inType: cint): XPLMNavRef {importc: "XPLMFindNavAid", dynlib.}
+                     inType: cint): XPLMNavRef
+                                          {importc: "XPLMFindNavAid", dynlib.}
 
 ##
 # XPLMGetNavAidInfo
@@ -215,7 +219,8 @@ proc XPLMGetNavAidInfo*(inRef: XPLMNavRef,
                         outFrequency: ptr cint,
                         outID: cstring,
                         outName: cstring,
-                        outReg: cstring) {importc: "XPLMGetNavAidInfo", dynlib.}
+                        outReg: cstring)
+                                        {importc: "XPLMGetNavAidInfo", dynlib.}
 
 
 #******************************************************************************
@@ -245,7 +250,8 @@ proc XPLMCountFMSEntries*(): cint {importc: "XPLMCountFMSEntries", dynlib.}
 # This routine returns the index of the entry the pilot is viewing.
 #
 # XPLM_API int XPLMGetDisplayedFMSEntry(void);
-proc XPLMGetDisplayedFMSEntry*(): cint {importc: "XPLMGetDisplayedFMSEntry", dynlib.}
+proc XPLMGetDisplayedFMSEntry*(): cint
+                                {importc: "XPLMGetDisplayedFMSEntry", dynlib.}
 
 ##
 # XPLMGetDestinationFMSEntry
@@ -253,7 +259,8 @@ proc XPLMGetDisplayedFMSEntry*(): cint {importc: "XPLMGetDisplayedFMSEntry", dyn
 # This routine returns the index of the entry the FMS is flying to.
 #
 # XPLM_API int XPLMGetDestinationFMSEntry(void);
-proc XPLMGetDestinationFMSEntry*(): cint {importc: "XPLMGetDestinationFMSEntry", dynlib.}
+proc XPLMGetDestinationFMSEntry*(): cint
+                              {importc: "XPLMGetDestinationFMSEntry", dynlib.}
 
 ##
 # XPLMSetDisplayedFMSEntry
@@ -261,7 +268,8 @@ proc XPLMGetDestinationFMSEntry*(): cint {importc: "XPLMGetDestinationFMSEntry",
 # This routine changes which entry the FMS is showing to the index specified.
 #
 # XPLM_API void XPLMSetDisplayedFMSEntry(int inIndex);
-proc XPLMSetDisplayedFMSEntry*(inIndex: cint) {importc: "XPLMSetDisplayedFMSEntry", dynlib.}
+proc XPLMSetDisplayedFMSEntry*(inIndex: cint)
+                                {importc: "XPLMSetDisplayedFMSEntry", dynlib.}
 
 ##
 # XPLMSetDestinationFMSEntry
@@ -269,7 +277,8 @@ proc XPLMSetDisplayedFMSEntry*(inIndex: cint) {importc: "XPLMSetDisplayedFMSEntr
 # This routine changes which entry the FMS is flying the aircraft toward.
 #
 # XPLM_API void XPLMSetDestinationFMSEntry(int inIndex);
-proc XPLMSetDestinationFMSEntry*(inIndex: cint) {importc: "XPLMSetDestinationFMSEntry", dynlib.}
+proc XPLMSetDestinationFMSEntry*(inIndex: cint)
+                              {importc: "XPLMSetDestinationFMSEntry", dynlib.}
 
 ##
 # XPLMGetFMSEntryInfo
@@ -282,14 +291,21 @@ proc XPLMSetDestinationFMSEntry*(inIndex: cint) {importc: "XPLMSetDestinationFMS
 # XPLM_NAV_NOT_FOUND. FMS name entry buffers should be at least 256 chars in
 # length.
 #
-# XPLM_API void XPLMGetFMSEntryInfo(int inIndex, XPLMNavType* outType, char* outID, XPLMNavRef* outRef, int* outAltitude, float* outLat, float* outLon);
+# XPLM_API void XPLMGetFMSEntryInfo(int inIndex,
+#                                   XPLMNavType* outType,
+#                                   char* outID,
+#                                   XPLMNavRef* outRef,
+#                                   int* outAltitude,
+#                                   float* outLat,
+#                                   float* outLon);
 proc XPLMGetFMSEntryInfo*(inIndex: cint,
                           outType: ptr cint,
                           outRef: ptr cint,
                           outAltitude: ptr cint,
                           outID: cstring,
                           outLat: cstring,
-                          outLon: ptr cflout) {importc: "XPLMGetFMSEntryInfo", dynlib.}
+                          outLon: ptr cflout)
+                                      {importc: "XPLMGetFMSEntryInfo", dynlib.}
 
 
 # XPLMSetFMSEntryInfo
@@ -300,7 +316,10 @@ proc XPLMGetFMSEntryInfo*(inIndex: cint,
 # support VORs and NDBs. Use the routines below to clear or fly to a lat/lon.
 #
 # XPLM_API void XPLMSetFMSEntryInfo(int inIndex, XPLMNavRef inRef, int inAltitude);
-proc XPLMSetFMSEntryInfo*(inIndex: cint, inRef: XPLMNavRef, inAltitude: cint) {importc: "XPLMSetFMSEntryInfo", dynlib.}
+proc XPLMSetFMSEntryInfo*(inIndex: cint,
+                          inRef: XPLMNavRef,
+                          inAltitude: cint)
+                                      {importc: "XPLMSetFMSEntryInfo", dynlib.}
 
 ##
 # XPLMSetFMSEntryLatLon
@@ -309,7 +328,11 @@ proc XPLMSetFMSEntryInfo*(inIndex: cint, inRef: XPLMNavRef, inAltitude: cint) {i
 # coordinates.
 #
 # XPLM_API void XPLMSetFMSEntryLatLon(int inIndex, float inLat, float inLon, int inAltitude);
-proc XPLMSetFMSEntryLatLon*(inIndex: cint, inLat: cfloat, inLon: cfloat, inAltitude: cint) {importc: "XPLMSetFMSEntryLatLon", dynlib.}
+proc XPLMSetFMSEntryLatLon*(inIndex: cint,
+                            inLat: cfloat,
+                            inLon: cfloat,
+                            inAltitude: cint)
+                                    {importc: "XPLMSetFMSEntryLatLon", dynlib.}
 
 ##
 # XPLMClearFMSEntry
@@ -334,7 +357,8 @@ proc XPLMClearFMSEntry*(inIndex: cint) {importc: "XPLMClearFMSEntry", dynlib.}
 # one of fix, airport, VOR or NDB.
 #
 # XPLM_API XPLMNavType XPLMGetGPSDestinationType(void);
-proc XPLMGetGPSDestinationType*(): cint {importc: "XPLMGetGPSDestinationType", dynlib.}
+proc XPLMGetGPSDestinationType*(): cint
+                                {importc: "XPLMGetGPSDestinationType", dynlib.}
 
 ##
 # XPLMGetGPSDestination
@@ -342,5 +366,6 @@ proc XPLMGetGPSDestinationType*(): cint {importc: "XPLMGetGPSDestinationType", d
 # This routine returns the current GPS destination.
 #
 # XPLM_API XPLMNavRef XPLMGetGPSDestination(void);
-proc XPLMGetGPSDestination*(): XPLMNavRef {importc: "XPLMGetGPSDestination", dynlib.}
+proc XPLMGetGPSDestination*(): XPLMNavRef
+                                    {importc: "XPLMGetGPSDestination", dynlib.}
 
