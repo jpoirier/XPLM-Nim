@@ -120,12 +120,12 @@ type
 # drawing.  The OpenGL state (texturing, etc.) will be unknown.
 #
 # typedef int (* XPLMDrawCallback_f)(XPLMDrawingPhase inPhase,
-#                                      int inIsBefore,
-#                                      void* inRefcon);
+#                                    int inIsBefore,
+#                                    void* inRefcon);
 type
     XPLMDrawCallback_f* = proc (inPhase: XPLMDrawingPhase,
                                 inIsBefore: cint,
-                                inRefcon: pointer) {.stdcall.}
+                                inRefcon: pointer): cint {.stdcall.}
 
 ##
 # XPLMKeySniffer_f
@@ -404,7 +404,7 @@ type
                             y: cint,
                             wheel: cint,
                             clicks: cint,
-                            inRefcon: pointer) {.stdcall.}
+                            inRefcon: pointer): cint {.stdcall.}
 
 ##
 # XPLMCreateWindow_t
@@ -631,7 +631,7 @@ proc XPLMBringWindowToFront*(inWindowID: XPLMWindowID)
 # window.
 #
 # XPLM_API int XPLMIsWindowInFront(XPLMWindowID inWindow);
-proc XPLMIsWindowInFront*(inWindowID: XPLMWindowID)
+proc XPLMIsWindowInFront*(inWindowID: XPLMWindowID): cint
                                     {importc: "XPLMIsWindowInFront", dynlib.}
 
 #******************************************************************************
@@ -676,7 +676,7 @@ type
 #                                          void* inRefcon);
 proc XPLMRegisterHotKey*(inVirtualKey: cchar,
                          inFlags: XPLMKeyFlags,
-                         inDescription: cstriing,
+                         inDescription: cstring,
                          inCallback: XPLMHotKey_f,
                          inRefcon: pointer): XPLMHotKeyID
                                     {importc: "XPLMRegisterHotKey", dynlib.}

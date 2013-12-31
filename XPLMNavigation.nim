@@ -215,8 +215,8 @@ proc XPLMGetNavAidInfo*(inRef: XPLMNavRef,
                         outLatitude: ptr cfloat,
                         outLongitude: ptr cfloat,
                         outHeight: ptr cfloat,
-                        outHeading: ptr cfloat,
                         outFrequency: ptr cint,
+                        outHeading: ptr cfloat,
                         outID: cstring,
                         outName: cstring,
                         outReg: cstring)
@@ -299,12 +299,12 @@ proc XPLMSetDestinationFMSEntry*(inIndex: cint)
 #                                   float* outLat,
 #                                   float* outLon);
 proc XPLMGetFMSEntryInfo*(inIndex: cint,
-                          outType: ptr cint,
-                          outRef: ptr cint,
-                          outAltitude: ptr cint,
+                          outType: ptr XPLMNavType,
                           outID: cstring,
-                          outLat: cstring,
-                          outLon: ptr cflout)
+                          outRef: ptr XPLMNavRef,
+                          outAltitude: ptr cint,
+                          outLat: ptr cfloat,
+                          outLon: ptr cfloat)
                                       {importc: "XPLMGetFMSEntryInfo", dynlib.}
 
 
@@ -315,7 +315,9 @@ proc XPLMGetFMSEntryInfo*(inIndex: cint,
 # and radio-beacon navaids.  Currently of radio beacons, the FMS can only
 # support VORs and NDBs. Use the routines below to clear or fly to a lat/lon.
 #
-# XPLM_API void XPLMSetFMSEntryInfo(int inIndex, XPLMNavRef inRef, int inAltitude);
+# XPLM_API void XPLMSetFMSEntryInfo(int inIndex,
+#                                   XPLMNavRef inRef,
+#                                   int inAltitude);
 proc XPLMSetFMSEntryInfo*(inIndex: cint,
                           inRef: XPLMNavRef,
                           inAltitude: cint)
@@ -357,7 +359,7 @@ proc XPLMClearFMSEntry*(inIndex: cint) {importc: "XPLMClearFMSEntry", dynlib.}
 # one of fix, airport, VOR or NDB.
 #
 # XPLM_API XPLMNavType XPLMGetGPSDestinationType(void);
-proc XPLMGetGPSDestinationType*(): cint
+proc XPLMGetGPSDestinationType*(): XPLMNavType
                                 {importc: "XPLMGetGPSDestinationType", dynlib.}
 
 ##

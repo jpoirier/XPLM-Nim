@@ -138,7 +138,7 @@ proc XPLMGetNthAircraftModel*(inIndex: cint,
 # access to the multiplayer planes.  Use this to wait for access to
 # multiplayer.
 #
-# typedef void (* XPLMPlanesAvailable_f)(void* inRefcon);
+# typedef void (*XPLMPlanesAvailable_f)(void* inRefcon);
 type
     XPLMPlanesAvailable_f* = proc (inRefcon: pointer) {.stdcall.}
 
@@ -156,12 +156,12 @@ type
 # called when the airplanes are available. If you do receive airplane access,
 # your callback will not be called.
 #
-# XPLM_API int XPLMAcquirePlanes(char ** inAircraft,    /* Can be NULL */
+# XPLM_API int XPLMAcquirePlanes(char** inAircraft,    /* Can be NULL */
 #                                XPLMPlanesAvailable_f inCallback,
 #                                void* inRefcon);
 proc XPLMAcquirePlanes*(inAircraft: ptr cstring,
                         inCallback: XPLMPlanesAvailable_f,
-                        inRefcon: pointer)
+                        inRefcon: pointer): cint
                                         {importc: "XPLMAcquirePlanes", nodecl.}
 
 ##
@@ -202,7 +202,7 @@ proc XPLMSetAircraftModel*(inIndex: cint,
 # This routine turns off X-Plane's AI for a given plane.  The plane will
 # continue to draw and be a real plane in X-Plane, but will not  move itself.
 #
-# XPLM_API void XPLMDisableAIForPlane(int inPlan?eIndex);
+# XPLM_API void XPLMDisableAIForPlane(int inPlaneIndex);
 proc XPLMDisableAIForPlane*(inPlaneIndex: cint)
                                     {importc: "XPLMDisableAIForPlane", nodecl.}
 

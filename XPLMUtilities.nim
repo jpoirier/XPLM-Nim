@@ -760,6 +760,6 @@ proc XPLMUnregisterCommandHandler*(inComand: XPLMCommandRef,
                                    inHandler: XPLMCommandCallback_f,
                                    inBefore: cint,
                                    inRefcon: pointer)
-                              {importc: "XPLMUnregisterCommandHandler", dynlib.}
+                         {importc: "XPLMUnregisterCommandHandler", dynlib.}
 
 

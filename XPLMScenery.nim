@@ -231,7 +231,7 @@ type
 # plugin is re-enabled.  If your plugin is unloaded before this callback is
 # ever called, the SDK will release the object handle for you.
 #
-# typedef void (* XPLMObjectLoaded_f)(XPLMObjectRef inObject, void * inRefcon);
+# typedef void (*XPLMObjectLoaded_f)(XPLMObjectRef inObject, void * inRefcon);
 type
      XPLMObjectLoaded_f* = proc (inObject: XPLMObjectRef,
                                  inRefcon: pointer) {.stdcall.}
@@ -378,6 +378,6 @@ proc XPLMLookupObjects*(inPath: cstring,
                         inLatitude: cfloat,
                         inLongitude: cfloat,
                         enumerator: XPLMLibraryEnumerator_f,
-                        ref: pointer): cint
+                        _ref: pointer): cint
                                         {importc: "XPLMLookupObjects", dynlib.}
 

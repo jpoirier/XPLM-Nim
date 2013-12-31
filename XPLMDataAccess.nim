@@ -144,7 +144,7 @@ proc XPLMIsDataRefGood*(inDataRef: XPLMDataRef): cint
 # ref is available in multiple data types, they will all be returned.
 #
 # XPLM_API XPLMDataTypeID XPLMGetDataRefTypes(XPLMDataRef inDataRef);
-proc XPLMGetDataRefTypes*(inDataRef: XPLMDataRef): cint
+proc XPLMGetDataRefTypes*(inDataRef: XPLMDataRef): XPLMDataTypeID
                                     {importc: "XPLMGetDataRefTypes", dynlib.}
 
 #******************************************************************************
@@ -299,9 +299,9 @@ proc XPLMSetDatavi*(inDataRef: XPLMDataRef,
 # plugin may have different behavior.
 #
 # XPLM_API int XPLMGetDatavf(XPLMDataRef inDataRef,
-#                              float * outValues,
-#                              int inOffset,
-#                              int inMax);
+#                            float * outValues,
+#                            int inOffset,
+#                            int inMax);
 proc XPLMGetDatavf*(inDataRef: XPLMDataRef,
                     outValues: ptr cfloat,
                     inOffset: cint,
@@ -321,9 +321,9 @@ proc XPLMGetDatavf*(inDataRef: XPLMDataRef,
 # plugin may have different behavior.
 #
 # XPLM_API void XPLMSetDatavf(XPLMDataRef inDataRef,
-#                               float * inValues,
-#                               int inoffset,
-#                               int inCount);
+#                            float * inValues,
+#                            int inoffset,
+#                            int inCount);
 proc XPLMSetDatavf*(inDataRef: XPLMDataRef,
                     inValues: ptr cfloat,
                     inoffset: cint,
@@ -523,7 +523,7 @@ proc XPLMRegisterDataAccessor*(inDataName: cstring,
                                inReadData: XPLMGetDatab_f,
                                inWriteData: XPLMSetDatab_f,
                                inReadRefcon: pointer,
-                               inWriteRefcon: pointer): cint
+                               inWriteRefcon: pointer): XPLMDataRef
                                 {importc: "XPLMRegisterDataAccessor", dynlib.}
 
 ##

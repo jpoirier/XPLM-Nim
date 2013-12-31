@@ -21,7 +21,7 @@
 # get your own ID.
 #
 # XPLM_API XPLMPluginID XPLMGetMyID(void);
-proc XPLMGetMyID*(): cint {importc: "XPLMGetMyID", nodecl.}
+proc XPLMGetMyID*(): XPLMPluginID {importc: "XPLMGetMyID", nodecl.}
 
 ##
 # XPLMCountPlugins
@@ -40,7 +40,8 @@ proc XPLMGetMyID*(): cint {importc: "XPLMCountPlugins", nodecl.}
 # order.
 #
 # XPLM_API XPLMPluginID XPLMGetNthPlugin(int inIndex);
-proc XPLMGetMyID*(inIndex: cint): cint {importc: "XPLMGetMyID", nodecl.}
+proc XPLMGetMyID*(inIndex: cint): XPLMPluginID
+                                              {importc: "XPLMGetMyID", nodecl.}
 
 ##
 # XPLMFindPluginByPath
@@ -50,7 +51,7 @@ proc XPLMGetMyID*(inIndex: cint): cint {importc: "XPLMGetMyID", nodecl.}
 # path does not point to a currently loaded plug-in.
 #
 # XPLM_API XPLMPluginID XPLMFindPluginByPath(const char* inPath);
-proc XPLMFindPluginByPath*(inPath: cstring): cint
+proc XPLMFindPluginByPath*(inPath: cstring): XPLMPluginID
                                     {importc: "XPLMFindPluginByPath", nodecl.}
 
 ##
@@ -64,7 +65,7 @@ proc XPLMFindPluginByPath*(inPath: cstring): cint
 # locate another plugin that your plugin interoperates with
 #
 # XPLM_API XPLMPluginID XPLMFindPluginBySignature(const char* inSignature);
-proc XPLMFindPluginBySignature*(inSignature: cstring): cint
+proc XPLMFindPluginBySignature*(inSignature: cstring): XPLMPluginID
                                 {importc: "XPLMFindPluginBySignature", nodecl.}
 
 ##
@@ -84,10 +85,10 @@ proc XPLMFindPluginBySignature*(inSignature: cstring): cint
 #                                 char* outFilePath,    /* Can be NULL */
 #                                 char* outSignature,    /* Can be NULL */
 #                                 char* outDescription);    /* Can be NULL */
-proc XPLMGetPluginInfo*(inPlugin: cint,
-                        outName,
-                        outFilePath,
-                        outSignature,
+proc XPLMGetPluginInfo*(inPlugin: XPLMPluginID,
+                        outName: cstring,
+                        outFilePath,: cstring
+                        outSignature: cstring,
                         outDescription: cstring)
                                         {importc: "XPLMGetPluginInfo", nodecl.}
 
@@ -231,7 +232,7 @@ const
 # XPLM_API void XPLMSendMessageToPlugin*(XPLMPluginID inPlugin,
 #                                        int inMessage,
 #                                        void* inParam);
-proc XPLMSendMessageToPlugin*(inPlugin,
+proc XPLMSendMessageToPlugin*(inPlugin: XPLMPluginID,
                               inMessage: cint,
                               inParam: pointer)
                                   {importc: "XPLMSendMessageToPlugin", nodecl.}
@@ -261,7 +262,7 @@ type
     # typedef void (*XPLMFeatureEnumerator_f)(const char* inFeature,
     #                                         void* inRef);
     XPLMFeatureEnumerator_f* = proc (inFeature: cstring,
-                                     inRefcon: pointer) {.stdcall.}
+                                     inRef: pointer) {.stdcall.}
 
 ##
 # XPLMHasFeature
@@ -292,7 +293,8 @@ proc XPLMIsFeatureEnabled*(inFeature: cstring): cint
 # depending on the feature.
 #
 # XPLM_API void XPLMEnableFeature(const char * inFeature, int inEnable);
-proc XPLMEnableFeature*(inFeature: cstring, inEnable: cint)
+proc XPLMEnableFeature*(inFeature: cstring,
+                        inEnable: cint)
                                         {importc: "XPLMEnableFeature", nodecl.}
 
 ##

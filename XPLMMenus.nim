@@ -175,7 +175,7 @@ proc XPLMSetMenuItemName*(nMenu; XPLMMenuID,
 #                                 XPLMMenuCheck inCheck);
 proc XPLMCheckMenuItem*(inMenu: XPLMMenuID,
                         index: cint,
-                         inCheck: XPLMMenuCheck)
+                        inCheck: XPLMMenuCheck)
                                         {importc: "XPLMCheckMenuItem", dynlib.}
 
 ##

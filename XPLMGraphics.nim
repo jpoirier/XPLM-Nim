@@ -157,7 +157,7 @@ proc XPLMBindTexture2d*(inTextureNum: cint,
 #
 # XPLM_API void XPLMGenerateTextureNumbers(int * outTextureIDs,
 #                                          int inCount);
-proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr outTextureIDs,
+proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr cint,
                                  inCount: cint)
                               {importc: "XPLMGenerateTextureNumbers", dynlib.}
 
@@ -175,8 +175,8 @@ proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr outTextureIDs,
 # it isn't around, or at least a way to find out whether it is loaded or not.
 #
 # XPLM_API int XPLMGetTexture(XPLMTextureID inTexture);
-proc XPLMGetTexture*(inTexture: XPLMTextureID)
-                             {              importc: "XPLMGetTexture", dynlib.}
+proc XPLMGetTexture*(inTexture: XPLMTextureID): cint
+                                          {importc: "XPLMGetTexture", dynlib.}
 
 ##
 # XPLMWorldToLocal

@@ -184,7 +184,7 @@ proc XPLMCreateFlightLoop*(inParams: PXPLMCreateFlightLoop_t): XPLMFlightLoopID
 # This routine destroys a flight loop callback by ID.
 #
 # XPLM_API void XPLMDestroyFlightLoop(XPLMFlightLoopID inFlightLoopID);
-proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID): cint
+proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID):
                                 {.importc: "XPLMDestroyFlightLoop", nodecl.}
 
 ##
