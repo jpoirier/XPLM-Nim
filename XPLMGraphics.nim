@@ -263,7 +263,7 @@ proc XPLMDrawTranslucentDarkBox*(inLeft: cint,
 type
     XPLMFontIDEnums* = enum
         # Mono-spaced font for user interface.  Available in all versions of the SDK.
-        xplmFont_Basic = 0,
+        xplmFont_Basic,
 
         # Deprecated, do not use.
         xplmFont_Menus,
@@ -314,7 +314,7 @@ type
         xplmFont_SmallRound,
 
         # Deprecated, do not use.
-        xplmFont_Menus_Localized ,
+        xplmFont_Menus_Localized,
 
         # Proportional UI font.
         xplmFont_Proportional

@@ -18,7 +18,7 @@
 #
 type
      XPLMCommandKeyIDEnums* = enum
-          xplm_key_pause = 0,
+          xplm_key_pause,
           xplm_key_revthrust,
           xplm_key_jettison,
           xplm_key_brakesreg,
@@ -128,7 +128,7 @@ type
 #
 type
      XPLMCommandButtonIDEnums* = enum
-          xplm_joy_nothing = 0,
+          xplm_joy_nothing,
           xplm_joy_start_all,
           xplm_joy_start_0,
           xplm_joy_start_1,
@@ -239,7 +239,7 @@ type
 #
 type
      XPLMHostApplicationIDEnums* = enum
-          xplm_Host_Unknown = 0,
+          xplm_Host_Unknown,
           xplm_Host_XPlane,
           xplm_Host_PlaneMaker,
           xplm_Host_WorldMaker,
@@ -262,7 +262,7 @@ type
 #
 type
      XPLMLanguageCodeEnums* = enum
-          xplm_Language_Unknown = 0,
+          xplm_Language_Unknown,
           xplm_Language_English
           xplm_Language_French
           xplm_Language_German

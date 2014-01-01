@@ -81,7 +81,7 @@ type
 #
 type
     XPLMDataTypeIDEnums* = enum
-        xplmType_Unknown = 0,
+        xplmType_Unknown,
         xplmType_Int,
         xplmType_Float,
         xplmType_Double,
