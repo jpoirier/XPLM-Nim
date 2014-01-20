@@ -167,7 +167,7 @@ type
 #                                XPLMPlanesAvailable_f inCallback,
 #                                void* inRefcon);
 #
-proc XPLMAcquirePlanes*(inAircraft: ptr cstring,
+proc XPLMAcquirePlanes*(inAircraft: ptr ptr cchar,
                         inCallback: XPLMPlanesAvailable_f,
                         inRefcon: pointer): cint
                                         {importc: "XPLMAcquirePlanes", nodecl.}

@@ -508,11 +508,12 @@ proc XPLMExtractFileAndPath(inFullPath: cstring): cstring
 #                                       int* outReturnedFiles);
 #
 proc XPLMGetDirectoryContents*(inDirectoryPath: cstring
-                               inFirstReturn: cint
-                               inFileNameBufSize: cstring
-                               outIndices: cint
-                               inIndexCount: ptr ptr cchar
-                               outTotalFiles: ptr cint
+                               inFirstReturn: cint,
+                               outFileNames: cstring,
+                               inFileNameBufSize: cint,
+                               outIndices: ptr ptr cchar,
+                               inIndexCount: cint,
+                               outTotalFiles: ptr cint,
                                outReturnedFiles: ptr cint): cint
                               {importc: "XPLMGetDirectoryContents", dynlib.}
 
@@ -547,7 +548,7 @@ proc XPLMInitialized*(): cint {importc: "XPLMInitialized", dynlib.}
 #                               int* outXPLMVersion,
 #                               XPLMHostApplicationID* outHostID);
 #
-proc XPLMGetVersions*(outXPlaneVersion: cstring,
+proc XPLMGetVersions*(outXPlaneVersion: ptr cint,
                       outXPLMVersion: ptr cint,
                       outHostID: ptr XPLMHostApplicationID)
                                         {importc: "XPLMGetVersions", dynlib.}
@@ -757,7 +758,7 @@ proc XPLMCommandOnce*(inCommand: XPLMCommandRef)
 #                                           const char* inDescription);
 #
 proc XPLMCreateCommand*(inName: cstring,
-                        inDescription; cstring): XPLMCommandRef
+                        inDescription: cstring): XPLMCommandRef
                                         {importc: "XPLMCreateCommand", dynlib.}
 
 
@@ -779,7 +780,8 @@ proc XPLMCreateCommand*(inName: cstring,
 #
 proc XPLMRegisterCommandHandler*(inComand: XPLMCommandRef,
                                  inHandler: XPLMCommandCallback_f,
-                                 inBefore: cint, inRefcon: pointer)
+                                 inBefore: cint,
+                                 inRefcon: pointer)
                               {importc: "XPLMRegisterCommandHandler", dynlib.}
 
 # XPLMUnregisterCommandHandler

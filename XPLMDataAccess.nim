@@ -278,7 +278,7 @@ proc XPLMSetDatad*(inDataRef: XPLMDataRef,
 # plugin may have different behavior.
 #
 # XPLM_API int XPLMGetDatavi(XPLMDataRef inDataRef,
-#                              int * outValues,
+#                              int* outValues,
 #                              int inOffset,
 #                              int inMax);
 #
@@ -301,7 +301,7 @@ proc XPLMGetDatavi*(inDataRef: XPLMDataRef,
 # plugin may have different behavior.
 #
 # XPLM_API void XPLMSetDatavi(XPLMDataRef inDataRef,
-#                               int * inValues,
+#                               int* inValues,
 #                               int inoffset,
 #                               int inCount);
 #
@@ -328,7 +328,7 @@ proc XPLMSetDatavi*(inDataRef: XPLMDataRef,
 # plugin may have different behavior.
 #
 # XPLM_API int XPLMGetDatavf(XPLMDataRef inDataRef,
-#                            float * outValues,
+#                            float* outValues,
 #                            int inOffset,
 #                            int inMax);
 #
@@ -351,7 +351,7 @@ proc XPLMGetDatavf*(inDataRef: XPLMDataRef,
 # plugin may have different behavior.
 #
 # XPLM_API void XPLMSetDatavf(XPLMDataRef inDataRef,
-#                            float * inValues,
+#                            float* inValues,
 #                            int inoffset,
 #                            int inCount);
 #
@@ -377,7 +377,7 @@ proc XPLMSetDatavf*(inDataRef: XPLMDataRef,
 # plugin may have different behavior.
 #
 # XPLM_API int XPLMGetDatab(XPLMDataRef inDataRef,
-#                             void * outValue,
+#                             void* outValue,
 #                             int inOffset,
 #                             int inMaxBytes);
 #
@@ -400,7 +400,7 @@ proc XPLMGetDatab*(inDataRef: XPLMDataRef,
 # plugin may have different behavior.
 #
 # XPLM_API void XPLMSetDatab(XPLMDataRef inDataRef,
-#                            void * inValue,
+#                            void* inValue,
 #                            int inOffset,
 #                            int inLength);
 #
@@ -477,7 +477,7 @@ type
 
     # typedef int (* XPLMGetDatavi_f)(void * inRefcon, int * outValues,
     #                                  int inOffset, int inMax);
-#
+    #
     XPLMGetDatavi_f* = proc (inRefcon: pointer,
                              outValues: ptr cint,
                              inOffset: cint,
@@ -485,7 +485,7 @@ type
 
     # typedef void (* XPLMSetDatavi_f)(void * inRefcon, int * inValues,
     #                                   int inOffset, int inCount);
-#
+    #
     XPLMSetDatavi_f* = proc (inRefcon: pointer,
                              inValues: ptr int,
                              inOffset: cint,
@@ -493,7 +493,7 @@ type
 
     # typedef int (* XPLMGetDatavf_f)(void * inRefcon, float * outValues,
     #                                  int inOffset, int inMax);
-#
+    #
     XPLMGetDatavf_f* = proc (inRefcon: pointer,
                              outValues: ptr cfloat,
                              inOffset: cint,
@@ -501,7 +501,7 @@ type
 
     # typedef void (* XPLMSetDatavf_f)(void * inRefcon, float * inValues,
     #                                   int inOffset, int inCount);
-#
+    #
     XPLMSetDatavf_f* = proc (inRefcon: pointer,
                              inValues: ptr cfloat,
                              inOffset: cint,
@@ -509,7 +509,7 @@ type
 
     # typedef int (* XPLMGetDatab_f)(void * inRefcon, void * outValue,
     #                                 int inOffset, int inMaxLength);
-#
+    #
     XPLMGetDatab_f* = proc (inRefcon: pointer,
                             outValue: pointer,
                             inOffset: cint,
@@ -517,7 +517,7 @@ type
 
     # typedef void (* XPLMSetDatab_f)(void * inRefcon, void * inValue,
     #                                  int inOffset, int inLength);
-#
+    #
     XPLMSetDatab_f* = proc (inRefcon: pointer,
                             inValue: pointer,
                             inOffset: cint,
@@ -680,10 +680,10 @@ proc XPLMShareData*(inDataName: cstring,
 # must match XPLMShareData. The actual memory will not necessarily be freed,
 # since other plug-ins could be using it.
 #
-# XPLM_API int XPLMUnshareData(const char * inDataName,
+# XPLM_API int XPLMUnshareData(const char* inDataName,
 #                             XPLMDataTypeID inDataType,
 #                             XPLMDataChanged_f inNotificationFunc,
-#                             void * inNotificationRefcon);
+#                             void* inNotificationRefcon);
 #
 proc XPLMUnshareData*(inDataName: cstring,
                       inDataType: XPLMDataTypeID,

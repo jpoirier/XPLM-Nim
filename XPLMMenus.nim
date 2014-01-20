@@ -110,7 +110,7 @@ proc XPLMCreateMenu(inName: cstring,
 # XPLM_API void XPLMDestroyMenu(XPLMMenuID inMenuID);
 #
 proc XPLMDestroyMenu*(inMenuID: XPLMMenuID)
-                                     {importc: "XPLMClearFMSEntry", dynlib.}
+                                     {importc: "XPLMDestroyMenu", dynlib.}
 
 
 ##
@@ -167,7 +167,7 @@ proc XPLMAppendMenuSeparator*(inMenu: XPLMMenuID)
 # XPLM_API void XPLMSetMenuItemName(XPLMMenuID inMenu,
 #                                   int inIndex,
 #                                   const char* inItemName,
-#                                    int inForceEnglish);
+#                                   int inForceEnglish);
 #
 proc XPLMSetMenuItemName*(nMenu; XPLMMenuID,
                           inIndex: cint,

@@ -32,7 +32,7 @@ proc XPLMGetMyID*(): XPLMPluginID {importc: "XPLMGetMyID", nodecl.}
 #
 # XPLM_API int XPLMCountPlugins(void);
 #
-proc XPLMGetMyID*(): cint {importc: "XPLMCountPlugins", nodecl.}
+proc XPLMCountPlugins*(): cint {importc: "XPLMCountPlugins", nodecl.}
 
 ##
 # XPLMGetNthPlugin
@@ -43,8 +43,8 @@ proc XPLMGetMyID*(): cint {importc: "XPLMCountPlugins", nodecl.}
 #
 # XPLM_API XPLMPluginID XPLMGetNthPlugin(int inIndex);
 #
-proc XPLMGetMyID*(inIndex: cint): XPLMPluginID
-                                              {importc: "XPLMGetMyID", nodecl.}
+proc XPLMGetNthPlugin*(inIndex: cint): XPLMPluginID
+                                        {importc: "XPLMGetNthPlugin", nodecl.}
 
 ##
 # XPLMFindPluginByPath
@@ -113,7 +113,7 @@ proc XPLMGetPluginInfo*(inPlugin: XPLMPluginID,
 #
 # XPLM_API int XPLMIsPluginEnabled(XPLMPluginID inPluginID);
 #
-proc XPLMIsPluginEnabled*(inPluginID: cint): cint
+proc XPLMIsPluginEnabled*(inPluginID: XPLMPluginID): cint
                                       {importc: "XPLMIsPluginEnabled", nodecl.}
 
 ##
@@ -126,7 +126,7 @@ proc XPLMIsPluginEnabled*(inPluginID: cint): cint
 #
 # XPLM_API int XPLMEnablePlugin(XPLMPluginID inPluginID);
 #
-proc XPLMEnablePlugin*(inPluginID: cint): cint
+proc XPLMEnablePlugin*(inPluginID: XPLMPluginID): cint
                                         {importc: "XPLMEnablePlugin", nodecl.}
 
 ##
@@ -136,7 +136,7 @@ proc XPLMEnablePlugin*(inPluginID: cint): cint
 #
 # XPLM_API void XPLMDisablePlugin(XPLMPluginID inPluginID);
 #
-proc XPLMDisablePlugin*(inPluginID: cint)
+proc XPLMDisablePlugin*(inPluginID: XPLMPluginID)
                                         {importc: "XPLMDisablePlugin", nodecl.}
 
 ##
@@ -150,7 +150,7 @@ proc XPLMDisablePlugin*(inPluginID: cint)
 #
 # XPLM_API void XPLMReloadPlugins(void);
 #
-proc XPLMDisablePlugin*() {importc: "XPLMDisablePlugin", nodecl.}
+proc XPLMReloadPlugins*() {importc: "XPLMReloadPlugins", nodecl.}
 
 #******************************************************************************
 # INTERPLUGIN MESSAGING

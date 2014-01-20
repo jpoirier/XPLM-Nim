@@ -293,7 +293,7 @@ type
 # typedef void * XPLMWindowID;
 #
 type
-    XPLMWindowID*: ptr void
+    XPLMWindowID*: pointer
 
 ##
 # XPLMDrawWindow_f
@@ -483,9 +483,9 @@ proc XPLMGetScreenSize*(outWidth: ptr cint,
 #
 # XPLM_API void XPLMGetMouseLocation(int* outX, int* outY);
 #
-proc XPLMGetScreenSize*(outX: ptr cint,
-                        outY: ptr cint)
-                                        {importc: "XPLMGetScreenSize", dynlib.}
+proc XPLMGetMouseLocation*(outX: ptr cint,
+                           outY: ptr cint)
+                                        {importc: "XPLMGetMouseLocation", dynlib.}
 
 ##
 # XPLMCreateWindow
@@ -579,10 +579,10 @@ proc XPLMGetWindowGeometry*(inWindowID: XPLMWindowID,
 #                                     int inBottom);
 #
 proc XPLMSetWindowGeometry*(inWindowID: XPLMWindowID,
-                            inLeft: ptr cint,
-                            inTop: ptr cint,
-                            inRight: ptr cint,
-                            inBottom: ptr cint)
+                            inLeft: cint,
+                            inTop: cint,
+                            inRight: cint,
+                            inBottom: cint)
                                     {importc: "XPLMSetWindowGeometry", dynlib.}
 
 ##

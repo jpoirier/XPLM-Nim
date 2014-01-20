@@ -384,7 +384,7 @@ type
 # objects to certain local locations.  Only objects that are allowed at the
 # latitude/longitude you provide will be returned.
 #
-# XPLM_API int XPLMLookupObjects(const char * inPath,
+# XPLM_API int XPLMLookupObjects(const char* inPath,
 #                                float inLatitude,
 #                                float inLongitude,
 #                                XPLMLibraryEnumerator_f enumerator,

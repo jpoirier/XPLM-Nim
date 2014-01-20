@@ -186,7 +186,7 @@ proc XPLMFindNavAid*(inNameFragment: cstring,
                      inLat: ptr cfloat,
                      inLon: ptr cfloat,
                      inFrequency: ptr cint,
-                     inType: cint): XPLMNavRef
+                     inType: XPLMNavType): XPLMNavRef
                                           {importc: "XPLMFindNavAid", dynlib.}
 
 ##

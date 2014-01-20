@@ -104,7 +104,7 @@ type
 # If X-Plane is taking camera control away from you, this function will be
 # called with inIsLosingControl set to 1 and ioCameraPosition NULL.
 #
-# typedef int (* XPLMCameraControl_f)(XPLMCameraPosition_t* outCameraPosition,
+# typedef int (*XPLMCameraControl_f)(XPLMCameraPosition_t* outCameraPosition,
 #                                     int inIsLosingControl,
 #                                     void* inRefcon);
 #

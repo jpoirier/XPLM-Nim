@@ -173,7 +173,7 @@ proc XPLMUnregisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
 proc XPLMSetFlightLoopCallbackInterval*(inFlightLoop: XPLMFlightLoop_f,
                                         inInterval: cfloat,
                                         inRelativeToNow: cint,
-                                        inRefcon: ptr void)
+                                        inRefcon: pointer)
                     {.importc: "XPLMSetFlightLoopCallbackInterval", nodecl.}
 
 ##
