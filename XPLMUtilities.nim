@@ -117,7 +117,7 @@ type
 #typedef int XPLMCommandKeyID;
 #
 type
-     XPLMCommandKeyID*: cint
+     XPLMCommandKeyID* = cint
 
 
 # XPLMCommandButtonID
@@ -228,7 +228,7 @@ type
 # typedef int XPLMCommandButtonID;
 #
 type
-     XPLMCommandButtonID*: cint
+     XPLMCommandButtonID* = cint
 
 # XPLMHostApplicationID
 #
@@ -253,7 +253,7 @@ type
 # typedef int XPLMHostApplicationID;
 #
 type
-     XPLMHostApplicationID*: cint
+     XPLMHostApplicationID* = cint
 
 
 # XPLMLanguageCode
@@ -280,7 +280,7 @@ type
 # typedef int XPLMLanguageCode;
 #
 type
-     XPLMLanguageCode*: cint
+     XPLMLanguageCode* = cint
 
 
 # XPLMDataFileType
@@ -291,15 +291,15 @@ type
 const
      # A situation (.sit) file, which starts off a flight in a given
      # configuration.
-     xplm_DataFile_Situation = 1
+     xplm_DataFile_Situation* = 1
 
      # A situation movie (.smo) file, which replays a past flight.
-     xplm_DataFile_ReplayMovie = 2
+     xplm_DataFile_ReplayMovie* = 2
 
 # typedef int XPLMDataFileType;
 #
 type
-     XPLMDataFileType: cint
+     XPLMDataFileType* = cint
 
 
 # XPLMError_f
@@ -654,18 +654,18 @@ proc XPLMSaveDataFile*(inFileType: XPLMDataFileType,
 #
 const
      # The command is being started.
-     xplm_CommandBegin = 0
+     xplm_CommandBegin* = 0
 
      # The command is continuing to execute.
-     xplm_CommandContinue = 1
+     xplm_CommandContinue* = 1
 
      # The command has ended.
-     xplm_CommandEnd = 2
+     xplm_CommandEnd* = 2
 
 # typedef int XPLMCommandPhase;
 #
 type
-     XPLMCommandPhase: cint
+     XPLMCommandPhase* = cint
 
 # XPLMCommandRef
 #
@@ -681,7 +681,7 @@ type
 # typedef void* XPLMCommandRef;
 #
 type
-     XPLMCommandRef*: pointer
+     XPLMCommandRef* = pointer
 
 
 # XPLMCommandCallback_f

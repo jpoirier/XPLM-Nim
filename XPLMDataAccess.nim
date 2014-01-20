@@ -68,7 +68,7 @@
 # typedef void * XPLMDataRef;
 #
 type
-    XPLMDataRef*: pointer
+    XPLMDataRef* = pointer
 
 ##
 # XPLMDataTypeID
@@ -107,7 +107,7 @@ type
         xplmType_Data
 
 type
-    XPLMDataTypeID*: cint
+    XPLMDataTypeID* = cint
 
 ##
 # XPLMFindDataRef

@@ -58,7 +58,7 @@ const
 # typedef int XPLMCameraControlDuration;
 #
 type
-    XPLMCameraControlDuration*: cint
+    XPLMCameraControlDuration* = cint
 
 ##
 # XPLMCameraPosition_t

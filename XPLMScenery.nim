@@ -49,7 +49,7 @@ const
 # typedef int XPLMProbeType;
 #
 type
-     XPLMProbeType*: cint
+     XPLMProbeType* = cint
 
 ##
 # XPLMProbeResult
@@ -71,7 +71,7 @@ const
 # typedef int XPLMProbeResult;
 #
 type
-     XPLMProbeResult*: cint
+     XPLMProbeResult* = cint
 
 ##
 # XPLMProbeRef
@@ -82,7 +82,7 @@ type
 # typedef void * XPLMProbeRef;
 #
 type
-     XPLMProbeRef*: pointer
+     XPLMProbeRef* = pointer
 
 ##
 # XPLMProbeInfo_t
@@ -191,7 +191,7 @@ proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
 # typedef void * XPLMObjectRef;
 #
 type
-     XPLMObjectRef*: pointer
+     XPLMObjectRef* = pointer
 
 ##
 # XPLMDrawInfo_t

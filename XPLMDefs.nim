@@ -40,7 +40,7 @@ type
 # #define XPLM_NO_PLUGIN_ID    (-1)
 #
 const
-  XPLM_NO_PLUGIN_ID* = - 1
+  XPLM_NO_PLUGIN_ID* = -1
 
 # X-Plane itself
 # #define XPLM_PLUGIN_XPLANE   (0)

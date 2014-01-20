@@ -62,7 +62,7 @@ const
 # typedef int XPLMNavType;
 #
 type
-    XPLMNavType*: cint
+    XPLMNavType* = cint
 
 ##
 # XPLMNavRef
@@ -80,7 +80,7 @@ type
 # typedef int XPLMNavRef;
 #
 type
-    XPLMNavRef*: cint
+    XPLMNavRef* = cint
 
 ##define XPLM_NAV_NOT_FOUND   -1
 #

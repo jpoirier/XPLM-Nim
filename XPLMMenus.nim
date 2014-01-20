@@ -27,18 +27,18 @@
 #
 const
     # there is no symbol to the left of the menu item.
-    xplm_Menu_NoCheck = 0
+    xplm_Menu_NoCheck* = 0
 
     # the menu has a mark next to it that is unmarked (not lit).
-    xplm_Menu_Unchecked = 1
+    xplm_Menu_Unchecked* = 1
 
     # the menu has a mark next to it that is checked (lit).
-    xplm_Menu_Checked = 2
+    xplm_Menu_Checked* = 2
 
 # typedef int XPLMMenuCheck;
 #
 type
-    XPLMMenuCheck: cint
+    XPLMMenuCheck* = cint
 
 ##
 # XPLMMenuID
@@ -48,7 +48,7 @@ type
 # typedef void * XPLMMenuID;
 #
 type
-    XPLMMenuID: pointer
+    XPLMMenuID* = pointer
 
 ##
 # XPLMMenuHandler_f
@@ -60,8 +60,8 @@ type
 # typedef void (*XPLMMenuHandler_f)(void* inMenuRef, void* inItemRef);
 #
 type
-    XPLMMenuHandler_f = proc (inMenuRef: pointer,
-                              inItemRef: pointer) {.stdcall.}
+    XPLMMenuHandler_f* = proc (inMenuRef: pointer,
+                               inItemRef: pointer) {.stdcall.}
 
 
 ##
@@ -72,7 +72,7 @@ type
 #
 # XPLM_API XPLMMenuID XPLMFindPluginsMenu(void);
 #
-proc XPLMFindPluginsMenu() {importc: "XPLMFindPluginsMenu", dynlib.}
+proc XPLMFindPluginsMenu*() {importc: "XPLMFindPluginsMenu", dynlib.}
 
 ##
 # XPLMCreateMenu
@@ -94,11 +94,11 @@ proc XPLMFindPluginsMenu() {importc: "XPLMFindPluginsMenu", dynlib.}
 #                                    XPLMMenuHandler_f inHandler,
 #                                    void* inMenuRef);
 #
-proc XPLMCreateMenu(inName: cstring,
-                    inParentMenu: XPLMMenuID,
-                    inParentItem: cint,
-                    inHandler: XPLMMenuHandler_f,
-                    inMenuRef: pointer): XPLMMenuID
+proc XPLMCreateMenu*(inName: cstring,
+                     inParentMenu: XPLMMenuID,
+                     inParentItem: cint,
+                     inHandler: XPLMMenuHandler_f,
+                     inMenuRef: pointer): XPLMMenuID
                                           {importc: "XPLMCreateMenu", dynlib.}
 
 ##

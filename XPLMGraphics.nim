@@ -60,7 +60,7 @@ const
 # typedef int XPLMTextureID;
 #
 type
-    XPLMTextureID: cint
+    XPLMTextureID = cint
 
 ##
 # XPLMSetGraphicsState
@@ -330,7 +330,7 @@ type
 # typedef int XPLMFontID;
 #
 type
-    XPLMFontID: cint
+    XPLMFontID = cint
 
 ##
 # XPLMDrawString

@@ -32,7 +32,7 @@ const
 # typedef int XPLMFlightLoopPhaseType;
 #
 type
-     XPLMFlightLoopPhaseType*: cint
+     XPLMFlightLoopPhaseType* = cint
 
 ##
 # XPLMFlightLoopID
@@ -44,7 +44,7 @@ type
 # typedef void * XPLMFlightLoopID;
 #
 type
-     XPLMFlightLoopID*: pointer
+     XPLMFlightLoopID* = pointer
 
 ##
 # XPLMFlightLoop_f

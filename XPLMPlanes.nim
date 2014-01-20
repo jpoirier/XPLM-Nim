@@ -1,6 +1,4 @@
 
-
-
 # The XPLMPlanes APIs allow you to control the various aircraft in x-plane,
 # both the user's and the sim's.
 #
@@ -19,7 +17,7 @@
 # XPLM_API void XPLMSetUsersAircraft(const char* inAircraftPath);
 #
 proc XPLMSetUsersAircraft*(inAircraftPath: cstring)
-                                    {importc: "XPLMSetUsersAircraft", nodecl.}
+                                    {importc: "XPLMSetUsersAircraft", dynlib.}
 
 # XPLMPlaceUserAtAirport
 #
@@ -29,7 +27,7 @@ proc XPLMSetUsersAircraft*(inAircraftPath: cstring)
 # XPLM_API void XPLMPlaceUserAtAirport(const char* inAirportCode);
 #
 proc XPLMPlaceUserAtAirport*(inAirportCode; cstring)
-                                  {importc: "XPLMPlaceUserAtAirport", nodecl.}
+                                  {importc: "XPLMPlaceUserAtAirport", dynlib.}
 
 #******************************************************************************
 # GLOBAL AIRCRAFT ACCESS
@@ -112,7 +110,7 @@ type
 proc XPLMCountAircraft*(outTotalAircraft: cint,
                         outActiveAircraft: cint,
                         outController: ptr XPLMPluginID)
-                                        {importc: "XPLMCountAircraft", nodecl.}
+                                        {importc: "XPLMCountAircraft", dynlib.}
 
 ##
 # XPLMGetNthAircraftModel
@@ -127,7 +125,7 @@ proc XPLMCountAircraft*(outTotalAircraft: cint,
 proc XPLMGetNthAircraftModel*(inIndex: cint,
                               outFileName: cstring,
                               outPath: cstring)
-                                  {importc: "XPLMGetNthAircraftModel", nodecl.}
+                                  {importc: "XPLMGetNthAircraftModel", dynlib.}
 
 #******************************************************************************
 # EXCLUSIVE AIRCRAFT ACCESS
@@ -170,7 +168,7 @@ type
 proc XPLMAcquirePlanes*(inAircraft: ptr ptr cchar,
                         inCallback: XPLMPlanesAvailable_f,
                         inRefcon: pointer): cint
-                                        {importc: "XPLMAcquirePlanes", nodecl.}
+                                        {importc: "XPLMAcquirePlanes", dynlib.}
 
 ##
 # XPLMReleasePlanes
@@ -180,7 +178,7 @@ proc XPLMAcquirePlanes*(inAircraft: ptr ptr cchar,
 #
 # XPLM_API void XPLMReleasePlanes(void);
 #
-proc XPLMReleasePlanes*() {importc: "XPLMReleasePlanes", nodecl.}
+proc XPLMReleasePlanes*() {importc: "XPLMReleasePlanes", dynlib.}
 
 ##
 # XPLMSetActiveAircraftCount
@@ -192,7 +190,7 @@ proc XPLMReleasePlanes*() {importc: "XPLMReleasePlanes", nodecl.}
 # XPLM_API void XPLMSetActiveAircraftCount(int inCount);
 #
 proc XPLMSetActiveAircraftCount*(inCount: cint)
-                              {importc: "XPLMSetActiveAircraftCount", nodecl.}
+                              {importc: "XPLMSetActiveAircraftCount", dynlib.}
 
 ##
 # XPLMSetAircraftModel
@@ -206,7 +204,7 @@ proc XPLMSetActiveAircraftCount*(inCount: cint)
 #
 proc XPLMSetAircraftModel*(inIndex: cint,
                            inAircraftPath: cstring)
-                                    {importc: "XPLMSetAircraftModel", nodecl.}
+                                    {importc: "XPLMSetAircraftModel", dynlib.}
 ##
 # XPLMDisableAIForPlane
 #
@@ -216,7 +214,7 @@ proc XPLMSetAircraftModel*(inIndex: cint,
 # XPLM_API void XPLMDisableAIForPlane(int inPlaneIndex);
 #
 proc XPLMDisableAIForPlane*(inPlaneIndex: cint)
-                                    {importc: "XPLMDisableAIForPlane", nodecl.}
+                                    {importc: "XPLMDisableAIForPlane", dynlib.}
 
 ##
 # XPLMDrawAircraft
@@ -246,7 +244,7 @@ proc XPLMDrawAircraft*(inPlaneIndex: cint,
                        inYaw: cfloat,
                        inFullDraw: cint,
                        inDrawStateInfo: PXPLMPlaneDrawState_t)
-                                        {importc: "XPLMDrawAircraft", nodecl.}
+                                        {importc: "XPLMDrawAircraft", dynlib.}
 ##
 # XPLMReinitUsersPlane
 #
@@ -263,6 +261,6 @@ proc XPLMDrawAircraft*(inPlaneIndex: cint,
 #
 # XPLM_API void XPLMReinitUsersPlane(void);
 #
-proc XPLMReinitUsersPlane*() {importc: "XPLMReinitUsersPlane", nodecl.}
+proc XPLMReinitUsersPlane*() {importc: "XPLMReinitUsersPlane", dynlib.}
 
 

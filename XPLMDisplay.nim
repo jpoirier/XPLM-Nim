@@ -102,7 +102,7 @@ const
     xplm_Phase_LocalMapProfile* = 102
 
 type
-    XPLMDrawingPhase*: cint
+    XPLMDrawingPhase* = cint
 
 ##
 # XPLMDrawCallback_f
@@ -264,7 +264,7 @@ const
 # typedef int XPLMMouseStatus;
 #
 type
-    XPLMMouseStatus*: cint
+    XPLMMouseStatus* = cint
 
 ##
 # XPLMCursorStatus
@@ -281,7 +281,7 @@ const
 # typedef int XPLMCursorStatus;
 #
 type
-    XPLMCursorStatus*: cint
+    XPLMCursorStatus* = cint
 
 ##
 # XPLMWindowID
@@ -293,7 +293,7 @@ type
 # typedef void * XPLMWindowID;
 #
 type
-    XPLMWindowID*: pointer
+    XPLMWindowID* = pointer
 
 ##
 # XPLMDrawWindow_f
@@ -308,8 +308,8 @@ type
 # typedef void (*XPLMDrawWindow_f)(XPLMWindowID inWindowID, void* inRefcon);
 #
 type
-    proc XPLMDrawWindow_f*(inWindowID: XPLMWindowID,
-                           inRefcon: pointer) {.stdcall.}
+    proc XPLMDrawWindow_f* = proc (inWindowID: XPLMWindowID,
+                                    inRefcon: pointer) {.stdcall.}
 
 ##
 # XPLMHandleKey_f
@@ -331,12 +331,12 @@ type
 #                                  int losingFocus);
 #
 type
-    XPLMHandleKey_f*(inWindowID: XPLMWindowID,
-                     inKey: cchar,
-                     inFlags: XPLMKeyFlags,
-                     inVirtualKey: cchar,
-                     inRefcon: pointer,
-                     losingFocus: cint) {.stdcall.}
+    XPLMHandleKey_f* = proc (inWindowID: XPLMWindowID,
+                             inKey: cchar,
+                             inFlags: XPLMKeyFlags,
+                             inVirtualKey: cchar,
+                             inRefcon: pointer,
+                             losingFocus: cint) {.stdcall.}
 
 ##
 # XPLMHandleMouseClick_f
@@ -356,11 +356,11 @@ type
 #                                        void* inRefcon);
 #
 type
-    XPLMHandleMouseClick_f*(inWindowID: XPLMWindowID,
-                            x: cint,
-                            y: cint,
-                            inMouse: XPLMMouseStatus,
-                            inRefcon: pointer): cint {.stdcall.}
+    XPLMHandleMouseClick_f* = proc (inWindowID: XPLMWindowID,
+                                    x: cint,
+                                    y: cint,
+                                    inMouse: XPLMMouseStatus,
+                                    inRefcon: pointer): cint {.stdcall.}
 
 ##
 # XPLMHandleCursor_f
@@ -389,10 +389,10 @@ type
 #                                                      void* inRefcon);
 #
 type
-    XPLMHandleCursor_f*(inWindowID: XPLMWindowID,
-                        x: cint,
-                        y: cint,
-                        inRefcon: pointer) {.stdcall.}
+    XPLMHandleCursor_f* = proc (inWindowID: XPLMWindowID,
+                                x: cint,
+                                y: cint,
+                                inRefcon: pointer) {.stdcall.}
 
 ##
 # XPLMHandleMouseWheel_f
@@ -413,12 +413,12 @@ type
 #                                        void* inRefcon);
 #
 type
-    XPLMHandleMouseWheel_f*(inWindowID: XPLMWindowID,
-                            x: cint,
-                            y: cint,
-                            wheel: cint,
-                            clicks: cint,
-                            inRefcon: pointer): cint {.stdcall.}
+    XPLMHandleMouseWheel_f* = proc (inWindowID: XPLMWindowID,
+                                    x: cint,
+                                    y: cint,
+                                    wheel: cint,
+                                    clicks: cint,
+                                    inRefcon: pointer): cint {.stdcall.}
 
 ##
 # XPLMCreateWindow_t
@@ -688,7 +688,7 @@ type
 # typedef void * XPLMHotKeyID;
 #
 type
-    XPLMHotKeyID*: pointer
+    XPLMHotKeyID* = pointer
 
 ##
 # XPLMRegisterHotKey
