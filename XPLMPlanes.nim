@@ -17,6 +17,7 @@
 # (hard drive and everything including the .acf extension) to the .acf file.
 #
 # XPLM_API void XPLMSetUsersAircraft(const char* inAircraftPath);
+#
 proc XPLMSetUsersAircraft*(inAircraftPath: cstring)
                                     {importc: "XPLMSetUsersAircraft", nodecl.}
 
@@ -26,6 +27,7 @@ proc XPLMSetUsersAircraft*(inAircraftPath: cstring)
 # its ICAO code (e.g. 'KBOS').
 #
 # XPLM_API void XPLMPlaceUserAtAirport(const char* inAirportCode);
+#
 proc XPLMPlaceUserAtAirport*(inAirportCode; cstring)
                                   {importc: "XPLMPlaceUserAtAirport", nodecl.}
 
@@ -34,7 +36,8 @@ proc XPLMPlaceUserAtAirport*(inAirportCode; cstring)
 # *****************************************************************************
 #
 # The user's aircraft is always index 0.
-#define XPLM_USER_AIRCRAFT   0
+##define XPLM_USER_AIRCRAFT   0
+#
 const
     XPLM_USER_AIRCRAFT* = 0
 
@@ -78,6 +81,7 @@ const
 #      # Total Roll input for this plane.
 #      float yokeRoll;
 # } XPLMPlaneDrawState_t;
+#
 type
     PXPLMPlaneDrawState_t* = ptr XPLMPlaneDrawState_t
     XPLMPlaneDrawState_t*{.final.} = object
@@ -104,6 +108,7 @@ type
 # XPLM_API void XPLMCountAircraft(int* outTotalAircraft,
 #                                 int* outActiveAircraft,
 #                                 XPLMPluginID* outController);
+#
 proc XPLMCountAircraft*(outTotalAircraft: cint,
                         outActiveAircraft: cint,
                         outController: ptr XPLMPluginID)
@@ -118,6 +123,7 @@ proc XPLMCountAircraft*(outTotalAircraft: cint,
 # length.
 #
 # XPLM_API void XPLMGetNthAircraftModel(int inIndex, char* outFileName, char* outPath);
+#
 proc XPLMGetNthAircraftModel*(inIndex: cint,
                               outFileName: cstring,
                               outPath: cstring)
@@ -139,6 +145,7 @@ proc XPLMGetNthAircraftModel*(inIndex: cint,
 # multiplayer.
 #
 # typedef void (*XPLMPlanesAvailable_f)(void* inRefcon);
+#
 type
     XPLMPlanesAvailable_f* = proc (inRefcon: pointer) {.stdcall.}
 
@@ -159,6 +166,7 @@ type
 # XPLM_API int XPLMAcquirePlanes(char** inAircraft,    /* Can be NULL */
 #                                XPLMPlanesAvailable_f inCallback,
 #                                void* inRefcon);
+#
 proc XPLMAcquirePlanes*(inAircraft: ptr cstring,
                         inCallback: XPLMPlanesAvailable_f,
                         inRefcon: pointer): cint
@@ -171,6 +179,7 @@ proc XPLMAcquirePlanes*(inAircraft: ptr cstring,
 # disabled, access to planes is released for you and you must reacquire it.
 #
 # XPLM_API void XPLMReleasePlanes(void);
+#
 proc XPLMReleasePlanes*() {importc: "XPLMReleasePlanes", nodecl.}
 
 ##
@@ -181,6 +190,7 @@ proc XPLMReleasePlanes*() {importc: "XPLMReleasePlanes", nodecl.}
 # planes available is actually used.
 #
 # XPLM_API void XPLMSetActiveAircraftCount(int inCount);
+#
 proc XPLMSetActiveAircraftCount*(inCount: cint)
                               {importc: "XPLMSetActiveAircraftCount", nodecl.}
 
@@ -193,6 +203,7 @@ proc XPLMSetActiveAircraftCount*(inCount: cint)
 # (use XPLMSetUsersAircraft to load the user's aircracft).
 #
 # XPLM_API void XPLMSetAircraftModel(int inIndex, const char* inAircraftPath);
+#
 proc XPLMSetAircraftModel*(inIndex: cint,
                            inAircraftPath: cstring)
                                     {importc: "XPLMSetAircraftModel", nodecl.}
@@ -203,6 +214,7 @@ proc XPLMSetAircraftModel*(inIndex: cint,
 # continue to draw and be a real plane in X-Plane, but will not  move itself.
 #
 # XPLM_API void XPLMDisableAIForPlane(int inPlaneIndex);
+#
 proc XPLMDisableAIForPlane*(inPlaneIndex: cint)
                                     {importc: "XPLMDisableAIForPlane", nodecl.}
 
@@ -224,6 +236,7 @@ proc XPLMDisableAIForPlane*(inPlaneIndex: cint)
 #                                float inYaw,
 #                                int inFullDraw,
 #                                XPLMPlaneDrawState_t * inDrawStateInfo);
+#
 proc XPLMDrawAircraft*(inPlaneIndex: cint,
                        inX: cfloat,
                        inY: cfloat,
@@ -249,6 +262,7 @@ proc XPLMDrawAircraft*(inPlaneIndex: cint,
 # flight.
 #
 # XPLM_API void XPLMReinitUsersPlane(void);
+#
 proc XPLMReinitUsersPlane*() {importc: "XPLMReinitUsersPlane", nodecl.}
 
 

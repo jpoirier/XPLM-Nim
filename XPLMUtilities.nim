@@ -115,6 +115,7 @@ type
           xplm_key_ma
 
 #typedef int XPLMCommandKeyID;
+#
 type
      XPLMCommandKeyID*: cint
 
@@ -225,6 +226,7 @@ type
           xplm_joy_max
 
 # typedef int XPLMCommandButtonID;
+#
 type
      XPLMCommandButtonID*: cint
 
@@ -249,6 +251,7 @@ type
           xplm_Host_XAuto
 
 # typedef int XPLMHostApplicationID;
+#
 type
      XPLMHostApplicationID*: cint
 
@@ -275,6 +278,7 @@ type
           xplm_Language_Chinese
 
 # typedef int XPLMLanguageCode;
+#
 type
      XPLMLanguageCode*: cint
 
@@ -293,6 +297,7 @@ const
      xplm_DataFile_ReplayMovie = 2
 
 # typedef int XPLMDataFileType;
+#
 type
      XPLMDataFileType: cint
 
@@ -308,6 +313,7 @@ type
 # from your error callback - it is only meant for logging!
 #
 # typedef void (*XPLMError_f)(const char* inMessage);
+#
 type
      XPLMError_f* = proc (inMessage: cstring) {.stdcall.}
 
@@ -323,6 +329,7 @@ type
 # XPLMCommandKeyStroke.
 #
 # XPLM_API void XPLMSimulateKeyPress(int inKeyType, int inKey);
+#
 proc XPLMSimulateKeyPress*(inKeyType: cint, inKey: cint)
                                    {importc: "XPLMSimulateKeyPress", dynlib.}
 
@@ -333,6 +340,7 @@ proc XPLMSimulateKeyPress*(inKeyType: cint, inKey: cint)
 # string is spoken asynchronously, this function returns immediately.
 #
 # XPLM_API void XPLMSpeakString(const char* inString);
+#
 proc XPLMSpeakString*(inString: cstring) {importc: "XPLMSpeakString", dynlib.}
 
 
@@ -344,6 +352,7 @@ proc XPLMSpeakString*(inString: cstring) {importc: "XPLMSpeakString", dynlib.}
 # pausing the simulator.
 #
 # XPLM_API void XPLMCommandKeyStroke(XPLMCommandKeyID inKey);
+#
 proc XPLMCommandKeyStroke*(inKey: XPLMCommandKeyID)
                                    {importc: "XPLMCommandKeyStroke", dynlib.}
 
@@ -357,6 +366,7 @@ proc XPLMCommandKeyStroke*(inKey: XPLMCommandKeyID)
 # down' a button for a fixed amount of time.
 #
 # XPLM_API void XPLMCommandButtonPress(XPLMCommandButtonID inButton);
+#
 proc XPLMCommandButtonPress*(inButton: XPLMCommandButtonID)
                                    {importc: "XPLMCommandButtonPress", dynlib.}
 
@@ -366,6 +376,7 @@ proc XPLMCommandButtonPress*(inButton: XPLMCommandButtonID)
 # a joystick button.  See XPLMCommandButtonPress
 #
 # XPLM_API void XPLMCommandButtonRelease(XPLMCommandButtonID inButton);
+#
 proc XPLMCommandButtonRelease*(inButton: XPLMCommandButtonID)
                               {importc: "XPLMCommandButtonRelease", dynlib.}
 
@@ -377,6 +388,7 @@ proc XPLMCommandButtonRelease*(inButton: XPLMCommandButtonID)
 # read 'unknown' or be a blank or NULL string if the virtual key is unknown.
 #
 # XPLM_API const char* XPLMGetVirtualKeyDescription(char inVirtualKey);
+#
 proc XPLMGetVirtualKeyDescription*(inVirtualKey: cchar): cstring
                          {importc: "XPLMGetVirtualKeyDescription", dynlib.}
 
@@ -394,6 +406,7 @@ proc XPLMGetVirtualKeyDescription*(inVirtualKey: cchar): cstring
 # scenery environment.
 #
 # XPLM_API void XPLMReloadScenery(void);
+#
 proc XPLMReloadScenery*() {importc: "XPLMReloadScenery", dynlib.}
 
 
@@ -404,6 +417,7 @@ proc XPLMReloadScenery*() {importc: "XPLMReloadScenery", dynlib.}
 # should be at least 512 characters long.
 #
 # XPLM_API void XPLMGetSystemPath(char* outSystemPath);
+#
 proc XPLMGetSystemPath*(outSystemPath: cstring)
                                         {importc: "XPLMGetSystemPath", dynlib.}
 
@@ -414,6 +428,7 @@ proc XPLMGetSystemPath*(outSystemPath: cstring)
 # least 512 characters long.
 #
 # XPLM_API void XPLMGetPrefsPath(char* outPrefsPath);
+#
 proc XPLMGetPrefsPath*(outPrefsPath: cstring)
                                         {importc: "XPLMGetPrefsPath", dynlib.}
 
@@ -425,6 +440,7 @@ proc XPLMGetPrefsPath*(outPrefsPath: cstring)
 # platform.
 #
 # XPLM_API const char* XPLMGetDirectorySeparator(void);
+#
 proc XPLMGetDirectorySeparator*(): cstring
                               {importc: "XPLMGetDirectorySeparator", dynlib.}
 
@@ -437,6 +453,7 @@ proc XPLMGetDirectorySeparator*(): cstring
 # with the path.
 #
 # XPLM_API char* XPLMExtractFileAndPath(char* inFullPath);
+#
 proc XPLMExtractFileAndPath(inFullPath: cstring): cstring
                                    {importc: "XPLMExtractFileAndPath", dynlib.}
 
@@ -489,6 +506,7 @@ proc XPLMExtractFileAndPath(inFullPath: cstring): cstring
 #                                       int inIndexCount,
 #                                       int* outTotalFiles,
 #                                       int* outReturnedFiles);
+#
 proc XPLMGetDirectoryContents*(inDirectoryPath: cstring
                                inFirstReturn: cint
                                inFileNameBufSize: cstring
@@ -511,6 +529,7 @@ proc XPLMGetDirectoryContents*(inDirectoryPath: cstring
 # future.
 #
 # XPLM_API int XPLMInitialized(void);
+#
 proc XPLMInitialized*(): cint {importc: "XPLMInitialized", dynlib.}
 
 
@@ -527,6 +546,7 @@ proc XPLMInitialized*(): cint {importc: "XPLMInitialized", dynlib.}
 # XPLM_API void XPLMGetVersions(int* outXPlaneVersion,
 #                               int* outXPLMVersion,
 #                               XPLMHostApplicationID* outHostID);
+#
 proc XPLMGetVersions*(outXPlaneVersion: cstring,
                       outXPLMVersion: ptr cint,
                       outHostID: ptr XPLMHostApplicationID)
@@ -537,6 +557,7 @@ proc XPLMGetVersions*(outXPlaneVersion: cstring,
 # This routine returns the langauge the sim is running in.
 #
 # XPLM_API XPLMLanguageCode XPLMGetLanguage(void);
+#
 proc XPLMGetLanguage*(): XPLMLanguageCode {importc: "XPLMGetLanguage", dynlib.}
 
 # XPLMDebugString
@@ -546,6 +567,7 @@ proc XPLMGetLanguage*(): XPLMLanguageCode {importc: "XPLMGetLanguage", dynlib.}
 # performance penalty.)
 #
 # XPLM_API void XPLMDebugString(const char* inString);
+#
 proc XPLMDebugString*(inString: cstring) {importc: "XPLMDebugString", dynlib.}
 
 
@@ -567,6 +589,7 @@ proc XPLMDebugString*(inString: cstring) {importc: "XPLMDebugString", dynlib.}
 # leave error callbacks installed in shipping plugins.
 #
 # XPLM_API void XPLMSetErrorCallback(XPLMError_f inCallback);
+#
 proc XPLMSetErrorCallback*(inCallback: XPLMError_f)
                                    {importc: "XPLMSetErrorCallback", dynlib.}
 
@@ -579,6 +602,7 @@ proc XPLMSetErrorCallback*(inCallback: XPLMError_f)
 # othewise the function will return NULL.
 #
 # XPLM_API void* XPLMFindSymbol(const char* inString);
+#
 proc XPLMFindSymbol*(inString: cstring): pointer
                                         {importc: "XPLMFindSymbol", dynlib.}
 
@@ -591,6 +615,7 @@ proc XPLMFindSymbol*(inString: cstring): pointer
 #
 # XPLM_API int XPLMLoadDataFile(XPLMDataFileType inFileType,
 #                               const char* inFilePath);
+#
 proc XPLMLoadDataFile*(inFileType: XPLMDataFileType,
                        inFilePath: cstring): cint
                                         {importc: "XPLMLoadDataFile", dynlib.}
@@ -603,6 +628,7 @@ proc XPLMLoadDataFile*(inFileType: XPLMDataFileType,
 #
 # XPLM_API int XPLMSaveDataFile(XPLMDataFileType inFileType,
 #                               const char* inFilePath);
+#
 proc XPLMSaveDataFile*(inFileType: XPLMDataFileType,
                        inFilePath: cstring): cint
                                         {importc: "XPLMSaveDataFile", dynlib.}
@@ -636,6 +662,7 @@ const
      xplm_CommandEnd = 2
 
 # typedef int XPLMCommandPhase;
+#
 type
      XPLMCommandPhase: cint
 
@@ -651,6 +678,7 @@ type
 # away if the plugin that created it is unloaded.
 #
 # typedef void* XPLMCommandRef;
+#
 type
      XPLMCommandRef*: pointer
 
@@ -669,6 +697,7 @@ type
 # typedef int (*XPLMCommandCallback_f)(XPLMCommandRef inCommand,
 #                                      XPLMCommandPhase inPhase,
 #                                      void* inRefcon);
+#
 type
      XPLMCommandCallback_f* = proc (inCommand: XPLMCommandRef,
                                     inPhase: XPLMCommandPhase,
@@ -681,6 +710,7 @@ type
 # reference or NULL if the command does not exist.
 #
 # XPLM_API XPLMCommandRef XPLMFindCommand(const char* inName);
+#
 proc XPLMFindCommand*(inName: cstring): XPLMCommandRef
                                         {importc: "XPLMFindCommand", dynlib.}
 
@@ -692,6 +722,7 @@ proc XPLMFindCommand*(inName: cstring): XPLMCommandRef
 # called.
 #
 # XPLM_API void XPLMCommandBegin(XPLMCommandRef inCommand);
+#
 proc XPLMCommandBegin*(inCommand: XPLMCommandRef)
                                         {importc: "XPLMCommandBegin", dynlib.}
 
@@ -701,6 +732,7 @@ proc XPLMCommandBegin*(inCommand: XPLMCommandRef)
 # XPLMCommandBegin.
 #
 # XPLM_API void XPLMCommandEnd(XPLMCommandRef inCommand);
+#
 proc XPLMCommandEnd*(inCommand: XPLMCommandRef)
                                         {importc: "XPLMCommandEnd", dynlib.}
 
@@ -710,6 +742,7 @@ proc XPLMCommandEnd*(inCommand: XPLMCommandRef)
 # ends immediately.
 #
 # XPLM_API void XPLMCommandOnce(XPLMCommandRef inCommand);
+#
 proc XPLMCommandOnce*(inCommand: XPLMCommandRef)
                                         {importc: "XPLMCommandOnce", dynlib.}
 
@@ -722,6 +755,7 @@ proc XPLMCommandOnce*(inCommand: XPLMCommandRef)
 #
 # XPLM_API XPLMCommandRef XPLMCreateCommand(const char* inName,
 #                                           const char* inDescription);
+#
 proc XPLMCreateCommand*(inName: cstring,
                         inDescription; cstring): XPLMCommandRef
                                         {importc: "XPLMCreateCommand", dynlib.}
@@ -742,6 +776,7 @@ proc XPLMCreateCommand*(inName: cstring,
 #                                          XPLMCommandCallback_f inHandler,
 #                                          int inBefore,
 #                                          void* inRefcon);
+#
 proc XPLMRegisterCommandHandler*(inComand: XPLMCommandRef,
                                  inHandler: XPLMCommandCallback_f,
                                  inBefore: cint, inRefcon: pointer)
@@ -756,6 +791,7 @@ proc XPLMRegisterCommandHandler*(inComand: XPLMCommandRef,
 #                                            XPLMCommandCallback_f inHandler,
 #                                            int inBefore,
 #                                            void* inRefcon);
+#
 proc XPLMUnregisterCommandHandler*(inComand: XPLMCommandRef,
                                    inHandler: XPLMCommandCallback_f,
                                    inBefore: cint,

@@ -1,14 +1,21 @@
 #import XPLMDefs
 #import XPLMProcessing
 
-const libName = "XPLM_64.dll"
+{.deadCodeElim: on.}
+
+when defined(windows):
+    const LibName = "XPLM_64.dll"
+elif defined(macosx):
+    const LibName = "XPLM_64.dylib"
+else:
+    const LibName = "XPLM_64.so"
 
 type
   XPLMFlightLoop_CB* = proc (inElapsedSinceLastCall: cfloat, inElapsedTimeSinceLastFlightLoop: cfloat, inCounter: cint, inRefcon: pointer): cfloat {.stdcall.}
 
 # .stdcall.
-proc XPLMRegisterFlightLoopCallback(callback: XPLMFlightLoop_CB, inInterval: cfloat, inRefcon: pointer) {.stdcall, importc: "XPLMRegisterFlightLoopCallback", dynlib: libName}
-proc XPLMDebugString(inString: cstring)  {.stdcall, importc: "XPLMDebugString", dynlib: libName}
+proc XPLMRegisterFlightLoopCallback(callback: XPLMFlightLoop_CB, inInterval: cfloat, inRefcon: pointer) {.stdcall, importc: "XPLMRegisterFlightLoopCallback", dynlib: LibName}
+proc XPLMDebugString(inString: cstring)  {.stdcall, importc: "XPLMDebugString", dynlib: LibName}
 
 
 # // Flightloop Callback INterval

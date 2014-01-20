@@ -47,6 +47,7 @@ const
      xplm_ProbeY* = 0
 
 # typedef int XPLMProbeType;
+#
 type
      XPLMProbeType*: cint
 
@@ -68,6 +69,7 @@ const
     xplm_ProbeMissed* = 2
 
 # typedef int XPLMProbeResult;
+#
 type
      XPLMProbeResult*: cint
 
@@ -78,6 +80,7 @@ type
 # terrain.
 #
 # typedef void * XPLMProbeRef;
+#
 type
      XPLMProbeRef*: pointer
 
@@ -114,6 +117,7 @@ type
 #      # Tells if the surface we hit is water (otherwise it is land).
 #      int is_wet;
 # } XPLMProbeInfo_t;
+#
 type
     PXPLMProbeInfo_t* = ptr XPLMProbeInfo_t
     XPLMProbeInfo_t*{.final.} = object
@@ -135,6 +139,7 @@ type
 # Creates a new probe object of a given type and returns.
 #
 # XPLM_API XPLMProbeRef XPLMCreateProbe(XPLMProbeType inProbeType);
+#
 proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {importc: "XPLMCreateProbe", dynlib.}
 
 ##
@@ -143,6 +148,7 @@ proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {importc: "XPLMC
 # Deallocates an existing probe object.
 #
 # XPLM_API void XPLMDestroyProbe(XPLMProbeRef inProbe);
+#
 proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {importc: "XPLMDestroyProbe", dynlib.}
 
 ##
@@ -158,6 +164,7 @@ proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {importc: "XPLMDestroyProbe", dynl
 #                                              float inY,
 #                                              float inZ,
 #                                              XPLMProbeInfo_t * outInfo);
+#
 proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
                           inX: cfloat,
                           inY: cfloat,
@@ -182,6 +189,7 @@ proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
 # into memory.
 #
 # typedef void * XPLMObjectRef;
+#
 type
      XPLMObjectRef*: pointer
 
@@ -208,6 +216,7 @@ type
 #      # Roll to rotate the object.
 #      float roll;
 # } XPLMDrawInfo_t;
+#
 type
     PXPLMDrawInfo_t* = ptr XPLMDrawInfo_t
     XPLMDrawInfo_t*{.final.} = object
@@ -232,6 +241,7 @@ type
 # ever called, the SDK will release the object handle for you.
 #
 # typedef void (*XPLMObjectLoaded_f)(XPLMObjectRef inObject, void * inRefcon);
+#
 type
      XPLMObjectLoaded_f* = proc (inObject: XPLMObjectRef,
                                  inRefcon: pointer) {.stdcall.}
@@ -260,6 +270,7 @@ type
 # defer object loading until the sim has fully started.
 #
 # XPLM_API XPLMObjectRef XPLMLoadObject(const char * inPath);
+#
 proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef
                                         {importc: "XPLMLoadObject", dynlib.}
 
@@ -282,6 +293,7 @@ proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef
 # XPLM_API void XPLMLoadObjectAsync(const char * inPath,
 #                                    XPLMObjectLoaded_f inCallback,
 #                                    void * inRefcon);
+#
 proc XPLMLoadObjectAsync*(inPath: cstring,
                           inCallback: XPLMObjectLoaded_f,
                           inRefcon: pointer)
@@ -315,6 +327,7 @@ proc XPLMLoadObjectAsync*(inPath: cstring,
 #                               XPLMDrawInfo_t * inLocations,
 #                               int lighting,
 #                               int earth_relative);
+#
 proc XPLMDrawObjects*(inObject: XPLMObjectRef,
                       inCount: cint,
                       inLocations: ptr XPLMDrawInfo_t,
@@ -331,6 +344,7 @@ proc XPLMDrawObjects*(inObject: XPLMObjectRef,
 # successful call to XPLMLoadObject.
 #
 # XPLM_API void XPLMUnloadObject(XPLMObjectRef inObject);
+#
 proc XPLMUnloadObject*(inObject: XPLMObjectRef)
                                         {importc: "XPLMUnloadObject", dynlib.}
 
@@ -352,6 +366,7 @@ proc XPLMUnloadObject*(inObject: XPLMObjectRef)
 # relative to the X-System folder.
 #
 # typedef void (*XPLMLibraryEnumerator_f)(const char * inFilePath, void * inRef);
+#
 type
      XPLMLibraryEnumerator_f* = proc (inFilePath: cstring,
                                       inRef: pointer) {.stdcall.}
@@ -374,6 +389,7 @@ type
 #                                float inLongitude,
 #                                XPLMLibraryEnumerator_f enumerator,
 #                                void * ref);
+#
 proc XPLMLookupObjects*(inPath: cstring,
                         inLatitude: cfloat,
                         inLongitude: cfloat,

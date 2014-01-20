@@ -1,5 +1,4 @@
 
-
 #******************************************************************************
 # XPLM Data Access API - Theory of Operation
 # *****************************************************************************
@@ -66,6 +65,8 @@
 # the lifetime of your plugin.  You never hard code these values; you always
 # get them from XPLMFindDataRef.
 #
+# typedef void * XPLMDataRef;
+#
 type
     XPLMDataRef*: pointer
 
@@ -78,6 +79,22 @@ type
 # expecting from the online documentation.
 #
 # Data types each take a bit field, so sets of data types may be formed.
+#
+# enum {
+#      /* Data of a type the current XPLM doesn't do. */
+#      xplmType_Unknown                         = 0
+#      /* A single 4-byte integer, native endian. */
+#     ,xplmType_Int                             = 1
+#      /* A single 4-byte float, native endian. */
+#     ,xplmType_Float                           = 2
+#      /* A single 8-byte double, native endian. */
+#     ,xplmType_Double                          = 4
+#      /* An array of 4-byte floats, native endian. */
+#     ,xplmType_FloatArray                      = 8
+#      /* An array of 4-byte integers, native endian. */
+#     ,xplmType_IntArray                        = 16
+#      /* A variable block of data. */
+#     ,xplmType_Data                            = 32
 #
 type
     XPLMDataTypeIDEnums* = enum
@@ -106,6 +123,7 @@ type
 # every time you need to read or write it.
 #
 # XPLM_API XPLMDataRef XPLMFindDataRef(const char* inDataRefName);
+#
 proc XPLMFindDataRef*(inDataRefName: cstring): XPLMDataRef
                                         {importc: "XPLMFindDataRef", dynlib.}
 
@@ -116,6 +134,7 @@ proc XPLMFindDataRef*(inDataRefName: cstring): XPLMDataRef
 # the data, false otherwise.  Some datarefs are read-only.
 #
 # XPLM_API int XPLMCanWriteDataRef(XPLMDataRef inDataRef);
+#
 proc XPLMCanWriteDataRef*(inDataRef: XPLMDataRef): cint
                                     {importc: "XPLMCanWriteDataRef", dynlib.}
 
@@ -134,6 +153,7 @@ proc XPLMCanWriteDataRef*(inDataRef: XPLMDataRef): cint
 # 0 or 0-length data.
 #
 # XPLM_API int XPLMIsDataRefGood(XPLMDataRef inDataRef);
+#
 proc XPLMIsDataRefGood*(inDataRef: XPLMDataRef): cint
                                         {importc: "XPLMIsDataRefGood", dynlib.}
 
@@ -144,6 +164,7 @@ proc XPLMIsDataRefGood*(inDataRef: XPLMDataRef): cint
 # ref is available in multiple data types, they will all be returned.
 #
 # XPLM_API XPLMDataTypeID XPLMGetDataRefTypes(XPLMDataRef inDataRef);
+#
 proc XPLMGetDataRefTypes*(inDataRef: XPLMDataRef): XPLMDataTypeID
                                     {importc: "XPLMGetDataRefTypes", dynlib.}
 
@@ -175,6 +196,7 @@ proc XPLMGetDataRefTypes*(inDataRef: XPLMDataRef): XPLMDataTypeID
 # disabled.
 #
 # XPLM_API int XPLMGetDatai(XPLMDataRef inDataRef);
+#
 proc XPLMGetDatai*(inDataRef: XPLMDataRef): cint
                                             {importc: "XPLMGetDatai", dynlib.}
 
@@ -186,6 +208,7 @@ proc XPLMGetDatai*(inDataRef: XPLMDataRef): cint
 # dataref is not writable.
 #
 # XPLM_API void XPLMSetDatai(XPLMDataRef inDataRef, int inValue);
+#
 proc XPLMSetDatai*(inDataRef: XPLMDataRef, inValue: cint)
                                             {importc: "XPLMSetDatai", dynlib.}
 
@@ -197,6 +220,7 @@ proc XPLMSetDatai*(inDataRef: XPLMDataRef, inValue: cint)
 # the plugin is disabled.
 #
 # XPLM_API float XPLMGetDataf(XPLMDataRef inDataRef);
+#
 proc XPLMGetDataf*(inDataRef: XPLMDataRef): cfloat
                                             {importc: "XPLMGetDataf", dynlib.}
 
@@ -208,6 +232,7 @@ proc XPLMGetDataf*(inDataRef: XPLMDataRef): cfloat
 # dataref is invalid, or the dataref is not writable.
 #
 # XPLM_API void XPLMSetDataf(XPLMDataRef inDataRef, float inValue);
+#
 proc XPLMSetDataf*(inDataRef: XPLMDataRef,
                    inValue: cfloat) {importc: "XPLMSetDataf", dynlib.}
 
@@ -219,6 +244,7 @@ proc XPLMSetDataf*(inDataRef: XPLMDataRef,
 # the plugin is disabled.
 #
 # XPLM_API double XPLMGetDatad(XPLMDataRef inDataRef);
+#
 proc XPLMGetDatad*(inDataRef: XPLMDataRef): cdouble
                                             {importc: "XPLMGetDatad", dynlib.}
 
@@ -230,6 +256,7 @@ proc XPLMGetDatad*(inDataRef: XPLMDataRef): cdouble
 # dataref is invalid, or the dataref is not writable.
 #
 # XPLM_API void XPLMSetDatad(XPLMDataRef inDataRef, double inValue);
+
 proc XPLMSetDatad*(inDataRef: XPLMDataRef,
                    inValue: cdouble) {importc: "XPLMSetDatad", dynlib.}
 
@@ -254,6 +281,7 @@ proc XPLMSetDatad*(inDataRef: XPLMDataRef,
 #                              int * outValues,
 #                              int inOffset,
 #                              int inMax);
+#
 proc XPLMGetDatavi*(inDataRef: XPLMDataRef,
                     outValues: ptr cint,
                     inOffset: cint,
@@ -276,6 +304,7 @@ proc XPLMGetDatavi*(inDataRef: XPLMDataRef,
 #                               int * inValues,
 #                               int inoffset,
 #                               int inCount);
+#
 proc XPLMSetDatavi*(inDataRef: XPLMDataRef,
                     inValues: ptr cint,
                     inoffset: cint,
@@ -302,6 +331,7 @@ proc XPLMSetDatavi*(inDataRef: XPLMDataRef,
 #                            float * outValues,
 #                            int inOffset,
 #                            int inMax);
+#
 proc XPLMGetDatavf*(inDataRef: XPLMDataRef,
                     outValues: ptr cfloat,
                     inOffset: cint,
@@ -324,6 +354,7 @@ proc XPLMGetDatavf*(inDataRef: XPLMDataRef,
 #                            float * inValues,
 #                            int inoffset,
 #                            int inCount);
+#
 proc XPLMSetDatavf*(inDataRef: XPLMDataRef,
                     inValues: ptr cfloat,
                     inoffset: cint,
@@ -349,6 +380,7 @@ proc XPLMSetDatavf*(inDataRef: XPLMDataRef,
 #                             void * outValue,
 #                             int inOffset,
 #                             int inMaxBytes);
+#
 proc XPLMGetDatab*(inDataRef: XPLMDataRef,
                    outValue: pointer,
                    inOffset: cint,
@@ -371,6 +403,7 @@ proc XPLMGetDatab*(inDataRef: XPLMDataRef,
 #                            void * inValue,
 #                            int inOffset,
 #                            int inLength);
+#
 proc XPLMSetDatab*(inDataRef: XPLMDataRef,
                    inValue: pointer,
                    inOffset: cint,
@@ -413,30 +446,38 @@ proc XPLMSetDatab*(inDataRef: XPLMDataRef,
 # read-write accessors; you are responsible for avoiding overruns, supporting
 # offset read/writes, and handling a read with a NULL buffer.
 #
+#
 type
     # typedef int (* XPLMGetDatai_f)(void * inRefcon);
+    #
     XPLMGetDatai_f* = proc (inRefcon: pointer): cint {.stdcall.}
 
     # typedef void (* XPLMSetDatai_f)(void * inRefcon, int inValue);
+    #
     XPLMSetDatai_f* = proc (inRefcon: pointer,
                             inValue: cint) {.stdcall.}
 
     # typedef float (* XPLMGetDataf_f)(void * inRefcon);
+    #
     XPLMGetDataf_f* = proc (inRefcon: pointer): cfloat {.stdcall.}
 
     # typedef void (* XPLMSetDataf_f)(void * inRefcon, float inValue);
+    #
     XPLMSetDataf_f* = proc (inRefcon: pointer,
                             inValue: cfloat) {.stdcall.}
 
     # typedef double (* XPLMGetDatad_f)(void * inRefcon);
+    #
     XPLMGetDatad_f* = proc (inRefcon: pointer): cdouble {.stdcall.}
 
     # typedef void (* XPLMSetDatad_f)(void * inRefcon, double inValue);
+    #
     XPLMSetDatad_f* = proc (inRefcon: pointer,
                             inValue: cdouble) {.stdcall.}
 
     # typedef int (* XPLMGetDatavi_f)(void * inRefcon, int * outValues,
     #                                  int inOffset, int inMax);
+#
     XPLMGetDatavi_f* = proc (inRefcon: pointer,
                              outValues: ptr cint,
                              inOffset: cint,
@@ -444,6 +485,7 @@ type
 
     # typedef void (* XPLMSetDatavi_f)(void * inRefcon, int * inValues,
     #                                   int inOffset, int inCount);
+#
     XPLMSetDatavi_f* = proc (inRefcon: pointer,
                              inValues: ptr int,
                              inOffset: cint,
@@ -451,6 +493,7 @@ type
 
     # typedef int (* XPLMGetDatavf_f)(void * inRefcon, float * outValues,
     #                                  int inOffset, int inMax);
+#
     XPLMGetDatavf_f* = proc (inRefcon: pointer,
                              outValues: ptr cfloat,
                              inOffset: cint,
@@ -458,6 +501,7 @@ type
 
     # typedef void (* XPLMSetDatavf_f)(void * inRefcon, float * inValues,
     #                                   int inOffset, int inCount);
+#
     XPLMSetDatavf_f* = proc (inRefcon: pointer,
                              inValues: ptr cfloat,
                              inOffset: cint,
@@ -465,6 +509,7 @@ type
 
     # typedef int (* XPLMGetDatab_f)(void * inRefcon, void * outValue,
     #                                 int inOffset, int inMaxLength);
+#
     XPLMGetDatab_f* = proc (inRefcon: pointer,
                             outValue: pointer,
                             inOffset: cint,
@@ -472,6 +517,7 @@ type
 
     # typedef void (* XPLMSetDatab_f)(void * inRefcon, void * inValue,
     #                                  int inOffset, int inLength);
+#
     XPLMSetDatab_f* = proc (inRefcon: pointer,
                             inValue: pointer,
                             inOffset: cint,
@@ -507,6 +553,7 @@ type
                                                # XPLMSetDatab_f inWriteData,
                                                # void * inReadRefcon,
                                                # void * inWriteRefcon);
+#
 proc XPLMRegisterDataAccessor*(inDataName: cstring,
                                inDataType: XPLMDataTypeID,
                                inIsWritable: cint,
@@ -540,6 +587,7 @@ proc XPLMRegisterDataAccessor*(inDataName: cstring,
 # time of operation.
 #
 # XPLM_API void XPLMUnregisterDataAccessor(XPLMDataRef inDataRef);
+#
 proc XPLMUnregisterDataAccessor*(inDataRef: XPLMDataRef)
                             {importc: "XPLMUnregisterDataAccessor", dynlib.}
 
@@ -617,6 +665,7 @@ type
 #                            XPLMDataTypeID inDataType,
 #                            XPLMDataChanged_f inNotificationFunc,
 #                            void * inNotificationRefcon);
+#
 proc XPLMShareData*(inDataName: cstring,
                     inDataType: XPLMDataTypeID,
                     inNotificationFunc: XPLMDataChanged_f,
@@ -635,6 +684,7 @@ proc XPLMShareData*(inDataName: cstring,
 #                             XPLMDataTypeID inDataType,
 #                             XPLMDataChanged_f inNotificationFunc,
 #                             void * inNotificationRefcon);
+#
 proc XPLMUnshareData*(inDataName: cstring,
                       inDataType: XPLMDataTypeID,
                       inNotificationFunc: XPLMDataChanged_f,

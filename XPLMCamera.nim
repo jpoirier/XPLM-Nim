@@ -39,6 +39,14 @@
 # This enumeration states how long you want to retain control of the camera.
 # You can retain it indefinitely or until the user selects a new view.
 #
+# enum {
+#      /* Control the camera until the user picks a new view. */
+#      xplm_ControlCameraUntilViewChanges       = 1
+
+#      /* Control the camera until your plugin is disabled or another plugin forcably *
+#       * takes control.                                                              */
+#     ,xplm_ControlCameraForever                = 2
+#
 const
     # Control the camera until the user picks a new view.
     xplm_ControlCameraUntilViewChanges* = 1
@@ -47,6 +55,8 @@ const
     # takes control.
     xplm_ControlCameraForever* = 2
 
+# typedef int XPLMCameraControlDuration;
+#
 type
     XPLMCameraControlDuration*: cint
 
@@ -59,6 +69,16 @@ type
 # nose up, positive roll means roll right, and positive yaw means yaw right,
 # all in degrees. Zoom is a zoom factor, with 1.0 meaning normal zoom and 2.0
 # magnifying by 2x (objects appear larger).
+#
+# typedef struct {
+#      float                     x;
+#      float                     y;
+#      float                     z;
+#      float                     pitch;
+#      float                     heading;
+#      float                     roll;
+#      float                     zoom;
+# } XPLMCameraPosition_t;
 #
 type
     PXPLMCameraPosition_t* = ptr XPLMCameraPosition_t
@@ -87,6 +107,7 @@ type
 # typedef int (* XPLMCameraControl_f)(XPLMCameraPosition_t* outCameraPosition,
 #                                     int inIsLosingControl,
 #                                     void* inRefcon);
+#
 type
     XPLMCameraControl_f* = proc (outCameraPosition: PXPLMCameraPosition_t,
                                  inIsLosingControl: cint,
@@ -102,6 +123,7 @@ type
 # XPLM_API void XPLMControlCamera(XPLMCameraControlDuration inHowLong,
 #                                 XPLMCameraControl_f inControlFunc,
 #                                 void *inRefcon);
+#
 proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration,
                         inControlFunc: XPLMCameraControl_f,
                         inRefcon: pointer)
@@ -118,6 +140,7 @@ proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration,
 # posession of the camera.
 #
 # XPLM_API void XPLMDontControlCamera(void);
+#
 proc XPLMDontControlCamera*() {importc: "XPLMDontControlCamera", dynlib.}
 
 ##
@@ -128,6 +151,7 @@ proc XPLMDontControlCamera*() {importc: "XPLMDontControlCamera", dynlib.}
 # current control duration will be returned.
 #
 # XPLM_API int XPLMIsCameraBeingControlled(XPLMCameraControlDuration *outCameraControlDuration);
+#
 proc XPLMIsCameraBeingControlled*(outCameraControlDuration: ptr XPLMCameraControlDuration):
                         cint {importc: "XPLMIsCameraBeingControlled", dynlib.}
 
@@ -137,5 +161,6 @@ proc XPLMIsCameraBeingControlled*(outCameraControlDuration: ptr XPLMCameraContro
 # This function reads the current camera position.
 #
 # XPLM_API void XPLMReadCameraPosition(XPLMCameraPosition_t *outCameraPosition);
+#
 proc XPLMReadCameraPosition*(outCameraPosition: PXPLMCameraPosition_t)
                                 {importc: "XPLMReadCameraPosition", dynlib.}

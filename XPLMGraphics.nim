@@ -58,6 +58,7 @@ const
     xplm_Tex_AircraftLiteMap = 2
 
 # typedef int XPLMTextureID;
+#
 type
     XPLMTextureID: cint
 
@@ -111,6 +112,7 @@ type
 #                                    int inEnableAlphaBlending,
 #                                    int inEnableDepthTesting,
 #                                    int inEnableDepthWriting);
+#
 proc XPLMSetGraphicsState*(inEnableFog: cint,
                            inNumberTexUnits: cint,
                            inEnableLighting: cint,
@@ -139,6 +141,7 @@ proc XPLMSetGraphicsState*(inEnableFog: cint,
 #
 # XPLM_API void XPLMBindTexture2d(int inTextureNum,
 #                                 int inTextureUnit);
+#
 proc XPLMBindTexture2d*(inTextureNum: cint,
                         inTextureUnit; cint)
                                         {importc: "XPLMBindTexture2d", dynlib.}
@@ -157,6 +160,7 @@ proc XPLMBindTexture2d*(inTextureNum: cint,
 #
 # XPLM_API void XPLMGenerateTextureNumbers(int * outTextureIDs,
 #                                          int inCount);
+#
 proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr cint,
                                  inCount: cint)
                               {importc: "XPLMGenerateTextureNumbers", dynlib.}
@@ -175,6 +179,7 @@ proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr cint,
 # it isn't around, or at least a way to find out whether it is loaded or not.
 #
 # XPLM_API int XPLMGetTexture(XPLMTextureID inTexture);
+#
 proc XPLMGetTexture*(inTexture: XPLMTextureID): cint
                                           {importc: "XPLMGetTexture", dynlib.}
 
@@ -192,6 +197,7 @@ proc XPLMGetTexture*(inTexture: XPLMTextureID): cint
 #                                double* outX,
 #                                double* outY,
 #                                double* outZ);
+#
 proc XPLMWorldToLocal*(inLatitude: cdouble,
                        inLongitude: cdouble,
                        inAltitude: cdouble,
@@ -217,6 +223,7 @@ proc XPLMWorldToLocal*(inLatitude: cdouble,
 #                                double * outLatitude,
 #                                double * outLongitude,
 #                                double * outAltitude);
+#
 proc XPLMLocalToWorld*(inX; cdouble,
                        inY; cdouble,
                        inZ; cdouble,
@@ -236,6 +243,7 @@ proc XPLMLocalToWorld*(inX; cdouble,
 #                                          int inTop,
 #                                          int inRight,
 #                                          int inBottom);
+#
 proc XPLMDrawTranslucentDarkBox*(inLeft: cint,
                                  inTop: cint,
                                  inRight: cint,
@@ -320,6 +328,7 @@ type
         xplmFont_Proportional
 
 # typedef int XPLMFontID;
+#
 type
     XPLMFontID: cint
 
@@ -339,6 +348,7 @@ type
 #                              char* inChar,
 #                              int* inWordWrapWidth,    /* Can be NULL */
 #                              XPLMFontID inFontID);
+#
 proc XPLMDrawString*(inColorRGB: ptr cfloat,
                      inXOffset: cint,
                      inYOffset: cint,
@@ -365,6 +375,7 @@ proc XPLMDrawString*(inColorRGB: ptr cfloat,
 #                              int inDecimals,
 #                              int inShowSign,
 #                              XPLMFontID inFontID);
+#
 proc XPLMDrawNumber*(inColorRGB: ptr cfloat,
                      inXOffset; cint,
                      inYOffset: cint,
@@ -387,6 +398,7 @@ proc XPLMDrawNumber*(inColorRGB: ptr cfloat,
 #                                     int* outCharWidth,
 #                                     int* outCharHeight,
 #                                     int* outDigitsOnly);
+#
 proc XPLMGetFontDimensions*(inFontID: XPLMFontID,
                             outCharWidth: ptr cint,
                             outCharHeight: ptr cint,
@@ -405,6 +417,7 @@ proc XPLMGetFontDimensions*(inFontID: XPLMFontID,
 # XPLM_API float XPLMMeasureString(XPLMFontID inFontID,
 #                                  const char* inChar,
 #                                  int inNumChars);
+#
 proc XPLMMeasureString*(inFontID; XPLMFontID,
                         inChar: cstring,
                         inNumChars: cint)

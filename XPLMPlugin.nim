@@ -21,6 +21,7 @@
 # get your own ID.
 #
 # XPLM_API XPLMPluginID XPLMGetMyID(void);
+#
 proc XPLMGetMyID*(): XPLMPluginID {importc: "XPLMGetMyID", nodecl.}
 
 ##
@@ -30,6 +31,7 @@ proc XPLMGetMyID*(): XPLMPluginID {importc: "XPLMGetMyID", nodecl.}
 # disabled and enabled.
 #
 # XPLM_API int XPLMCountPlugins(void);
+#
 proc XPLMGetMyID*(): cint {importc: "XPLMCountPlugins", nodecl.}
 
 ##
@@ -40,6 +42,7 @@ proc XPLMGetMyID*(): cint {importc: "XPLMCountPlugins", nodecl.}
 # order.
 #
 # XPLM_API XPLMPluginID XPLMGetNthPlugin(int inIndex);
+#
 proc XPLMGetMyID*(inIndex: cint): XPLMPluginID
                                               {importc: "XPLMGetMyID", nodecl.}
 
@@ -51,6 +54,7 @@ proc XPLMGetMyID*(inIndex: cint): XPLMPluginID
 # path does not point to a currently loaded plug-in.
 #
 # XPLM_API XPLMPluginID XPLMFindPluginByPath(const char* inPath);
+#
 proc XPLMFindPluginByPath*(inPath: cstring): XPLMPluginID
                                     {importc: "XPLMFindPluginByPath", nodecl.}
 
@@ -65,6 +69,7 @@ proc XPLMFindPluginByPath*(inPath: cstring): XPLMPluginID
 # locate another plugin that your plugin interoperates with
 #
 # XPLM_API XPLMPluginID XPLMFindPluginBySignature(const char* inSignature);
+#
 proc XPLMFindPluginBySignature*(inSignature: cstring): XPLMPluginID
                                 {importc: "XPLMFindPluginBySignature", nodecl.}
 
@@ -85,6 +90,7 @@ proc XPLMFindPluginBySignature*(inSignature: cstring): XPLMPluginID
 #                                 char* outFilePath,    /* Can be NULL */
 #                                 char* outSignature,    /* Can be NULL */
 #                                 char* outDescription);    /* Can be NULL */
+#
 proc XPLMGetPluginInfo*(inPlugin: XPLMPluginID,
                         outName: cstring,
                         outFilePath,: cstring
@@ -106,6 +112,7 @@ proc XPLMGetPluginInfo*(inPlugin: XPLMPluginID,
 # Returns whether the specified plug-in is enabled for running.
 #
 # XPLM_API int XPLMIsPluginEnabled(XPLMPluginID inPluginID);
+#
 proc XPLMIsPluginEnabled*(inPluginID: cint): cint
                                       {importc: "XPLMIsPluginEnabled", nodecl.}
 
@@ -118,6 +125,7 @@ proc XPLMIsPluginEnabled*(inPluginID: cint): cint
 # by returning 0 from their XPluginEnable callback.
 #
 # XPLM_API int XPLMEnablePlugin(XPLMPluginID inPluginID);
+#
 proc XPLMEnablePlugin*(inPluginID: cint): cint
                                         {importc: "XPLMEnablePlugin", nodecl.}
 
@@ -127,6 +135,7 @@ proc XPLMEnablePlugin*(inPluginID: cint): cint
 # This routine disableds an enabled plug-in.
 #
 # XPLM_API void XPLMDisablePlugin(XPLMPluginID inPluginID);
+#
 proc XPLMDisablePlugin*(inPluginID: cint)
                                         {importc: "XPLMDisablePlugin", nodecl.}
 
@@ -140,6 +149,7 @@ proc XPLMDisablePlugin*(inPluginID: cint)
 # up.
 #
 # XPLM_API void XPLMReloadPlugins(void);
+#
 proc XPLMDisablePlugin*() {importc: "XPLMDisablePlugin", nodecl.}
 
 #******************************************************************************
@@ -165,26 +175,30 @@ proc XPLMDisablePlugin*() {importc: "XPLMDisablePlugin", nodecl.}
 
 
 # This message is sent to your plugin whenever the user's plane crashes.
-#define XPLM_MSG_PLANE_CRASHED 101
+##define XPLM_MSG_PLANE_CRASHED 101
+#
 const
        XPLM_MSG_PLANE_CRASHED* = 101
 
 # This message is sent to your plugin whenever a new plane is loaded.  The
 # parameter is the number of the plane being loaded; 0 indicates the user's
 # plane.
-#define XPLM_MSG_PLANE_LOADED 102
+##define XPLM_MSG_PLANE_LOADED 102
+#
 const
        XPLM_MSG_PLANE_LOADED* = 102
 
 # This messages is called whenever the user's plane is positioned at a new
 # airport.
-#define XPLM_MSG_AIRPORT_LOADED 103
+##define XPLM_MSG_AIRPORT_LOADED 103
+#
 const
        XPLM_MSG_AIRPORT_LOADED* = 103
 
 # This message is sent whenever new scenery is loaded.  Use datarefs to
 # determine the new scenery files that were loaded.
-#define XPLM_MSG_SCENERY_LOADED 104
+##define XPLM_MSG_SCENERY_LOADED 104
+#
 const
        XPLM_MSG_SCENERY_LOADED* = 104
 
@@ -192,7 +206,8 @@ const
 # aircraft models.  You must use XPLMCountPlanes to find out how many planes
 # are now available.  This message will only be sent in XP7 and higher
 # because in XP6 the number of aircraft is not user-adjustable.
-#define XPLM_MSG_AIRPLANE_COUNT_CHANGED 105
+##define XPLM_MSG_AIRPLANE_COUNT_CHANGED 105
+#
 const
        XPLM_MSG_AIRPLANE_COUNT_CHANGED* = 105
 
@@ -200,7 +215,8 @@ const
 # parameter is the number of the plane being unloaded; 0 indicates the user's
 # plane.  The parameter is of type int, passed as the value of the pointer.
 # (That is: the parameter is an int, not a pointer to an int.)
-#define XPLM_MSG_PLANE_UNLOADED 106
+##define XPLM_MSG_PLANE_UNLOADED 106
+#
 const
        XPLM_MSG_PLANE_UNLOADED* = 106
 
@@ -210,7 +226,8 @@ const
 # For example, if your plugin temporarily modifies saved preferences, you can
 # put them back to their default values here to avoid  having the tweaks be
 # persisted if your plugin is not loaded on the next invocation of X-Plane.
-#define XPLM_MSG_WILL_WRITE_PREFS 107
+##define XPLM_MSG_WILL_WRITE_PREFS 107
+#
 const
        XPLM_MSG_WILL_WRITE_PREFS* = 107
 
@@ -218,7 +235,8 @@ const
 # airplane.  You can use this to check the new livery (via datarefs) and
 # react accordingly.  The parameter is of type int, passed as the value of a
 # pointer and represents the aicraft plane number - 0 is the user's plane.
-#define XPLM_MSG_LIVERY_LOADED 108
+##define XPLM_MSG_LIVERY_LOADED 108
+#
 const
        XPLM_MSG_LIVERY_LOADED* = 108
 
@@ -232,6 +250,7 @@ const
 # XPLM_API void XPLMSendMessageToPlugin*(XPLMPluginID inPlugin,
 #                                        int inMessage,
 #                                        void* inParam);
+#
 proc XPLMSendMessageToPlugin*(inPlugin: XPLMPluginID,
                               inMessage: cint,
                               inParam: pointer)
@@ -271,6 +290,7 @@ type
 # 0 if it does not.
 #
 # XPLM_API int XPLMHasFeature(const char* inFeature);
+#
 proc XPLMHasFeature*(inFeature: cstring): cint
                                           {importc: "XPLMHasFeature", nodecl.}
 
@@ -282,6 +302,7 @@ proc XPLMHasFeature*(inFeature: cstring): cint
 # feature.
 #
 # XPLM_API int XPLMIsFeatureEnabled(const char* inFeature);
+#
 proc XPLMIsFeatureEnabled*(inFeature: cstring): cint
                                     {importc: "XPLMIsFeatureEnabled", nodecl.}
 
@@ -293,6 +314,7 @@ proc XPLMIsFeatureEnabled*(inFeature: cstring): cint
 # depending on the feature.
 #
 # XPLM_API void XPLMEnableFeature(const char * inFeature, int inEnable);
+#
 proc XPLMEnableFeature*(inFeature: cstring,
                         inEnable: cint)
                                         {importc: "XPLMEnableFeature", nodecl.}
@@ -306,6 +328,7 @@ proc XPLMEnableFeature*(inFeature: cstring,
 #
 # XPLM_API void XPLMEnumerateFeatures(XPLMFeatureEnumerator_f inEnumerator,
 #                                     void* inRef);
+#
 proc XPLMEnumerateFeatures*(inEnumerator: XPLMFeatureEnumerator_f,
                             inRef: pointer)
                                     {importc: "XPLMEnumerateFeatures", nodecl.}
