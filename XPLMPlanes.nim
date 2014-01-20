@@ -17,7 +17,7 @@
 # XPLM_API void XPLMSetUsersAircraft(const char* inAircraftPath);
 #
 proc XPLMSetUsersAircraft*(inAircraftPath: cstring)
-                                    {importc: "XPLMSetUsersAircraft", dynlib.}
+                                    {.importc: "XPLMSetUsersAircraft", nodecl.}
 
 # XPLMPlaceUserAtAirport
 #
@@ -27,7 +27,7 @@ proc XPLMSetUsersAircraft*(inAircraftPath: cstring)
 # XPLM_API void XPLMPlaceUserAtAirport(const char* inAirportCode);
 #
 proc XPLMPlaceUserAtAirport*(inAirportCode; cstring)
-                                  {importc: "XPLMPlaceUserAtAirport", dynlib.}
+                                  {.importc: "XPLMPlaceUserAtAirport", nodecl.}
 
 #******************************************************************************
 # GLOBAL AIRCRAFT ACCESS
@@ -110,7 +110,7 @@ type
 proc XPLMCountAircraft*(outTotalAircraft: cint,
                         outActiveAircraft: cint,
                         outController: ptr XPLMPluginID)
-                                        {importc: "XPLMCountAircraft", dynlib.}
+                                        {.importc: "XPLMCountAircraft", nodecl.}
 
 ##
 # XPLMGetNthAircraftModel
@@ -125,7 +125,7 @@ proc XPLMCountAircraft*(outTotalAircraft: cint,
 proc XPLMGetNthAircraftModel*(inIndex: cint,
                               outFileName: cstring,
                               outPath: cstring)
-                                  {importc: "XPLMGetNthAircraftModel", dynlib.}
+                                  {.importc: "XPLMGetNthAircraftModel", nodecl.}
 
 #******************************************************************************
 # EXCLUSIVE AIRCRAFT ACCESS
@@ -168,7 +168,7 @@ type
 proc XPLMAcquirePlanes*(inAircraft: ptr ptr cchar,
                         inCallback: XPLMPlanesAvailable_f,
                         inRefcon: pointer): cint
-                                        {importc: "XPLMAcquirePlanes", dynlib.}
+                                        {.importc: "XPLMAcquirePlanes", nodecl.}
 
 ##
 # XPLMReleasePlanes
@@ -178,7 +178,7 @@ proc XPLMAcquirePlanes*(inAircraft: ptr ptr cchar,
 #
 # XPLM_API void XPLMReleasePlanes(void);
 #
-proc XPLMReleasePlanes*() {importc: "XPLMReleasePlanes", dynlib.}
+proc XPLMReleasePlanes*() {.importc: "XPLMReleasePlanes", nodecl.}
 
 ##
 # XPLMSetActiveAircraftCount
@@ -190,7 +190,7 @@ proc XPLMReleasePlanes*() {importc: "XPLMReleasePlanes", dynlib.}
 # XPLM_API void XPLMSetActiveAircraftCount(int inCount);
 #
 proc XPLMSetActiveAircraftCount*(inCount: cint)
-                              {importc: "XPLMSetActiveAircraftCount", dynlib.}
+                              {.importc: "XPLMSetActiveAircraftCount", nodecl.}
 
 ##
 # XPLMSetAircraftModel
@@ -204,7 +204,7 @@ proc XPLMSetActiveAircraftCount*(inCount: cint)
 #
 proc XPLMSetAircraftModel*(inIndex: cint,
                            inAircraftPath: cstring)
-                                    {importc: "XPLMSetAircraftModel", dynlib.}
+                                    {.importc: "XPLMSetAircraftModel", nodecl.}
 ##
 # XPLMDisableAIForPlane
 #
@@ -214,7 +214,7 @@ proc XPLMSetAircraftModel*(inIndex: cint,
 # XPLM_API void XPLMDisableAIForPlane(int inPlaneIndex);
 #
 proc XPLMDisableAIForPlane*(inPlaneIndex: cint)
-                                    {importc: "XPLMDisableAIForPlane", dynlib.}
+                                    {.importc: "XPLMDisableAIForPlane", nodecl.}
 
 ##
 # XPLMDrawAircraft
@@ -244,7 +244,7 @@ proc XPLMDrawAircraft*(inPlaneIndex: cint,
                        inYaw: cfloat,
                        inFullDraw: cint,
                        inDrawStateInfo: PXPLMPlaneDrawState_t)
-                                        {importc: "XPLMDrawAircraft", dynlib.}
+                                        {.importc: "XPLMDrawAircraft", nodecl.}
 ##
 # XPLMReinitUsersPlane
 #
@@ -261,6 +261,6 @@ proc XPLMDrawAircraft*(inPlaneIndex: cint,
 #
 # XPLM_API void XPLMReinitUsersPlane(void);
 #
-proc XPLMReinitUsersPlane*() {importc: "XPLMReinitUsersPlane", dynlib.}
+proc XPLMReinitUsersPlane*() {.importc: "XPLMReinitUsersPlane", nodecl.}
 
 

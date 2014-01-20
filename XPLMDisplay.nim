@@ -179,7 +179,7 @@ proc XPLMRegisterDrawCallback*(inCallback: XPLMDrawCallback_f,
                                inPhase: XPLMDrawingPhase,
                                inWantsBefore: cint,
                                inRefcon: pointer): cint
-                                {importc: "XPLMRegisterDrawCallback", dynlib.}
+                                {.importc: "XPLMRegisterDrawCallback", nodecl.}
 
 ##
 # XPLMUnregisterDrawCallback
@@ -198,7 +198,7 @@ proc XPLMUnregisterDrawCallback*(inCallback: XPLMDrawCallback_f,
                                  inPhase: XPLMDrawingPhase,
                                  inWantsBefore: cint,
                                  inRefcon: pointer): cint
-                            {importc: "XPLMUnregisterDrawCallback", dynlib.}
+                            {.importc: "XPLMUnregisterDrawCallback", nodecl.}
 
 ##
 # XPLMRegisterKeySniffer
@@ -218,7 +218,7 @@ proc XPLMUnregisterDrawCallback*(inCallback: XPLMDrawCallback_f,
 proc XPLMRegisterKeySniffer*(inCallback: XPLMKeySniffer_f,
                              inBeforeWindows: cint,
                              inRefcon: pointer): cint
-                                {importc: "XPLMRegisterKeySniffer", dynlib.}
+                                {.importc: "XPLMRegisterKeySniffer", nodecl.}
 
 ##
 # XPLMUnregisterKeySniffer
@@ -234,7 +234,7 @@ proc XPLMRegisterKeySniffer*(inCallback: XPLMKeySniffer_f,
 proc XPLMUnregisterKeySniffer*(inCallback: XPLMKeySniffer_f,
                                inBeforeWindows: cint,
                                inRefcon: pointer): cint
-                                {importc: "XPLMUnregisterKeySniffer", dynlib.}
+                                {.importc: "XPLMUnregisterKeySniffer", nodecl.}
 
 #******************************************************************************
 # Window API
@@ -308,7 +308,7 @@ type
 # typedef void (*XPLMDrawWindow_f)(XPLMWindowID inWindowID, void* inRefcon);
 #
 type
-    proc XPLMDrawWindow_f* = proc (inWindowID: XPLMWindowID,
+    XPLMDrawWindow_f* = proc (inWindowID: XPLMWindowID,
                                     inRefcon: pointer) {.stdcall.}
 
 ##
@@ -472,7 +472,7 @@ type
 #
 proc XPLMGetScreenSize*(outWidth: ptr cint,
                         outHeight: ptr cint)
-                                        {importc: "XPLMGetScreenSize", dynlib.}
+                                        {.importc: "XPLMGetScreenSize", nodecl.}
 
 ##
 # XPLMGetMouseLocation
@@ -485,7 +485,7 @@ proc XPLMGetScreenSize*(outWidth: ptr cint,
 #
 proc XPLMGetMouseLocation*(outX: ptr cint,
                            outY: ptr cint)
-                                        {importc: "XPLMGetMouseLocation", dynlib.}
+                                        {.importc: "XPLMGetMouseLocation", nodecl.}
 
 ##
 # XPLMCreateWindow
@@ -519,7 +519,7 @@ proc XPLMCreateWindow*(inLeft: cint,
                        inKeyCallback: XPLMHandleKey_f,
                        inMouseCallback: XPLMHandleMouseClick_f,
                        inRefcon: pointer): XPLMWindowID
-                                        {importc: "XPLMCreateWindow", dynlib.}
+                                        {.importc: "XPLMCreateWindow", nodecl.}
 
 ##
 # XPLMCreateWindowEx
@@ -535,7 +535,7 @@ proc XPLMCreateWindow*(inLeft: cint,
 # XPLM_API XPLMWindowID XPLMCreateWindowEx(XPLMCreateWindow_t* inParams);
 #
 proc XPLMCreateWindowEx*(inParams: PXPLMCreateWindow_t): XPLMWindowID
-                                    {importc: "XPLMCreateWindowEx", dynlib.}
+                                    {.importc: "XPLMCreateWindowEx", nodecl.}
 
 ##
 # XPLMDestroyWindow
@@ -546,7 +546,7 @@ proc XPLMCreateWindowEx*(inParams: PXPLMCreateWindow_t): XPLMWindowID
 # XPLM_API void XPLMDestroyWindow(XPLMWindowID inWindowID);
 #
 proc XPLMDestroyWindow*(inWindowID: XPLMWindowID)
-                                        {importc: "XPLMDestroyWindow", dynlib.}
+                                        {.importc: "XPLMDestroyWindow", nodecl.}
 
 ##
 # XPLMGetWindowGeometry
@@ -565,7 +565,7 @@ proc XPLMGetWindowGeometry*(inWindowID: XPLMWindowID,
                             outTop: ptr cint,
                             outRight: ptr cint,
                             outBottom: ptr cint)
-                                    {importc: "XPLMGetWindowGeometry", dynlib.}
+                                    {.importc: "XPLMGetWindowGeometry", nodecl.}
 
 ##
 # XPLMSetWindowGeometry
@@ -583,7 +583,7 @@ proc XPLMSetWindowGeometry*(inWindowID: XPLMWindowID,
                             inTop: cint,
                             inRight: cint,
                             inBottom: cint)
-                                    {importc: "XPLMSetWindowGeometry", dynlib.}
+                                    {.importc: "XPLMSetWindowGeometry", nodecl.}
 
 ##
 # XPLMGetWindowIsVisible
@@ -593,7 +593,7 @@ proc XPLMSetWindowGeometry*(inWindowID: XPLMWindowID,
 # XPLM_API int XPLMGetWindowIsVisible(XPLMWindowID inWindowID);
 #
 proc XPLMGetWindowIsVisible*(inWindowID: XPLMWindowID): cint
-                                {importc: "XPLMGetWindowIsVisible", dynlib.}
+                                {.importc: "XPLMGetWindowIsVisible", nodecl.}
 
 ##
 # XPLMSetWindowIsVisible
@@ -604,7 +604,7 @@ proc XPLMGetWindowIsVisible*(inWindowID: XPLMWindowID): cint
 #
 proc XPLMSetWindowIsVisible*(inWindowID: XPLMWindowID,
                              inIsVisible: cint)
-                                {importc: "XPLMSetWindowIsVisible", dynlib.}
+                                {.importc: "XPLMSetWindowIsVisible", nodecl.}
 
 ##
 # XPLMGetWindowRefCon
@@ -615,7 +615,7 @@ proc XPLMSetWindowIsVisible*(inWindowID: XPLMWindowID,
 # XPLM_API void * XPLMGetWindowRefCon(XPLMWindowID inWindowID);
 #
 proc XPLMGetWindowRefCon*(inWindowID: XPLMWindowID): pointer
-                                    {importc: "XPLMGetWindowRefCon", dynlib.}
+                                    {.importc: "XPLMGetWindowRefCon", nodecl.}
 
 ##
 # XPLMSetWindowRefCon
@@ -626,7 +626,7 @@ proc XPLMGetWindowRefCon*(inWindowID: XPLMWindowID): pointer
 # XPLM_API void XPLMSetWindowRefCon(XPLMWindowID inWindowID, void* inRefcon);
 #
 proc XPLMSetWindowRefCon*(inWindowID: XPLMWindowID, inRefcon: pointer)
-                                    {importc: "XPLMSetWindowRefCon", dynlib.}
+                                    {.importc: "XPLMSetWindowRefCon", nodecl.}
 
 ##
 # XPLMTakeKeyboardFocus
@@ -638,7 +638,7 @@ proc XPLMSetWindowRefCon*(inWindowID: XPLMWindowID, inRefcon: pointer)
 # XPLM_API void XPLMTakeKeyboardFocus(XPLMWindowID inWindow);
 #
 proc XPLMTakeKeyboardFocus*(inWindowID: XPLMWindowID)
-                                    {importc: "XPLMTakeKeyboardFocus", dynlib.}
+                                    {.importc: "XPLMTakeKeyboardFocus", nodecl.}
 
 ##
 # XPLMBringWindowToFront
@@ -650,7 +650,7 @@ proc XPLMTakeKeyboardFocus*(inWindowID: XPLMWindowID)
 # XPLM_API void XPLMBringWindowToFront(XPLMWindowID inWindow);
 #
 proc XPLMBringWindowToFront*(inWindowID: XPLMWindowID)
-                                {importc: "XPLMBringWindowToFront", dynlib.}
+                                {.importc: "XPLMBringWindowToFront", nodecl.}
 
 ##
 # XPLMIsWindowInFront
@@ -661,7 +661,7 @@ proc XPLMBringWindowToFront*(inWindowID: XPLMWindowID)
 # XPLM_API int XPLMIsWindowInFront(XPLMWindowID inWindow);
 #
 proc XPLMIsWindowInFront*(inWindowID: XPLMWindowID): cint
-                                    {importc: "XPLMIsWindowInFront", dynlib.}
+                                    {.importc: "XPLMIsWindowInFront", nodecl.}
 
 #******************************************************************************
 # Hot Keys
@@ -711,7 +711,7 @@ proc XPLMRegisterHotKey*(inVirtualKey: cchar,
                          inDescription: cstring,
                          inCallback: XPLMHotKey_f,
                          inRefcon: pointer): XPLMHotKeyID
-                                    {importc: "XPLMRegisterHotKey", dynlib.}
+                                    {.importc: "XPLMRegisterHotKey", nodecl.}
 
 ##
 # XPLMUnregisterHotKey
@@ -721,7 +721,7 @@ proc XPLMRegisterHotKey*(inVirtualKey: cchar,
 # XPLM_API void XPLMUnregisterHotKey(XPLMHotKeyID inHotKey);
 #
 proc XPLMUnregisterHotKey*(inHotKey: XPLMHotKeyID)
-                                    {importc: "XPLMUnregisterHotKey", dynlib.}
+                                    {.importc: "XPLMUnregisterHotKey", nodecl.}
 
 ##
 # XPLMCountHotKeys
@@ -730,7 +730,7 @@ proc XPLMUnregisterHotKey*(inHotKey: XPLMHotKeyID)
 #
 # XPLM_API int XPLMCountHotKeys(void);
 #
-proc XPLMCountHotKeys*(): cint {importc: "XPLMCountHotKeys", dynlib.}
+proc XPLMCountHotKeys*(): cint {.importc: "XPLMCountHotKeys", nodecl.}
 
 ##
 # XPLMGetNthHotKey
@@ -740,7 +740,7 @@ proc XPLMCountHotKeys*(): cint {importc: "XPLMCountHotKeys", dynlib.}
 # XPLM_API XPLMHotKeyID XPLMGetNthHotKey(int inIndex);
 #
 proc XPLMGetNthHotKey*(inIndex: cint): XPLMHotKeyID
-                                        {importc: "XPLMGetNthHotKey", dynlib.}
+                                        {.importc: "XPLMGetNthHotKey", nodecl.}
 
 ##
 # XPLMGetHotKeyInfo
@@ -759,7 +759,7 @@ proc XPLMGetHotKeyInfo*(inHotKey: XPLMHotKeyID,
                         outFlags: ptr XPLMKeyFlags,
                         outDescription: cstring,
                         outPlugin: ptr XPLMPluginID)
-                                        {importc: "XPLMGetHotKeyInfo", dynlib.}
+                                        {.importc: "XPLMGetHotKeyInfo", nodecl.}
 
 ##
 # XPLMSetHotKeyCombination
@@ -774,4 +774,4 @@ proc XPLMGetHotKeyInfo*(inHotKey: XPLMHotKeyID,
 proc XPLMSetHotKeyCombination*(inHotKey: XPLMHotKeyID,
                                inVirtualKey: cchar,
                                inFlags: XPLMKeyFlags)
-                                {importc: "XPLMSetHotKeyCombination", dynlib.}
+                                {.importc: "XPLMSetHotKeyCombination", nodecl.}

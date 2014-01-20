@@ -24,10 +24,10 @@
 #
 const
      # Your callback runs before X-Plane integrates the flight model.
-     xplm_FlightLoop_Phase_BeforeFlightModel = 0
+     xplm_FlightLoop_Phase_BeforeFlightModel* = 0
 
      # Your callback runs after X-Plane integrates the flight model.
-     xplm_FlightLoop_Phase_AfterFlightModel = 1
+     xplm_FlightLoop_Phase_AfterFlightModel* = 1
 
 # typedef int XPLMFlightLoopPhaseType;
 #
@@ -195,7 +195,7 @@ proc XPLMCreateFlightLoop*(inParams: PXPLMCreateFlightLoop_t): XPLMFlightLoopID
 #
 # XPLM_API void XPLMDestroyFlightLoop(XPLMFlightLoopID inFlightLoopID);
 #
-proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID):
+proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID)
                                 {.importc: "XPLMDestroyFlightLoop", nodecl.}
 
 ##

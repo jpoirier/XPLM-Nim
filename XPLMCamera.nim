@@ -127,7 +127,7 @@ type
 proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration,
                         inControlFunc: XPLMCameraControl_f,
                         inRefcon: pointer)
-                                        {importc: "XPLMControlCamera", dynlib.}
+                                        {.importc: "XPLMControlCamera", nodecl.}
 
 ##
 # XPLMDontControlCamera
@@ -141,7 +141,7 @@ proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration,
 #
 # XPLM_API void XPLMDontControlCamera(void);
 #
-proc XPLMDontControlCamera*() {importc: "XPLMDontControlCamera", dynlib.}
+proc XPLMDontControlCamera*() {.importc: "XPLMDontControlCamera", nodecl.}
 
 ##
 # XPLMIsCameraBeingControlled
@@ -153,7 +153,7 @@ proc XPLMDontControlCamera*() {importc: "XPLMDontControlCamera", dynlib.}
 # XPLM_API int XPLMIsCameraBeingControlled(XPLMCameraControlDuration *outCameraControlDuration);
 #
 proc XPLMIsCameraBeingControlled*(outCameraControlDuration: ptr XPLMCameraControlDuration):
-                        cint {importc: "XPLMIsCameraBeingControlled", dynlib.}
+                        cint {.importc: "XPLMIsCameraBeingControlled", nodecl.}
 
 ##
 # XPLMReadCameraPosition
@@ -163,4 +163,4 @@ proc XPLMIsCameraBeingControlled*(outCameraControlDuration: ptr XPLMCameraContro
 # XPLM_API void XPLMReadCameraPosition(XPLMCameraPosition_t *outCameraPosition);
 #
 proc XPLMReadCameraPosition*(outCameraPosition: PXPLMCameraPosition_t)
-                                {importc: "XPLMReadCameraPosition", dynlib.}
+                                {.importc: "XPLMReadCameraPosition", nodecl.}

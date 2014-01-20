@@ -57,8 +57,8 @@ type
 # Probe results - possible results from a probe query.
 #
 const
-     # The probe hit terrain and returned valid values.
-     xplm_ProbeHitTerrain* = 0
+    # The probe hit terrain and returned valid values.
+    xplm_ProbeHitTerrain* = 0
 
      # An error in the API call.  Either the probe struct size is bad, or the
      # probe is invalid or the type is mismatched for the specific query call.
@@ -140,7 +140,7 @@ type
 #
 # XPLM_API XPLMProbeRef XPLMCreateProbe(XPLMProbeType inProbeType);
 #
-proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {importc: "XPLMCreateProbe", dynlib.}
+proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {.importc: "XPLMCreateProbe", nodecl.}
 
 ##
 # XPLMDestroyProbe
@@ -149,7 +149,7 @@ proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {importc: "XPLMC
 #
 # XPLM_API void XPLMDestroyProbe(XPLMProbeRef inProbe);
 #
-proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {importc: "XPLMDestroyProbe", dynlib.}
+proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {.importc: "XPLMDestroyProbe", nodecl.}
 
 ##
 # XPLMProbeTerrainXYZ
@@ -168,9 +168,9 @@ proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {importc: "XPLMDestroyProbe", dynl
 proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
                           inX: cfloat,
                           inY: cfloat,
-                          inZ cfloat,
+                          inZ: cfloat,
                           outInfo: ptr XPLMProbeInfo_t): XPLMProbeResult
-                                    {importc: "XPLMProbeTerrainXYZ", dynlib.}
+                                    {.importc: "XPLMProbeTerrainXYZ", nodecl.}
 
 #******************************************************************************
 # Object Drawing
@@ -272,7 +272,7 @@ type
 # XPLM_API XPLMObjectRef XPLMLoadObject(const char * inPath);
 #
 proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef
-                                        {importc: "XPLMLoadObject", dynlib.}
+                                        {.importc: "XPLMLoadObject", nodecl.}
 
 ##
 # XPLMLoadObjectAsync
@@ -297,7 +297,7 @@ proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef
 proc XPLMLoadObjectAsync*(inPath: cstring,
                           inCallback: XPLMObjectLoaded_f,
                           inRefcon: pointer)
-                                    {importc: "XPLMLoadObjectAsync", dynlib.}
+                                    {.importc: "XPLMLoadObjectAsync", nodecl.}
 
 ##
 # XPLMDrawObjects
@@ -333,7 +333,7 @@ proc XPLMDrawObjects*(inObject: XPLMObjectRef,
                       inLocations: ptr XPLMDrawInfo_t,
                       lighting: cint,
                       earth_relative: cint)
-                                        {importc: "XPLMDrawObjects", dynlib.}
+                                        {.importc: "XPLMDrawObjects", nodecl.}
 
 ##
 # XPLMUnloadObject
@@ -346,7 +346,7 @@ proc XPLMDrawObjects*(inObject: XPLMObjectRef,
 # XPLM_API void XPLMUnloadObject(XPLMObjectRef inObject);
 #
 proc XPLMUnloadObject*(inObject: XPLMObjectRef)
-                                        {importc: "XPLMUnloadObject", dynlib.}
+                                        {.importc: "XPLMUnloadObject", nodecl.}
 
 #******************************************************************************
 # Library Access
@@ -394,6 +394,6 @@ proc XPLMLookupObjects*(inPath: cstring,
                         inLatitude: cfloat,
                         inLongitude: cfloat,
                         enumerator: XPLMLibraryEnumerator_f,
-                        _ref: pointer): cint
-                                        {importc: "XPLMLookupObjects", dynlib.}
+                        rref: pointer): cint
+                                        {.importc: "XPLMLookupObjects", nodecl.}
 

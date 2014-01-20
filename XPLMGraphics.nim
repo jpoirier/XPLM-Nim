@@ -49,18 +49,18 @@
 #
 const
     # The bitmap that contains window outlines, button outlines, fonts, etc.
-    xplm_Tex_GeneralInterface = 0
+    xplm_Tex_GeneralInterface* = 0
 
     # The exterior paint for the user's aircraft (daytime).
-    xplm_Tex_AircraftPaint = 1
+    xplm_Tex_AircraftPaint* = 1
 
     # The exterior light map for the user's aircraft.
-    xplm_Tex_AircraftLiteMap = 2
+    xplm_Tex_AircraftLiteMap* = 2
 
 # typedef int XPLMTextureID;
 #
 type
-    XPLMTextureID = cint
+    XPLMTextureID* = cint
 
 ##
 # XPLMSetGraphicsState
@@ -120,7 +120,7 @@ proc XPLMSetGraphicsState*(inEnableFog: cint,
                            inEnableAlphaBlending: cint,
                            inEnableDepthTesting: cint,
                            inEnableDepthWriting: cint)
-                                    {importc: "XPLMSetGraphicsState", dynlib.}
+                                    {.importc: "XPLMSetGraphicsState", nodecl.}
 
 ##
 # XPLMBindTexture2d
@@ -144,7 +144,7 @@ proc XPLMSetGraphicsState*(inEnableFog: cint,
 #
 proc XPLMBindTexture2d*(inTextureNum: cint,
                         inTextureUnit; cint)
-                                        {importc: "XPLMBindTexture2d", dynlib.}
+                                        {.importc: "XPLMBindTexture2d", nodecl.}
 
 ##
 # XPLMGenerateTextureNumbers
@@ -163,7 +163,7 @@ proc XPLMBindTexture2d*(inTextureNum: cint,
 #
 proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr cint,
                                  inCount: cint)
-                              {importc: "XPLMGenerateTextureNumbers", dynlib.}
+                              {.importc: "XPLMGenerateTextureNumbers", nodecl.}
 
 ##
 # XPLMGetTexture
@@ -181,7 +181,7 @@ proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr cint,
 # XPLM_API int XPLMGetTexture(XPLMTextureID inTexture);
 #
 proc XPLMGetTexture*(inTexture: XPLMTextureID): cint
-                                          {importc: "XPLMGetTexture", dynlib.}
+                                          {.importc: "XPLMGetTexture", nodecl.}
 
 ##
 # XPLMWorldToLocal
@@ -204,7 +204,7 @@ proc XPLMWorldToLocal*(inLatitude: cdouble,
                        outX: ptr cdouble,
                        outY: ptr cdouble,
                        outZ: ptr cdouble)
-                                        {importc: "XPLMWorldToLocal", dynlib.}
+                                        {.importc: "XPLMWorldToLocal", nodecl.}
 
 ##
 # XPLMLocalToWorld
@@ -224,13 +224,13 @@ proc XPLMWorldToLocal*(inLatitude: cdouble,
 #                                double * outLongitude,
 #                                double * outAltitude);
 #
-proc XPLMLocalToWorld*(inX; cdouble,
-                       inY; cdouble,
-                       inZ; cdouble,
+proc XPLMLocalToWorld*(inX: cdouble,
+                       inY: cdouble,
+                       inZ: cdouble,
                        outLatitude: ptr cdouble,
                        outLongitude: ptr cdouble,
                        outAltitude: ptr cdouble)
-                                        {importc: "XPLMLocalToWorld", dynlib.}
+                                        {.importc: "XPLMLocalToWorld", nodecl.}
 
 ##
 # XPLMDrawTranslucentDarkBox
@@ -248,7 +248,7 @@ proc XPLMDrawTranslucentDarkBox*(inLeft: cint,
                                  inTop: cint,
                                  inRight: cint,
                                  inBottom: cint)
-                              {importc: "XPLMDrawTranslucentDarkBox", dynlib.}
+                              {.importc: "XPLMDrawTranslucentDarkBox", nodecl.}
 
 #******************************************************************************
 # X-PLANE TEXT
@@ -270,62 +270,25 @@ proc XPLMDrawTranslucentDarkBox*(inLeft: cint,
 #
 type
     XPLMFontIDEnums* = enum
-        # Mono-spaced font for user interface.  Available in all versions of the SDK.
-        xplmFont_Basic,
-
-        # Deprecated, do not use.
-        xplmFont_Menus,
-
-        # Deprecated, do not use.
-        xplmFont_Metal,
-
-        # Deprecated, do not use.
-        xplmFont_Led,
-
-        # Deprecated, do not use.
-        xplmFont_LedWide,
-
-        # Deprecated, do not use.
-        xplmFont_PanelHUD,
-
-        # Deprecated, do not use.
-        xplmFont_PanelEFIS,
-
-        # Deprecated, do not use.
-        xplmFont_PanelGPS,
-
-        # Deprecated, do not use.
-        xplmFont_RadiosGA,
-
-        # Deprecated, do not use.
-        xplmFont_RadiosBC,
-
-        # Deprecated, do not use.
-        xplmFont_RadiosHM ,
-
-        # Deprecated, do not use.
-        xplmFont_RadiosGANarrow,
-
-        # Deprecated, do not use.
-        xplmFont_RadiosBCNarrow,
-
-        # Deprecated, do not use.
-        xplmFont_RadiosHMNarrow,
-
-        # Deprecated, do not use.
-        xplmFont_Timer,
-
-        # Deprecated, do not use.
-        xplmFont_FullRound,
-
-        # Deprecated, do not use.
-        xplmFont_SmallRound,
-
-        # Deprecated, do not use.
-        xplmFont_Menus_Localized,
-
-        # Proportional UI font.
-        xplmFont_Proportional
+        xplmFont_Basic, # Mono-spaced font for user interface.  Available in all versions of the SDK.
+        xplmFont_Menus, # Deprecated, do not use.
+        xplmFont_Metal, # Deprecated, do not use.
+        xplmFont_Led, # Deprecated, do not use.
+        xplmFont_LedWide, # Deprecated, do not use.
+        xplmFont_PanelHUD, # Deprecated, do not use.
+        xplmFont_PanelEFIS, # Deprecated, do not use.
+        xplmFont_PanelGPS, # Deprecated, do not use.
+        xplmFont_RadiosGA, # Deprecated, do not use.
+        xplmFont_RadiosBC, # Deprecated, do not use.
+        xplmFont_RadiosHM , # Deprecated, do not use.
+        xplmFont_RadiosGANarrow, # Deprecated, do not use.
+        xplmFont_RadiosBCNarrow, # Deprecated, do not use.
+        xplmFont_RadiosHMNarrow, # Deprecated, do not use.
+        xplmFont_Timer, # Deprecated, do not use.
+        xplmFont_FullRound, # Deprecated, do not use.
+        xplmFont_SmallRound, # Deprecated, do not use.
+        xplmFont_Menus_Localized, # Deprecated, do not use.
+        xplmFont_Proportional # Deprecated, do not use.
 
 # typedef int XPLMFontID;
 #
@@ -355,7 +318,7 @@ proc XPLMDrawString*(inColorRGB: ptr cfloat,
                      inChar: cstring,
                      inWordWrapWidth: ptr cint,
                      inFontID: XPLMFontID)
-                                          {importc: "XPLMDrawString", dynlib.}
+                                          {.importc: "XPLMDrawString", nodecl.}
 
 ##
 # XPLMDrawNumber
@@ -377,14 +340,14 @@ proc XPLMDrawString*(inColorRGB: ptr cfloat,
 #                              XPLMFontID inFontID);
 #
 proc XPLMDrawNumber*(inColorRGB: ptr cfloat,
-                     inXOffset; cint,
+                     inXOffset: cint,
                      inYOffset: cint,
                      inValue: cdouble,
-                     inDigits; cint,
-                     inDecimals; cint,
-                     inShowSign; cint,
+                     inDigits: cint,
+                     inDecimals: cint,
+                     inShowSign: cint,
                      inFontID: XPLMFontID)
-                                          {importc: "XPLMDrawNumber", dynlib.}
+                                          {.importc: "XPLMDrawNumber", nodecl.}
 
 ##
 # XPLMGetFontDimensions
@@ -403,7 +366,7 @@ proc XPLMGetFontDimensions*(inFontID: XPLMFontID,
                             outCharWidth: ptr cint,
                             outCharHeight: ptr cint,
                             outDigitsOnly: ptr cint)
-                                    {importc: "XPLMGetFontDimensions", dynlib.}
+                                    {.importc: "XPLMGetFontDimensions", nodecl.}
 
 ##
 # XPLMMeasureString
@@ -421,4 +384,4 @@ proc XPLMGetFontDimensions*(inFontID: XPLMFontID,
 proc XPLMMeasureString*(inFontID; XPLMFontID,
                         inChar: cstring,
                         inNumChars: cint)
-                                        {importc: "XPLMMeasureString", dynlib.}
+                                        {.importc: "XPLMMeasureString", nodecl.}
