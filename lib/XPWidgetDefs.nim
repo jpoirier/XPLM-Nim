@@ -1,6 +1,6 @@
 # See license.txt for usage.
 
-import XPLMDefs
+# import XPLMDefs
 
 
 #******************************************************************************
@@ -21,23 +21,23 @@ import XPLMDefs
 # a pointer.  You receive a widget ID when you create a new widget and then
 # use that widget ID to further refer to the widget.
 #
-#typedef void * XPWidgetID;
+# typedef void * XPWidgetID;
 #
 type
     XPWidgetID* = pointer
 
- # XPWidgetPropertyID
- #
- # Properties are values attached to instances of your widgets.  A property is
- # identified by a 32-bit ID and its value is the width of a pointer.
- #
- # Each widget instance may have a property or not have it.  When you set a
- # property on a widget for the first time, the property is added to the
- # widget; it then stays there for the life of the widget.
- #
- # Some property IDs are predefined by the widget package; you can make up
- # your own property IDs as well.
- #
+# XPWidgetPropertyID
+#
+# Properties are values attached to instances of your widgets.  A property is
+# identified by a 32-bit ID and its value is the width of a pointer.
+#
+# Each widget instance may have a property or not have it.  When you set a
+# property on a widget for the first time, the property is added to the
+# widget; it then stays there for the life of the widget.
+#
+# Some property IDs are predefined by the widget package; you can make up
+# your own property IDs as well.
+#
 const
     # A window's refcon is an opaque value used by client code to find
     # other data based on it.

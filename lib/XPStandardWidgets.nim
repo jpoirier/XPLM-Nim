@@ -102,7 +102,7 @@ const
 const
     # This property specifies the type of window.  Set to one of the subwindow
     # types above.
-     pProperty_SubWindowType* = 1200
+    xpProperty_SubWindowType* = 1200
 
 
 #******************************************************************************
@@ -160,7 +160,7 @@ const
 #
 # These define how the button responds to mouse clicks.
 #
-enum {
+const
     # Standard push button behavior.  The button hilites while the mouse is
     # clicked over it and unhilites when the mouse is moved outside of it or
     # released. If the mouse is released over the button, the
@@ -249,7 +249,7 @@ const
 #
 # These control the look of the text field.
 #
-enum {
+const
     # A field for text entry.
     xpTextEntryField* = 0
 
@@ -464,8 +464,4 @@ const
 
     # This is the maximum value, equivalent to 100% filled.
     xpProperty_ProgressMax* = 1802
-
-
-};
-
 

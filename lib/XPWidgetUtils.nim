@@ -81,7 +81,7 @@ type
         right: cint
         bottom: cint
         visible: cint
-        descriptor:
+        descriptor: cstring
         isRoot: cint
         containerIndex: cint
         widgetClass: XPWidgetClass
