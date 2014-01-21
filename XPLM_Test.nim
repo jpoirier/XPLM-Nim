@@ -60,9 +60,9 @@ proc XPluginStart(outName: ptr cchar,
                   outDesc: ptr cchar): cint
                                           {.exportc: "XPluginStart", dynlib.} =
 
-  #outName = "TestTest\0"
-  #outSig = "TestTest\0"
-  #outDesc = "TestTest\0"
+  #outName = "XPLM-Nim_Test"
+  #outSig = "xplm.nim.test"
+  #outDesc = "XPLM-Nim Test Plugin"
   XPLMDebugString("-- XPluginStart called...\n")
   XPLMDebugString("-- err XPluginStart called...\n")
 
