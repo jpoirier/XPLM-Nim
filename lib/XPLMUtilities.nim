@@ -726,7 +726,8 @@ proc XPLMFindCommand*(inName: cstring): XPLMCommandRef
 #
 # XPLM_API void XPLMCommandBegin(XPLMCommandRef inCommand);
 #
-#proc XPLMCommandBegin*(inCommand: XPLMCommandRef)
+# FIXME: Error: redefinition of 'XPLMCommandBegin'
+# proc XPLMCommandBegin*(inCommand: XPLMCommandRef)
 #                                        {.importc: "XPLMCommandBegin", nodecl.}
 
 # XPLMCommandEnd
@@ -736,7 +737,8 @@ proc XPLMFindCommand*(inName: cstring): XPLMCommandRef
 #
 # XPLM_API void XPLMCommandEnd(XPLMCommandRef inCommand);
 #
-#proc XPLMCommandEnd*(inCommand: XPLMCommandRef)
+# FIXME: Error: redefinition of 'XPLMCommandEnd'
+# proc XPLMCommandEnd*(inCommand: XPLMCommandRef)
 #                                        {.importc: "XPLMCommandEnd", nodecl.}
 
 # XPLMCommandOnce
