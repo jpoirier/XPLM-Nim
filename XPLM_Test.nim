@@ -1,5 +1,7 @@
 # See license.txt for usage.
 
+{.deadCodeElim: on.}
+
 import lib/XPLMDefs
 import lib/XPLMCamera
 import lib/XPLMDataAccess
@@ -13,8 +15,6 @@ import lib/XPLMProcessing
 import lib/XPLMScenery
 import lib/XPLMUtilities
 
-
-{.deadCodeElim: on.}
 
 when defined(windows):
     const LibName = "XPLM_64.dll"

@@ -2,5 +2,5 @@
 Based on X-Plane SDK Release 2.1.3 11/14/13 (http://www.xsquawkbox.net/xpsdk/).
 See license.txt for usage.
 
-$ nimrod c -d:release XPLM_Test.nimrod.cfg
+$ nimrod c -d:release XPLM_Test.nim
 

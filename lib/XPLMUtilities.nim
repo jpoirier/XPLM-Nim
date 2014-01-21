@@ -726,8 +726,8 @@ proc XPLMFindCommand*(inName: cstring): XPLMCommandRef
 #
 # XPLM_API void XPLMCommandBegin(XPLMCommandRef inCommand);
 #
-proc XPLMCommandBegin*(inCommand: XPLMCommandRef)
-                                        {.importc: "XPLMCommandBegin", nodecl.}
+#proc XPLMCommandBegin*(inCommand: XPLMCommandRef)
+#                                        {.importc: "XPLMCommandBegin", nodecl.}
 
 # XPLMCommandEnd
 #
@@ -736,8 +736,8 @@ proc XPLMCommandBegin*(inCommand: XPLMCommandRef)
 #
 # XPLM_API void XPLMCommandEnd(XPLMCommandRef inCommand);
 #
-proc XPLMCommandEnd*(inCommand: XPLMCommandRef)
-                                        {.importc: "XPLMCommandEnd", nodecl.}
+#proc XPLMCommandEnd*(inCommand: XPLMCommandRef)
+#                                        {.importc: "XPLMCommandEnd", nodecl.}
 
 # XPLMCommandOnce
 #
