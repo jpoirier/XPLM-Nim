@@ -1,4 +1,6 @@
+# See license.txt for usage.
 
+import XPLMDefs
 
 #******************************************************************************
 # XPLMMenus - Theory of Operation
@@ -11,8 +13,6 @@
 # called with each void * when the menu item is picked.  Menu item indices
 # are zero based.
 #
-
-
 
 #******************************************************************************
 # XPLM MENUS
@@ -122,7 +122,7 @@ proc XPLMDestroyMenu*(inMenuID: XPLMMenuID)
 # XPLM_API void XPLMClearAllMenuItems(XPLMMenuID inMenuID);
 #
 proc XPLMClearAllMenuItems*(inMenuID: XPLMMenuID)
-                                    {.importc: "XPLMClearAllMenuItems", nodecl.}
+                                   {.importc: "XPLMClearAllMenuItems", nodecl.}
 
 
 ##
@@ -155,7 +155,7 @@ proc XPLMAppendMenuItem*(inMenu: XPLMMenuID,
 # XPLM_API void XPLMAppendMenuSeparator(XPLMMenuID inMenu);
 #
 proc XPLMAppendMenuSeparator*(inMenu: XPLMMenuID)
-                                  {.importc: "XPLMAppendMenuSeparator", nodecl.}
+                                 {.importc: "XPLMAppendMenuSeparator", nodecl.}
 
 
 ##
@@ -173,7 +173,7 @@ proc XPLMSetMenuItemName*(nMenu; XPLMMenuID,
                           inIndex: cint,
                           inItemName: cstring,
                           inForceEnglish: cint)
-                                      {.importc: "XPLMSetMenuItemName", nodecl.}
+                                     {.importc: "XPLMSetMenuItemName", nodecl.}
 
 ##
 # XPLMCheckMenuItem
@@ -187,7 +187,7 @@ proc XPLMSetMenuItemName*(nMenu; XPLMMenuID,
 proc XPLMCheckMenuItem*(inMenu: XPLMMenuID,
                         index: cint,
                         inCheck: XPLMMenuCheck)
-                                        {.importc: "XPLMCheckMenuItem", nodecl.}
+                                       {.importc: "XPLMCheckMenuItem", nodecl.}
 
 ##
 # XPLMCheckMenuItemState

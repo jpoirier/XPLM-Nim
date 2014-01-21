@@ -1,5 +1,6 @@
+# See license.txt for usage.
 
-
+import XPLMDefs
 
 # This API allows you to get regular callbacks during the flight loop, the
 # part of X-Plane where the plane's position calculates the physics of
@@ -10,7 +11,6 @@
 # loop callbacks.  Use the drawing callbacks (see XPLMDisplay for more info)
 # for graphics.
 #
-
 
 #******************************************************************************
 # FLIGHT LOOP CALLBACKS
@@ -131,7 +131,9 @@ proc XPLMGetCycleNumber*(): cint {.importc: "XPLMGetCycleNumber", nodecl.}
 # will be called (e.g. pass -1 to be called at the next cylcle).  Pass 0 to
 # not be called; your callback will be inactive.
 #
-# XPLM_API void XPLMRegisterFlightLoopCallback(XPLMFlightLoop_f inFlightLoop, float inInterval, void* inRefcon);
+# XPLM_API void XPLMRegisterFlightLoopCallback(XPLMFlightLoop_f inFlightLoop,
+#                                              float inInterval,
+#                                              void* inRefcon);
 #
 proc XPLMRegisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
                                      inInterval: cfloat,
@@ -166,9 +168,9 @@ proc XPLMUnregisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
 # it was registered if it has never been called.
 #
 # XPLM_API void XPLMSetFlightLoopCallbackInterval(XPLMFlightLoop_f inFlightLoop,
-#                                                   float inInterval,
-#                                                   int inRelativeToNow,
-#                                                   void * inRefcon);
+#                                                 float inInterval,
+#                                                 int inRelativeToNow,
+#                                                 void * inRefcon);
 #
 proc XPLMSetFlightLoopCallbackInterval*(inFlightLoop: XPLMFlightLoop_f,
                                         inInterval: cfloat,

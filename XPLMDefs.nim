@@ -1,3 +1,4 @@
+# See license.txt for usage.
 
 # This file is contains the cross-platform and basic definitions for the
 # X-Plane SDK.
@@ -8,8 +9,6 @@
 # before including XPLMDefs.h or any other XPLM headers.  You can do this
 # using the -D command line option or a preprocessor header.
 #
-
-{.deadCodeElim: on.}
 
 #******************************************************************************
 #  GLOBAL DEFINITIONS
@@ -95,9 +94,9 @@ const
 type
   XPLMKeyFlags* = cint
 
-#****************************************************************************
+#******************************************************************************
 #  ASCII CONTROL KEY CODES
-# ***************************************************************************
+# *****************************************************************************
 #
 #  These definitions define how various control keys are mapped to ASCII key
 #  codes. Not all key presses generate an ASCII value, so plugin code should
@@ -150,9 +149,9 @@ const
   XPLM_KEY_9* = 57
   XPLM_KEY_DECIMAL* = 46
 
-#****************************************************************************
+#******************************************************************************
 #  VIRTUAL KEY CODES
-# ***************************************************************************
+# *****************************************************************************
 #
 #  These are cross-platform defines for every distinct keyboard press on the
 #  computer. Every physical key on the keyboard has a virtual key code.  So

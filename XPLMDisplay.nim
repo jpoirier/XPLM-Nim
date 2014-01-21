@@ -1,3 +1,6 @@
+# See license.txt for usage.
+
+import XPLMDefs
 
 #******************************************************************************
 # XPLM Display APIs - THEORY OF OPERATION
@@ -57,7 +60,6 @@
 # sniffer.  Key sniffers can be installed above everything or right in front
 # of the sim.
 #
-
 
 #******************************************************************************
 # Drawing Callbacks
@@ -472,7 +474,7 @@ type
 #
 proc XPLMGetScreenSize*(outWidth: ptr cint,
                         outHeight: ptr cint)
-                                        {.importc: "XPLMGetScreenSize", nodecl.}
+                                    {.importc: "XPLMGetScreenSize", nodecl.}
 
 ##
 # XPLMGetMouseLocation
@@ -485,7 +487,7 @@ proc XPLMGetScreenSize*(outWidth: ptr cint,
 #
 proc XPLMGetMouseLocation*(outX: ptr cint,
                            outY: ptr cint)
-                                        {.importc: "XPLMGetMouseLocation", nodecl.}
+                                    {.importc: "XPLMGetMouseLocation", nodecl.}
 
 ##
 # XPLMCreateWindow
@@ -546,7 +548,7 @@ proc XPLMCreateWindowEx*(inParams: PXPLMCreateWindow_t): XPLMWindowID
 # XPLM_API void XPLMDestroyWindow(XPLMWindowID inWindowID);
 #
 proc XPLMDestroyWindow*(inWindowID: XPLMWindowID)
-                                        {.importc: "XPLMDestroyWindow", nodecl.}
+                                    {.importc: "XPLMDestroyWindow", nodecl.}
 
 ##
 # XPLMGetWindowGeometry
@@ -565,7 +567,7 @@ proc XPLMGetWindowGeometry*(inWindowID: XPLMWindowID,
                             outTop: ptr cint,
                             outRight: ptr cint,
                             outBottom: ptr cint)
-                                    {.importc: "XPLMGetWindowGeometry", nodecl.}
+                                {.importc: "XPLMGetWindowGeometry", nodecl.}
 
 ##
 # XPLMSetWindowGeometry
@@ -583,7 +585,7 @@ proc XPLMSetWindowGeometry*(inWindowID: XPLMWindowID,
                             inTop: cint,
                             inRight: cint,
                             inBottom: cint)
-                                    {.importc: "XPLMSetWindowGeometry", nodecl.}
+                                {.importc: "XPLMSetWindowGeometry", nodecl.}
 
 ##
 # XPLMGetWindowIsVisible
@@ -638,7 +640,7 @@ proc XPLMSetWindowRefCon*(inWindowID: XPLMWindowID, inRefcon: pointer)
 # XPLM_API void XPLMTakeKeyboardFocus(XPLMWindowID inWindow);
 #
 proc XPLMTakeKeyboardFocus*(inWindowID: XPLMWindowID)
-                                    {.importc: "XPLMTakeKeyboardFocus", nodecl.}
+                                {.importc: "XPLMTakeKeyboardFocus", nodecl.}
 
 ##
 # XPLMBringWindowToFront
@@ -759,7 +761,7 @@ proc XPLMGetHotKeyInfo*(inHotKey: XPLMHotKeyID,
                         outFlags: ptr XPLMKeyFlags,
                         outDescription: cstring,
                         outPlugin: ptr XPLMPluginID)
-                                        {.importc: "XPLMGetHotKeyInfo", nodecl.}
+                                    {.importc: "XPLMGetHotKeyInfo", nodecl.}
 
 ##
 # XPLMSetHotKeyCombination

@@ -1,4 +1,6 @@
+# See license.txt for usage.
 
+import XPLMDefs
 
 #******************************************************************************
 # Graphics routines for X-Plane and OpenGL.
@@ -32,7 +34,6 @@
 # weirder) the user can potentially customize the physics of the current
 # planet.
 #
-
 
 #******************************************************************************
 # X-PLANE GRAPHICS
@@ -144,7 +145,7 @@ proc XPLMSetGraphicsState*(inEnableFog: cint,
 #
 proc XPLMBindTexture2d*(inTextureNum: cint,
                         inTextureUnit; cint)
-                                        {.importc: "XPLMBindTexture2d", nodecl.}
+                                       {.importc: "XPLMBindTexture2d", nodecl.}
 
 ##
 # XPLMGenerateTextureNumbers
@@ -270,7 +271,7 @@ proc XPLMDrawTranslucentDarkBox*(inLeft: cint,
 #
 type
     XPLMFontIDEnums* = enum
-        xplmFont_Basic, # Mono-spaced font for user interface.  Available in all versions of the SDK.
+        xplmFont_Basic, # Mono-spaced font for user interface.
         xplmFont_Menus, # Deprecated, do not use.
         xplmFont_Metal, # Deprecated, do not use.
         xplmFont_Led, # Deprecated, do not use.
@@ -366,7 +367,7 @@ proc XPLMGetFontDimensions*(inFontID: XPLMFontID,
                             outCharWidth: ptr cint,
                             outCharHeight: ptr cint,
                             outDigitsOnly: ptr cint)
-                                    {.importc: "XPLMGetFontDimensions", nodecl.}
+                                   {.importc: "XPLMGetFontDimensions", nodecl.}
 
 ##
 # XPLMMeasureString
@@ -384,4 +385,4 @@ proc XPLMGetFontDimensions*(inFontID: XPLMFontID,
 proc XPLMMeasureString*(inFontID; XPLMFontID,
                         inChar: cstring,
                         inNumChars: cint)
-                                        {.importc: "XPLMMeasureString", nodecl.}
+                                       {.importc: "XPLMMeasureString", nodecl.}

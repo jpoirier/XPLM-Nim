@@ -1,3 +1,6 @@
+# See license.txt for usage.
+
+import XPLMDefs
 
 #******************************************************************************
 # XPLM Data Access API - Theory of Operation
@@ -47,7 +50,6 @@
 # X-Plane publishes well over 1000 datarefs; a complete list may be found in
 # the  reference section of the SDK online documentation (from the SDK home
 # page, choose Documentation).
-
 
 #******************************************************************************
 # Reading and Writing Data
@@ -155,7 +157,7 @@ proc XPLMCanWriteDataRef*(inDataRef: XPLMDataRef): cint
 # XPLM_API int XPLMIsDataRefGood(XPLMDataRef inDataRef);
 #
 proc XPLMIsDataRefGood*(inDataRef: XPLMDataRef): cint
-                                        {.importc: "XPLMIsDataRefGood", nodecl.}
+                                      {.importc: "XPLMIsDataRefGood", nodecl.}
 
 ##
 # XPLMGetDataRefTypes
@@ -670,7 +672,7 @@ proc XPLMShareData*(inDataName: cstring,
                     inDataType: XPLMDataTypeID,
                     inNotificationFunc: XPLMDataChanged_f,
                     inNotificationRefcon: pointer): cint
-                                            {.importc: "XPLMShareData", nodecl.}
+                                          {.importc: "XPLMShareData", nodecl.}
 
 ##
 # XPLMUnshareData

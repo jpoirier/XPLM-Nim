@@ -1,3 +1,6 @@
+# See license.txt for usage.
+
+import XPLMDefs
 
 # The XPLMPlanes APIs allow you to control the various aircraft in x-plane,
 # both the user's and the sim's.
@@ -110,7 +113,7 @@ type
 proc XPLMCountAircraft*(outTotalAircraft: cint,
                         outActiveAircraft: cint,
                         outController: ptr XPLMPluginID)
-                                        {.importc: "XPLMCountAircraft", nodecl.}
+                                       {.importc: "XPLMCountAircraft", nodecl.}
 
 ##
 # XPLMGetNthAircraftModel
@@ -125,7 +128,7 @@ proc XPLMCountAircraft*(outTotalAircraft: cint,
 proc XPLMGetNthAircraftModel*(inIndex: cint,
                               outFileName: cstring,
                               outPath: cstring)
-                                  {.importc: "XPLMGetNthAircraftModel", nodecl.}
+                                 {.importc: "XPLMGetNthAircraftModel", nodecl.}
 
 #******************************************************************************
 # EXCLUSIVE AIRCRAFT ACCESS
@@ -168,7 +171,7 @@ type
 proc XPLMAcquirePlanes*(inAircraft: ptr ptr cchar,
                         inCallback: XPLMPlanesAvailable_f,
                         inRefcon: pointer): cint
-                                        {.importc: "XPLMAcquirePlanes", nodecl.}
+                                       {.importc: "XPLMAcquirePlanes", nodecl.}
 
 ##
 # XPLMReleasePlanes
@@ -214,7 +217,7 @@ proc XPLMSetAircraftModel*(inIndex: cint,
 # XPLM_API void XPLMDisableAIForPlane(int inPlaneIndex);
 #
 proc XPLMDisableAIForPlane*(inPlaneIndex: cint)
-                                    {.importc: "XPLMDisableAIForPlane", nodecl.}
+                                   {.importc: "XPLMDisableAIForPlane", nodecl.}
 
 ##
 # XPLMDrawAircraft

@@ -1,4 +1,6 @@
+# See license.txt for usage.
 
+import XPLMDefs
 
 ##
 # This package contains APIs to interact with X-Plane's scenery system.
@@ -140,7 +142,8 @@ type
 #
 # XPLM_API XPLMProbeRef XPLMCreateProbe(XPLMProbeType inProbeType);
 #
-proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {.importc: "XPLMCreateProbe", nodecl.}
+proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef
+                                        {.importc: "XPLMCreateProbe", nodecl.}
 
 ##
 # XPLMDestroyProbe
@@ -149,7 +152,8 @@ proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {.importc: "XPLM
 #
 # XPLM_API void XPLMDestroyProbe(XPLMProbeRef inProbe);
 #
-proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {.importc: "XPLMDestroyProbe", nodecl.}
+proc XPLMDestroyProbe*(inProbe: XPLMProbeRef)
+                                        {.importc: "XPLMDestroyProbe", nodecl.}
 
 ##
 # XPLMProbeTerrainXYZ
@@ -365,7 +369,7 @@ proc XPLMUnloadObject*(inObject: XPLMObjectRef)
 # for each library element that is located. The returned paths will be
 # relative to the X-System folder.
 #
-# typedef void (*XPLMLibraryEnumerator_f)(const char * inFilePath, void * inRef);
+# typedef void (*XPLMLibraryEnumerator_f)(const char* inFilePath, void* inRef);
 #
 type
      XPLMLibraryEnumerator_f* = proc (inFilePath: cstring,
@@ -395,5 +399,5 @@ proc XPLMLookupObjects*(inPath: cstring,
                         inLongitude: cfloat,
                         enumerator: XPLMLibraryEnumerator_f,
                         rref: pointer): cint
-                                        {.importc: "XPLMLookupObjects", nodecl.}
+                                    {.importc: "XPLMLookupObjects", nodecl.}
 

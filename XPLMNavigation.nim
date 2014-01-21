@@ -1,3 +1,6 @@
+# See license.txt for usage.
+
+import XPLMDefs
 
 # XPLMNavigation - THEORY OF OPERATION
 #
@@ -113,7 +116,7 @@ proc XPLMGetFirstNavAid*(): XPLMNavRef {.importc: "XPLMGetFirstNavAid", nodecl.}
 # XPLM_API XPLMNavRef XPLMGetNextNavAid(XPLMNavRef inNavAidRef);
 #
 proc XPLMGetNextNavAid*(inNavAidRef: XPLMNavRef): XPLMNavRef
-                                        {.importc: "XPLMGetNextNavAid", nodecl.}
+                                       {.importc: "XPLMGetNextNavAid", nodecl.}
 
 ##
 # XPLMFindFirstNavAidOfType
@@ -129,7 +132,7 @@ proc XPLMGetNextNavAid*(inNavAidRef: XPLMNavRef): XPLMNavRef
 # XPLM_API XPLMNavRef XPLMFindFirstNavAidOfType(XPLMNavType inType);
 #
 proc XPLMFindFirstNavAidOfType*(inType: XPLMNavType): XPLMNavRef
-                                {.importc: "XPLMFindFirstNavAidOfType", nodecl.}
+                               {.importc: "XPLMFindFirstNavAidOfType", nodecl.}
 
 ##
 # XPLMFindLastNavAidOfType
@@ -229,7 +232,7 @@ proc XPLMGetNavAidInfo*(inRef: XPLMNavRef,
                         outID: cstring,
                         outName: cstring,
                         outReg: cstring)
-                                        {.importc: "XPLMGetNavAidInfo", nodecl.}
+                                       {.importc: "XPLMGetNavAidInfo", nodecl.}
 
 
 #******************************************************************************
@@ -320,7 +323,7 @@ proc XPLMGetFMSEntryInfo*(inIndex: cint,
                           outAltitude: ptr cint,
                           outLat: ptr cfloat,
                           outLon: ptr cfloat)
-                                      {.importc: "XPLMGetFMSEntryInfo", nodecl.}
+                                     {.importc: "XPLMGetFMSEntryInfo", nodecl.}
 
 
 # XPLMSetFMSEntryInfo
@@ -337,7 +340,7 @@ proc XPLMGetFMSEntryInfo*(inIndex: cint,
 proc XPLMSetFMSEntryInfo*(inIndex: cint,
                           inRef: XPLMNavRef,
                           inAltitude: cint)
-                                      {.importc: "XPLMSetFMSEntryInfo", nodecl.}
+                                     {.importc: "XPLMSetFMSEntryInfo", nodecl.}
 
 ##
 # XPLMSetFMSEntryLatLon
@@ -345,13 +348,16 @@ proc XPLMSetFMSEntryInfo*(inIndex: cint,
 # This routine changes the entry in the FMS to a lat/lon entry with the given
 # coordinates.
 #
-# XPLM_API void XPLMSetFMSEntryLatLon(int inIndex, float inLat, float inLon, int inAltitude);
+# XPLM_API void XPLMSetFMSEntryLatLon(int inIndex,
+#                                      float inLat,
+#                                      float inLon,
+#                                      int inAltitude);
 #
 proc XPLMSetFMSEntryLatLon*(inIndex: cint,
                             inLat: cfloat,
                             inLon: cfloat,
                             inAltitude: cint)
-                                    {.importc: "XPLMSetFMSEntryLatLon", nodecl.}
+                                   {.importc: "XPLMSetFMSEntryLatLon", nodecl.}
 
 ##
 # XPLMClearFMSEntry
@@ -379,7 +385,7 @@ proc XPLMClearFMSEntry*(inIndex: cint) {.importc: "XPLMClearFMSEntry", nodecl.}
 # XPLM_API XPLMNavType XPLMGetGPSDestinationType(void);
 #
 proc XPLMGetGPSDestinationType*(): XPLMNavType
-                                {.importc: "XPLMGetGPSDestinationType", nodecl.}
+                               {.importc: "XPLMGetGPSDestinationType", nodecl.}
 
 ##
 # XPLMGetGPSDestination
@@ -389,5 +395,5 @@ proc XPLMGetGPSDestinationType*(): XPLMNavType
 # XPLM_API XPLMNavRef XPLMGetGPSDestination(void);
 #
 proc XPLMGetGPSDestination*(): XPLMNavRef
-                                    {.importc: "XPLMGetGPSDestination", nodecl.}
+                                   {.importc: "XPLMGetGPSDestination", nodecl.}
 

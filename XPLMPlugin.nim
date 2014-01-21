@@ -1,3 +1,6 @@
+# See license.txt for usage.
+
+import XPLMDefs
 
 # These APIs provide facilities to find and work with other plugins and
 # manage other plugins.
@@ -5,7 +8,7 @@
 
 #******************************************************************************
 # FINDING PLUGINS
-# ******************************************************************************
+# *****************************************************************************
 #
 # These APIs allow you to find another plugin or yourself, or iterate across
 # all plugins.  For example, if you wrote an FMS plugin that needed to talk
@@ -70,7 +73,7 @@ proc XPLMFindPluginByPath*(inPath: cstring): XPLMPluginID
 # XPLM_API XPLMPluginID XPLMFindPluginBySignature(const char* inSignature);
 #
 proc XPLMFindPluginBySignature*(inSignature: cstring): XPLMPluginID
-                                {.importc: "XPLMFindPluginBySignature", nodecl.}
+                               {.importc: "XPLMFindPluginBySignature", nodecl.}
 
 ##
 # XPLMGetPluginInfo
@@ -95,7 +98,7 @@ proc XPLMGetPluginInfo*(inPlugin: XPLMPluginID,
                         outFilePath,: cstring,
                         outSignature: cstring,
                         outDescription: cstring)
-                                        {.importc: "XPLMGetPluginInfo", nodecl.}
+                                       {.importc: "XPLMGetPluginInfo", nodecl.}
 
 #******************************************************************************
 # ENABLING/DISABLING PLUG-INS
@@ -113,7 +116,7 @@ proc XPLMGetPluginInfo*(inPlugin: XPLMPluginID,
 # XPLM_API int XPLMIsPluginEnabled(XPLMPluginID inPluginID);
 #
 proc XPLMIsPluginEnabled*(inPluginID: XPLMPluginID): cint
-                                      {.importc: "XPLMIsPluginEnabled", nodecl.}
+                                     {.importc: "XPLMIsPluginEnabled", nodecl.}
 
 ##
 # XPLMEnablePlugin
@@ -136,7 +139,7 @@ proc XPLMEnablePlugin*(inPluginID: XPLMPluginID): cint
 # XPLM_API void XPLMDisablePlugin(XPLMPluginID inPluginID);
 #
 proc XPLMDisablePlugin*(inPluginID: XPLMPluginID)
-                                        {.importc: "XPLMDisablePlugin", nodecl.}
+                                       {.importc: "XPLMDisablePlugin", nodecl.}
 
 ##
 # XPLMReloadPlugins
@@ -253,7 +256,7 @@ const
 proc XPLMSendMessageToPlugin*(inPlugin: XPLMPluginID,
                               inMessage: cint,
                               inParam: pointer)
-                                  {.importc: "XPLMSendMessageToPlugin", nodecl.}
+                                 {.importc: "XPLMSendMessageToPlugin", nodecl.}
 
 #******************************************************************************
 # Plugin Features API
@@ -316,7 +319,7 @@ proc XPLMIsFeatureEnabled*(inFeature: cstring): cint
 #
 proc XPLMEnableFeature*(inFeature: cstring,
                         inEnable: cint)
-                                        {.importc: "XPLMEnableFeature", nodecl.}
+                                       {.importc: "XPLMEnableFeature", nodecl.}
 
 ##
 # XPLMEnumerateFeatures
@@ -330,5 +333,5 @@ proc XPLMEnableFeature*(inFeature: cstring,
 #
 proc XPLMEnumerateFeatures*(inEnumerator: XPLMFeatureEnumerator_f,
                             inRef: pointer)
-                                    {.importc: "XPLMEnumerateFeatures", nodecl.}
+                                   {.importc: "XPLMEnumerateFeatures", nodecl.}
 

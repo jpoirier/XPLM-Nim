@@ -1,3 +1,6 @@
+# See license.txt for usage.
+
+import XPLMDefs
 
 # XPLMCamera - THEORY OF OPERATION The XPLMCamera APIs allow plug-ins to
 # control the camera angle in X-Plane.  This has a number of applications,
@@ -43,16 +46,16 @@
 #      /* Control the camera until the user picks a new view. */
 #      xplm_ControlCameraUntilViewChanges       = 1
 
-#      /* Control the camera until your plugin is disabled or another plugin forcably *
-#       * takes control.                                                              */
+#      /* Control the camera until your plugin is disabled or another plugin *
+#       * forcably takes control. */
 #     ,xplm_ControlCameraForever                = 2
 #
 const
     # Control the camera until the user picks a new view.
     xplm_ControlCameraUntilViewChanges* = 1
 
-    # Control the camera until your plugin is disabled or another plugin forcably *
-    # takes control.
+    # Control the camera until your plugin is disabled or another plugin
+    # forcably takes control.
     xplm_ControlCameraForever* = 2
 
 # typedef int XPLMCameraControlDuration;
@@ -127,7 +130,7 @@ type
 proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration,
                         inControlFunc: XPLMCameraControl_f,
                         inRefcon: pointer)
-                                        {.importc: "XPLMControlCamera", nodecl.}
+                                    {.importc: "XPLMControlCamera", nodecl.}
 
 ##
 # XPLMDontControlCamera
