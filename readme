@@ -2,5 +2,10 @@
 Based on X-Plane SDK Release 2.1.3 11/14/13 (http://www.xsquawkbox.net/xpsdk/).
 See license.txt for usage.
 
+To build the plugin example
+---------------------------
 $ nimrod c -d:release XPLM_Test.nim
+
+Rename xplm_test.dll to xplm_test.xpl and copy to the X-Plane plugin folder,
+X-Plane10/Resources/plugins.
 
