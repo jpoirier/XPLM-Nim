@@ -1,17 +1,17 @@
 # See license.txt for usage.
 
-import XPLMDefs
-import XPLMCamera
-import XPLMDataAccess
-import XPLMDisplay
-import XPLMGraphics
-import XPLMMenus
-import XPLMNavigation
-import XPLMPlanes
-import XPLMPlugin
-import XPLMProcessing
-import XPLMScenery
-import XPLMUtilities
+import lib/XPLMDefs
+import lib/XPLMCamera
+import lib/XPLMDataAccess
+import lib/XPLMDisplay
+import lib/XPLMGraphics
+import lib/XPLMMenus
+import lib/XPLMNavigation
+import lib/XPLMPlanes
+import lib/XPLMPlugin
+import lib/XPLMProcessing
+import lib/XPLMScenery
+import lib/XPLMUtilities
 
 
 {.deadCodeElim: on.}
@@ -29,7 +29,8 @@ type
                              inCounter: cint, inRefcon: pointer): cfloat
                                                                     {.stdcall.}
 
-# .stdcall.
+## ----------------------------------------------------------------------------
+# imports
 proc XPLMRegisterFlightLoopCallback(callback: XPLMFlightLoop_CB,
                                     inInterval: cfloat,
                                     inRefcon: pointer)
