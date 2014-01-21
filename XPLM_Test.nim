@@ -55,14 +55,14 @@ proc XFlightLoopCallback(inElapsedSinceLastCall: cfloat,
   return 1.0
 
 ## ----------------------------------------------------------------------------
-proc XPluginStart(outName: ptr cchar,
-                  outSig: ptr cchar,
-                  outDesc: ptr cchar): cint
+proc XPluginStart(outName: ptr cstring,
+                  outSig: ptr cstring,
+                  outDesc: ptr cstring): cint
                                           {.exportc: "XPluginStart", dynlib.} =
 
-  #outName = "XPLM-Nim_Test"
-  #outSig = "xplm.nim.test"
-  #outDesc = "XPLM-Nim Test Plugin"
+  outName[] = "XPLM-Nim_Test"
+  outSig[] = "xplm.nim.test"
+  outDesc[] = "XPLM-Nim Test Plugin"
   XPLMDebugString("-- XPluginStart called...\n")
   XPLMDebugString("-- err XPluginStart called...\n")
 
