@@ -15,6 +15,12 @@ import lib/XPLMProcessing
 import lib/XPLMScenery
 import lib/XPLMUtilities
 
+import lib/XPWidgetUtils
+import lib/XPWidgets
+import lib/XPWidgetDefs
+import lib/XPUIGraphics
+import lib/XPStandardWidgets
+
 
 when defined(windows):
     const LibName = "XPLM_64.dll"
