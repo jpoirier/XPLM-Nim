@@ -432,5 +432,5 @@ type
     XPWidgetFunc_t* = proc (inMessage: XPWidgetMessage,
                             inWidget: XPWidgetID,
                             inParam1: ptr cint,
-                            inParam2: ptr cint): cint {.stdcall.}
+                            inParam2: ptr cint): cint {.cdecl.}
 

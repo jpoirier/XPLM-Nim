@@ -1,5 +1,12 @@
 # See license.txt for usage.
 
+when defined(windows):
+    const Lib = "XPLM_64.dll"
+elif defined(macosx):
+    const Lib = "XPLM_64.dylib"
+else:
+    const Lib = "XPLM_64.so"
+
 import XPLMDefs
 
 #******************************************************************************
@@ -317,7 +324,7 @@ type
 # typedef void (*XPLMError_f)(const char* inMessage);
 #
 type
-     XPLMError_f* = proc (inMessage: cstring) {.stdcall.}
+     XPLMError_f* = proc (inMessage: cstring) {.cdecl.}
 
 
 # XPLMSimulateKeyPress
@@ -333,7 +340,7 @@ type
 # XPLM_API void XPLMSimulateKeyPress(int inKeyType, int inKey);
 #
 proc XPLMSimulateKeyPress*(inKeyType: cint, inKey: cint)
-                                   {.importc: "XPLMSimulateKeyPress", nodecl.}
+                                   {.cdecl, importc: "XPLMSimulateKeyPress", dynlib: Lib}
 
 # XPLMSpeakString
 #
@@ -343,7 +350,7 @@ proc XPLMSimulateKeyPress*(inKeyType: cint, inKey: cint)
 #
 # XPLM_API void XPLMSpeakString(const char* inString);
 #
-proc XPLMSpeakString*(inString: cstring) {.importc: "XPLMSpeakString", nodecl.}
+proc XPLMSpeakString*(inString: cstring) {.cdecl, importc: "XPLMSpeakString", dynlib: Lib}
 
 
 # XPLMCommandKeyStroke
@@ -356,7 +363,7 @@ proc XPLMSpeakString*(inString: cstring) {.importc: "XPLMSpeakString", nodecl.}
 # XPLM_API void XPLMCommandKeyStroke(XPLMCommandKeyID inKey);
 #
 proc XPLMCommandKeyStroke*(inKey: XPLMCommandKeyID)
-                                   {.importc: "XPLMCommandKeyStroke", nodecl.}
+                                   {.cdecl, importc: "XPLMCommandKeyStroke", dynlib: Lib}
 
 
 # XPLMCommandButtonPress
@@ -370,7 +377,7 @@ proc XPLMCommandKeyStroke*(inKey: XPLMCommandKeyID)
 # XPLM_API void XPLMCommandButtonPress(XPLMCommandButtonID inButton);
 #
 proc XPLMCommandButtonPress*(inButton: XPLMCommandButtonID)
-                                   {.importc: "XPLMCommandButtonPress", nodecl.}
+                                {.cdecl, importc: "XPLMCommandButtonPress", dynlib: Lib}
 
 # XPLMCommandButtonRelease
 #
@@ -380,7 +387,7 @@ proc XPLMCommandButtonPress*(inButton: XPLMCommandButtonID)
 # XPLM_API void XPLMCommandButtonRelease(XPLMCommandButtonID inButton);
 #
 proc XPLMCommandButtonRelease*(inButton: XPLMCommandButtonID)
-                              {.importc: "XPLMCommandButtonRelease", nodecl.}
+                              {.cdecl, importc: "XPLMCommandButtonRelease", dynlib: Lib}
 
 # XPLMGetVirtualKeyDescription
 #
@@ -392,7 +399,7 @@ proc XPLMCommandButtonRelease*(inButton: XPLMCommandButtonID)
 # XPLM_API const char* XPLMGetVirtualKeyDescription(char inVirtualKey);
 #
 proc XPLMGetVirtualKeyDescription*(inVirtualKey: cchar): cstring
-                         {.importc: "XPLMGetVirtualKeyDescription", nodecl.}
+                         {.cdecl, importc: "XPLMGetVirtualKeyDescription", dynlib: Lib}
 
 #******************************************************************************
 # X-PLANE MISC
@@ -409,7 +416,7 @@ proc XPLMGetVirtualKeyDescription*(inVirtualKey: cchar): cstring
 #
 # XPLM_API void XPLMReloadScenery(void);
 #
-proc XPLMReloadScenery*() {.importc: "XPLMReloadScenery", nodecl.}
+proc XPLMReloadScenery*() {.cdecl, importc: "XPLMReloadScenery", dynlib: Lib}
 
 
 # XPLMGetSystemPath
@@ -421,7 +428,7 @@ proc XPLMReloadScenery*() {.importc: "XPLMReloadScenery", nodecl.}
 # XPLM_API void XPLMGetSystemPath(char* outSystemPath);
 #
 proc XPLMGetSystemPath*(outSystemPath: cstring)
-                                        {.importc: "XPLMGetSystemPath", nodecl.}
+                                    {.cdecl, importc: "XPLMGetSystemPath", dynlib: Lib}
 
 # XPLMGetPrefsPath
 #
@@ -432,7 +439,7 @@ proc XPLMGetSystemPath*(outSystemPath: cstring)
 # XPLM_API void XPLMGetPrefsPath(char* outPrefsPath);
 #
 proc XPLMGetPrefsPath*(outPrefsPath: cstring)
-                                        {.importc: "XPLMGetPrefsPath", nodecl.}
+                                        {.cdecl, importc: "XPLMGetPrefsPath", dynlib: Lib}
 
 # XPLMGetDirectorySeparator
 #
@@ -444,7 +451,7 @@ proc XPLMGetPrefsPath*(outPrefsPath: cstring)
 # XPLM_API const char* XPLMGetDirectorySeparator(void);
 #
 proc XPLMGetDirectorySeparator*(): cstring
-                              {.importc: "XPLMGetDirectorySeparator", nodecl.}
+                              {.cdecl, importc: "XPLMGetDirectorySeparator", dynlib: Lib}
 
 # XPLMExtractFileAndPath
 #
@@ -457,7 +464,7 @@ proc XPLMGetDirectorySeparator*(): cstring
 # XPLM_API char* XPLMExtractFileAndPath(char* inFullPath);
 #
 proc XPLMExtractFileAndPath*(inFullPath: cstring): cstring
-                                   {.importc: "XPLMExtractFileAndPath", nodecl.}
+                              {.cdecl, importc: "XPLMExtractFileAndPath", dynlib: Lib}
 
 # XPLMGetDirectoryContents
 #
@@ -517,7 +524,7 @@ proc XPLMGetDirectoryContents*(inDirectoryPath: cstring,
                                inIndexCount: cint,
                                outTotalFiles: ptr cint,
                                outReturnedFiles: ptr cint): cint
-                              {.importc: "XPLMGetDirectoryContents", nodecl.}
+                              {.cdecl, importc: "XPLMGetDirectoryContents", dynlib: Lib}
 
 
 # XPLMInitialized
@@ -533,7 +540,7 @@ proc XPLMGetDirectoryContents*(inDirectoryPath: cstring,
 #
 # XPLM_API int XPLMInitialized(void);
 #
-proc XPLMInitialized*(): cint {.importc: "XPLMInitialized", nodecl.}
+proc XPLMInitialized*(): cint {.cdecl, importc: "XPLMInitialized", dynlib: Lib}
 
 
 # XPLMGetVersions
@@ -553,7 +560,7 @@ proc XPLMInitialized*(): cint {.importc: "XPLMInitialized", nodecl.}
 proc XPLMGetVersions*(outXPlaneVersion: ptr cint,
                       outXPLMVersion: ptr cint,
                       outHostID: ptr XPLMHostApplicationID)
-                                        {.importc: "XPLMGetVersions", nodecl.}
+                                        {.cdecl, importc: "XPLMGetVersions", dynlib: Lib}
 
 # XPLMGetLanguage
 #
@@ -561,7 +568,7 @@ proc XPLMGetVersions*(outXPlaneVersion: ptr cint,
 #
 # XPLM_API XPLMLanguageCode XPLMGetLanguage(void);
 #
-proc XPLMGetLanguage*(): XPLMLanguageCode {.importc: "XPLMGetLanguage", nodecl.}
+proc XPLMGetLanguage*(): XPLMLanguageCode {.cdecl, importc: "XPLMGetLanguage", dynlib: Lib}
 
 # XPLMDebugString
 #
@@ -571,7 +578,7 @@ proc XPLMGetLanguage*(): XPLMLanguageCode {.importc: "XPLMGetLanguage", nodecl.}
 #
 # XPLM_API void XPLMDebugString(const char* inString);
 #
-proc XPLMDebugString*(inString: cstring) {.importc: "XPLMDebugString", nodecl.}
+proc XPLMDebugString*(inString: cstring) {.cdecl, importc: "XPLMDebugString", dynlib: Lib}
 
 
 # XPLMSetErrorCallback
@@ -594,7 +601,7 @@ proc XPLMDebugString*(inString: cstring) {.importc: "XPLMDebugString", nodecl.}
 # XPLM_API void XPLMSetErrorCallback(XPLMError_f inCallback);
 #
 proc XPLMSetErrorCallback*(inCallback: XPLMError_f)
-                                   {.importc: "XPLMSetErrorCallback", nodecl.}
+                                   {.cdecl, importc: "XPLMSetErrorCallback", dynlib: Lib}
 
 
 
@@ -607,7 +614,7 @@ proc XPLMSetErrorCallback*(inCallback: XPLMError_f)
 # XPLM_API void* XPLMFindSymbol(const char* inString);
 #
 proc XPLMFindSymbol*(inString: cstring): pointer
-                                        {.importc: "XPLMFindSymbol", nodecl.}
+                                        {.cdecl, importc: "XPLMFindSymbol", dynlib: Lib}
 
 
 # XPLMLoadDataFile
@@ -621,7 +628,7 @@ proc XPLMFindSymbol*(inString: cstring): pointer
 #
 proc XPLMLoadDataFile*(inFileType: XPLMDataFileType,
                        inFilePath: cstring): cint
-                                        {.importc: "XPLMLoadDataFile", nodecl.}
+                                        {.cdecl, importc: "XPLMLoadDataFile", dynlib: Lib}
 
 
 # XPLMSaveDataFile
@@ -634,7 +641,7 @@ proc XPLMLoadDataFile*(inFileType: XPLMDataFileType,
 #
 proc XPLMSaveDataFile*(inFileType: XPLMDataFileType,
                        inFilePath: cstring): cint
-                                        {.importc: "XPLMSaveDataFile", nodecl.}
+                                        {.cdecl, importc: "XPLMSaveDataFile", dynlib: Lib}
 
 #******************************************************************************
 # X-PLANE COMMAND MANAGEMENT
@@ -704,7 +711,7 @@ type
 type
      XPLMCommandCallback_f* = proc (inCommand: XPLMCommandRef,
                                     inPhase: XPLMCommandPhase,
-                                    inRefcon: pointer): cint {.stdcall.}
+                                    inRefcon: pointer): cint {.cdecl.}
 
 
 # XPLMFindCommand
@@ -715,20 +722,20 @@ type
 # XPLM_API XPLMCommandRef XPLMFindCommand(const char* inName);
 #
 proc XPLMFindCommand*(inName: cstring): XPLMCommandRef
-                                        {.importc: "XPLMFindCommand", nodecl.}
+                                        {.cdecl, importc: "XPLMFindCommand", dynlib: Lib}
 
 
 # XPLMCommandBegin
 #
 # XPLMCommandBegin starts the execution of a command, specified by its
-# command reference.  The  command is "held down" until XPLMCommandEnd is
+# command reference. The command is "held down" until XPLMCommandEnd is
 # called.
 #
 # XPLM_API void XPLMCommandBegin(XPLMCommandRef inCommand);
 #
 # FIXME: Error: redefinition of 'XPLMCommandBegin'
 # proc XPLMCommandBegin*(inCommand: XPLMCommandRef)
-#                                        {.importc: "XPLMCommandBegin", nodecl.}
+#                                        {.cdecl, importc: "XPLMCommandBegin", dynlib: Lib}
 
 # XPLMCommandEnd
 #
@@ -739,7 +746,7 @@ proc XPLMFindCommand*(inName: cstring): XPLMCommandRef
 #
 # FIXME: Error: redefinition of 'XPLMCommandEnd'
 # proc XPLMCommandEnd*(inCommand: XPLMCommandRef)
-#                                        {.importc: "XPLMCommandEnd", nodecl.}
+#                                        {.cdecl, importc: "XPLMCommandEnd", dynlib: Lib}
 
 # XPLMCommandOnce
 #
@@ -749,7 +756,7 @@ proc XPLMFindCommand*(inName: cstring): XPLMCommandRef
 # XPLM_API void XPLMCommandOnce(XPLMCommandRef inCommand);
 #
 proc XPLMCommandOnce*(inCommand: XPLMCommandRef)
-                                        {.importc: "XPLMCommandOnce", nodecl.}
+                                        {.cdecl, importc: "XPLMCommandOnce", dynlib: Lib}
 
 # XPLMCreateCommand
 #
@@ -763,7 +770,7 @@ proc XPLMCommandOnce*(inCommand: XPLMCommandRef)
 #
 proc XPLMCreateCommand*(inName: cstring,
                         inDescription: cstring): XPLMCommandRef
-                                        {.importc: "XPLMCreateCommand", nodecl.}
+                                   {.cdecl, importc: "XPLMCreateCommand", dynlib: Lib}
 
 
 # XPLMRegisterCommandHandler
@@ -786,7 +793,7 @@ proc XPLMRegisterCommandHandler*(inComand: XPLMCommandRef,
                                  inHandler: XPLMCommandCallback_f,
                                  inBefore: cint,
                                  inRefcon: pointer)
-                              {.importc: "XPLMRegisterCommandHandler", nodecl.}
+                              {.cdecl, importc: "XPLMRegisterCommandHandler", dynlib: Lib}
 
 # XPLMUnregisterCommandHandler
 #
@@ -802,6 +809,6 @@ proc XPLMUnregisterCommandHandler*(inComand: XPLMCommandRef,
                                    inHandler: XPLMCommandCallback_f,
                                    inBefore: cint,
                                    inRefcon: pointer)
-                         {.importc: "XPLMUnregisterCommandHandler", nodecl.}
+                         {.cdecl, importc: "XPLMUnregisterCommandHandler", dynlib: Lib}
 
 

@@ -1,4 +1,12 @@
 # See license.txt for usage.
+
+when defined(windows):
+    const Lib = "XPLM_64.dll"
+elif defined(macosx):
+    const Lib = "XPLM_64.dylib"
+else:
+    const Lib = "XPLM_64.so"
+
 import XPWidgetDefs
 
 
@@ -64,7 +72,7 @@ proc XPDrawWindow*(inX1: cint,
                    inY1: cint,
                    inX2: cint,
                    inY2: cint,
-                   inStyle: XPWindowStyle) {.importc: "XPDrawWindow", nodecl.}
+                   inStyle: XPWindowStyle) {.cdecl, importc: "XPDrawWindow", dynlib: Lib}
 
 # XPGetWindowDefaultDimensions
 #
@@ -78,7 +86,7 @@ proc XPDrawWindow*(inX1: cint,
 proc XPGetWindowDefaultDimensions*(inStyle: XPWindowStyle,
                                    outWidth: ptr cint,
                                    outHeight: ptr cint)
-                            {.importc: "XPGetWindowDefaultDimensions", nodecl.}
+                            {.cdecl, importc: "XPGetWindowDefaultDimensions", dynlib: Lib}
 
 # XPElementStyle
 #
@@ -226,7 +234,7 @@ proc XPDrawElement*(inX1: cint,
                     inX2: cint,
                     inY2: cint,
                     inStyle: XPElementStyle,
-                    inLit: cint) {.importc: "XPDrawElement", nodecl.}
+                    inLit: cint) {.cdecl, importc: "XPDrawElement", dynlib: Lib}
 
 # XPGetElementDefaultDimensions
 #
@@ -243,7 +251,7 @@ proc XPGetElementDefaultDimensions*(inStyle: XPElementStyle,
                                     outWidth: ptr cint,
                                     outHeight: ptr cint,
                                     outCanBeLit: ptr cint)
-                        {.importc: "XPGetElementDefaultDimensions", nodecl.}
+                        {.cdecl, importc: "XPGetElementDefaultDimensions", dynlib: Lib}
 
 # XPTrackStyle
 #
@@ -300,7 +308,7 @@ proc XPDrawTrack*(inX1: cint,
                   inMax: cint,
                   inValue: cint,
                   inTrackStyle: XPTrackStyle,
-                  inLit: cint) {.importc: "XPDrawTrack", nodecl.}
+                  inLit: cint) {.cdecl, importc: "XPDrawTrack", dynlib: Lib}
 
 # XPGetTrackDefaultDimensions
 #
@@ -315,7 +323,7 @@ proc XPDrawTrack*(inX1: cint,
 proc XPGetTrackDefaultDimensions*(inStyle: XPTrackStyle,
                                   outWidth: ptr cint,
                                   outCanBeLit: ptr cint)
-                            {.importc: "XPGetTrackDefaultDimensions", nodecl.}
+                            {.cdecl, importc: "XPGetTrackDefaultDimensions", dynlib: Lib}
 
 # XPGetTrackMetrics
 #
@@ -361,5 +369,5 @@ proc XPGetTrackMetrics*(inX1: cint,
                         outThumbSize: ptr cint,
                         outUpPageSize: ptr cint,
                         outUpBtnSize: ptr cint)
-                                    {.importc: "XPGetTrackMetrics", nodecl.}
+                                    {.cdecl, importc: "XPGetTrackMetrics", dynlib: Lib}
 

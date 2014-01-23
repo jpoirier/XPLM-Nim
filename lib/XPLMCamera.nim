@@ -1,5 +1,12 @@
 # See license.txt for usage.
 
+when defined(windows):
+    const Lib = "XPLM_64.dll"
+elif defined(macosx):
+    const Lib = "XPLM_64.dylib"
+else:
+    const Lib = "XPLM_64.so"
+
 import XPLMDefs
 
 # XPLMCamera - THEORY OF OPERATION The XPLMCamera APIs allow plug-ins to
@@ -114,7 +121,7 @@ type
 type
     XPLMCameraControl_f* = proc (outCameraPosition: PXPLMCameraPosition_t,
                                  inIsLosingControl: cint,
-                                 inRefcon: pointer): cint {.stdcall.}
+                                 inRefcon: pointer): cint {.cdecl.}
 
 ##
 # XPLMControlCamera
@@ -130,7 +137,7 @@ type
 proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration,
                         inControlFunc: XPLMCameraControl_f,
                         inRefcon: pointer)
-                                    {.importc: "XPLMControlCamera", nodecl.}
+                                    {.cdecl, importc: "XPLMControlCamera", dynlib: Lib}
 
 ##
 # XPLMDontControlCamera
@@ -144,7 +151,7 @@ proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration,
 #
 # XPLM_API void XPLMDontControlCamera(void);
 #
-proc XPLMDontControlCamera*() {.importc: "XPLMDontControlCamera", nodecl.}
+proc XPLMDontControlCamera*() {.cdecl, importc: "XPLMDontControlCamera", dynlib: Lib}
 
 ##
 # XPLMIsCameraBeingControlled
@@ -156,7 +163,7 @@ proc XPLMDontControlCamera*() {.importc: "XPLMDontControlCamera", nodecl.}
 # XPLM_API int XPLMIsCameraBeingControlled(XPLMCameraControlDuration *outCameraControlDuration);
 #
 proc XPLMIsCameraBeingControlled*(outCameraControlDuration: ptr XPLMCameraControlDuration):
-                        cint {.importc: "XPLMIsCameraBeingControlled", nodecl.}
+                        cint {.cdecl, importc: "XPLMIsCameraBeingControlled", dynlib: Lib}
 
 ##
 # XPLMReadCameraPosition
@@ -166,4 +173,4 @@ proc XPLMIsCameraBeingControlled*(outCameraControlDuration: ptr XPLMCameraContro
 # XPLM_API void XPLMReadCameraPosition(XPLMCameraPosition_t *outCameraPosition);
 #
 proc XPLMReadCameraPosition*(outCameraPosition: PXPLMCameraPosition_t)
-                                {.importc: "XPLMReadCameraPosition", nodecl.}
+                                {.cdecl, importc: "XPLMReadCameraPosition", dynlib: Lib}

@@ -22,13 +22,6 @@ import lib/XPUIGraphics
 import lib/XPStandardWidgets
 
 
-when defined(windows):
-    const LibName = "XPLM_64.dll"
-elif defined(macosx):
-    const LibName = "XPLM_64.dylib"
-else:
-    const LibName = "XPLM_64.so"
-
 type
   XPLMFlightLoop_CB* = proc (inElapsedSinceLastCall: cfloat,
                              inElapsedTimeSinceLastFlightLoop: cfloat,
@@ -56,9 +49,12 @@ proc XFlightLoopCallback(inElapsedSinceLastCall: cfloat,
                          inRefcon: pointer): cfloat
                                   {.exportc: "XFlightLoopCallback", dynlib.} =
 
-  XPLMDebugString("-- RadioPanelFlightLoopCallback called...\n")
+    XPLMDebugString("-- RadioPanelFlightLoopCallback called...\n")
 
-  return 1.0
+    # us: int, strongAdvice = false
+    # proc GC_step*(100)
+
+    return 1.0
 
 ## ----------------------------------------------------------------------------
 proc XPluginStart(outName: ptr cstring,
@@ -66,34 +62,37 @@ proc XPluginStart(outName: ptr cstring,
                   outDesc: ptr cstring): cint
                                           {.exportc: "XPluginStart", dynlib.} =
 
-  outName[] = "XPLM-Nim_Test"
-  outSig[] = "xplm.nim.test"
-  outDesc[] = "XPLM-Nim Test Plugin"
-  XPLMDebugString("-- XPluginStart called...\n")
-  XPLMDebugString("-- err XPluginStart called...\n")
+    outName[] = "XPLM-Nim_Test"
+    outSig[] = "xplm.nim.test"
+    outDesc[] = "XPLM-Nim Test Plugin"
+    XPLMDebugString("-- XPluginStart called...\n")
+    XPLMDebugString("-- err XPluginStart called...\n")
 
-  XPLMRegisterFlightLoopCallback(cast[XPLMFlightLoop_CB](XFlightLoopCallback),
-                                 cfloat(-1.0),
-                                 pointer(nil))
+    XPLMRegisterFlightLoopCallback(cast[XPLMFlightLoop_CB](XFlightLoopCallback),
+                                    cfloat(-1.0),
+                                    pointer(nil))
 
-  return 1
+    # MaxPauseInUs, what's a good value?
+    # proc GC_setMaxPause*(100)
+
+    return 1
 
 ## ----------------------------------------------------------------------------
 proc XPluginStop() {.exportc: "XPluginStop", dynlib.} =
 
-  XPLMDebugString("-- XPluginStop called...\n")
+    XPLMDebugString("-- XPluginStop called...\n")
 
 ## ----------------------------------------------------------------------------
 proc XPluginDisable() {.exportc: "XPluginDisable", dynlib.} =
 
-  XPLMDebugString("-- XPluginDisable called...\n")
+    XPLMDebugString("-- XPluginDisable called...\n")
 
 ## ----------------------------------------------------------------------------
 proc XPluginEnable(): cint {.exportc: "XPluginEnable", dynlib.} =
 
-  XPLMDebugString("-- XPluginEnable called...\n")
+    XPLMDebugString("-- XPluginEnable called...\n")
 
-  return 1
+    return 1
 
 ## ----------------------------------------------------------------------------
 proc XPluginReceiveMessage(inFrom: int,
@@ -101,5 +100,5 @@ proc XPluginReceiveMessage(inFrom: int,
                            inParam: pointer)
                                 {.exportc: "XPluginReceiveMessage", dynlib.} =
 
-   XPLMDebugString("-- XPluginReceiveMessage called...\n")
+    XPLMDebugString("-- XPluginReceiveMessage called...\n")
 

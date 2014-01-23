@@ -1,5 +1,12 @@
 # See license.txt for usage.
 
+when defined(windows):
+    const Lib = "XPLM_64.dll"
+elif defined(macosx):
+    const Lib = "XPLM_64.dylib"
+else:
+    const Lib = "XPLM_64.so"
+
 import XPLMDefs
 
 #******************************************************************************
@@ -121,7 +128,7 @@ proc XPLMSetGraphicsState*(inEnableFog: cint,
                            inEnableAlphaBlending: cint,
                            inEnableDepthTesting: cint,
                            inEnableDepthWriting: cint)
-                                    {.importc: "XPLMSetGraphicsState", nodecl.}
+                                    {.cdecl, importc: "XPLMSetGraphicsState", dynlib: Lib}
 
 ##
 # XPLMBindTexture2d
@@ -145,7 +152,7 @@ proc XPLMSetGraphicsState*(inEnableFog: cint,
 #
 proc XPLMBindTexture2d*(inTextureNum: cint,
                         inTextureUnit; cint)
-                                       {.importc: "XPLMBindTexture2d", nodecl.}
+                                       {.cdecl, importc: "XPLMBindTexture2d", dynlib: Lib}
 
 ##
 # XPLMGenerateTextureNumbers
@@ -164,7 +171,7 @@ proc XPLMBindTexture2d*(inTextureNum: cint,
 #
 proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr cint,
                                  inCount: cint)
-                              {.importc: "XPLMGenerateTextureNumbers", nodecl.}
+                              {.cdecl, importc: "XPLMGenerateTextureNumbers", dynlib: Lib}
 
 ##
 # XPLMGetTexture
@@ -182,7 +189,7 @@ proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr cint,
 # XPLM_API int XPLMGetTexture(XPLMTextureID inTexture);
 #
 proc XPLMGetTexture*(inTexture: XPLMTextureID): cint
-                                          {.importc: "XPLMGetTexture", nodecl.}
+                                          {.cdecl, importc: "XPLMGetTexture", dynlib: Lib}
 
 ##
 # XPLMWorldToLocal
@@ -205,7 +212,7 @@ proc XPLMWorldToLocal*(inLatitude: cdouble,
                        outX: ptr cdouble,
                        outY: ptr cdouble,
                        outZ: ptr cdouble)
-                                        {.importc: "XPLMWorldToLocal", nodecl.}
+                                        {.cdecl, importc: "XPLMWorldToLocal", dynlib: Lib}
 
 ##
 # XPLMLocalToWorld
@@ -231,7 +238,7 @@ proc XPLMLocalToWorld*(inX: cdouble,
                        outLatitude: ptr cdouble,
                        outLongitude: ptr cdouble,
                        outAltitude: ptr cdouble)
-                                        {.importc: "XPLMLocalToWorld", nodecl.}
+                                        {.cdecl, importc: "XPLMLocalToWorld", dynlib: Lib}
 
 ##
 # XPLMDrawTranslucentDarkBox
@@ -249,7 +256,7 @@ proc XPLMDrawTranslucentDarkBox*(inLeft: cint,
                                  inTop: cint,
                                  inRight: cint,
                                  inBottom: cint)
-                              {.importc: "XPLMDrawTranslucentDarkBox", nodecl.}
+                              {.cdecl, importc: "XPLMDrawTranslucentDarkBox", dynlib: Lib}
 
 #******************************************************************************
 # X-PLANE TEXT
@@ -319,7 +326,7 @@ proc XPLMDrawString*(inColorRGB: ptr cfloat,
                      inChar: cstring,
                      inWordWrapWidth: ptr cint,
                      inFontID: XPLMFontID)
-                                          {.importc: "XPLMDrawString", nodecl.}
+                                          {.cdecl, importc: "XPLMDrawString", dynlib: Lib}
 
 ##
 # XPLMDrawNumber
@@ -348,7 +355,7 @@ proc XPLMDrawNumber*(inColorRGB: ptr cfloat,
                      inDecimals: cint,
                      inShowSign: cint,
                      inFontID: XPLMFontID)
-                                          {.importc: "XPLMDrawNumber", nodecl.}
+                                          {.cdecl, importc: "XPLMDrawNumber", dynlib: Lib}
 
 ##
 # XPLMGetFontDimensions
@@ -367,7 +374,7 @@ proc XPLMGetFontDimensions*(inFontID: XPLMFontID,
                             outCharWidth: ptr cint,
                             outCharHeight: ptr cint,
                             outDigitsOnly: ptr cint)
-                                   {.importc: "XPLMGetFontDimensions", nodecl.}
+                                   {.cdecl, importc: "XPLMGetFontDimensions", dynlib: Lib}
 
 ##
 # XPLMMeasureString
@@ -385,4 +392,4 @@ proc XPLMGetFontDimensions*(inFontID: XPLMFontID,
 proc XPLMMeasureString*(inFontID; XPLMFontID,
                         inChar: cstring,
                         inNumChars: cint)
-                                       {.importc: "XPLMMeasureString", nodecl.}
+                                       {.cdecl, importc: "XPLMMeasureString", dynlib: Lib}

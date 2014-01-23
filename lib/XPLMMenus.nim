@@ -1,5 +1,12 @@
 # See license.txt for usage.
 
+when defined(windows):
+    const Lib = "XPLM_64.dll"
+elif defined(macosx):
+    const Lib = "XPLM_64.dylib"
+else:
+    const Lib = "XPLM_64.so"
+
 import XPLMDefs
 
 #******************************************************************************
@@ -61,7 +68,7 @@ type
 #
 type
     XPLMMenuHandler_f* = proc (inMenuRef: pointer,
-                               inItemRef: pointer) {.stdcall.}
+                               inItemRef: pointer) {.cdecl.}
 
 
 ##
@@ -72,7 +79,7 @@ type
 #
 # XPLM_API XPLMMenuID XPLMFindPluginsMenu(void);
 #
-proc XPLMFindPluginsMenu*() {.importc: "XPLMFindPluginsMenu", nodecl.}
+proc XPLMFindPluginsMenu*() {.cdecl, importc: "XPLMFindPluginsMenu", dynlib: Lib}
 
 ##
 # XPLMCreateMenu
@@ -99,7 +106,7 @@ proc XPLMCreateMenu*(inName: cstring,
                      inParentItem: cint,
                      inHandler: XPLMMenuHandler_f,
                      inMenuRef: pointer): XPLMMenuID
-                                          {.importc: "XPLMCreateMenu", nodecl.}
+                                          {.cdecl, importc: "XPLMCreateMenu", dynlib: Lib}
 
 ##
 # XPLMDestroyMenu
@@ -110,7 +117,7 @@ proc XPLMCreateMenu*(inName: cstring,
 # XPLM_API void XPLMDestroyMenu(XPLMMenuID inMenuID);
 #
 proc XPLMDestroyMenu*(inMenuID: XPLMMenuID)
-                                     {.importc: "XPLMDestroyMenu", nodecl.}
+                                     {.cdecl, importc: "XPLMDestroyMenu", dynlib: Lib}
 
 
 ##
@@ -122,7 +129,7 @@ proc XPLMDestroyMenu*(inMenuID: XPLMMenuID)
 # XPLM_API void XPLMClearAllMenuItems(XPLMMenuID inMenuID);
 #
 proc XPLMClearAllMenuItems*(inMenuID: XPLMMenuID)
-                                   {.importc: "XPLMClearAllMenuItems", nodecl.}
+                                   {.cdecl, importc: "XPLMClearAllMenuItems", dynlib: Lib}
 
 
 ##
@@ -145,7 +152,7 @@ proc XPLMAppendMenuItem*(inMenu: XPLMMenuID,
                          inItemName: cstring,
                          inItemRef: pointer,
                          inForceEnglish: cint): cint
-                                      {.importc: "XPLMAppendMenuItem", nodecl.}
+                                      {.cdecl, importc: "XPLMAppendMenuItem", dynlib: Lib}
 
 ##
 # XPLMAppendMenuSeparator
@@ -155,7 +162,7 @@ proc XPLMAppendMenuItem*(inMenu: XPLMMenuID,
 # XPLM_API void XPLMAppendMenuSeparator(XPLMMenuID inMenu);
 #
 proc XPLMAppendMenuSeparator*(inMenu: XPLMMenuID)
-                                 {.importc: "XPLMAppendMenuSeparator", nodecl.}
+                                 {.cdecl, importc: "XPLMAppendMenuSeparator", dynlib: Lib}
 
 
 ##
@@ -173,7 +180,7 @@ proc XPLMSetMenuItemName*(nMenu; XPLMMenuID,
                           inIndex: cint,
                           inItemName: cstring,
                           inForceEnglish: cint)
-                                     {.importc: "XPLMSetMenuItemName", nodecl.}
+                                     {.cdecl, importc: "XPLMSetMenuItemName", dynlib: Lib}
 
 ##
 # XPLMCheckMenuItem
@@ -187,7 +194,7 @@ proc XPLMSetMenuItemName*(nMenu; XPLMMenuID,
 proc XPLMCheckMenuItem*(inMenu: XPLMMenuID,
                         index: cint,
                         inCheck: XPLMMenuCheck)
-                                       {.importc: "XPLMCheckMenuItem", nodecl.}
+                                       {.cdecl, importc: "XPLMCheckMenuItem", dynlib: Lib}
 
 ##
 # XPLMCheckMenuItemState
@@ -202,7 +209,7 @@ proc XPLMCheckMenuItem*(inMenu: XPLMMenuID,
 proc XPLMCheckMenuItemState*(inMenu: XPLMMenuID,
                              index: cint,
                              outCheck: ptr XPLMMenuCheck)
-                                  {.importc: "XPLMCheckMenuItemState", nodecl.}
+                                  {.cdecl, importc: "XPLMCheckMenuItemState", dynlib: Lib}
 
 ##
 # XPLMEnableMenuItem
@@ -216,7 +223,7 @@ proc XPLMCheckMenuItemState*(inMenu: XPLMMenuID,
 proc XPLMEnableMenuItem*(inMenu: XPLMMenuID,
                          index: cint,
                          enabled: cint)
-                                      {.importc: "XPLMEnableMenuItem", nodecl.}
+                                      {.cdecl, importc: "XPLMEnableMenuItem", dynlib: Lib}
 
 ##
 # XPLMRemoveMenuItem
@@ -229,6 +236,6 @@ proc XPLMEnableMenuItem*(inMenu: XPLMMenuID,
 #
 proc XPLMRemoveMenuItem*(inMenu: XPLMMenuID,
                          inIndex: cint)
-                                      {.importc: "XPLMRemoveMenuItem", nodecl.}
+                                      {.cdecl, importc: "XPLMRemoveMenuItem", dynlib: Lib}
 
 

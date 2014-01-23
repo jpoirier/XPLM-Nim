@@ -1,5 +1,12 @@
 # See license.txt for usage.
 
+when defined(windows):
+    const Lib = "XPLM_64.dll"
+elif defined(macosx):
+    const Lib = "XPLM_64.dylib"
+else:
+    const Lib = "XPLM_64.so"
+
 import XPLMDefs
 
 # This API allows you to get regular callbacks during the flight loop, the
@@ -77,7 +84,7 @@ type
     XPLMFlightLoop_f* = proc (inElapsedSinceLastCall: cfloat,
                               inElapsedTimeSinceLastFlightLoop: cfloat,
                               inCounter: cint,
-                              inRefcon: pointer): cfloat {.stdcall.}
+                              inRefcon: pointer): cfloat {.cdecl.}
 
 ##
 # XPLMCreateFlightLoop_t
@@ -109,7 +116,7 @@ type
 #
 # XPLM_API float XPLMGetElapsedTime(void);
 #
-proc XPLMGetElapsedTime*(): cfloat {.importc: "XPLMGetElapsedTime", nodecl.}
+proc XPLMGetElapsedTime*(): cfloat {.cdecl, importc: "XPLMGetElapsedTime", dynlib: Lib}
 
 ##
 # XPLMGetCycleNumber
@@ -119,7 +126,7 @@ proc XPLMGetElapsedTime*(): cfloat {.importc: "XPLMGetElapsedTime", nodecl.}
 #
 # XPLM_API int XPLMGetCycleNumber(void);
 #
-proc XPLMGetCycleNumber*(): cint {.importc: "XPLMGetCycleNumber", nodecl.}
+proc XPLMGetCycleNumber*(): cint {.cdecl, importc: "XPLMGetCycleNumber", dynlib: Lib}
 
 ##
 # XPLMRegisterFlightLoopCallback
@@ -138,7 +145,7 @@ proc XPLMGetCycleNumber*(): cint {.importc: "XPLMGetCycleNumber", nodecl.}
 proc XPLMRegisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
                                      inInterval: cfloat,
                                      inRefcon: pointer)
-                        {.importc: "XPLMRegisterFlightLoopCallback", nodecl.}
+                        {.cdecl, importc: "XPLMRegisterFlightLoopCallback", dynlib: Lib}
 
 ##
 # XPLMUnregisterFlightLoopCallback
@@ -152,7 +159,7 @@ proc XPLMRegisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
 #
 proc XPLMUnregisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
                                        inRefcon: pointer)
-                        {.importc: "XPLMUnregisterFlightLoopCallback", nodecl.}
+                        {.cdecl, importc: "XPLMUnregisterFlightLoopCallback", dynlib: Lib}
 
 ##
 # XPLMSetFlightLoopCallbackInterval
@@ -176,7 +183,7 @@ proc XPLMSetFlightLoopCallbackInterval*(inFlightLoop: XPLMFlightLoop_f,
                                         inInterval: cfloat,
                                         inRelativeToNow: cint,
                                         inRefcon: pointer)
-                    {.importc: "XPLMSetFlightLoopCallbackInterval", nodecl.}
+                    {.cdecl, importc: "XPLMSetFlightLoopCallbackInterval", dynlib: Lib}
 
 ##
 # XPLMCreateFlightLoop
@@ -188,7 +195,7 @@ proc XPLMSetFlightLoopCallbackInterval*(inFlightLoop: XPLMFlightLoop_f,
 # XPLM_API XPLMFlightLoopID XPLMCreateFlightLoop(XPLMCreateFlightLoop_t* inParams);
 #
 proc XPLMCreateFlightLoop*(inParams: PXPLMCreateFlightLoop_t): XPLMFlightLoopID
-                                    {.importc: "XPLMCreateFlightLoop", nodecl.}
+                                    {.cdecl, importc: "XPLMCreateFlightLoop", dynlib: Lib}
 
 ##
 # XPLMDestroyFlightLoop
@@ -198,7 +205,7 @@ proc XPLMCreateFlightLoop*(inParams: PXPLMCreateFlightLoop_t): XPLMFlightLoopID
 # XPLM_API void XPLMDestroyFlightLoop(XPLMFlightLoopID inFlightLoopID);
 #
 proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID)
-                                {.importc: "XPLMDestroyFlightLoop", nodecl.}
+                                {.cdecl, importc: "XPLMDestroyFlightLoop", dynlib: Lib}
 
 ##
 # XPLMScheduleFlightLoop
@@ -240,5 +247,5 @@ proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID)
 proc XPLMScheduleFlightLoop*(inFlightLoopID: XPLMFlightLoopID,
                              inInterval: cfloat,
                              inRelativeToNow: cint)
-                                {.importc: "XPLMScheduleFlightLoop", nodecl.}
+                                {.cdecl, importc: "XPLMScheduleFlightLoop", dynlib: Lib}
 

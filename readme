@@ -4,8 +4,14 @@ See license.txt for usage.
 
 To build the plugin example
 ---------------------------
-$ nimrod c -d:release XPLM_Test.nim
+$ nimrod c -d:release -d:useRealtimeGC XPLM_Test.nim
 
 Rename xplm_test.dll to xplm_test.xpl and copy to the X-Plane plugin folder,
 X-Plane10/Resources/plugins.
 
+
+To generate the "nimrtl.dll" file, use the command:
+	$ nimrod c -d:release lib/nimrtl.nim
+
+To link against nimrtl.dll use the command:
+	$ nimrod c -d:useNimRtl myprog.nim

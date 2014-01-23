@@ -1,5 +1,12 @@
 # See license.txt for usage.
 
+when defined(windows):
+    const Lib = "XPLM_64.dll"
+elif defined(macosx):
+    const Lib = "XPLM_64.dylib"
+else:
+    const Lib = "XPLM_64.so"
+
 import XPLMDefs
 
 # These APIs provide facilities to find and work with other plugins and
@@ -24,7 +31,7 @@ import XPLMDefs
 #
 # XPLM_API XPLMPluginID XPLMGetMyID(void);
 #
-proc XPLMGetMyID*(): XPLMPluginID {.importc: "XPLMGetMyID", nodecl.}
+proc XPLMGetMyID*(): XPLMPluginID {.cdecl, importc: "XPLMGetMyID", dynlib: Lib}
 
 ##
 # XPLMCountPlugins
@@ -34,7 +41,7 @@ proc XPLMGetMyID*(): XPLMPluginID {.importc: "XPLMGetMyID", nodecl.}
 #
 # XPLM_API int XPLMCountPlugins(void);
 #
-proc XPLMCountPlugins*(): cint {.importc: "XPLMCountPlugins", nodecl.}
+proc XPLMCountPlugins*(): cint {.cdecl, importc: "XPLMCountPlugins", dynlib: Lib}
 
 ##
 # XPLMGetNthPlugin
@@ -46,7 +53,7 @@ proc XPLMCountPlugins*(): cint {.importc: "XPLMCountPlugins", nodecl.}
 # XPLM_API XPLMPluginID XPLMGetNthPlugin(int inIndex);
 #
 proc XPLMGetNthPlugin*(inIndex: cint): XPLMPluginID
-                                        {.importc: "XPLMGetNthPlugin", nodecl.}
+                                        {.cdecl, importc: "XPLMGetNthPlugin", dynlib: Lib}
 
 ##
 # XPLMFindPluginByPath
@@ -58,7 +65,7 @@ proc XPLMGetNthPlugin*(inIndex: cint): XPLMPluginID
 # XPLM_API XPLMPluginID XPLMFindPluginByPath(const char* inPath);
 #
 proc XPLMFindPluginByPath*(inPath: cstring): XPLMPluginID
-                                    {.importc: "XPLMFindPluginByPath", nodecl.}
+                                    {.cdecl, importc: "XPLMFindPluginByPath", dynlib: Lib}
 
 ##
 # XPLMFindPluginBySignature
@@ -73,7 +80,7 @@ proc XPLMFindPluginByPath*(inPath: cstring): XPLMPluginID
 # XPLM_API XPLMPluginID XPLMFindPluginBySignature(const char* inSignature);
 #
 proc XPLMFindPluginBySignature*(inSignature: cstring): XPLMPluginID
-                               {.importc: "XPLMFindPluginBySignature", nodecl.}
+                               {.cdecl, importc: "XPLMFindPluginBySignature", dynlib: Lib}
 
 ##
 # XPLMGetPluginInfo
@@ -98,7 +105,7 @@ proc XPLMGetPluginInfo*(inPlugin: XPLMPluginID,
                         outFilePath,: cstring,
                         outSignature: cstring,
                         outDescription: cstring)
-                                       {.importc: "XPLMGetPluginInfo", nodecl.}
+                                       {.cdecl, importc: "XPLMGetPluginInfo", dynlib: Lib}
 
 #******************************************************************************
 # ENABLING/DISABLING PLUG-INS
@@ -116,7 +123,7 @@ proc XPLMGetPluginInfo*(inPlugin: XPLMPluginID,
 # XPLM_API int XPLMIsPluginEnabled(XPLMPluginID inPluginID);
 #
 proc XPLMIsPluginEnabled*(inPluginID: XPLMPluginID): cint
-                                     {.importc: "XPLMIsPluginEnabled", nodecl.}
+                                     {.cdecl, importc: "XPLMIsPluginEnabled", dynlib: Lib}
 
 ##
 # XPLMEnablePlugin
@@ -129,7 +136,7 @@ proc XPLMIsPluginEnabled*(inPluginID: XPLMPluginID): cint
 # XPLM_API int XPLMEnablePlugin(XPLMPluginID inPluginID);
 #
 proc XPLMEnablePlugin*(inPluginID: XPLMPluginID): cint
-                                        {.importc: "XPLMEnablePlugin", nodecl.}
+                                        {.cdecl, importc: "XPLMEnablePlugin", dynlib: Lib}
 
 ##
 # XPLMDisablePlugin
@@ -139,7 +146,7 @@ proc XPLMEnablePlugin*(inPluginID: XPLMPluginID): cint
 # XPLM_API void XPLMDisablePlugin(XPLMPluginID inPluginID);
 #
 proc XPLMDisablePlugin*(inPluginID: XPLMPluginID)
-                                       {.importc: "XPLMDisablePlugin", nodecl.}
+                                       {.cdecl, importc: "XPLMDisablePlugin", dynlib: Lib}
 
 ##
 # XPLMReloadPlugins
@@ -152,7 +159,7 @@ proc XPLMDisablePlugin*(inPluginID: XPLMPluginID)
 #
 # XPLM_API void XPLMReloadPlugins(void);
 #
-proc XPLMReloadPlugins*() {.importc: "XPLMReloadPlugins", nodecl.}
+proc XPLMReloadPlugins*() {.cdecl, importc: "XPLMReloadPlugins", dynlib: Lib}
 
 #******************************************************************************
 # INTERPLUGIN MESSAGING
@@ -256,7 +263,7 @@ const
 proc XPLMSendMessageToPlugin*(inPlugin: XPLMPluginID,
                               inMessage: cint,
                               inParam: pointer)
-                                 {.importc: "XPLMSendMessageToPlugin", nodecl.}
+                                 {.cdecl, importc: "XPLMSendMessageToPlugin", dynlib: Lib}
 
 #******************************************************************************
 # Plugin Features API
@@ -283,7 +290,7 @@ type
     # typedef void (*XPLMFeatureEnumerator_f)(const char* inFeature,
     #                                         void* inRef);
     XPLMFeatureEnumerator_f* = proc (inFeature: cstring,
-                                     inRef: pointer) {.stdcall.}
+                                     inRef: pointer) {.cdecl.}
 
 ##
 # XPLMHasFeature
@@ -294,7 +301,7 @@ type
 # XPLM_API int XPLMHasFeature(const char* inFeature);
 #
 proc XPLMHasFeature*(inFeature: cstring): cint
-                                          {.importc: "XPLMHasFeature", nodecl.}
+                                          {.cdecl, importc: "XPLMHasFeature", dynlib: Lib}
 
 ##
 # XPLMIsFeatureEnabled
@@ -306,7 +313,7 @@ proc XPLMHasFeature*(inFeature: cstring): cint
 # XPLM_API int XPLMIsFeatureEnabled(const char* inFeature);
 #
 proc XPLMIsFeatureEnabled*(inFeature: cstring): cint
-                                    {.importc: "XPLMIsFeatureEnabled", nodecl.}
+                                    {.cdecl, importc: "XPLMIsFeatureEnabled", dynlib: Lib}
 
 ##
 # XPLMEnableFeature
@@ -319,7 +326,7 @@ proc XPLMIsFeatureEnabled*(inFeature: cstring): cint
 #
 proc XPLMEnableFeature*(inFeature: cstring,
                         inEnable: cint)
-                                       {.importc: "XPLMEnableFeature", nodecl.}
+                                       {.cdecl, importc: "XPLMEnableFeature", dynlib: Lib}
 
 ##
 # XPLMEnumerateFeatures
@@ -333,5 +340,5 @@ proc XPLMEnableFeature*(inFeature: cstring,
 #
 proc XPLMEnumerateFeatures*(inEnumerator: XPLMFeatureEnumerator_f,
                             inRef: pointer)
-                                   {.importc: "XPLMEnumerateFeatures", nodecl.}
+                                   {.cdecl, importc: "XPLMEnumerateFeatures", dynlib: Lib}
 

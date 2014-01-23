@@ -1,5 +1,12 @@
 # See license.txt for usage.
 
+when defined(windows):
+    const Lib = "XPLM_64.dll"
+elif defined(macosx):
+    const Lib = "XPLM_64.dylib"
+else:
+    const Lib = "XPLM_64.so"
+
 import XPLMDefs
 
 # The XPLMPlanes APIs allow you to control the various aircraft in x-plane,
@@ -20,7 +27,7 @@ import XPLMDefs
 # XPLM_API void XPLMSetUsersAircraft(const char* inAircraftPath);
 #
 proc XPLMSetUsersAircraft*(inAircraftPath: cstring)
-                                    {.importc: "XPLMSetUsersAircraft", nodecl.}
+                                    {.cdecl, importc: "XPLMSetUsersAircraft", dynlib: Lib}
 
 # XPLMPlaceUserAtAirport
 #
@@ -30,7 +37,7 @@ proc XPLMSetUsersAircraft*(inAircraftPath: cstring)
 # XPLM_API void XPLMPlaceUserAtAirport(const char* inAirportCode);
 #
 proc XPLMPlaceUserAtAirport*(inAirportCode; cstring)
-                                  {.importc: "XPLMPlaceUserAtAirport", nodecl.}
+                                  {.cdecl, importc: "XPLMPlaceUserAtAirport", dynlib: Lib}
 
 #******************************************************************************
 # GLOBAL AIRCRAFT ACCESS
@@ -113,7 +120,7 @@ type
 proc XPLMCountAircraft*(outTotalAircraft: cint,
                         outActiveAircraft: cint,
                         outController: ptr XPLMPluginID)
-                                       {.importc: "XPLMCountAircraft", nodecl.}
+                                       {.cdecl, importc: "XPLMCountAircraft", dynlib: Lib}
 
 ##
 # XPLMGetNthAircraftModel
@@ -128,7 +135,7 @@ proc XPLMCountAircraft*(outTotalAircraft: cint,
 proc XPLMGetNthAircraftModel*(inIndex: cint,
                               outFileName: cstring,
                               outPath: cstring)
-                                 {.importc: "XPLMGetNthAircraftModel", nodecl.}
+                                 {.cdecl, importc: "XPLMGetNthAircraftModel", dynlib: Lib}
 
 #******************************************************************************
 # EXCLUSIVE AIRCRAFT ACCESS
@@ -148,7 +155,7 @@ proc XPLMGetNthAircraftModel*(inIndex: cint,
 # typedef void (*XPLMPlanesAvailable_f)(void* inRefcon);
 #
 type
-    XPLMPlanesAvailable_f* = proc (inRefcon: pointer) {.stdcall.}
+    XPLMPlanesAvailable_f* = proc (inRefcon: pointer) {.cdecl.}
 
 
 ##
@@ -171,7 +178,7 @@ type
 proc XPLMAcquirePlanes*(inAircraft: ptr ptr cchar,
                         inCallback: XPLMPlanesAvailable_f,
                         inRefcon: pointer): cint
-                                       {.importc: "XPLMAcquirePlanes", nodecl.}
+                                       {.cdecl, importc: "XPLMAcquirePlanes", dynlib: Lib}
 
 ##
 # XPLMReleasePlanes
@@ -181,7 +188,7 @@ proc XPLMAcquirePlanes*(inAircraft: ptr ptr cchar,
 #
 # XPLM_API void XPLMReleasePlanes(void);
 #
-proc XPLMReleasePlanes*() {.importc: "XPLMReleasePlanes", nodecl.}
+proc XPLMReleasePlanes*() {.cdecl, importc: "XPLMReleasePlanes", dynlib: Lib}
 
 ##
 # XPLMSetActiveAircraftCount
@@ -193,7 +200,7 @@ proc XPLMReleasePlanes*() {.importc: "XPLMReleasePlanes", nodecl.}
 # XPLM_API void XPLMSetActiveAircraftCount(int inCount);
 #
 proc XPLMSetActiveAircraftCount*(inCount: cint)
-                              {.importc: "XPLMSetActiveAircraftCount", nodecl.}
+                              {.cdecl, importc: "XPLMSetActiveAircraftCount", dynlib: Lib}
 
 ##
 # XPLMSetAircraftModel
@@ -207,7 +214,7 @@ proc XPLMSetActiveAircraftCount*(inCount: cint)
 #
 proc XPLMSetAircraftModel*(inIndex: cint,
                            inAircraftPath: cstring)
-                                    {.importc: "XPLMSetAircraftModel", nodecl.}
+                                    {.cdecl, importc: "XPLMSetAircraftModel", dynlib: Lib}
 ##
 # XPLMDisableAIForPlane
 #
@@ -217,7 +224,7 @@ proc XPLMSetAircraftModel*(inIndex: cint,
 # XPLM_API void XPLMDisableAIForPlane(int inPlaneIndex);
 #
 proc XPLMDisableAIForPlane*(inPlaneIndex: cint)
-                                   {.importc: "XPLMDisableAIForPlane", nodecl.}
+                                   {.cdecl, importc: "XPLMDisableAIForPlane", dynlib: Lib}
 
 ##
 # XPLMDrawAircraft
@@ -247,7 +254,7 @@ proc XPLMDrawAircraft*(inPlaneIndex: cint,
                        inYaw: cfloat,
                        inFullDraw: cint,
                        inDrawStateInfo: PXPLMPlaneDrawState_t)
-                                        {.importc: "XPLMDrawAircraft", nodecl.}
+                                        {.cdecl, importc: "XPLMDrawAircraft", dynlib: Lib}
 ##
 # XPLMReinitUsersPlane
 #
@@ -264,6 +271,6 @@ proc XPLMDrawAircraft*(inPlaneIndex: cint,
 #
 # XPLM_API void XPLMReinitUsersPlane(void);
 #
-proc XPLMReinitUsersPlane*() {.importc: "XPLMReinitUsersPlane", nodecl.}
+proc XPLMReinitUsersPlane*() {.cdecl, importc: "XPLMReinitUsersPlane", dynlib: Lib}
 
 
