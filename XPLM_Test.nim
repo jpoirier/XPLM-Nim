@@ -1,5 +1,7 @@
 # See license.txt for usage.
 
+{.deadCodeElim: on.}
+
 when defined(windows):
     const Lib = "XPLM_64.dll"
 elif defined(macosx):
@@ -38,10 +40,10 @@ type
 proc XPLMRegisterFlightLoopCallback(callback: XPLMFlightLoop_CB,
                                     inInterval: cfloat,
                                     inRefcon: pointer)
-         {.cdecl, importc: "XPLMRegisterFlightLoopCallback", dynlib: Lib}
+              {.cdecl, importc: "XPLMRegisterFlightLoopCallback", dynlib: Lib}
 
 proc XPLMDebugString(inString: cstring)
-                        {.cdecl, importc: "XPLMDebugString", dynlib: Lib}
+                            {.cdecl, importc: "XPLMDebugString", dynlib: Lib}
 
 
 # // Flightloop Callback INterval
