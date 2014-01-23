@@ -1,6 +1,6 @@
 # See license.txt for usage.
 
-# import XPLMDefs
+import XPWidgetDefs
 
 
 #******************************************************************************

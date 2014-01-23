@@ -1,6 +1,11 @@
 # See license.txt for usage.
 
-{.deadCodeElim: on.}
+when defined(windows):
+    const Lib = "XPLM_64.dll"
+elif defined(macosx):
+    const Lib = "XPLM_64.dylib"
+else:
+    const Lib = "XPLM_64.so"
 
 import lib/XPLMDefs
 import lib/XPLMCamera
@@ -33,10 +38,10 @@ type
 proc XPLMRegisterFlightLoopCallback(callback: XPLMFlightLoop_CB,
                                     inInterval: cfloat,
                                     inRefcon: pointer)
-         {.stdcall, importc: "XPLMRegisterFlightLoopCallback", dynlib: LibName}
+         {.cdecl, importc: "XPLMRegisterFlightLoopCallback", dynlib: Lib}
 
 proc XPLMDebugString(inString: cstring)
-                        {.stdcall, importc: "XPLMDebugString", dynlib: LibName}
+                        {.cdecl, importc: "XPLMDebugString", dynlib: Lib}
 
 
 # // Flightloop Callback INterval

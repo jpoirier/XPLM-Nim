@@ -1,13 +1,13 @@
 # See license.txt for usage.
 
+import XPLMDefs
+
 when defined(windows):
     const Lib = "XPLM_64.dll"
 elif defined(macosx):
     const Lib = "XPLM_64.dylib"
 else:
     const Lib = "XPLM_64.so"
-
-import XPLMDefs
 
 # XPLMCamera - THEORY OF OPERATION The XPLMCamera APIs allow plug-ins to
 # control the camera angle in X-Plane.  This has a number of applications,
