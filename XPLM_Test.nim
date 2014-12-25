@@ -2,7 +2,6 @@
 
 {.deadCodeElim: on.}
 
-
 import lib/XPLMDefs
 import lib/XPLMCamera
 import lib/XPLMDataAccess
@@ -41,7 +40,7 @@ proc XPluginStart(outName: ptr cstring, outSig: ptr cstring, outDesc: ptr cstrin
     outSig[] = "xplm.nim.test"
     outDesc[] = "XPLM-Nim Test Plugin"
     util.XPLMDebugString("-- XPluginStart called...\n")
-    util.XPLMDebugString("-- err XPluginStart called...\n")
+    util.XPLMDebugString("-- XPluginStart called...\n")
 
     XPLMRegisterFlightLoopCallback(cast[XPLMFlightLoop_f](XFlightLoopCallback), cfloat(FL_CB_INTERVAL), pointer(nil))
 
