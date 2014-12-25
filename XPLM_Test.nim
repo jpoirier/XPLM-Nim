@@ -16,7 +16,7 @@ import lib/XPLMProcessing
 import lib/XPLMScenery
 import lib/XPLMUtilities
 
-import lib/XPWidgetUtils
+import lib/XPWidgetUtils as util
 import lib/XPWidgets
 import lib/XPWidgetDefs
 import lib/XPUIGraphics
@@ -44,7 +44,7 @@ proc XFlightLoopCallback(inElapsedSinceLastCall: cfloat,
                          inElapsedTimeSinceLastFlightLoop: cfloat,
                          inCounter: cint,
                          inRefcon: pointer): cfloat {.exportc: "XFlightLoopCallback", dynlib.} =
-    XPLMDebugString("-- RadioPanelFlightLoopCallback called...\n")
+    util.XPLMDebugString("-- RadioPanelFlightLoopCallback called...\n")
     # us: int, strongAdvice = false
     # proc GC_step*(100)
     return 1.0
@@ -65,18 +65,18 @@ proc XPluginStart(outName: ptr cstring, outSig: ptr cstring, outDesc: ptr cstrin
 
 ## ----------------------------------------------------------------------------
 proc XPluginStop() {.exportc: "XPluginStop", dynlib.} =
-    XPLMDebugString("-- XPluginStop called...\n")
+    util.XPLMDebugString("-- XPluginStop called...\n")
 
 ## ----------------------------------------------------------------------------
 proc XPluginDisable() {.exportc: "XPluginDisable", dynlib.} =
-    XPLMDebugString("-- XPluginDisable called...\n")
+    util.XPLMDebugString("-- XPluginDisable called...\n")
 
 ## ----------------------------------------------------------------------------
 proc XPluginEnable(): cint {.exportc: "XPluginEnable", dynlib.} =
-    XPLMDebugString("-- XPluginEnable called...\n")
+    util.XPLMDebugString("-- XPluginEnable called...\n")
     return 1
 
 ## ----------------------------------------------------------------------------
 proc XPluginReceiveMessage(inFrom: int, inMsg: int, inParam: pointer) {.exportc: "XPluginReceiveMessage", dynlib.} =
-    XPLMDebugString("-- XPluginReceiveMessage called...\n")
+    util.XPLMDebugString("-- XPluginReceiveMessage called...\n")
 
