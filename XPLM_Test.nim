@@ -2,12 +2,6 @@
 
 {.deadCodeElim: on.}
 
-when defined(windows):
-    const Lib = "XPLM_64.dll"
-elif defined(macosx):
-    const Lib = "XPLM_64.dylib"
-else:
-    const Lib = "XPLM_64.so"
 
 import lib/XPLMDefs
 import lib/XPLMCamera
@@ -29,31 +23,28 @@ import lib/XPUIGraphics
 import lib/XPStandardWidgets
 
 
-type
-    XPLMFlightLoop_CB* = proc (inElapsedSinceLastCall: cfloat,
-                                inElapsedTimeSinceLastFlightLoop: cfloat,
-                                inCounter: cint, inRefcon: pointer): cfloat
-                                                                    {.stdcall.}
+# type
+#     XPLMFlightLoop_CB* = proc (inElapsedSinceLastCall: cfloat,
+#                                 inElapsedTimeSinceLastFlightLoop: cfloat,
+#                                 inCounter: cint, inRefcon: pointer): cfloat {.stdcall.}
 
 ## ----------------------------------------------------------------------------
 # imports
-proc XPLMRegisterFlightLoopCallback(callback: XPLMFlightLoop_CB, inInterval: cfloat, inRefcon: pointer)
-              {.cdecl, importc: "XPLMRegisterFlightLoopCallback", dynlib: Lib}
+# proc XPLMRegisterFlightLoopCallback(callback: XPLMFlightLoop_CB, inInterval: cfloat, inRefcon: pointer)
+#               {.cdecl, importc: "XPLMRegisterFlightLoopCallback", dynlib: Lib}
 
-proc XPLMDebugString(inString: cstring) {.cdecl, importc: "XPLMDebugString", dynlib: Lib}
+# proc XPLMDebugString(inString: cstring) {.cdecl, importc: "XPLMDebugString", dynlib: Lib}
 
 
-# // Flightloop Callback INterval
-# static const float FL_CB_INTERVAL = -1.0;
+# Flightloop Callback Interval
+const FL_CB_INTERVAL = -1.0
 
 ## ----------------------------------------------------------------------------
 proc XFlightLoopCallback(inElapsedSinceLastCall: cfloat,
                          inElapsedTimeSinceLastFlightLoop: cfloat,
                          inCounter: cint,
-                         inRefcon: pointer): cfloat
-                                  {.exportc: "XFlightLoopCallback", dynlib.} =
+                         inRefcon: pointer): cfloat {.exportc: "XFlightLoopCallback", dynlib.} =
     XPLMDebugString("-- RadioPanelFlightLoopCallback called...\n")
-
     # us: int, strongAdvice = false
     # proc GC_step*(100)
     return 1.0
@@ -66,9 +57,7 @@ proc XPluginStart(outName: ptr cstring, outSig: ptr cstring, outDesc: ptr cstrin
     XPLMDebugString("-- XPluginStart called...\n")
     XPLMDebugString("-- err XPluginStart called...\n")
 
-    XPLMRegisterFlightLoopCallback(cast[XPLMFlightLoop_CB](XFlightLoopCallback),
-                                    cfloat(-1.0),
-                                    pointer(nil))
+    XPLMRegisterFlightLoopCallback(cast[XPLMFlightLoop_f](XFlightLoopCallback), cfloat(FL_CB_INTERVAL), pointer(nil))
 
     # MaxPauseInUs, what's a good value?
     # proc GC_setMaxPause*(100)
