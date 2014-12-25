@@ -14,27 +14,13 @@ import lib/XPLMPlanes
 import lib/XPLMPlugin
 import lib/XPLMProcessing
 import lib/XPLMScenery
-import lib/XPLMUtilities
+import lib/XPLMUtilities as util
 
-import lib/XPWidgetUtils as util
+import lib/XPWidgetUtils
 import lib/XPWidgets
 import lib/XPWidgetDefs
 import lib/XPUIGraphics
 import lib/XPStandardWidgets
-
-
-# type
-#     XPLMFlightLoop_CB* = proc (inElapsedSinceLastCall: cfloat,
-#                                 inElapsedTimeSinceLastFlightLoop: cfloat,
-#                                 inCounter: cint, inRefcon: pointer): cfloat {.stdcall.}
-
-## ----------------------------------------------------------------------------
-# imports
-# proc XPLMRegisterFlightLoopCallback(callback: XPLMFlightLoop_CB, inInterval: cfloat, inRefcon: pointer)
-#               {.cdecl, importc: "XPLMRegisterFlightLoopCallback", dynlib: Lib}
-
-# proc XPLMDebugString(inString: cstring) {.cdecl, importc: "XPLMDebugString", dynlib: Lib}
-
 
 # Flightloop Callback Interval
 const FL_CB_INTERVAL = -1.0
@@ -54,8 +40,8 @@ proc XPluginStart(outName: ptr cstring, outSig: ptr cstring, outDesc: ptr cstrin
     outName[] = "XPLM-Nim_Test"
     outSig[] = "xplm.nim.test"
     outDesc[] = "XPLM-Nim Test Plugin"
-    XPLMDebugString("-- XPluginStart called...\n")
-    XPLMDebugString("-- err XPluginStart called...\n")
+    util.XPLMDebugString("-- XPluginStart called...\n")
+    util.XPLMDebugString("-- err XPluginStart called...\n")
 
     XPLMRegisterFlightLoopCallback(cast[XPLMFlightLoop_f](XFlightLoopCallback), cfloat(FL_CB_INTERVAL), pointer(nil))
 
