@@ -85,8 +85,7 @@ proc XPDrawWindow*(inX1: cint,
 #
 proc XPGetWindowDefaultDimensions*(inStyle: XPWindowStyle,
                                    outWidth: ptr cint,
-                                   outHeight: ptr cint)
-                            {.cdecl, importc: "XPGetWindowDefaultDimensions", dynlib: Lib}
+                                   outHeight: ptr cint) {.cdecl, importc: "XPGetWindowDefaultDimensions", dynlib: Lib}
 
 # XPElementStyle
 #
@@ -233,8 +232,7 @@ proc XPDrawElement*(inX1: cint,
                     inY1: cint,
                     inX2: cint,
                     inY2: cint,
-                    inStyle: XPElementStyle,
-                    inLit: cint) {.cdecl, importc: "XPDrawElement", dynlib: Lib}
+                    inStyle: XPElementStyle, inLit: cint) {.cdecl, importc: "XPDrawElement", dynlib: Lib}
 
 # XPGetElementDefaultDimensions
 #
@@ -250,8 +248,7 @@ proc XPDrawElement*(inX1: cint,
 proc XPGetElementDefaultDimensions*(inStyle: XPElementStyle,
                                     outWidth: ptr cint,
                                     outHeight: ptr cint,
-                                    outCanBeLit: ptr cint)
-                        {.cdecl, importc: "XPGetElementDefaultDimensions", dynlib: Lib}
+                                    outCanBeLit: ptr cint) {.cdecl, importc: "XPGetElementDefaultDimensions", dynlib: Lib}
 
 # XPTrackStyle
 #
@@ -307,8 +304,7 @@ proc XPDrawTrack*(inX1: cint,
                   inMin: cint,
                   inMax: cint,
                   inValue: cint,
-                  inTrackStyle: XPTrackStyle,
-                  inLit: cint) {.cdecl, importc: "XPDrawTrack", dynlib: Lib}
+                  inTrackStyle: XPTrackStyle, inLit: cint) {.cdecl, importc: "XPDrawTrack", dynlib: Lib}
 
 # XPGetTrackDefaultDimensions
 #
@@ -322,8 +318,7 @@ proc XPDrawTrack*(inX1: cint,
 #
 proc XPGetTrackDefaultDimensions*(inStyle: XPTrackStyle,
                                   outWidth: ptr cint,
-                                  outCanBeLit: ptr cint)
-                            {.cdecl, importc: "XPGetTrackDefaultDimensions", dynlib: Lib}
+                                  outCanBeLit: ptr cint) {.cdecl, importc: "XPGetTrackDefaultDimensions", dynlib: Lib}
 
 # XPGetTrackMetrics
 #
@@ -368,6 +363,5 @@ proc XPGetTrackMetrics*(inX1: cint,
                         outDownPageSize: ptr cint,
                         outThumbSize: ptr cint,
                         outUpPageSize: ptr cint,
-                        outUpBtnSize: ptr cint)
-                                    {.cdecl, importc: "XPGetTrackMetrics", dynlib: Lib}
+                        outUpBtnSize: ptr cint) {.cdecl, importc: "XPGetTrackMetrics", dynlib: Lib}
 

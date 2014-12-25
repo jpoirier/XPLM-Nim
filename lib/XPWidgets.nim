@@ -135,8 +135,7 @@ proc XPCreateWidget*(inLeft: cint,
                      inDescriptor: pointer,
                      inIsRoot: cint,
                      inContainer: XPWidgetID,
-                     inClass: XPWidgetClass): XPWidgetID
-                                        {.cdecl, importc: "XPCreateWidget", dynlib: Lib}
+                     inClass: XPWidgetClass): XPWidgetID {.cdecl, importc: "XPCreateWidget", dynlib: Lib}
 
 # XPCreateCustomWidget
 #
@@ -164,8 +163,7 @@ proc XPCreateCustomWidget*(inLeft: cint,
                      inDescriptor: pointer,
                      inIsRoot: cint,
                      inContainer: XPWidgetID,
-                     inCallback: XPWidgetFunc_t): XPWidgetID
-                                    {.cdecl, importc: "XPCreateCustomWidget", dynlib: Lib}
+                     inCallback: XPWidgetFunc_t): XPWidgetID {.cdecl, importc: "XPCreateCustomWidget", dynlib: Lib}
 
 # XPDestroyWidget
 #
@@ -178,8 +176,7 @@ proc XPCreateCustomWidget*(inLeft: cint,
 #
 # WIDGET_API void XPDestroyWidget(XPWidgetID inWidget,
 #                                 int inDestroyChildren);
-proc XPDestroyWidget*(inWidget: XPWidgetID, inDestroyChildren: cint)
-                                        {.cdecl, importc: "XPDestroyWidget", dynlib: Lib}
+proc XPDestroyWidget*(inWidget: XPWidgetID, inDestroyChildren: cint) {.cdecl, importc: "XPDestroyWidget", dynlib: Lib}
 
 # XPSendMessageToWidget
 #
@@ -206,8 +203,7 @@ proc XPSendMessageToWidget*(inWidget: XPWidgetID,
                             inMessage: XPWidgetMessage,
                             inMode: XPDispatchMode,
                             inParam1: ptr cint,
-                            inParam2: ptr cint): cint
-                                {.cdecl, importc: "XPSendMessageToWidget", dynlib: Lib}
+                            inParam2: ptr cint): cint {.cdecl, importc: "XPSendMessageToWidget", dynlib: Lib}
 
 #******************************************************************************
 # WIDGET POSITIONING AND VISIBILITY
@@ -233,8 +229,7 @@ proc XPSendMessageToWidget*(inWidget: XPWidgetID,
 #                                     XPWidgetID inContainer);
 #
 proc XPPlaceWidgetWithin*(inSubWidget: XPWidgetID,
-                          inContainer: XPWidgetID)
-                                    {.cdecl, importc: "XPPlaceWidgetWithin", dynlib: Lib}
+                          inContainer: XPWidgetID) {.cdecl, importc: "XPPlaceWidgetWithin", dynlib: Lib}
 
 # XPCountChildWidgets
 #
@@ -242,8 +237,7 @@ proc XPPlaceWidgetWithin*(inSubWidget: XPWidgetID,
 #
 # WIDGET_API int XPCountChildWidgets(XPWidgetID inWidget);
 #
-proc XPCountChildWidgets*(inWidget: XPWidgetID): cint
-                                    {.cdecl, importc: "XPCountChildWidgets", dynlib: Lib}
+proc XPCountChildWidgets*(inWidget: XPWidgetID): cint {.cdecl, importc: "XPCountChildWidgets", dynlib: Lib}
 
 # XPGetNthChildWidget
 #
@@ -255,8 +249,7 @@ proc XPCountChildWidgets*(inWidget: XPWidgetID): cint
 #                                           int inIndex);
 #
 proc XPGetNthChildWidget*(inWidget: XPWidgetID,
-                          inIndex: cint): XPWidgetID
-                                    {.cdecl, importc: "XPGetNthChildWidget", dynlib: Lib}
+                          inIndex: cint): XPWidgetID {.cdecl, importc: "XPGetNthChildWidget", dynlib: Lib}
 
 # XPGetParentWidget
 #
@@ -265,8 +258,7 @@ proc XPGetNthChildWidget*(inWidget: XPWidgetID,
 #
 # WIDGET_API XPWidgetID XPGetParentWidget(XPWidgetID inWidget);
 #
-proc XPGetParentWidget*(inWidget: XPWidgetID): XPWidgetID
-                                    {.cdecl, importc: "XPGetParentWidget", dynlib: Lib}
+proc XPGetParentWidget*(inWidget: XPWidgetID): XPWidgetID {.cdecl, importc: "XPGetParentWidget", dynlib: Lib}
 
 # XPShowWidget
 #
@@ -295,8 +287,7 @@ proc XPHideWidget*(inWidget: XPWidgetID) {.cdecl, importc: "XPHideWidget", dynli
 #
 # WIDGET_API int XPIsWidgetVisible(XPWidgetID inWidget);
 #
-proc XPIsWidgetVisible*(inWidget: XPWidgetID): cint
-                                    {.cdecl, importc: "XPIsWidgetVisible", dynlib: Lib}
+proc XPIsWidgetVisible*(inWidget: XPWidgetID): cint {.cdecl, importc: "XPIsWidgetVisible", dynlib: Lib}
 
 # XPFindRootWidget
 #
@@ -306,8 +297,7 @@ proc XPIsWidgetVisible*(inWidget: XPWidgetID): cint
 #
 # WIDGET_API XPWidgetID XPFindRootWidget(XPWidgetID inWidget);
 #
-proc XPFindRootWidget*(inWidget: XPWidgetID): XPWidgetID
-                                        {.cdecl, importc: "XPFindRootWidget", dynlib: Lib}
+proc XPFindRootWidget*(inWidget: XPWidgetID): XPWidgetID {.cdecl, importc: "XPFindRootWidget", dynlib: Lib}
 
 # XPBringRootWidgetToFront
 #
@@ -319,8 +309,7 @@ proc XPFindRootWidget*(inWidget: XPWidgetID): XPWidgetID
 #
 # WIDGET_API void XPBringRootWidgetToFront(XPWidgetID inWidget);
 #
-proc XPBringRootWidgetToFront*(inWidget: XPWidgetID)
-                                {.cdecl, importc: "XPBringRootWidgetToFront", dynlib: Lib}
+proc XPBringRootWidgetToFront*(inWidget: XPWidgetID) {.cdecl, importc: "XPBringRootWidgetToFront", dynlib: Lib}
 
 # XPIsWidgetInFront
 #
@@ -330,8 +319,7 @@ proc XPBringRootWidgetToFront*(inWidget: XPWidgetID)
 #
 # WIDGET_API int XPIsWidgetInFront(XPWidgetID inWidget);
 #
-proc XPIsWidgetInFront*(inWidget: XPWidgetID): cint
-                                    {.cdecl, importc: "XPIsWidgetInFront", dynlib: Lib}
+proc XPIsWidgetInFront*(inWidget: XPWidgetID): cint {.cdecl, importc: "XPIsWidgetInFront", dynlib: Lib}
 
 # XPGetWidgetGeometry
 #
@@ -348,8 +336,7 @@ proc XPGetWidgetGeometry*(inWidget: XPWidgetID,
                           outLeft: ptr cint,
                           outTop: ptr cint,
                           outRight: ptr cint,
-                          outBottom: ptr cint)
-                                    {.cdecl, importc: "XPGetWidgetGeometry", dynlib: Lib}
+                          outBottom: ptr cint) {.cdecl, importc: "XPGetWidgetGeometry", dynlib: Lib}
 
 # XPSetWidgetGeometry
 #
@@ -365,8 +352,7 @@ proc XPSetWidgetGeometry*(inWidget: XPWidgetID,
                           outLeft: ptr cint,
                           outTop: ptr cint,
                           outRight: ptr cint,
-                          outBottom: ptr cint)
-                                    {.cdecl, importc: "XPSetWidgetGeometry", dynlib: Lib}
+                          outBottom: ptr cint) {.cdecl, importc: "XPSetWidgetGeometry", dynlib: Lib}
 
 # XPGetWidgetForLocation
 #
@@ -394,8 +380,7 @@ proc XPGetWidgetForLocation*(inContainer: XPWidgetID,
                              inXOffset: cint,
                              inYOffset: cint,
                              inRecursive: cint,
-                             inVisibleOnly: cint): XPWidgetID
-                                {.cdecl, importc: "XPGetWidgetForLocation", dynlib: Lib}
+                             inVisibleOnly: cint): XPWidgetID {.cdecl, importc: "XPGetWidgetForLocation", dynlib: Lib}
 
 # XPGetWidgetExposedGeometry
 #
@@ -417,8 +402,7 @@ proc XPGetWidgetExposedGeometry*(inWidget: XPWidgetID,
                                  outLeft: ptr cint,
                                  outTop: ptr cint,
                                  outRight: ptr cint,
-                                 outBottom: ptr cint)
-                            {.cdecl, importc: "XPGetWidgetExposedGeometry", dynlib: Lib}
+                                 outBottom: ptr cint) {.cdecl, importc: "XPGetWidgetExposedGeometry", dynlib: Lib}
 
 #******************************************************************************
 # ACCESSING WIDGET DATA
@@ -437,9 +421,7 @@ proc XPGetWidgetExposedGeometry*(inWidget: XPWidgetID,
 # WIDGET_API void XPSetWidgetDescriptor(XPWidgetID inWidget,
 #                                       const char* inDescriptor);
 #
-proc XPSetWidgetDescriptor*(inWidget: XPWidgetID,
-                            inDescriptor: cstring)
-                                {.cdecl, importc: "XPSetWidgetDescriptor", dynlib: Lib}
+proc XPSetWidgetDescriptor*(inWidget: XPWidgetID, inDescriptor: cstring) {.cdecl, importc: "XPSetWidgetDescriptor", dynlib: Lib}
 
 # XPGetWidgetDescriptor
 #
@@ -457,8 +439,7 @@ proc XPSetWidgetDescriptor*(inWidget: XPWidgetID,
 #
 proc XPGetWidgetDescriptor*(inWidget: XPWidgetID,
                             outDescriptor: cstring,
-                            inMaxDescLength: cint): cint
-                                {.cdecl, importc: "XPGetWidgetDescriptor", dynlib: Lib}
+                            inMaxDescLength: cint): cint {.cdecl, importc: "XPGetWidgetDescriptor", dynlib: Lib}
 
 # XPSetWidgetProperty
 #
@@ -471,8 +452,7 @@ proc XPGetWidgetDescriptor*(inWidget: XPWidgetID,
 #
 proc XPSetWidgetProperty*(inWidget: XPWidgetID,
                           inProperty: XPWidgetPropertyID,
-                          inValue: ptr cint)
-                                    {.cdecl, importc: "XPSetWidgetProperty", dynlib: Lib}
+                          inValue: ptr cint) {.cdecl, importc: "XPSetWidgetProperty", dynlib: Lib}
 
 # XPGetWidgetProperty
 #
@@ -488,8 +468,7 @@ proc XPSetWidgetProperty*(inWidget: XPWidgetID,
 #
 proc XPGetWidgetProperty*(inWidget: XPWidgetID,
                           inProperty: XPWidgetPropertyID,
-                          inExists: ptr cint): ptr cint
-                                    {.cdecl, importc: "XPGetWidgetProperty", dynlib: Lib}
+                          inExists: ptr cint): ptr cint {.cdecl, importc: "XPGetWidgetProperty", dynlib: Lib}
 
 #******************************************************************************
 # KEYBOARD MANAGEMENT
@@ -513,8 +492,7 @@ proc XPGetWidgetProperty*(inWidget: XPWidgetID,
 #
 # WIDGET_API XPWidgetID XPSetKeyboardFocus(XPWidgetID inWidget);
 #
-proc XPSetKeyboardFocus*(inWidget: XPWidgetID): XPWidgetID
-                                    {.cdecl, importc: "XPSetKeyboardFocus", dynlib: Lib}
+proc XPSetKeyboardFocus*(inWidget: XPWidgetID): XPWidgetID {.cdecl, importc: "XPSetKeyboardFocus", dynlib: Lib}
 
 # XPLoseKeyboardFocus
 #
@@ -524,8 +502,7 @@ proc XPSetKeyboardFocus*(inWidget: XPWidgetID): XPWidgetID
 #
 # WIDGET_API void XPLoseKeyboardFocus(XPWidgetID inWidget);
 #
-proc XPLoseKeyboardFocus*(inWidget: XPWidgetID)
-                                    {.cdecl, importc: "XPLoseKeyboardFocus", dynlib: Lib}
+proc XPLoseKeyboardFocus*(inWidget: XPWidgetID) {.cdecl, importc: "XPLoseKeyboardFocus", dynlib: Lib}
 
 # XPGetWidgetWithFocus
 #
@@ -535,8 +512,7 @@ proc XPLoseKeyboardFocus*(inWidget: XPWidgetID)
 #
 # WIDGET_API XPWidgetID XPGetWidgetWithFocus(void);
 #
-proc XPGetWidgetWithFocus*(): XPWidgetID
-                                    {.cdecl, importc: "XPGetWidgetWithFocus", dynlib: Lib}
+proc XPGetWidgetWithFocus*(): XPWidgetID {.cdecl, importc: "XPGetWidgetWithFocus", dynlib: Lib}
 
 #******************************************************************************
 # CREATING CUSTOM WIDGETS
@@ -560,9 +536,7 @@ proc XPGetWidgetWithFocus*(): XPWidgetID
 # WIDGET_API void XPAddWidgetCallback(XPWidgetID inWidget,
 #                                     XPWidgetFunc_t inNewCallback);
 #
-proc XPAddWidgetCallback*(inWidget: XPWidgetID,
-                          inNewCallback: XPWidgetFunc_t)
-                                    {.cdecl, importc: "XPAddWidgetCallback", dynlib: Lib}
+proc XPAddWidgetCallback*(inWidget: XPWidgetID, inNewCallback: XPWidgetFunc_t) {.cdecl, importc: "XPAddWidgetCallback", dynlib: Lib}
 
 # XPGetWidgetClassFunc
 #
@@ -571,6 +545,5 @@ proc XPAddWidgetCallback*(inWidget: XPWidgetID,
 #
 # WIDGET_API XPWidgetFunc_t XPGetWidgetClassFunc(XPWidgetClass inWidgetClass);
 #
-proc XPGetWidgetClassFunc*(inWidgetClass: XPWidgetClass): XPWidgetFunc_t
-                {.cdecl, importc: "XPUSelectIfXPGetWidgetClassFuncNeeded", dynlib: Lib}
+proc XPGetWidgetClassFunc*(inWidgetClass: XPWidgetClass): XPWidgetFunc_t {.cdecl, importc: "XPUSelectIfXPGetWidgetClassFuncNeeded", dynlib: Lib}
 

@@ -122,8 +122,7 @@ proc XPLMGetFirstNavAid*(): XPLMNavRef {.cdecl, importc: "XPLMGetFirstNavAid", d
 #
 # XPLM_API XPLMNavRef XPLMGetNextNavAid(XPLMNavRef inNavAidRef);
 #
-proc XPLMGetNextNavAid*(inNavAidRef: XPLMNavRef): XPLMNavRef
-                                       {.cdecl, importc: "XPLMGetNextNavAid", dynlib: Lib}
+proc XPLMGetNextNavAid*(inNavAidRef: XPLMNavRef): XPLMNavRef {.cdecl, importc: "XPLMGetNextNavAid", dynlib: Lib}
 
 ##
 # XPLMFindFirstNavAidOfType
@@ -138,8 +137,7 @@ proc XPLMGetNextNavAid*(inNavAidRef: XPLMNavRef): XPLMNavRef
 #
 # XPLM_API XPLMNavRef XPLMFindFirstNavAidOfType(XPLMNavType inType);
 #
-proc XPLMFindFirstNavAidOfType*(inType: XPLMNavType): XPLMNavRef
-                               {.cdecl, importc: "XPLMFindFirstNavAidOfType", dynlib: Lib}
+proc XPLMFindFirstNavAidOfType*(inType: XPLMNavType): XPLMNavRef {.cdecl, importc: "XPLMFindFirstNavAidOfType", dynlib: Lib}
 
 ##
 # XPLMFindLastNavAidOfType
@@ -154,8 +152,7 @@ proc XPLMFindFirstNavAidOfType*(inType: XPLMNavType): XPLMNavRef
 #
 # XPLM_API XPLMNavRef XPLMFindLastNavAidOfType(XPLMNavType inType);
 #
-proc XPLMFindLastNavAidOfType*(inType: XPLMNavType): XPLMNavRef
-                                {.cdecl, importc: "XPLMFindLastNavAidOfType", dynlib: Lib}
+proc XPLMFindLastNavAidOfType*(inType: XPLMNavType): XPLMNavRef {.cdecl, importc: "XPLMFindLastNavAidOfType", dynlib: Lib}
 
 ##
 # XPLMFindNavAid
@@ -196,8 +193,7 @@ proc XPLMFindNavAid*(inNameFragment: cstring,
                      inLat: ptr cfloat,
                      inLon: ptr cfloat,
                      inFrequency: ptr cint,
-                     inType: XPLMNavType): XPLMNavRef
-                                          {.cdecl, importc: "XPLMFindNavAid", dynlib: Lib}
+                     inType: XPLMNavType): XPLMNavRef {.cdecl, importc: "XPLMFindNavAid", dynlib: Lib}
 
 ##
 # XPLMGetNavAidInfo
@@ -238,8 +234,7 @@ proc XPLMGetNavAidInfo*(inRef: XPLMNavRef,
                         outHeading: ptr cfloat,
                         outID: cstring,
                         outName: cstring,
-                        outReg: cstring)
-                                       {.cdecl, importc: "XPLMGetNavAidInfo", dynlib: Lib}
+                        outReg: cstring) {.cdecl, importc: "XPLMGetNavAidInfo", dynlib: Lib}
 
 
 #******************************************************************************
@@ -271,8 +266,7 @@ proc XPLMCountFMSEntries*(): cint {.cdecl, importc: "XPLMCountFMSEntries", dynli
 #
 # XPLM_API int XPLMGetDisplayedFMSEntry(void);
 #
-proc XPLMGetDisplayedFMSEntry*(): cint
-                                {.cdecl, importc: "XPLMGetDisplayedFMSEntry", dynlib: Lib}
+proc XPLMGetDisplayedFMSEntry*(): cint {.cdecl, importc: "XPLMGetDisplayedFMSEntry", dynlib: Lib}
 
 ##
 # XPLMGetDestinationFMSEntry
@@ -281,8 +275,7 @@ proc XPLMGetDisplayedFMSEntry*(): cint
 #
 # XPLM_API int XPLMGetDestinationFMSEntry(void);
 #
-proc XPLMGetDestinationFMSEntry*(): cint
-                              {.cdecl, importc: "XPLMGetDestinationFMSEntry", dynlib: Lib}
+proc XPLMGetDestinationFMSEntry*(): cint {.cdecl, importc: "XPLMGetDestinationFMSEntry", dynlib: Lib}
 
 ##
 # XPLMSetDisplayedFMSEntry
@@ -291,8 +284,7 @@ proc XPLMGetDestinationFMSEntry*(): cint
 #
 # XPLM_API void XPLMSetDisplayedFMSEntry(int inIndex);
 #
-proc XPLMSetDisplayedFMSEntry*(inIndex: cint)
-                                {.cdecl, importc: "XPLMSetDisplayedFMSEntry", dynlib: Lib}
+proc XPLMSetDisplayedFMSEntry*(inIndex: cint) {.cdecl, importc: "XPLMSetDisplayedFMSEntry", dynlib: Lib}
 
 ##
 # XPLMSetDestinationFMSEntry
@@ -301,8 +293,7 @@ proc XPLMSetDisplayedFMSEntry*(inIndex: cint)
 #
 # XPLM_API void XPLMSetDestinationFMSEntry(int inIndex);
 #
-proc XPLMSetDestinationFMSEntry*(inIndex: cint)
-                              {.cdecl, importc: "XPLMSetDestinationFMSEntry", dynlib: Lib}
+proc XPLMSetDestinationFMSEntry*(inIndex: cint) {.cdecl, importc: "XPLMSetDestinationFMSEntry", dynlib: Lib}
 
 ##
 # XPLMGetFMSEntryInfo
@@ -329,8 +320,7 @@ proc XPLMGetFMSEntryInfo*(inIndex: cint,
                           outRef: ptr XPLMNavRef,
                           outAltitude: ptr cint,
                           outLat: ptr cfloat,
-                          outLon: ptr cfloat)
-                                     {.cdecl, importc: "XPLMGetFMSEntryInfo", dynlib: Lib}
+                          outLon: ptr cfloat) {.cdecl, importc: "XPLMGetFMSEntryInfo", dynlib: Lib}
 
 
 # XPLMSetFMSEntryInfo
@@ -346,8 +336,7 @@ proc XPLMGetFMSEntryInfo*(inIndex: cint,
 #
 proc XPLMSetFMSEntryInfo*(inIndex: cint,
                           inRef: XPLMNavRef,
-                          inAltitude: cint)
-                                     {.cdecl, importc: "XPLMSetFMSEntryInfo", dynlib: Lib}
+                          inAltitude: cint) {.cdecl, importc: "XPLMSetFMSEntryInfo", dynlib: Lib}
 
 ##
 # XPLMSetFMSEntryLatLon
@@ -363,8 +352,7 @@ proc XPLMSetFMSEntryInfo*(inIndex: cint,
 proc XPLMSetFMSEntryLatLon*(inIndex: cint,
                             inLat: cfloat,
                             inLon: cfloat,
-                            inAltitude: cint)
-                                   {.cdecl, importc: "XPLMSetFMSEntryLatLon", dynlib: Lib}
+                            inAltitude: cint) {.cdecl, importc: "XPLMSetFMSEntryLatLon", dynlib: Lib}
 
 ##
 # XPLMClearFMSEntry
@@ -391,8 +379,7 @@ proc XPLMClearFMSEntry*(inIndex: cint) {.cdecl, importc: "XPLMClearFMSEntry", dy
 #
 # XPLM_API XPLMNavType XPLMGetGPSDestinationType(void);
 #
-proc XPLMGetGPSDestinationType*(): XPLMNavType
-                               {.cdecl, importc: "XPLMGetGPSDestinationType", dynlib: Lib}
+proc XPLMGetGPSDestinationType*(): XPLMNavType {.cdecl, importc: "XPLMGetGPSDestinationType", dynlib: Lib}
 
 ##
 # XPLMGetGPSDestination
@@ -401,6 +388,5 @@ proc XPLMGetGPSDestinationType*(): XPLMNavType
 #
 # XPLM_API XPLMNavRef XPLMGetGPSDestination(void);
 #
-proc XPLMGetGPSDestination*(): XPLMNavRef
-                                   {.cdecl, importc: "XPLMGetGPSDestination", dynlib: Lib}
+proc XPLMGetGPSDestination*(): XPLMNavRef {.cdecl, importc: "XPLMGetGPSDestination", dynlib: Lib}
 

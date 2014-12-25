@@ -149,8 +149,7 @@ type
 #
 # XPLM_API XPLMProbeRef XPLMCreateProbe(XPLMProbeType inProbeType);
 #
-proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef
-                                        {.cdecl, importc: "XPLMCreateProbe", dynlib: Lib}
+proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {.cdecl, importc: "XPLMCreateProbe", dynlib: Lib}
 
 ##
 # XPLMDestroyProbe
@@ -159,8 +158,7 @@ proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef
 #
 # XPLM_API void XPLMDestroyProbe(XPLMProbeRef inProbe);
 #
-proc XPLMDestroyProbe*(inProbe: XPLMProbeRef)
-                                        {.cdecl, importc: "XPLMDestroyProbe", dynlib: Lib}
+proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {.cdecl, importc: "XPLMDestroyProbe", dynlib: Lib}
 
 ##
 # XPLMProbeTerrainXYZ
@@ -180,8 +178,7 @@ proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
                           inX: cfloat,
                           inY: cfloat,
                           inZ: cfloat,
-                          outInfo: ptr XPLMProbeInfo_t): XPLMProbeResult
-                                    {.cdecl, importc: "XPLMProbeTerrainXYZ", dynlib: Lib}
+                          outInfo: ptr XPLMProbeInfo_t): XPLMProbeResult {.cdecl, importc: "XPLMProbeTerrainXYZ", dynlib: Lib}
 
 #******************************************************************************
 # Object Drawing
@@ -254,8 +251,7 @@ type
 # typedef void (*XPLMObjectLoaded_f)(XPLMObjectRef inObject, void * inRefcon);
 #
 type
-     XPLMObjectLoaded_f* = proc (inObject: XPLMObjectRef,
-                                 inRefcon: pointer) {.cdecl.}
+     XPLMObjectLoaded_f* = proc (inObject: XPLMObjectRef, inRefcon: pointer) {.cdecl.}
 
 ##
 # XPLMLoadObject
@@ -282,8 +278,7 @@ type
 #
 # XPLM_API XPLMObjectRef XPLMLoadObject(const char * inPath);
 #
-proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef
-                                        {.cdecl, importc: "XPLMLoadObject", dynlib: Lib}
+proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef {.cdecl, importc: "XPLMLoadObject", dynlib: Lib}
 
 ##
 # XPLMLoadObjectAsync
@@ -307,8 +302,7 @@ proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef
 #
 proc XPLMLoadObjectAsync*(inPath: cstring,
                           inCallback: XPLMObjectLoaded_f,
-                          inRefcon: pointer)
-                                    {.cdecl, importc: "XPLMLoadObjectAsync", dynlib: Lib}
+                          inRefcon: pointer) {.cdecl, importc: "XPLMLoadObjectAsync", dynlib: Lib}
 
 ##
 # XPLMDrawObjects
@@ -343,8 +337,7 @@ proc XPLMDrawObjects*(inObject: XPLMObjectRef,
                       inCount: cint,
                       inLocations: ptr XPLMDrawInfo_t,
                       lighting: cint,
-                      earth_relative: cint)
-                                        {.cdecl, importc: "XPLMDrawObjects", dynlib: Lib}
+                      earth_relative: cint) {.cdecl, importc: "XPLMDrawObjects", dynlib: Lib}
 
 ##
 # XPLMUnloadObject
@@ -356,8 +349,7 @@ proc XPLMDrawObjects*(inObject: XPLMObjectRef,
 #
 # XPLM_API void XPLMUnloadObject(XPLMObjectRef inObject);
 #
-proc XPLMUnloadObject*(inObject: XPLMObjectRef)
-                                        {.cdecl, importc: "XPLMUnloadObject", dynlib: Lib}
+proc XPLMUnloadObject*(inObject: XPLMObjectRef) {.cdecl, importc: "XPLMUnloadObject", dynlib: Lib}
 
 #******************************************************************************
 # Library Access
@@ -379,8 +371,7 @@ proc XPLMUnloadObject*(inObject: XPLMObjectRef)
 # typedef void (*XPLMLibraryEnumerator_f)(const char* inFilePath, void* inRef);
 #
 type
-     XPLMLibraryEnumerator_f* = proc (inFilePath: cstring,
-                                      inRef: pointer) {.cdecl.}
+     XPLMLibraryEnumerator_f* = proc (inFilePath: cstring, inRef: pointer) {.cdecl.}
 
 ##
 # XPLMLookupObjects
@@ -405,6 +396,5 @@ proc XPLMLookupObjects*(inPath: cstring,
                         inLatitude: cfloat,
                         inLongitude: cfloat,
                         enumerator: XPLMLibraryEnumerator_f,
-                        rref: pointer): cint
-                                    {.cdecl, importc: "XPLMLookupObjects", dynlib: Lib}
+                        rref: pointer): cint {.cdecl, importc: "XPLMLookupObjects", dynlib: Lib}
 

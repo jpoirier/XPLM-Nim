@@ -52,8 +52,7 @@ proc XPLMCountPlugins*(): cint {.cdecl, importc: "XPLMCountPlugins", dynlib: Lib
 #
 # XPLM_API XPLMPluginID XPLMGetNthPlugin(int inIndex);
 #
-proc XPLMGetNthPlugin*(inIndex: cint): XPLMPluginID
-                                        {.cdecl, importc: "XPLMGetNthPlugin", dynlib: Lib}
+proc XPLMGetNthPlugin*(inIndex: cint): XPLMPluginID {.cdecl, importc: "XPLMGetNthPlugin", dynlib: Lib}
 
 ##
 # XPLMFindPluginByPath
@@ -64,8 +63,7 @@ proc XPLMGetNthPlugin*(inIndex: cint): XPLMPluginID
 #
 # XPLM_API XPLMPluginID XPLMFindPluginByPath(const char* inPath);
 #
-proc XPLMFindPluginByPath*(inPath: cstring): XPLMPluginID
-                                    {.cdecl, importc: "XPLMFindPluginByPath", dynlib: Lib}
+proc XPLMFindPluginByPath*(inPath: cstring): XPLMPluginID {.cdecl, importc: "XPLMFindPluginByPath", dynlib: Lib}
 
 ##
 # XPLMFindPluginBySignature
@@ -79,8 +77,7 @@ proc XPLMFindPluginByPath*(inPath: cstring): XPLMPluginID
 #
 # XPLM_API XPLMPluginID XPLMFindPluginBySignature(const char* inSignature);
 #
-proc XPLMFindPluginBySignature*(inSignature: cstring): XPLMPluginID
-                               {.cdecl, importc: "XPLMFindPluginBySignature", dynlib: Lib}
+proc XPLMFindPluginBySignature*(inSignature: cstring): XPLMPluginID {.cdecl, importc: "XPLMFindPluginBySignature", dynlib: Lib}
 
 ##
 # XPLMGetPluginInfo
@@ -104,8 +101,7 @@ proc XPLMGetPluginInfo*(inPlugin: XPLMPluginID,
                         outName: cstring,
                         outFilePath,: cstring,
                         outSignature: cstring,
-                        outDescription: cstring)
-                                       {.cdecl, importc: "XPLMGetPluginInfo", dynlib: Lib}
+                        outDescription: cstring) {.cdecl, importc: "XPLMGetPluginInfo", dynlib: Lib}
 
 #******************************************************************************
 # ENABLING/DISABLING PLUG-INS
@@ -122,8 +118,7 @@ proc XPLMGetPluginInfo*(inPlugin: XPLMPluginID,
 #
 # XPLM_API int XPLMIsPluginEnabled(XPLMPluginID inPluginID);
 #
-proc XPLMIsPluginEnabled*(inPluginID: XPLMPluginID): cint
-                                     {.cdecl, importc: "XPLMIsPluginEnabled", dynlib: Lib}
+proc XPLMIsPluginEnabled*(inPluginID: XPLMPluginID): cint {.cdecl, importc: "XPLMIsPluginEnabled", dynlib: Lib}
 
 ##
 # XPLMEnablePlugin
@@ -135,8 +130,7 @@ proc XPLMIsPluginEnabled*(inPluginID: XPLMPluginID): cint
 #
 # XPLM_API int XPLMEnablePlugin(XPLMPluginID inPluginID);
 #
-proc XPLMEnablePlugin*(inPluginID: XPLMPluginID): cint
-                                        {.cdecl, importc: "XPLMEnablePlugin", dynlib: Lib}
+proc XPLMEnablePlugin*(inPluginID: XPLMPluginID): cint {.cdecl, importc: "XPLMEnablePlugin", dynlib: Lib}
 
 ##
 # XPLMDisablePlugin
@@ -145,8 +139,7 @@ proc XPLMEnablePlugin*(inPluginID: XPLMPluginID): cint
 #
 # XPLM_API void XPLMDisablePlugin(XPLMPluginID inPluginID);
 #
-proc XPLMDisablePlugin*(inPluginID: XPLMPluginID)
-                                       {.cdecl, importc: "XPLMDisablePlugin", dynlib: Lib}
+proc XPLMDisablePlugin*(inPluginID: XPLMPluginID) {.cdecl, importc: "XPLMDisablePlugin", dynlib: Lib}
 
 ##
 # XPLMReloadPlugins
@@ -262,8 +255,7 @@ const
 #
 proc XPLMSendMessageToPlugin*(inPlugin: XPLMPluginID,
                               inMessage: cint,
-                              inParam: pointer)
-                                 {.cdecl, importc: "XPLMSendMessageToPlugin", dynlib: Lib}
+                              inParam: pointer) {.cdecl, importc: "XPLMSendMessageToPlugin", dynlib: Lib}
 
 #******************************************************************************
 # Plugin Features API
@@ -289,8 +281,7 @@ proc XPLMSendMessageToPlugin*(inPlugin: XPLMPluginID,
 type
     # typedef void (*XPLMFeatureEnumerator_f)(const char* inFeature,
     #                                         void* inRef);
-    XPLMFeatureEnumerator_f* = proc (inFeature: cstring,
-                                     inRef: pointer) {.cdecl.}
+    XPLMFeatureEnumerator_f* = proc (inFeature: cstring, inRef: pointer) {.cdecl.}
 
 ##
 # XPLMHasFeature
@@ -300,8 +291,7 @@ type
 #
 # XPLM_API int XPLMHasFeature(const char* inFeature);
 #
-proc XPLMHasFeature*(inFeature: cstring): cint
-                                          {.cdecl, importc: "XPLMHasFeature", dynlib: Lib}
+proc XPLMHasFeature*(inFeature: cstring): cint {.cdecl, importc: "XPLMHasFeature", dynlib: Lib}
 
 ##
 # XPLMIsFeatureEnabled
@@ -312,8 +302,7 @@ proc XPLMHasFeature*(inFeature: cstring): cint
 #
 # XPLM_API int XPLMIsFeatureEnabled(const char* inFeature);
 #
-proc XPLMIsFeatureEnabled*(inFeature: cstring): cint
-                                    {.cdecl, importc: "XPLMIsFeatureEnabled", dynlib: Lib}
+proc XPLMIsFeatureEnabled*(inFeature: cstring): cint {.cdecl, importc: "XPLMIsFeatureEnabled", dynlib: Lib}
 
 ##
 # XPLMEnableFeature
@@ -324,9 +313,7 @@ proc XPLMIsFeatureEnabled*(inFeature: cstring): cint
 #
 # XPLM_API void XPLMEnableFeature(const char * inFeature, int inEnable);
 #
-proc XPLMEnableFeature*(inFeature: cstring,
-                        inEnable: cint)
-                                       {.cdecl, importc: "XPLMEnableFeature", dynlib: Lib}
+proc XPLMEnableFeature*(inFeature: cstring, inEnable: cint) {.cdecl, importc: "XPLMEnableFeature", dynlib: Lib}
 
 ##
 # XPLMEnumerateFeatures
@@ -338,7 +325,5 @@ proc XPLMEnableFeature*(inFeature: cstring,
 # XPLM_API void XPLMEnumerateFeatures(XPLMFeatureEnumerator_f inEnumerator,
 #                                     void* inRef);
 #
-proc XPLMEnumerateFeatures*(inEnumerator: XPLMFeatureEnumerator_f,
-                            inRef: pointer)
-                                   {.cdecl, importc: "XPLMEnumerateFeatures", dynlib: Lib}
+proc XPLMEnumerateFeatures*(inEnumerator: XPLMFeatureEnumerator_f, inRef: pointer) {.cdecl, importc: "XPLMEnumerateFeatures", dynlib: Lib}
 

@@ -127,8 +127,7 @@ const
 proc XPUCreateWidgets*(inWidgetDefs: ptr XPWidgetCreate_t,
                        inCount: cint,
                        inParamParent: XPWidgetID,
-                       ioWidgets: ptr XPWidgetID)
-                                        {.cdecl, importc: "XPUCreateWidgets", dynlib: Lib}
+                       ioWidgets: ptr XPWidgetID) {.cdecl, importc: "XPUCreateWidgets", dynlib: Lib}
 
 #
 # XPUMoveWidgetBy
@@ -140,9 +139,7 @@ proc XPUCreateWidgets*(inWidgetDefs: ptr XPWidgetCreate_t,
 #                                 int inDeltaX,
 #                                 int inDeltaY);
 #
-proc XPUMoveWidgetBy*(inWidget: XPWidgetID,
-                      inDeltaX: cint,
-                      inDeltaY: cint) {.cdecl, importc: "XPUMoveWidgetBy", dynlib: Lib}
+proc XPUMoveWidgetBy*(inWidget: XPWidgetID, inDeltaX: cint, inDeltaY: cint) {.cdecl, importc: "XPUMoveWidgetBy", dynlib: Lib}
 
 #******************************************************************************
 # LAYOUT MANAGERS
@@ -168,8 +165,7 @@ proc XPUMoveWidgetBy*(inWidget: XPWidgetID,
 proc XPUFixedLayout*(inMessage: XPWidgetMessage,
                      inWidget: XPWidgetID,
                      inParam1: ptr cint,
-                     inParam2: ptr cint): cint
-                                        {.cdecl, importc: "XPUFixedLayout", dynlib: Lib}
+                     inParam2: ptr cint): cint {.cdecl, importc: "XPUFixedLayout", dynlib: Lib}
 
 #******************************************************************************
 # WIDGET PROC BEHAVIORS
@@ -197,8 +193,7 @@ proc XPUSelectIfNeeded*(inMessage: XPWidgetMessage,
                         inWidget: XPWidgetID,
                         inParam1: ptr cint,
                         inParam2: ptr cint,
-                        inEatClick: cint): cint
-                                    {.cdecl, importc: "XPUSelectIfNeeded", dynlib: Lib}
+                        inEatClick: cint): cin {.cdecl, importc: "XPUSelectIfNeeded", dynlib: Lib}
 
 #
 # XPUDefocusKeyboard
@@ -217,8 +212,7 @@ proc XPUDefocusKeyboard*(inMessage: XPWidgetMessage,
                          inWidget: XPWidgetID,
                          inParam1: ptr cint,
                          inParam2: ptr cint,
-                         inEatClick: cint): cint
-                                    {.cdecl, importc: "XPUDefocusKeyboard", dynlib: Lib}
+                         inEatClick: cint): cint {.cdecl, importc: "XPUDefocusKeyboard", dynlib: Lib}
 
 #
 # XPUDragWidget

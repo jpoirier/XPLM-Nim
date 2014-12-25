@@ -136,8 +136,7 @@ type
 #
 proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration,
                         inControlFunc: XPLMCameraControl_f,
-                        inRefcon: pointer)
-                                    {.cdecl, importc: "XPLMControlCamera", dynlib: Lib}
+                        inRefcon: pointer) {.cdecl, importc: "XPLMControlCamera", dynlib: Lib}
 
 ##
 # XPLMDontControlCamera

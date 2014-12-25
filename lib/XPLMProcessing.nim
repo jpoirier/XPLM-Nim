@@ -144,8 +144,7 @@ proc XPLMGetCycleNumber*(): cint {.cdecl, importc: "XPLMGetCycleNumber", dynlib:
 #
 proc XPLMRegisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
                                      inInterval: cfloat,
-                                     inRefcon: pointer)
-                        {.cdecl, importc: "XPLMRegisterFlightLoopCallback", dynlib: Lib}
+                                     inRefcon: pointer) {.cdecl, importc: "XPLMRegisterFlightLoopCallback", dynlib: Lib}
 
 ##
 # XPLMUnregisterFlightLoopCallback
@@ -158,8 +157,7 @@ proc XPLMRegisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
 #                                                void* inRefcon);
 #
 proc XPLMUnregisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
-                                       inRefcon: pointer)
-                        {.cdecl, importc: "XPLMUnregisterFlightLoopCallback", dynlib: Lib}
+                                       inRefcon: pointer) {.cdecl, importc: "XPLMUnregisterFlightLoopCallback", dynlib: Lib}
 
 ##
 # XPLMSetFlightLoopCallbackInterval
@@ -182,8 +180,7 @@ proc XPLMUnregisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
 proc XPLMSetFlightLoopCallbackInterval*(inFlightLoop: XPLMFlightLoop_f,
                                         inInterval: cfloat,
                                         inRelativeToNow: cint,
-                                        inRefcon: pointer)
-                    {.cdecl, importc: "XPLMSetFlightLoopCallbackInterval", dynlib: Lib}
+                                        inRefcon: pointer) {.cdecl, importc: "XPLMSetFlightLoopCallbackInterval", dynlib: Lib}
 
 ##
 # XPLMCreateFlightLoop
@@ -194,8 +191,7 @@ proc XPLMSetFlightLoopCallbackInterval*(inFlightLoop: XPLMFlightLoop_f,
 #
 # XPLM_API XPLMFlightLoopID XPLMCreateFlightLoop(XPLMCreateFlightLoop_t* inParams);
 #
-proc XPLMCreateFlightLoop*(inParams: PXPLMCreateFlightLoop_t): XPLMFlightLoopID
-                                    {.cdecl, importc: "XPLMCreateFlightLoop", dynlib: Lib}
+proc XPLMCreateFlightLoop*(inParams: PXPLMCreateFlightLoop_t): XPLMFlightLoopID {.cdecl, importc: "XPLMCreateFlightLoop", dynlib: Lib}
 
 ##
 # XPLMDestroyFlightLoop
@@ -204,8 +200,7 @@ proc XPLMCreateFlightLoop*(inParams: PXPLMCreateFlightLoop_t): XPLMFlightLoopID
 #
 # XPLM_API void XPLMDestroyFlightLoop(XPLMFlightLoopID inFlightLoopID);
 #
-proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID)
-                                {.cdecl, importc: "XPLMDestroyFlightLoop", dynlib: Lib}
+proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID) {.cdecl, importc: "XPLMDestroyFlightLoop", dynlib: Lib}
 
 ##
 # XPLMScheduleFlightLoop
@@ -246,6 +241,5 @@ proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID)
 #
 proc XPLMScheduleFlightLoop*(inFlightLoopID: XPLMFlightLoopID,
                              inInterval: cfloat,
-                             inRelativeToNow: cint)
-                                {.cdecl, importc: "XPLMScheduleFlightLoop", dynlib: Lib}
+                             inRelativeToNow: cint) {.cdecl, importc: "XPLMScheduleFlightLoop", dynlib: Lib}
 

@@ -133,8 +133,7 @@ type
 #
 # XPLM_API XPLMDataRef XPLMFindDataRef(const char* inDataRefName);
 #
-proc XPLMFindDataRef*(inDataRefName: cstring): XPLMDataRef
-                                        {.cdecl, importc: "XPLMFindDataRef", dynlib: Lib}
+proc XPLMFindDataRef*(inDataRefName: cstring): XPLMDataRef {.cdecl, importc: "XPLMFindDataRef", dynlib: Lib}
 
 ##
 # XPLMCanWriteDataRef
@@ -144,8 +143,7 @@ proc XPLMFindDataRef*(inDataRefName: cstring): XPLMDataRef
 #
 # XPLM_API int XPLMCanWriteDataRef(XPLMDataRef inDataRef);
 #
-proc XPLMCanWriteDataRef*(inDataRef: XPLMDataRef): cint
-                                    {.cdecl, importc: "XPLMCanWriteDataRef", dynlib: Lib}
+proc XPLMCanWriteDataRef*(inDataRef: XPLMDataRef): cint {.cdecl, importc: "XPLMCanWriteDataRef", dynlib: Lib}
 
 ##
 # XPLMIsDataRefGood
@@ -163,8 +161,7 @@ proc XPLMCanWriteDataRef*(inDataRef: XPLMDataRef): cint
 #
 # XPLM_API int XPLMIsDataRefGood(XPLMDataRef inDataRef);
 #
-proc XPLMIsDataRefGood*(inDataRef: XPLMDataRef): cint
-                                      {.cdecl, importc: "XPLMIsDataRefGood", dynlib: Lib}
+proc XPLMIsDataRefGood*(inDataRef: XPLMDataRef): cint {.cdecl, importc: "XPLMIsDataRefGood", dynlib: Lib}
 
 ##
 # XPLMGetDataRefTypes
@@ -174,8 +171,7 @@ proc XPLMIsDataRefGood*(inDataRef: XPLMDataRef): cint
 #
 # XPLM_API XPLMDataTypeID XPLMGetDataRefTypes(XPLMDataRef inDataRef);
 #
-proc XPLMGetDataRefTypes*(inDataRef: XPLMDataRef): XPLMDataTypeID
-                                    {.cdecl, importc: "XPLMGetDataRefTypes", dynlib: Lib}
+proc XPLMGetDataRefTypes*(inDataRef: XPLMDataRef): XPLMDataTypeID {.cdecl, importc: "XPLMGetDataRefTypes", dynlib: Lib}
 
 #******************************************************************************
 # Data Accessors
@@ -206,8 +202,7 @@ proc XPLMGetDataRefTypes*(inDataRef: XPLMDataRef): XPLMDataTypeID
 #
 # XPLM_API int XPLMGetDatai(XPLMDataRef inDataRef);
 #
-proc XPLMGetDatai*(inDataRef: XPLMDataRef): cint
-                                            {.cdecl, importc: "XPLMGetDatai", dynlib: Lib}
+proc XPLMGetDatai*(inDataRef: XPLMDataRef): cint {.cdecl, importc: "XPLMGetDatai", dynlib: Lib}
 
 ##
 # XPLMSetDatai
@@ -218,8 +213,7 @@ proc XPLMGetDatai*(inDataRef: XPLMDataRef): cint
 #
 # XPLM_API void XPLMSetDatai(XPLMDataRef inDataRef, int inValue);
 #
-proc XPLMSetDatai*(inDataRef: XPLMDataRef, inValue: cint)
-                                            {.cdecl, importc: "XPLMSetDatai", dynlib: Lib}
+proc XPLMSetDatai*(inDataRef: XPLMDataRef, inValue: cint) {.cdecl, importc: "XPLMSetDatai", dynlib: Lib}
 
 ##
 # XPLMGetDataf
@@ -230,8 +224,7 @@ proc XPLMSetDatai*(inDataRef: XPLMDataRef, inValue: cint)
 #
 # XPLM_API float XPLMGetDataf(XPLMDataRef inDataRef);
 #
-proc XPLMGetDataf*(inDataRef: XPLMDataRef): cfloat
-                                            {.cdecl, importc: "XPLMGetDataf", dynlib: Lib}
+proc XPLMGetDataf*(inDataRef: XPLMDataRef): cfloat {.cdecl, importc: "XPLMGetDataf", dynlib: Lib}
 
 ##
 # XPLMSetDataf
@@ -242,8 +235,7 @@ proc XPLMGetDataf*(inDataRef: XPLMDataRef): cfloat
 #
 # XPLM_API void XPLMSetDataf(XPLMDataRef inDataRef, float inValue);
 #
-proc XPLMSetDataf*(inDataRef: XPLMDataRef,
-                   inValue: cfloat) {.cdecl, importc: "XPLMSetDataf", dynlib: Lib}
+proc XPLMSetDataf*(inDataRef: XPLMDataRef, inValue: cfloat) {.cdecl, importc: "XPLMSetDataf", dynlib: Lib}
 
 ##
 # XPLMGetDatad
@@ -254,8 +246,7 @@ proc XPLMSetDataf*(inDataRef: XPLMDataRef,
 #
 # XPLM_API double XPLMGetDatad(XPLMDataRef inDataRef);
 #
-proc XPLMGetDatad*(inDataRef: XPLMDataRef): cdouble
-                                            {.cdecl, importc: "XPLMGetDatad", dynlib: Lib}
+proc XPLMGetDatad*(inDataRef: XPLMDataRef): cdouble {.cdecl, importc: "XPLMGetDatad", dynlib: Lib}
 
 ##
 # XPLMSetDatad
@@ -266,8 +257,7 @@ proc XPLMGetDatad*(inDataRef: XPLMDataRef): cdouble
 #
 # XPLM_API void XPLMSetDatad(XPLMDataRef inDataRef, double inValue);
 
-proc XPLMSetDatad*(inDataRef: XPLMDataRef,
-                   inValue: cdouble) {.cdecl, importc: "XPLMSetDatad", dynlib: Lib}
+proc XPLMSetDatad*(inDataRef: XPLMDataRef, inValue: cdouble) {.cdecl, importc: "XPLMSetDatad", dynlib: Lib}
 
 ##
 # XPLMGetDatavi
@@ -597,8 +587,7 @@ proc XPLMRegisterDataAccessor*(inDataName: cstring,
 #
 # XPLM_API void XPLMUnregisterDataAccessor(XPLMDataRef inDataRef);
 #
-proc XPLMUnregisterDataAccessor*(inDataRef: XPLMDataRef)
-                            {.cdecl, importc: "XPLMUnregisterDataAccessor", dynlib: Lib}
+proc XPLMUnregisterDataAccessor*(inDataRef: XPLMDataRef) {.cdecl, importc: "XPLMUnregisterDataAccessor", dynlib: Lib}
 
 
 #******************************************************************************
@@ -678,8 +667,7 @@ type
 proc XPLMShareData*(inDataName: cstring,
                     inDataType: XPLMDataTypeID,
                     inNotificationFunc: XPLMDataChanged_f,
-                    inNotificationRefcon: pointer): cint
-                                          {.cdecl, importc: "XPLMShareData", dynlib: Lib}
+                    inNotificationRefcon: pointer): cint {.cdecl, importc: "XPLMShareData", dynlib: Lib}
 
 ##
 # XPLMUnshareData
@@ -697,7 +685,6 @@ proc XPLMShareData*(inDataName: cstring,
 proc XPLMUnshareData*(inDataName: cstring,
                       inDataType: XPLMDataTypeID,
                       inNotificationFunc: XPLMDataChanged_f,
-                      inNotificationRefcon: pointer): cint
-                                        {.cdecl, importc: "XPLMUnshareData", dynlib: Lib}
+                      inNotificationRefcon: pointer): cint {.cdecl, importc: "XPLMUnshareData", dynlib: Lib}
 
 
