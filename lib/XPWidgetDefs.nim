@@ -1,7 +1,5 @@
 # See license.txt for usage.
 
-import XPWidgetDefs
-
 
 #******************************************************************************
 # WIDGET DEFINITIONS

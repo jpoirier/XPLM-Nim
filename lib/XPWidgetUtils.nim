@@ -193,7 +193,7 @@ proc XPUSelectIfNeeded*(inMessage: XPWidgetMessage,
                         inWidget: XPWidgetID,
                         inParam1: ptr cint,
                         inParam2: ptr cint,
-                        inEatClick: cint): cin {.cdecl, importc: "XPUSelectIfNeeded", dynlib: Lib}
+                        inEatClick: cint): cint {.cdecl, importc: "XPUSelectIfNeeded", dynlib: Lib}
 
 #
 # XPUDefocusKeyboard
