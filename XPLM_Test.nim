@@ -30,20 +30,17 @@ import lib/XPStandardWidgets
 
 
 type
-  XPLMFlightLoop_CB* = proc (inElapsedSinceLastCall: cfloat,
-                             inElapsedTimeSinceLastFlightLoop: cfloat,
-                             inCounter: cint, inRefcon: pointer): cfloat
+    XPLMFlightLoop_CB* = proc (inElapsedSinceLastCall: cfloat,
+                                inElapsedTimeSinceLastFlightLoop: cfloat,
+                                inCounter: cint, inRefcon: pointer): cfloat
                                                                     {.stdcall.}
 
 ## ----------------------------------------------------------------------------
 # imports
-proc XPLMRegisterFlightLoopCallback(callback: XPLMFlightLoop_CB,
-                                    inInterval: cfloat,
-                                    inRefcon: pointer)
+proc XPLMRegisterFlightLoopCallback(callback: XPLMFlightLoop_CB, inInterval: cfloat, inRefcon: pointer)
               {.cdecl, importc: "XPLMRegisterFlightLoopCallback", dynlib: Lib}
 
-proc XPLMDebugString(inString: cstring)
-                            {.cdecl, importc: "XPLMDebugString", dynlib: Lib}
+proc XPLMDebugString(inString: cstring) {.cdecl, importc: "XPLMDebugString", dynlib: Lib}
 
 
 # // Flightloop Callback INterval
@@ -55,20 +52,14 @@ proc XFlightLoopCallback(inElapsedSinceLastCall: cfloat,
                          inCounter: cint,
                          inRefcon: pointer): cfloat
                                   {.exportc: "XFlightLoopCallback", dynlib.} =
-
     XPLMDebugString("-- RadioPanelFlightLoopCallback called...\n")
 
     # us: int, strongAdvice = false
     # proc GC_step*(100)
-
     return 1.0
 
 ## ----------------------------------------------------------------------------
-proc XPluginStart(outName: ptr cstring,
-                  outSig: ptr cstring,
-                  outDesc: ptr cstring): cint
-                                          {.exportc: "XPluginStart", dynlib.} =
-
+proc XPluginStart(outName: ptr cstring, outSig: ptr cstring, outDesc: ptr cstring): cint {.exportc: "XPluginStart", dynlib.} =
     outName[] = "XPLM-Nim_Test"
     outSig[] = "xplm.nim.test"
     outDesc[] = "XPLM-Nim Test Plugin"
@@ -81,31 +72,22 @@ proc XPluginStart(outName: ptr cstring,
 
     # MaxPauseInUs, what's a good value?
     # proc GC_setMaxPause*(100)
-
     return 1
 
 ## ----------------------------------------------------------------------------
 proc XPluginStop() {.exportc: "XPluginStop", dynlib.} =
-
     XPLMDebugString("-- XPluginStop called...\n")
 
 ## ----------------------------------------------------------------------------
 proc XPluginDisable() {.exportc: "XPluginDisable", dynlib.} =
-
     XPLMDebugString("-- XPluginDisable called...\n")
 
 ## ----------------------------------------------------------------------------
 proc XPluginEnable(): cint {.exportc: "XPluginEnable", dynlib.} =
-
     XPLMDebugString("-- XPluginEnable called...\n")
-
     return 1
 
 ## ----------------------------------------------------------------------------
-proc XPluginReceiveMessage(inFrom: int,
-                           inMsg: int,
-                           inParam: pointer)
-                                {.exportc: "XPluginReceiveMessage", dynlib.} =
-
+proc XPluginReceiveMessage(inFrom: int, inMsg: int, inParam: pointer) {.exportc: "XPluginReceiveMessage", dynlib.} =
     XPLMDebugString("-- XPluginReceiveMessage called...\n")
 
