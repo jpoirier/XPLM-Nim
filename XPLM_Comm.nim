@@ -52,6 +52,7 @@ var
     panel_visible_win_t_dataref: XPLMDataRef
 
     gPTT_On: bool
+    gPluginEnabled: bool
     gCommWindow: XPLMWindowID
     gCommWinPosX: cint
     gCommWinPosY: cint
@@ -79,8 +80,64 @@ proc CommandHandler(inCommand: XPLMCommandRef, inPhase: XPLMCommandPhase, inRefc
     return IGNORED_EVENT
 
 ##
+var char str1[100]
+var char str2[100]
+var float commviewer_color[] = {1.0, 1.0, 1.0};  # RGB White
 proc DrawWindowCallback(inWindowID: XPLMWindowID, inRefcon: pointer) {.exportc: "DrawWindowCallback", dynlib.} =
-    return
+    var
+        left: cint
+        top: cint
+        right: cint
+        bottom: cint
+        rx_status: cint
+        tx_status: cint
+
+        connected: char*
+    static char str1[100]
+    static char str2[100]
+    static float commviewer_color[] = {1.0, 1.0, 1.0};  # RGB White
+
+    # XXX: are inWindowIDs our XPLMCreateWindow return pointers
+    XPLMGetWindowGeometry(inWindowID, &left, &top, &right, &bottom)
+    XPLMDrawTranslucentDarkBox(left, top, right, bottom)
+
+    case cast[cint](inRefcon):
+    of COMMVIEWER_WINDOW:
+        pilotedge_rx_status_dataref = XPLMFindDataRef("pilotedge/radio/rx_status")
+        pilotedge_tx_status_dataref = XPLMFindDataRef("pilotedge/radio/tx_status")
+        pilotedge_connected_dataref = XPLMFindDataRef("pilotedge/status/connected")
+        rx_status = (pilotedge_rx_status_dataref ? XPLMGetDatai(pilotedge_rx_status_dataref) : false) ? 1 : 0;
+
+        tx_status = (pilotedge_tx_status_dataref ? XPLMGetDatai(pilotedge_tx_status_dataref) : false) ? 1 : 0;
+
+        connected = (pilotedge_connected_dataref ? XPLMGetDatai(pilotedge_connected_dataref) : false) ? (char*)"YES" : (char*)"NO ";
+
+        sprintf(str1, "[PilotEdge] Connected: %s \t\t\tTX: %d\t\t\tRX: %d",
+                connected,
+                tx_status,
+                rx_status);
+
+        sprintf(str2,"%s\t\t\tCOM1: %d\t\t\tCOM2: %d",
+                (char*)(gPTT_On ? "PTT: ON " : "PTT: OFF"),
+                XPLMGetDatai(audio_selection_com1_dataref),
+                XPLMGetDatai(audio_selection_com2_dataref));
+
+        // text to window, NULL indicates no word wrap
+        XPLMDrawString(commviewer_color,
+                       left+4,
+                       top-20,
+                       str1,
+                       NULL,
+                       xplmFont_Basic);
+
+        XPLMDrawString(commviewer_color,
+                       left+4,
+                       top-40,
+                       str2,
+                       NULL,
+                       xplmFont_Basic);
+    else: discard
+
 
 ##
 proc HandleKeyCallback(inWindowID: XPLMWindowID,
@@ -96,13 +153,14 @@ proc HandleMouseCallback(inWindowID: XPLMWindowID, x: cint, y: cint, inMouse: XP
     return PROCESSED_EVENT
 
 ##
-proc XFlightLoopCallback(inElapsedSinceLastCall: cfloat,
+proc FlightLoopCallback(inElapsedSinceLastCall: cfloat,
                          inElapsedTimeSinceLastFlightLoop: cfloat,
                          inCounter: cint,
-                         inRefcon: pointer): cfloat {.exportc: "XFlightLoopCallback", dynlib.} =
+                         inRefcon: pointer): cfloat {.exportc: "FlightLoopCallback", dynlib.} =
     XPLMDebugString("-- RadioPanelFlightLoopCallback called...\n")
     # us: int, strongAdvice = false
     # proc GC_step*(100)
+    if !gPluginEnabled: discard
     return 1.0
 
 ##
@@ -110,7 +168,6 @@ proc XPluginStart(outName: ptr cstring, outSig: ptr cstring, outDesc: ptr cstrin
     outName[] = "CommViewer"
     outSig[] = "jdp.comm.viewer"
     outDesc[] = "CommViewer Plugin."
-    XPLMDebugString("-- XPluginStart called...\n")
 
     audio_selection_com1_dataref = XPLMFindDataRef("sim/cockpit2/radios/actuators/audio_selection_com1")
     audio_selection_com2_dataref = XPLMFindDataRef("sim/cockpit2/radios/actuators/audio_selection_com2")
@@ -141,25 +198,58 @@ proc XPluginStart(outName: ptr cstring, outSig: ptr cstring, outDesc: ptr cstrin
                                    cast[XPLMHandleMouseClick_f](HandleMouseCallback),
                                    cast[pointer](COMMVIEWER_WINDOW))    # Refcon
 
-
     # MaxPauseInUs, what's a good value?
     # proc GC_setMaxPause*(100)
-    return 1
+    XPLMDebugString("CommView Plugin: startup completed\n")
+    return PROCESSED_EVENT
 
 ##
 proc XPluginStop() {.exportc: "XPluginStop", dynlib.} =
-    XPLMDebugString("-- XPluginStop called...\n")
+    gPluginEnabled = false
+    #XPLMUnregisterFlightLoopCallback(FlightLoopCallback, NULL);
+    XPLMDebugString("CommView Plugin: XPluginStop\n")
 
 ##
 proc XPluginDisable() {.exportc: "XPluginDisable", dynlib.} =
-    XPLMDebugString("-- XPluginDisable called...\n")
+    gPluginEnabled = false
+    XPLMDebugString("CommView Plugin: XPluginDisable\n")
 
 ##
 proc XPluginEnable(): cint {.exportc: "XPluginEnable", dynlib.} =
-    XPLMDebugString("-- XPluginEnable called...\n")
-    return 1
+    gPluginEnabled = true
+    XPLMDebugString"CommView Plugin: XPluginEnable\n")
+    return PROCESSED_EVENT
 
 ##
-proc XPluginReceiveMessage(inFrom: int, inMsg: int, inParam: pointer) {.exportc: "XPluginReceiveMessage", dynlib.} =
-    XPLMDebugString("-- XPluginReceiveMessage called...\n")
+proc XPluginReceiveMessage(inFrom: XPLMPluginID, inMsg: clong, inParam: pointer) {.exportc: "XPluginReceiveMessage", dynlib.} =
+    if inFrom == XPLM_PLUGIN_XPLANE:
+        size_t inparam = reinterpret_cast<size_t>(inParam);
+        switch (inMsg) {
+        case XPLM_MSG_PLANE_LOADED:
+            if (inparam != PLUGIN_PLANE_ID || gPlaneLoaded) { break; }
+            LPRINTF("CommView Plugin: XPluginReceiveMessage XPLM_MSG_PLANE_LOADED\n");
+            break;
+        case XPLM_MSG_AIRPORT_LOADED:
+            LPRINTF("CommView Plugin: XPluginReceiveMessage XPLM_MSG_AIRPORT_LOADED\n");
+            break;
+        case XPLM_MSG_SCENERY_LOADED:
+            LPRINTF("CommView Plugin: XPluginReceiveMessage XPLM_MSG_SCENERY_LOADED\n");
+            break;
+        case XPLM_MSG_AIRPLANE_COUNT_CHANGED:
+            LPRINTF("CommView Plugin: XPluginReceiveMessage XPLM_MSG_AIRPLANE_COUNT_CHANGED\n");
+            break;
+        // XXX: system state and procedure, what's difference between an unloaded and crashed plane?
+        case XPLM_MSG_PLANE_CRASHED:
+            if (inparam != PLUGIN_PLANE_ID) { break; }
+            LPRINTF("CommView Plugin: XPluginReceiveMessage XPLM_MSG_PLANE_CRASHED\n");
+            break;
+        case XPLM_MSG_PLANE_UNLOADED:
+            if (inparam != PLUGIN_PLANE_ID) { break; }
+            LPRINTF("CommView Plugin: XPluginReceiveMessage XPLM_MSG_PLANE_UNLOADED\n");
+            break;
+        default:
+            // unknown, anything to do?
+            break;
+        }
+    }
 
