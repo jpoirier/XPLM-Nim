@@ -1,11 +1,11 @@
 # See license.txt for usage.
 
 when defined(windows):
-    const Lib = "XPLM_64.dll"
+    const xplm_lib = "XPLM_64.dll"
 elif defined(macosx):
-    const Lib = "XPLM_64.dylib"
+    const xplm_lib = "XPLM_64.dylib"
 else:
-    const Lib = "XPLM_64.so"
+    const xplm_lib = "XPLM_64.so"
 
 import XPLMDefs
 
@@ -43,9 +43,6 @@ import XPLMDefs
 # will return the height of a 0 MSL sphere.
 #
 
-##
-# XPLMProbeType
-#
 # XPLMProbeType defines the type of terrain probe - each probe has a
 # different algorithm.  (Only one type of probe is provided right now, but
 # future APIs will expose more flexible or poewrful or useful probes.
@@ -82,9 +79,6 @@ const
 type
      XPLMProbeResult* = cint
 
-##
-# XPLMProbeRef
-#
 # An XPLMProbeRef is an opaque handle to a probe, used for querying the
 # terrain.
 #
@@ -93,9 +87,6 @@ type
 type
      XPLMProbeRef* = pointer
 
-##
-# XPLMProbeInfo_t
-#
 # XPLMProbeInfo_t contains the results of a probe call.  Make sure to set
 # structSize to the size of the struct before using it.
 #
@@ -142,31 +133,22 @@ type
         velocityZ: cfloat
         is_wet: cint
 
-##
-# XPLMCreateProbe
-#
-# Creates a new probe object of a given type and returns.
+# XPLMCreateProbe creates a new probe object of a given type and returns.
 #
 # XPLM_API XPLMProbeRef XPLMCreateProbe(XPLMProbeType inProbeType);
 #
-proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {.cdecl, importc: "XPLMCreateProbe", dynlib: Lib}
+proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {.cdecl, importc: "XPLMCreateProbe", dynlib: xplm_lib}
 
-##
-# XPLMDestroyProbe
-#
-# Deallocates an existing probe object.
+# XPLMDestroyProbe deallocates an existing probe object.
 #
 # XPLM_API void XPLMDestroyProbe(XPLMProbeRef inProbe);
 #
-proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {.cdecl, importc: "XPLMDestroyProbe", dynlib: Lib}
+proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {.cdecl, importc: "XPLMDestroyProbe", dynlib: xplm_lib}
 
-##
-# XPLMProbeTerrainXYZ
-#
-# Probes the terrain.  Pass in the XYZ coordinate of the probe point, a probe
-# object, and an XPLMProbeInfo_t struct that  has its structSize member set
-# properly.  Other fields are filled in if we hit terrain, and a probe result
-# is returned.
+# XPLMProbeTerrainXYZ probes the terrain.  Pass in the XYZ coordinate of the
+# probe point, a probe object, and an XPLMProbeInfo_t struct that  has its
+# structSize member set properly.  Other fields are filled in if we hit terrain,
+# and a probe result is returned.
 #
 # XPLM_API XPLMProbeResult XPLMProbeTerrainXYZ(XPLMProbeRef inProbe,
 #                                              float inX,
@@ -178,7 +160,7 @@ proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
                           inX: cfloat,
                           inY: cfloat,
                           inZ: cfloat,
-                          outInfo: ptr XPLMProbeInfo_t): XPLMProbeResult {.cdecl, importc: "XPLMProbeTerrainXYZ", dynlib: Lib}
+                          outInfo: ptr XPLMProbeInfo_t): XPLMProbeResult {.cdecl, importc: "XPLMProbeTerrainXYZ", dynlib: xplm_lib}
 
 #******************************************************************************
 # Object Drawing
@@ -190,9 +172,6 @@ proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
 # every successful call to XPLMLoadObject with a call to XPLMUnloadObject!
 #
 
-##
-# XPLMObjectRef
-#
 # An XPLMObjectRef is a opaque handle to an .obj file that has been loaded
 # into memory.
 #
@@ -201,9 +180,6 @@ proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
 type
      XPLMObjectRef* = pointer
 
-##
-# XPLMDrawInfo_t
-#
 # The XPLMDrawInfo_t structure contains positioning info for one object that
 # is to be drawn. Be sure to set structSize to the size of the structure for
 # future expansion.
@@ -236,7 +212,6 @@ type
         heading: cfloat
         roll: cfloat
 
-##
 # XPLMObjectLoaded_f
 #
 # You provide this callback when loading an object asynchronously; it will be
@@ -253,10 +228,7 @@ type
 type
      XPLMObjectLoaded_f* = proc (inObject: XPLMObjectRef, inRefcon: pointer) {.cdecl.}
 
-##
-# XPLMLoadObject
-#
-# This routine loads an OBJ file and returns a handle to it.  If X-plane has
+# XPLMLoadObject loads an OBJ file and returns a handle to it.  If X-plane has
 # already loaded the object, the handle to the existing object is returned.
 # Do not assume you will get the same handle back twice, but do make sure to
 # call unload once for every load to avoid "leaking" objects.  The object
@@ -278,12 +250,9 @@ type
 #
 # XPLM_API XPLMObjectRef XPLMLoadObject(const char * inPath);
 #
-proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef {.cdecl, importc: "XPLMLoadObject", dynlib: Lib}
+proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef {.cdecl, importc: "XPLMLoadObject", dynlib: xplm_lib}
 
-##
-# XPLMLoadObjectAsync
-#
-# This routine loads an object asynchronously; control is returned to you
+# XPLMLoadObjectAsync loads an object asynchronously; control is returned to you
 # immediately while X-Plane loads the object.  The sim will not stop flying
 # while the object loads.  For large objects, it may be several seconds
 # before the load finishes.
@@ -302,11 +271,8 @@ proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef {.cdecl, importc: "XPLMLoad
 #
 proc XPLMLoadObjectAsync*(inPath: cstring,
                           inCallback: XPLMObjectLoaded_f,
-                          inRefcon: pointer) {.cdecl, importc: "XPLMLoadObjectAsync", dynlib: Lib}
+                          inRefcon: pointer) {.cdecl, importc: "XPLMLoadObjectAsync", dynlib: xplm_lib}
 
-##
-# XPLMDrawObjects
-#
 # XPLMDrawObjects draws an object from an OBJ file one or more times.  You
 # pass in the object and an array of  XPLMDrawInfo_t structs, one for each
 # place you would like the object to be drawn.
@@ -337,19 +303,16 @@ proc XPLMDrawObjects*(inObject: XPLMObjectRef,
                       inCount: cint,
                       inLocations: ptr XPLMDrawInfo_t,
                       lighting: cint,
-                      earth_relative: cint) {.cdecl, importc: "XPLMDrawObjects", dynlib: Lib}
+                      earth_relative: cint) {.cdecl, importc: "XPLMDrawObjects", dynlib: xplm_lib}
 
-##
-# XPLMUnloadObject
-#
-# This routine marks an object as no longer being used by your plugin.
+# XPLMUnloadObject marks an object as no longer being used by your plugin.
 # Objects are reference counted: once no plugins are using an object, it is
 # purged from memory.  Make sure to call XPLMUnloadObject once for each
 # successful call to XPLMLoadObject.
 #
 # XPLM_API void XPLMUnloadObject(XPLMObjectRef inObject);
 #
-proc XPLMUnloadObject*(inObject: XPLMObjectRef) {.cdecl, importc: "XPLMUnloadObject", dynlib: Lib}
+proc XPLMUnloadObject*(inObject: XPLMObjectRef) {.cdecl, importc: "XPLMUnloadObject", dynlib: xplm_lib}
 
 #******************************************************************************
 # Library Access
@@ -361,9 +324,6 @@ proc XPLMUnloadObject*(inObject: XPLMObjectRef) {.cdecl, importc: "XPLMUnloadObj
 # system.
 #
 
-##
-# XPLMLibraryEnumerator_f
-#
 # An XPLMLibraryEnumerator_f is a callback you provide that is called once
 # for each library element that is located. The returned paths will be
 # relative to the X-System folder.
@@ -373,11 +333,8 @@ proc XPLMUnloadObject*(inObject: XPLMObjectRef) {.cdecl, importc: "XPLMUnloadObj
 type
      XPLMLibraryEnumerator_f* = proc (inFilePath: cstring, inRef: pointer) {.cdecl.}
 
-##
-# XPLMLookupObjects
-#
-# This routine looks up a virtual path in the library system and returns all
-# matching elements.  You provide a callback -  one virtual path may match
+# XPLMLookupObjects looks up a virtual path in the library system and returns
+# all matching elements.  You provide a callback -  one virtual path may match
 # many objects in the library.  XPLMLookupObjects returns the number of
 # objects found.
 #
@@ -396,5 +353,5 @@ proc XPLMLookupObjects*(inPath: cstring,
                         inLatitude: cfloat,
                         inLongitude: cfloat,
                         enumerator: XPLMLibraryEnumerator_f,
-                        rref: pointer): cint {.cdecl, importc: "XPLMLookupObjects", dynlib: Lib}
+                        rref: pointer): cint {.cdecl, importc: "XPLMLookupObjects", dynlib: xplm_lib}
 

@@ -1,11 +1,11 @@
 # See license.txt for usage.
 
 when defined(windows):
-    const Lib = "XPLM_64.dll"
+    const xpwidgets_lib = "XPWidgets_64.dll"
 elif defined(macosx):
-    const Lib = "XPLM_64.dylib"
+    const xpwidgets_lib = "XPWidgets_64.dylib"
 else:
-    const Lib = "XPLM_64.so"
+    const xpwidgets_lib = "XPWidgets_64.so"
 
 import XPWidgetDefs
 
@@ -55,9 +55,7 @@ const
 type
     XPWindowStyle* = cint
 
-# XPDrawWindow
-#
-# This routine draws a window of the given dimensions at the given offset on
+# XPDrawWindow draws a window of the given dimensions at the given offset on
 # the virtual screen in a given style.  The window is automatically scaled as
 # appropriate using a bitmap scaling technique (scaling or repeating) as
 # appropriate to the style.
@@ -72,12 +70,11 @@ proc XPDrawWindow*(inX1: cint,
                    inY1: cint,
                    inX2: cint,
                    inY2: cint,
-                   inStyle: XPWindowStyle) {.cdecl, importc: "XPDrawWindow", dynlib: Lib}
+                   inStyle: XPWindowStyle) {.cdecl, importc: "XPDrawWindow", dynlib: xpwidgets_lib}
 
-# XPGetWindowDefaultDimensions
-#
-# This routine returns the default dimensions for a window.  Output is either
-# a minimum or fixed value depending on whether the window is scalable.
+# XPGetWindowDefaultDimensions returns the default dimensions for a window.
+# Output is either a minimum or fixed value depending on whether the window
+# is scalable.
 #
 # WIDGET_API void XPGetWindowDefaultDimensions(XPWindowStyle inStyle,
 #                                              int* outWidth,    /* Can be NULL */
@@ -85,11 +82,11 @@ proc XPDrawWindow*(inX1: cint,
 #
 proc XPGetWindowDefaultDimensions*(inStyle: XPWindowStyle,
                                    outWidth: ptr cint,
-                                   outHeight: ptr cint) {.cdecl, importc: "XPGetWindowDefaultDimensions", dynlib: Lib}
+                                   outHeight: ptr cint) {.cdecl, importc: "XPGetWindowDefaultDimensions", dynlib: xpwidgets_lib}
 
 # XPElementStyle
 #
-# Elements are individually drawable UI things like push buttons, etc.  The
+# Elements are individually drawable UI things like push buttons, etc. The
 # style defines what kind of element you are drawing.  Elements can be
 # stretched in one or two dimensions (depending on the element).  Some
 # elements can be lit.
@@ -213,8 +210,6 @@ const
 type
     XPElementStyle* = cint
 
-# XPDrawElement
-#
 # XPDrawElement draws a given element at an offset on the virtual screen in
 # set dimensions. EVEN if the element is not scalable, it will be scaled if
 # the width and height do not match the preferred dimensions; it'll just look
@@ -232,13 +227,11 @@ proc XPDrawElement*(inX1: cint,
                     inY1: cint,
                     inX2: cint,
                     inY2: cint,
-                    inStyle: XPElementStyle, inLit: cint) {.cdecl, importc: "XPDrawElement", dynlib: Lib}
+                    inStyle: XPElementStyle, inLit: cint) {.cdecl, importc: "XPDrawElement", dynlib: xpwidgets_lib}
 
-# XPGetElementDefaultDimensions
-#
-# This routine returns the recommended or minimum dimensions of a given UI
-# element.  outCanBeLit tells whether the element has both a lit and unlit
-# state.  Pass NULL to not receive any of these parameters.
+# XPGetElementDefaultDimensions returns the recommended or minimum dimensions
+# of a given UI element. outCanBeLit tells whether the element has both a lit
+# and unlit state.  Pass NULL to not receive any of these parameters.
 #
 # WIDGET_API void XPGetElementDefaultDimensions(XPElementStyle inStyle,
 #                                               int* outWidth,    /* Can be NULL */
@@ -248,7 +241,7 @@ proc XPDrawElement*(inX1: cint,
 proc XPGetElementDefaultDimensions*(inStyle: XPElementStyle,
                                     outWidth: ptr cint,
                                     outHeight: ptr cint,
-                                    outCanBeLit: ptr cint) {.cdecl, importc: "XPGetElementDefaultDimensions", dynlib: Lib}
+                                    outCanBeLit: ptr cint) {.cdecl, importc: "XPGetElementDefaultDimensions", dynlib: xpwidgets_lib}
 
 # XPTrackStyle
 #
@@ -279,9 +272,7 @@ const
 type
     XPTrackStyle* = cint
 
-# XPDrawTrack
-#
-# This routine draws a track.  You pass in the track dimensions and size; the
+# XPDrawTrack draws a track.  You pass in the track dimensions and size; the
 # track picks the optimal orientation for these dimensions.  Pass in the
 # track's minimum current and maximum values; the indicator will be
 # positioned appropriately.  You can also specify whether the track is lit or
@@ -304,13 +295,11 @@ proc XPDrawTrack*(inX1: cint,
                   inMin: cint,
                   inMax: cint,
                   inValue: cint,
-                  inTrackStyle: XPTrackStyle, inLit: cint) {.cdecl, importc: "XPDrawTrack", dynlib: Lib}
+                  inTrackStyle: XPTrackStyle, inLit: cint) {.cdecl, importc: "XPDrawTrack", dynlib: xpwidgets_lib}
 
-# XPGetTrackDefaultDimensions
-#
-# This routine returns a track's default smaller dimension; all tracks are
-# scalable in the larger dimension.  It also returns whether a track can be
-# lit.
+# XPGetTrackDefaultDimensions returns a track's default smaller dimension; all
+# tracks are scalable in the larger dimension.  It also returns whether a track
+# can be lit.
 #
 # WIDGET_API void XPGetTrackDefaultDimensions(XPTrackStyle inStyle,
 #                                             int* outWidth,
@@ -318,11 +307,9 @@ proc XPDrawTrack*(inX1: cint,
 #
 proc XPGetTrackDefaultDimensions*(inStyle: XPTrackStyle,
                                   outWidth: ptr cint,
-                                  outCanBeLit: ptr cint) {.cdecl, importc: "XPGetTrackDefaultDimensions", dynlib: Lib}
+                                  outCanBeLit: ptr cint) {.cdecl, importc: "XPGetTrackDefaultDimensions", dynlib: xpwidgets_lib}
 
-# XPGetTrackMetrics
-#
-# This routine returns the metrics of a track.  If you want to write UI code
+# XPGetTrackMetrics returns the metrics of a track.  If you want to write UI code
 # to manipulate a track, this routine helps you know where the mouse
 # locations are. For most other elements, the rectangle the element is drawn
 # in is enough information. However, the scrollbar drawing routine does some
@@ -363,5 +350,5 @@ proc XPGetTrackMetrics*(inX1: cint,
                         outDownPageSize: ptr cint,
                         outThumbSize: ptr cint,
                         outUpPageSize: ptr cint,
-                        outUpBtnSize: ptr cint) {.cdecl, importc: "XPGetTrackMetrics", dynlib: Lib}
+                        outUpBtnSize: ptr cint) {.cdecl, importc: "XPGetTrackMetrics", dynlib: xpwidgets_lib}
 

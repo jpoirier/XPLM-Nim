@@ -412,9 +412,7 @@ type
 # WIDGET CALLBACK FUNCTION
 # *****************************************************************************
 
-# XPWidgetFunc_t
-#
-# This function defines your custom widget's behavior.  It will be called by
+# XPWidgetFunc_t defines your custom widget's behavior.  It will be called by
 # the widgets library to send messages to your widget.  The message and
 # widget ID are passed in, as well as two ptr-width signed parameters whose
 # meaning varies with the message.  Return 1 to indicate that you have

@@ -76,7 +76,6 @@ const
 # subwindows inside it.  Then place your controls inside the subwindows.
 #
 
-
 const
     xpWidgetClass_SubWindow* = 2
 
@@ -241,7 +240,6 @@ const
 # (more instructions can be found on the SDK website).
 #
 
-
 const
     xpWidgetClass_TextField* = 4
 
@@ -322,9 +320,7 @@ const
 # scroll bar sends continuous messages as it is dragged.
 #
 
-
 #define xpWidgetClass_ScrollBar 5
-
 
 # Scroll Bar Type Values
 #

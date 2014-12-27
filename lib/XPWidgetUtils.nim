@@ -1,15 +1,14 @@
 # See license.txt for usage.
 
 when defined(windows):
-    const Lib = "XPLM_64.dll"
+    const xpwidgets_lib = "XPWidgets_64.dll"
 elif defined(macosx):
-    const Lib = "XPLM_64.dylib"
+    const xpwidgets_lib = "XPWidgets_64.dylib"
 else:
-    const Lib = "XPLM_64.so"
+    const xpwidgets_lib = "XPWidgets_64.so"
 
 import XPWidgetDefs
 
-#
 # XPWidgetUtils - USAGE NOTES
 #
 # The XPWidgetUtils library contains useful functions that make writing and
@@ -55,10 +54,7 @@ import XPWidgetDefs
 # #define IN_RECT(x, y, l, t, r, b)	\
 # 	(((x) >= (l)) && ((x) <= (r)) && ((y) >= (b)) && ((y) <= (t)))
 
-#
-# XPWidgetCreate_t
-#
-# This structure contains all of the parameters needed to create a wiget. It
+# XPWidgetCreate_t contains all of the parameters needed to create a wiget. It
 # is used with XPUCreateWidgets to create widgets in bulk from an array.  All
 # parameters correspond to those of XPCreateWidget except for the container
 # index. If the container index is equal to the index of a widget in the
@@ -104,10 +100,7 @@ const
 
 ##define WIDGET_COUNT(x)	((sizeof(x) / sizeof(XPWidgetCreate_t)))
 
-#
-# XPUCreateWidgets
-#
-# This function creates a series of widgets from a table...see
+# XPUCreateWidgets creates a series of widgets from a table...see
 # XPCreateWidget_t above.  Pass in an array of widget creation structures and
 # an array of widget IDs that will receive each widget.
 #
@@ -127,19 +120,16 @@ const
 proc XPUCreateWidgets*(inWidgetDefs: ptr XPWidgetCreate_t,
                        inCount: cint,
                        inParamParent: XPWidgetID,
-                       ioWidgets: ptr XPWidgetID) {.cdecl, importc: "XPUCreateWidgets", dynlib: Lib}
+                       ioWidgets: ptr XPWidgetID) {.cdecl, importc: "XPUCreateWidgets", dynlib: xpwidgets_lib}
 
-#
-# XPUMoveWidgetBy
-#
-# Simply moves a widget by an amount, +x = right, +y=up, without resizing the
-# widget.
+# XPUMoveWidgetBy simply moves a widget by an amount, +x = right, +y=up,
+# without resizing the widget.
 #
 # WIDGET_API void XPUMoveWidgetBy(XPWidgetID inWidget,
 #                                 int inDeltaX,
 #                                 int inDeltaY);
 #
-proc XPUMoveWidgetBy*(inWidget: XPWidgetID, inDeltaX: cint, inDeltaY: cint) {.cdecl, importc: "XPUMoveWidgetBy", dynlib: Lib}
+proc XPUMoveWidgetBy*(inWidget: XPWidgetID, inDeltaX: cint, inDeltaY: cint) {.cdecl, importc: "XPUMoveWidgetBy", dynlib: xpwidgets_lib}
 
 #******************************************************************************
 # LAYOUT MANAGERS
@@ -150,10 +140,7 @@ proc XPUMoveWidgetBy*(inWidget: XPWidgetID, inDeltaX: cint, inDeltaY: cint) {.cd
 # attached to a widget later.
 #
 
-#
-# XPUFixedLayout
-#
-# This function causes the widget to maintain its children in fixed position
+# XPUFixedLayout causes the widget to maintain its children in fixed position
 # relative to itself as it is resized.  Use this on the top level 'window'
 # widget for your window.
 #
@@ -165,7 +152,7 @@ proc XPUMoveWidgetBy*(inWidget: XPWidgetID, inDeltaX: cint, inDeltaY: cint) {.cd
 proc XPUFixedLayout*(inMessage: XPWidgetMessage,
                      inWidget: XPWidgetID,
                      inParam1: ptr cint,
-                     inParam2: ptr cint): cint {.cdecl, importc: "XPUFixedLayout", dynlib: Lib}
+                     inParam2: ptr cint): cint {.cdecl, importc: "XPUFixedLayout", dynlib: xpwidgets_lib}
 
 #******************************************************************************
 # WIDGET PROC BEHAVIORS
@@ -176,12 +163,9 @@ proc XPUFixedLayout*(inMessage: XPWidgetMessage,
 # your widget function.
 #
 
-#
-# XPUSelectIfNeeded
-#
-# This causes the widget to bring its window to the foreground if it is not
-# already.  inEatClick specifies whether clicks in the background should be
-# consumed by bringin the window to the foreground.
+# XPUSelectIfNeeded causes the widget to bring its window to the foreground if
+# it is not already. inEatClick specifies whether clicks in the background should
+# be consumed by bringin the window to the foreground.
 #
 # WIDGET_API int XPUSelectIfNeeded(XPWidgetMessage inMessage,
 #                                  XPWidgetID inWidget,
@@ -193,13 +177,10 @@ proc XPUSelectIfNeeded*(inMessage: XPWidgetMessage,
                         inWidget: XPWidgetID,
                         inParam1: ptr cint,
                         inParam2: ptr cint,
-                        inEatClick: cint): cint {.cdecl, importc: "XPUSelectIfNeeded", dynlib: Lib}
+                        inEatClick: cint): cint {.cdecl, importc: "XPUSelectIfNeeded", dynlib: xpwidgets_lib}
 
-#
-# XPUDefocusKeyboard
-#
-# This causes a click in the widget to send keyboard focus back to X-Plane.
-# This stops editing of any text fields, etc.
+# XPUDefocusKeyboard causes a click in the widget to send keyboard focus back
+# to X-Plane. This stops editing of any text fields, etc.
 #
 #
 # WIDGET_API int XPUDefocusKeyboard(XPWidgetMessage inMessage,
@@ -212,11 +193,8 @@ proc XPUDefocusKeyboard*(inMessage: XPWidgetMessage,
                          inWidget: XPWidgetID,
                          inParam1: ptr cint,
                          inParam2: ptr cint,
-                         inEatClick: cint): cint {.cdecl, importc: "XPUDefocusKeyboard", dynlib: Lib}
+                         inEatClick: cint): cint {.cdecl, importc: "XPUDefocusKeyboard", dynlib: xpwidgets_lib}
 
-#
-# XPUDragWidget
-#
 # XPUDragWidget drags the widget in response to mouse clicks.  Pass in not
 # only the event, but the global coordinates of the drag region, which might
 # be a sub-region of your widget (for example, a title bar).
@@ -238,5 +216,5 @@ proc XPUDragWidget*(inMessage: XPWidgetMessage,
                     inLeft: cint,
                     inTop: cint,
                     inRight: cint,
-                    inBottom: cint): cint {.cdecl, importc: "XPUDragWidget", dynlib: Lib}
+                    inBottom: cint): cint {.cdecl, importc: "XPUDragWidget", dynlib: xpwidgets_lib}
 

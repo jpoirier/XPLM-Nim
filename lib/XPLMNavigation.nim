@@ -1,11 +1,11 @@
 # See license.txt for usage.
 
 when defined(windows):
-    const Lib = "XPLM_64.dll"
+    const xplm_lib = "XPLM_64.dll"
 elif defined(macosx):
-    const Lib = "XPLM_64.dylib"
+    const xplm_lib = "XPLM_64.dylib"
 else:
-    const Lib = "XPLM_64.so"
+    const xplm_lib = "XPLM_64.so"
 
 import XPLMDefs
 
@@ -26,7 +26,6 @@ import XPLMDefs
 # *****************************************************************************
 #
 
-##
 # XPLMNavType
 #
 # These enumerations define the different types of navaids.  They are each
@@ -74,9 +73,6 @@ const
 type
     XPLMNavType* = cint
 
-##
-# XPLMNavRef
-#
 # XPLMNavRef is an iterator into the navigation database.  The navigation
 # database is essentially an array, but it is not necessarily densely
 # populated. The only assumption you can safely make is that like-typed
@@ -97,21 +93,15 @@ type
 const
     XPLM_NAV_NOT_FOUND* = -1
 
-##
-# XPLMGetFirstNavAid
-#
-# This returns the very first navaid in the database.  Use this to traverse
-# the entire database.  Returns XPLM_NAV_NOT_FOUND if the nav database is
-# empty.
+# XPLMGetFirstNavAid returns the very first navaid in the database.  Use this
+# to traverse the entire database.  Returns XPLM_NAV_NOT_FOUND if the nav
+# database is empty.
 #
 # XPLM_API XPLMNavRef XPLMGetFirstNavAid(void);
 #
-proc XPLMGetFirstNavAid*(): XPLMNavRef {.cdecl, importc: "XPLMGetFirstNavAid", dynlib: Lib}
+proc XPLMGetFirstNavAid*(): XPLMNavRef {.cdecl, importc: "XPLMGetFirstNavAid", dynlib: xplm_lib}
 
-##
-# XPLMGetNextNavAid
-#
-# Given a nav aid ref, this routine returns the next navaid.  It returns
+# XPLMGetNextNavAid this routine returns the next navaid.  It returns
 # XPLM_NAV_NOT_FOUND if the nav aid passed in was invalid or if the navaid
 # passed in was the last one in the database.  Use this routine to iterate
 # across all like-typed navaids or the entire database.
@@ -122,14 +112,11 @@ proc XPLMGetFirstNavAid*(): XPLMNavRef {.cdecl, importc: "XPLMGetFirstNavAid", d
 #
 # XPLM_API XPLMNavRef XPLMGetNextNavAid(XPLMNavRef inNavAidRef);
 #
-proc XPLMGetNextNavAid*(inNavAidRef: XPLMNavRef): XPLMNavRef {.cdecl, importc: "XPLMGetNextNavAid", dynlib: Lib}
+proc XPLMGetNextNavAid*(inNavAidRef: XPLMNavRef): XPLMNavRef {.cdecl, importc: "XPLMGetNextNavAid", dynlib: xplm_lib}
 
-##
-# XPLMFindFirstNavAidOfType
-#
-# This routine returns the ref of the first navaid of the given type in the
-# database or XPLM_NAV_NOT_FOUND if there are no navaids of that type in the
-# database.  You must pass exactly one nav aid type to this routine.
+# XPLMFindFirstNavAidOfType returns the ref of the first navaid of the given
+# type in the database or XPLM_NAV_NOT_FOUND if there are no navaids of that
+# type in the database. You must pass exactly one nav aid type to this routine.
 #
 # WARNING: due to a bug in the SDK, when fix loading is disabled in the
 # rendering settings screen, calling this routine with fixes returns a bogus
@@ -137,13 +124,10 @@ proc XPLMGetNextNavAid*(inNavAidRef: XPLMNavRef): XPLMNavRef {.cdecl, importc: "
 #
 # XPLM_API XPLMNavRef XPLMFindFirstNavAidOfType(XPLMNavType inType);
 #
-proc XPLMFindFirstNavAidOfType*(inType: XPLMNavType): XPLMNavRef {.cdecl, importc: "XPLMFindFirstNavAidOfType", dynlib: Lib}
+proc XPLMFindFirstNavAidOfType*(inType: XPLMNavType): XPLMNavRef {.cdecl, importc: "XPLMFindFirstNavAidOfType", dynlib: xplm_lib}
 
-##
-# XPLMFindLastNavAidOfType
-#
-# This routine returns the ref of the last navaid of the given type in the
-# database or XPLM_NAV_NOT_FOUND if there are no navaids of that type in the
+# XPLMFindLastNavAidOfType returns the ref of the last navaid of the given type
+# in the database or XPLM_NAV_NOT_FOUND if there are no navaids of that type in the
 # database.  You must pass exactly one nav aid type to this routine.
 #
 # WARNING: due to a bug in the SDK, when fix loading is disabled in the
@@ -152,12 +136,9 @@ proc XPLMFindFirstNavAidOfType*(inType: XPLMNavType): XPLMNavRef {.cdecl, import
 #
 # XPLM_API XPLMNavRef XPLMFindLastNavAidOfType(XPLMNavType inType);
 #
-proc XPLMFindLastNavAidOfType*(inType: XPLMNavType): XPLMNavRef {.cdecl, importc: "XPLMFindLastNavAidOfType", dynlib: Lib}
+proc XPLMFindLastNavAidOfType*(inType: XPLMNavType): XPLMNavRef {.cdecl, importc: "XPLMFindLastNavAidOfType", dynlib: xplm_lib}
 
-##
-# XPLMFindNavAid
-#
-# This routine provides a number of searching capabilities for the nav
+# XPLMFindNavAid provides a number of searching capabilities for the nav
 # database. XPLMFindNavAid will search through every nav aid whose type is
 # within inType (multiple types may be added together) and return any
 # nav-aids found based  on the following rules:
@@ -193,12 +174,9 @@ proc XPLMFindNavAid*(inNameFragment: cstring,
                      inLat: ptr cfloat,
                      inLon: ptr cfloat,
                      inFrequency: ptr cint,
-                     inType: XPLMNavType): XPLMNavRef {.cdecl, importc: "XPLMFindNavAid", dynlib: Lib}
+                     inType: XPLMNavType): XPLMNavRef {.cdecl, importc: "XPLMFindNavAid", dynlib: xplm_lib}
 
-##
-# XPLMGetNavAidInfo
-#
-# This routine returns information about a navaid.  Any non-null field is
+# XPLMGetNavAidInfo returns information about a navaid.  Any non-null field is
 # filled out with information if it is available.
 #
 # Frequencies are in the nav.dat convention as described in the X-Plane nav
@@ -234,7 +212,7 @@ proc XPLMGetNavAidInfo*(inRef: XPLMNavRef,
                         outHeading: ptr cfloat,
                         outID: cstring,
                         outName: cstring,
-                        outReg: cstring) {.cdecl, importc: "XPLMGetNavAidInfo", dynlib: Lib}
+                        outReg: cstring) {.cdecl, importc: "XPLMGetNavAidInfo", dynlib: xplm_lib}
 
 
 #******************************************************************************
@@ -250,57 +228,40 @@ proc XPLMGetNavAidInfo*(inRef: XPLMNavRef,
 # waypoints in the flight plan.
 #
 
-##
-# XPLMCountFMSEntries
-#
-# This routine returns the number of entries in the FMS.
+# XPLMCountFMSEntries returns the number of entries in the FMS.
 #
 # XPLM_API int XPLMCountFMSEntries(void);
 #
-proc XPLMCountFMSEntries*(): cint {.cdecl, importc: "XPLMCountFMSEntries", dynlib: Lib}
+proc XPLMCountFMSEntries*(): cint {.cdecl, importc: "XPLMCountFMSEntries", dynlib: xplm_lib}
 
 
-# XPLMGetDisplayedFMSEntry
-#
-# This routine returns the index of the entry the pilot is viewing.
+# XPLMGetDisplayedFMSEntry returns the index of the entry the pilot is viewing.
 #
 # XPLM_API int XPLMGetDisplayedFMSEntry(void);
 #
-proc XPLMGetDisplayedFMSEntry*(): cint {.cdecl, importc: "XPLMGetDisplayedFMSEntry", dynlib: Lib}
+proc XPLMGetDisplayedFMSEntry*(): cint {.cdecl, importc: "XPLMGetDisplayedFMSEntry", dynlib: xplm_lib}
 
-##
-# XPLMGetDestinationFMSEntry
-#
-# This routine returns the index of the entry the FMS is flying to.
+# XPLMGetDestinationFMSEntry returns the index of the entry the FMS is flying to.
 #
 # XPLM_API int XPLMGetDestinationFMSEntry(void);
 #
-proc XPLMGetDestinationFMSEntry*(): cint {.cdecl, importc: "XPLMGetDestinationFMSEntry", dynlib: Lib}
+proc XPLMGetDestinationFMSEntry*(): cint {.cdecl, importc: "XPLMGetDestinationFMSEntry", dynlib: xplm_lib}
 
-##
-# XPLMSetDisplayedFMSEntry
-#
-# This routine changes which entry the FMS is showing to the index specified.
+# XPLMSetDisplayedFMSEntry changes which entry the FMS is showing to the index specified.
 #
 # XPLM_API void XPLMSetDisplayedFMSEntry(int inIndex);
 #
-proc XPLMSetDisplayedFMSEntry*(inIndex: cint) {.cdecl, importc: "XPLMSetDisplayedFMSEntry", dynlib: Lib}
+proc XPLMSetDisplayedFMSEntry*(inIndex: cint) {.cdecl, importc: "XPLMSetDisplayedFMSEntry", dynlib: xplm_lib}
 
-##
-# XPLMSetDestinationFMSEntry
-#
-# This routine changes which entry the FMS is flying the aircraft toward.
+# XPLMSetDestinationFMSEntry changes which entry the FMS is flying the aircraft toward.
 #
 # XPLM_API void XPLMSetDestinationFMSEntry(int inIndex);
 #
-proc XPLMSetDestinationFMSEntry*(inIndex: cint) {.cdecl, importc: "XPLMSetDestinationFMSEntry", dynlib: Lib}
+proc XPLMSetDestinationFMSEntry*(inIndex: cint) {.cdecl, importc: "XPLMSetDestinationFMSEntry", dynlib: xplm_lib}
 
-##
-# XPLMGetFMSEntryInfo
-#
-# This routine returns information about a given FMS entry.  A reference to a
-# navaid can be returned allowing you to find additional information (such as
-# a frequency, ILS heading, name, etc.).  Some information is available
+# XPLMGetFMSEntryInfo returns information about a given FMS entry.  A reference
+# to a navaid can be returned allowing you to find additional information (such
+# as a frequency, ILS heading, name, etc.).  Some information is available
 # immediately.  For a lat/lon entry, the lat/lon is returned by this routine
 # but the navaid cannot be looked up (and the reference will be
 # XPLM_NAV_NOT_FOUND. FMS name entry buffers should be at least 256 chars in
@@ -320,12 +281,9 @@ proc XPLMGetFMSEntryInfo*(inIndex: cint,
                           outRef: ptr XPLMNavRef,
                           outAltitude: ptr cint,
                           outLat: ptr cfloat,
-                          outLon: ptr cfloat) {.cdecl, importc: "XPLMGetFMSEntryInfo", dynlib: Lib}
+                          outLon: ptr cfloat) {.cdecl, importc: "XPLMGetFMSEntryInfo", dynlib: xplm_lib}
 
-
-# XPLMSetFMSEntryInfo
-#
-# This routine changes an entry in the FMS to have the destination navaid
+# XPLMSetFMSEntryInfo changes an entry in the FMS to have the destination navaid
 # passed in and the altitude specified.  Use this only for airports, fixes,
 # and radio-beacon navaids.  Currently of radio beacons, the FMS can only
 # support VORs and NDBs. Use the routines below to clear or fly to a lat/lon.
@@ -336,13 +294,10 @@ proc XPLMGetFMSEntryInfo*(inIndex: cint,
 #
 proc XPLMSetFMSEntryInfo*(inIndex: cint,
                           inRef: XPLMNavRef,
-                          inAltitude: cint) {.cdecl, importc: "XPLMSetFMSEntryInfo", dynlib: Lib}
+                          inAltitude: cint) {.cdecl, importc: "XPLMSetFMSEntryInfo", dynlib: xplm_lib}
 
-##
-# XPLMSetFMSEntryLatLon
-#
-# This routine changes the entry in the FMS to a lat/lon entry with the given
-# coordinates.
+# XPLMSetFMSEntryLatLon changes the entry in the FMS to a lat/lon entry with
+# the given coordinates.
 #
 # XPLM_API void XPLMSetFMSEntryLatLon(int inIndex,
 #                                      float inLat,
@@ -352,17 +307,14 @@ proc XPLMSetFMSEntryInfo*(inIndex: cint,
 proc XPLMSetFMSEntryLatLon*(inIndex: cint,
                             inLat: cfloat,
                             inLon: cfloat,
-                            inAltitude: cint) {.cdecl, importc: "XPLMSetFMSEntryLatLon", dynlib: Lib}
+                            inAltitude: cint) {.cdecl, importc: "XPLMSetFMSEntryLatLon", dynlib: xplm_lib}
 
-##
-# XPLMClearFMSEntry
-#
-# This routine clears the given entry, potentially shortening the flight
+# XPLMClearFMSEntry clears the given entry, potentially shortening the flight
 # plan.
 #
 # XPLM_API void XPLMClearFMSEntry(int inIndex);
 #
-proc XPLMClearFMSEntry*(inIndex: cint) {.cdecl, importc: "XPLMClearFMSEntry", dynlib: Lib}
+proc XPLMClearFMSEntry*(inIndex: cint) {.cdecl, importc: "XPLMClearFMSEntry", dynlib: xplm_lib}
 
 
 #******************************************************************************
@@ -371,22 +323,16 @@ proc XPLMClearFMSEntry*(inIndex: cint) {.cdecl, importc: "XPLMClearFMSEntry", dy
 # These APIs let you read data from the GPS unit.
 #
 
-##
-# XPLMGetGPSDestinationType
-#
-# This routine returns the type of the currently selected GPS destination,
-# one of fix, airport, VOR or NDB.
+# XPLMGetGPSDestinationType returns the type of the currently selected GPS
+# destination, one of fix, airport, VOR or NDB.
 #
 # XPLM_API XPLMNavType XPLMGetGPSDestinationType(void);
 #
-proc XPLMGetGPSDestinationType*(): XPLMNavType {.cdecl, importc: "XPLMGetGPSDestinationType", dynlib: Lib}
+proc XPLMGetGPSDestinationType*(): XPLMNavType {.cdecl, importc: "XPLMGetGPSDestinationType", dynlib: xplm_lib}
 
-##
-# XPLMGetGPSDestination
-#
-# This routine returns the current GPS destination.
+# XPLMGetGPSDestination returns the current GPS destination.
 #
 # XPLM_API XPLMNavRef XPLMGetGPSDestination(void);
 #
-proc XPLMGetGPSDestination*(): XPLMNavRef {.cdecl, importc: "XPLMGetGPSDestination", dynlib: Lib}
+proc XPLMGetGPSDestination*(): XPLMNavRef {.cdecl, importc: "XPLMGetGPSDestination", dynlib: xplm_lib}
 

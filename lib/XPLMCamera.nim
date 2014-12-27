@@ -1,11 +1,11 @@
 # See license.txt for usage.
 
 when defined(windows):
-    const Lib = "XPLM_64.dll"
+    const xplm_lib = "XPLM_64.dll"
 elif defined(macosx):
-    const Lib = "XPLM_64.dylib"
+    const xplm_lib = "XPLM_64.dylib"
 else:
-    const Lib = "XPLM_64.so"
+    const xplm_lib = "XPLM_64.so"
 
 import XPLMDefs
 
@@ -123,10 +123,7 @@ type
                                  inIsLosingControl: cint,
                                  inRefcon: pointer): cint {.cdecl.}
 
-##
-# XPLMControlCamera
-#
-# This function repositions the camera on the next drawing cycle.  You must
+# XPLMControlCamera repositions the camera on the next drawing cycle.  You must
 # pass a non-null control function.  Specify in inHowLong how long you'd like
 # control  (indefinitely or until a key is pressed).
 #
@@ -136,13 +133,10 @@ type
 #
 proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration,
                         inControlFunc: XPLMCameraControl_f,
-                        inRefcon: pointer) {.cdecl, importc: "XPLMControlCamera", dynlib: Lib}
+                        inRefcon: pointer) {.cdecl, importc: "XPLMControlCamera", dynlib: xplm_lib}
 
-##
-# XPLMDontControlCamera
-#
-# This function stops you from controlling the camera.  If you have a camera
-# control function, it will not be called with an inIsLosingControl flag.
+# XPLMDontControlCamera stops you from controlling the camera.  If you have a
+# camera control function, it will not be called with an inIsLosingControl flag.
 # X-Plane will control the camera on the next cycle.
 #
 # For maximum compatibility you should not use this routine unless you are in
@@ -150,26 +144,21 @@ proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration,
 #
 # XPLM_API void XPLMDontControlCamera(void);
 #
-proc XPLMDontControlCamera*() {.cdecl, importc: "XPLMDontControlCamera", dynlib: Lib}
+proc XPLMDontControlCamera*() {.cdecl, importc: "XPLMDontControlCamera", dynlib: xplm_lib}
 
-##
-# XPLMIsCameraBeingControlled
-#
-# This routine returns 1 if the camera is being controlled, zero if it is
-# not.  If it is and you pass in a pointer to a camera control duration, the
-# current control duration will be returned.
+
+# XPLMIsCameraBeingControlled returns 1 if the camera is being controlled, zero
+# if it is not.  If it is and you pass in a pointer to a camera control duration,
+# the current control duration will be returned.
 #
 # XPLM_API int XPLMIsCameraBeingControlled(XPLMCameraControlDuration *outCameraControlDuration);
 #
 proc XPLMIsCameraBeingControlled*(outCameraControlDuration: ptr XPLMCameraControlDuration):
-                        cint {.cdecl, importc: "XPLMIsCameraBeingControlled", dynlib: Lib}
+                        cint {.cdecl, importc: "XPLMIsCameraBeingControlled", dynlib: xplm_lib}
 
-##
-# XPLMReadCameraPosition
-#
-# This function reads the current camera position.
+# XPLMReadCameraPosition reads the current camera position.
 #
 # XPLM_API void XPLMReadCameraPosition(XPLMCameraPosition_t *outCameraPosition);
 #
 proc XPLMReadCameraPosition*(outCameraPosition: PXPLMCameraPosition_t)
-                                {.cdecl, importc: "XPLMReadCameraPosition", dynlib: Lib}
+                                {.cdecl, importc: "XPLMReadCameraPosition", dynlib: xplm_lib}

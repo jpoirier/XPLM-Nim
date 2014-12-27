@@ -1,11 +1,11 @@
 # See license.txt for usage.
 
 when defined(windows):
-    const Lib = "XPLM_64.dll"
+    const xplm_lib = "XPLM_64.dll"
 elif defined(macosx):
-    const Lib = "XPLM_64.dylib"
+    const xplm_lib = "XPLM_64.dylib"
 else:
-    const Lib = "XPLM_64.so"
+    const xplm_lib = "XPLM_64.so"
 
 import XPLMDefs
 
@@ -25,7 +25,6 @@ import XPLMDefs
 # XPLM MENUS
 # *****************************************************************************
 
-##
 # XPLMMenuCheck
 #
 # These enumerations define the various 'check' states for an X-Plane menu.
@@ -47,7 +46,6 @@ const
 type
     XPLMMenuCheck* = cint
 
-##
 # XPLMMenuID
 #
 # This is a unique ID for each menu you create.
@@ -57,7 +55,6 @@ type
 type
     XPLMMenuID* = pointer
 
-##
 # XPLMMenuHandler_f
 #
 # A menu handler function takes two reference pointers, one for the menu
@@ -70,20 +67,14 @@ type
     XPLMMenuHandler_f* = proc (inMenuRef: pointer, inItemRef: pointer) {.cdecl.}
 
 
-##
-# XPLMFindPluginsMenu
-#
-# This function returns the ID of the plug-ins menu, which is created for you
-# at startup.
+# XPLMFindPluginsMenu returns the ID of the plug-ins menu, which is created for
+# you at startup.
 #
 # XPLM_API XPLMMenuID XPLMFindPluginsMenu(void);
 #
-proc XPLMFindPluginsMenu*() {.cdecl, importc: "XPLMFindPluginsMenu", dynlib: Lib}
+proc XPLMFindPluginsMenu*() {.cdecl, importc: "XPLMFindPluginsMenu", dynlib: xplm_lib}
 
-##
-# XPLMCreateMenu
-#
-# This function creates a new menu and returns its ID.  It returns NULL if
+# XPLMCreateMenu creates a new menu and returns its ID.  It returns NULL if
 # the menu cannot be created.  Pass in a parent menu ID and an item index to
 # create a submenu, or NULL for the parent menu to put the menu in the menu
 # bar.  The menu's name is only used if the menu is in the menubar.  You also
@@ -104,34 +95,23 @@ proc XPLMCreateMenu*(inName: cstring,
                      inParentMenu: XPLMMenuID,
                      inParentItem: cint,
                      inHandler: XPLMMenuHandler_f,
-                     inMenuRef: pointer): XPLMMenuID {.cdecl, importc: "XPLMCreateMenu", dynlib: Lib}
+                     inMenuRef: pointer): XPLMMenuID {.cdecl, importc: "XPLMCreateMenu", dynlib: xplm_lib}
 
-##
-# XPLMDestroyMenu
-#
-# This function destroys a menu that you have created.  Use this to remove a
+# XPLMDestroyMenu destroys a menu that you have created.  Use this to remove a
 # submenu if necessary.  (Normally this function will not be necessary.)
 #
 # XPLM_API void XPLMDestroyMenu(XPLMMenuID inMenuID);
 #
-proc XPLMDestroyMenu*(inMenuID: XPLMMenuID) {.cdecl, importc: "XPLMDestroyMenu", dynlib: Lib}
+proc XPLMDestroyMenu*(inMenuID: XPLMMenuID) {.cdecl, importc: "XPLMDestroyMenu", dynlib: xplm_lib}
 
-
-##
-# XPLMClearAllMenuItems
-#
-# This function removes all menu items from a menu, allowing you to rebuild
-# it.  Use this function if you need to change the number of items on a menu.
+# XPLMClearAllMenuItems removes all menu items from a menu, allowing you to
+# rebuild it. Use this function if you need to change the number of items on a menu.
 #
 # XPLM_API void XPLMClearAllMenuItems(XPLMMenuID inMenuID);
 #
-proc XPLMClearAllMenuItems*(inMenuID: XPLMMenuID) {.cdecl, importc: "XPLMClearAllMenuItems", dynlib: Lib}
+proc XPLMClearAllMenuItems*(inMenuID: XPLMMenuID) {.cdecl, importc: "XPLMClearAllMenuItems", dynlib: xplm_lib}
 
-
-##
-# XPLMAppendMenuItem
-#
-# This routine appends a new menu item to the bottom of a menu and returns
+# XPLMAppendMenuItem appends a new menu item to the bottom of a menu and returns
 # its index. Pass in the menu to add the item to, the items name, and a void
 # * ref for this item. If you pass in inForceEnglish, this menu item will be
 # drawn using the english character set no matter what language x-plane is
@@ -147,23 +127,16 @@ proc XPLMClearAllMenuItems*(inMenuID: XPLMMenuID) {.cdecl, importc: "XPLMClearAl
 proc XPLMAppendMenuItem*(inMenu: XPLMMenuID,
                          inItemName: cstring,
                          inItemRef: pointer,
-                         inForceEnglish: cint): cint {.cdecl, importc: "XPLMAppendMenuItem", dynlib: Lib}
+                         inForceEnglish: cint): cint {.cdecl, importc: "XPLMAppendMenuItem", dynlib: xplm_lib}
 
-##
-# XPLMAppendMenuSeparator
-#
-# This routine adds a seperator to the end of a menu.
+# XPLMAppendMenuSeparator adds a seperator to the end of a menu.
 #
 # XPLM_API void XPLMAppendMenuSeparator(XPLMMenuID inMenu);
 #
-proc XPLMAppendMenuSeparator*(inMenu: XPLMMenuID) {.cdecl, importc: "XPLMAppendMenuSeparator", dynlib: Lib}
+proc XPLMAppendMenuSeparator*(inMenu: XPLMMenuID) {.cdecl, importc: "XPLMAppendMenuSeparator", dynlib: xplm_lib}
 
-
-##
-# XPLMSetMenuItemName
-#
-# This routine changes the name of an existing menu item.  Pass in the menu
-# ID and the index of the menu item.
+# XPLMSetMenuItemName changes the name of an existing menu item.  Pass in the
+# menu ID and the index of the menu item.
 #
 # XPLM_API void XPLMSetMenuItemName(XPLMMenuID inMenu,
 #                                   int inIndex,
@@ -173,12 +146,9 @@ proc XPLMAppendMenuSeparator*(inMenu: XPLMMenuID) {.cdecl, importc: "XPLMAppendM
 proc XPLMSetMenuItemName*(nMenu; XPLMMenuID,
                           inIndex: cint,
                           inItemName: cstring,
-                          inForceEnglish: cint) {.cdecl, importc: "XPLMSetMenuItemName", dynlib: Lib}
+                          inForceEnglish: cint) {.cdecl, importc: "XPLMSetMenuItemName", dynlib: xplm_lib}
 
-##
-# XPLMCheckMenuItem
-#
-# Set whether a menu item is checked.  Pass in the menu ID and item index.
+# XPLMCheckMenuItem sets whether a menu item is checked.  Pass in the menu ID and item index.
 #
 # XPLM_API void XPLMCheckMenuItem(XPLMMenuID inMenu,
 #                                 int index,
@@ -186,12 +156,9 @@ proc XPLMSetMenuItemName*(nMenu; XPLMMenuID,
 #
 proc XPLMCheckMenuItem*(inMenu: XPLMMenuID,
                         index: cint,
-                        inCheck: XPLMMenuCheck) {.cdecl, importc: "XPLMCheckMenuItem", dynlib: Lib}
+                        inCheck: XPLMMenuCheck) {.cdecl, importc: "XPLMCheckMenuItem", dynlib: xplm_lib}
 
-##
-# XPLMCheckMenuItemState
-#
-# This routine returns whether a menu item is checked or not. A menu item's
+# XPLMCheckMenuItemState returns whether a menu item is checked or not. A menu item's
 # check mark may be on or off, or a menu may not have an icon at all.
 #
 # XPLM_API void XPLMCheckMenuItemState(XPLMMenuID inMenu,
@@ -200,12 +167,9 @@ proc XPLMCheckMenuItem*(inMenu: XPLMMenuID,
 #
 proc XPLMCheckMenuItemState*(inMenu: XPLMMenuID,
                              index: cint,
-                             outCheck: ptr XPLMMenuCheck) {.cdecl, importc: "XPLMCheckMenuItemState", dynlib: Lib}
+                             outCheck: ptr XPLMMenuCheck) {.cdecl, importc: "XPLMCheckMenuItemState", dynlib: xplm_lib}
 
-##
-# XPLMEnableMenuItem
-#
-# Sets whether this menu item is enabled.  Items start out enabled.
+# XPLMEnableMenuItem sets whether this menu item is enabled. Items start out enabled.
 #
 # XPLM_API void XPLMEnableMenuItem(XPLMMenuID inMenu,
 #                                  int index,
@@ -213,17 +177,14 @@ proc XPLMCheckMenuItemState*(inMenu: XPLMMenuID,
 #
 proc XPLMEnableMenuItem*(inMenu: XPLMMenuID,
                          index: cint,
-                         enabled: cint) {.cdecl, importc: "XPLMEnableMenuItem", dynlib: Lib}
+                         enabled: cint) {.cdecl, importc: "XPLMEnableMenuItem", dynlib: xplm_lib}
 
-##
-# XPLMRemoveMenuItem
-#
-# Removes one item from a menu.  Note that all menu items below are moved up
-# one; your plugin must track the change in index numbers.
+# XPLMRemoveMenuItem removes one item from a menu.  Note that all menu items
+# below are moved up one; your plugin must track the change in index numbers.
 #
 # XPLM_API void XPLMRemoveMenuItem(XPLMMenuID inMenu,
 #                                  int inIndex);
 #
-proc XPLMRemoveMenuItem*(inMenu: XPLMMenuID, inIndex: cint) {.cdecl, importc: "XPLMRemoveMenuItem", dynlib: Lib}
+proc XPLMRemoveMenuItem*(inMenu: XPLMMenuID, inIndex: cint) {.cdecl, importc: "XPLMRemoveMenuItem", dynlib: xplm_lib}
 
 

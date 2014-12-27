@@ -5,6 +5,7 @@ See license.txt for usage.
 To build the plugin example
 ---------------------------
 $ nim c -d:release -d:useRealtimeGC XPLM_Test.nim
+$ nim c -d:release -d:useNimRtl XPLM_Test.nim
 
 Rename xplm_test/.dll/.so/.dynlib to xplm_test.xpl and copy to the X-Plane plugin folder,
 X-Plane10/Resources/plugins.
