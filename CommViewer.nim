@@ -1,4 +1,6 @@
 # See license.txt for usage.
+#
+# To compile: nim c -d:release -d:useRealtimeGC CommViewer.nim
 
 {.deadCodeElim: on.}
 
@@ -36,7 +38,6 @@ const
     PROCESSED_EVENT = 1
     WINDOW_WIDTH = 290
     WINDOW_HEIGHT = 60
-
     COMMS_UNCHANGED= 0
     COM1_CHANGED = 1
     COM2_CHANGED = 2
@@ -58,14 +59,11 @@ var
     # avionics_power_on_dataref: XPLMDataRef
     audio_selection_com1_dataref: XPLMDataRef
     audio_selection_com2_dataref: XPLMDataRef
-
     pilotedge_rx_status_dataref: XPLMDataRef
     pilotedge_tx_status_dataref: XPLMDataRef
     pilotedge_connected_dataref: XPLMDataRef
-
     radio_volume_ratio_dataref: XPLMDataRef
     panel_visible_win_t_dataref: XPLMDataRef
-
     gPTT_On = false
     gPluginEnabled = false
     gCommWindow: XPLMWindowID
@@ -78,7 +76,6 @@ var
 
 # proc printf(formatstr: cstring) {.importc: "printf", varargs, header: "<stdio.h>".}
 
-##
 proc CommandHandler(inCommand: XPLMCommandRef, inPhase: XPLMCommandPhase, inRefcon: pointer): cint {.exportc: "CommandHandler", dynlib.} =
     # if ((gFlCbCnt % PANEL_CHECK_INTERVAL) == 0) {
     # }
@@ -99,7 +96,6 @@ proc CommandHandler(inCommand: XPLMCommandRef, inPhase: XPLMCommandPhase, inRefc
 
     return IGNORED_EVENT
 
-##
 var commviewer_color: array[3, float] = [1.0, 1.0, 1.0] # RGB White
 proc DrawWindowCallback(inWindowID: XPLMWindowID, inRefcon: pointer) {.exportc: "DrawWindowCallback", dynlib.} =
     var left, right, top, bottom: cint
@@ -157,7 +153,6 @@ proc DrawWindowCallback(inWindowID: XPLMWindowID, inRefcon: pointer) {.exportc: 
     else:
         discard
 
-##
 proc HandleKeyCallback(inWindowID: XPLMWindowID,
                        inKey: cchar,
                        inFlags: XPLMKeyFlags,
@@ -166,7 +161,6 @@ proc HandleKeyCallback(inWindowID: XPLMWindowID,
                        losingFocus: cint) {.exportc: "HandleKeyCallback", dynlib.} =
     return
 
-##
 var com_changed: cint = COMMS_UNCHANGED
 var MouseDownX: cint
 var MouseDownY: cint
@@ -219,7 +213,6 @@ proc HandleMouseCallback(inWindowID: XPLMWindowID, x: cint, y: cint, inMouse: XP
 
     return PROCESSED_EVENT
 
-##
 proc FlightLoopCallback(inElapsedSinceLastCall: cfloat,
                          inElapsedTimeSinceLastFlightLoop: cfloat,
                          inCounter: cint,
@@ -230,7 +223,6 @@ proc FlightLoopCallback(inElapsedSinceLastCall: cfloat,
         discard
     return 1.0
 
-##
 proc XPluginStart(outName: ptr cstring, outSig: ptr cstring, outDesc: ptr cstring): cint {.exportc: "XPluginStart", dynlib.} =
     var name: cstring = "CommViewer"
     var sig: cstring = "jdp.comm.viewer"
@@ -276,24 +268,20 @@ proc XPluginStart(outName: ptr cstring, outSig: ptr cstring, outDesc: ptr cstrin
     XPLMDebugString("CommViewer Plugin: startup completed\n")
     return PROCESSED_EVENT
 
-##
 proc XPluginStop() {.exportc: "XPluginStop", dynlib.} =
     gPluginEnabled = false
     #XPLMUnregisterFlightLoopCallback(FlightLoopCallback, NULL);
     XPLMDebugString("CommViewer Plugin: XPluginStop\n")
 
-##
 proc XPluginDisable() {.exportc: "XPluginDisable", dynlib.} =
     gPluginEnabled = false
     XPLMDebugString("CommViewer Plugin: XPluginDisable\n")
 
-##
 proc XPluginEnable(): cint {.exportc: "XPluginEnable", dynlib.} =
     gPluginEnabled = true
     XPLMDebugString("CommViewer Plugin: XPluginEnable\n")
     return PROCESSED_EVENT
 
-##
 proc XPluginReceiveMessage(inFrom: XPLMPluginID, inMsg: clong, inParam: pointer) {.exportc: "XPluginReceiveMessage", dynlib.} =
     if inFrom == XPLM_PLUGIN_XPLANE:
         # size_t inparam = reinterpret_cast<size_t>(inParam);

@@ -2,6 +2,7 @@
 Based on X-Plane SDK Release 2.1.3 11/14/13 (http://www.xsquawkbox.net/xpsdk/).
 See license.txt for usage.
 
+
 To build the plugin example
 ---------------------------
 $ nim c -d:release -d:useRealtimeGC XPLM_Test.nim
@@ -11,8 +12,23 @@ Rename xplm_test/.dll/.so/.dynlib to xplm_test.xpl and copy to the X-Plane plugi
 X-Plane10/Resources/plugins.
 
 
+To build the CommViewer plugin
+------------------------------
+$ nim c -d:release -d:useRealtimeGC CommViewer.nim
+For usage info visit: https://github.com/jpoirier/xplane-commviewer-plugin
+
+
 To generate the "nimrtl.dll" file, in the Nim compiler source directory, use the command:
 	$ nim c -d:release lib/nimrtl.nim
 
 To link against nimrtl.dll use the command:
 	$ nim c -d:useNimRtl myprog.nim
+
+XPLM_Test.nim and CommViewer.nim were tested on Linux. The plugin was looking for
+XPWidgets_64.so and XPLM_64.so in the default lib location (/usr/lib) and I had
+to set LD_LIBRARY_PATH to X-Plane's plugin folder.
+
+TODO:
+- set the proper search path for XPLM_64.so and XPWidgets_64.so.
+- review the wrapper parameters against the c function prototypes and delete
+  the prototype comments when validated
