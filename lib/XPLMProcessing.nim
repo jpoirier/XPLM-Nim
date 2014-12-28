@@ -35,17 +35,12 @@ const
      # Your callback runs after X-Plane integrates the flight model.
      xplm_FlightLoop_Phase_AfterFlightModel* = 1
 
-# typedef int XPLMFlightLoopPhaseType;
-#
 type
      XPLMFlightLoopPhaseType* = cint
 
 # XPLMFlightLoopID is an opaque identifier for a flight loop callback.  You can
 # use this identifier to easily track and remove your callbacks, or to use the
 # new flight loop APIs.
-#
-# typedef void * XPLMFlightLoopID;
-#
 type
      XPLMFlightLoopID* = pointer
 
@@ -67,12 +62,6 @@ type
 # inactive.
 #
 # The reference constant you passed to your loop is passed back to you.
-#
-# typedef float (*XPLMFlightLoop_f)(float inElapsedSinceLastCall,
-#                                    float inElapsedTimeSinceLastFlightLoop,
-#                                    int inCounter,
-#                                    void* inRefcon);
-#
 type
     XPLMFlightLoop_f* = proc (inElapsedSinceLastCall: cfloat,
                               inElapsedTimeSinceLastFlightLoop: cfloat,
@@ -82,34 +71,20 @@ type
 # XPLMCreateFlightLoop_t contains the parameters to create a new flight loop
 # callback.  The strsucture can be expanded in future SDKs - always set
 # structSize to the size of your structure in bytes.
-#
-# typedef struct {
-#      int                       structSize;
-#      XPLMFlightLoopPhaseType   phase;
-#      XPLMFlightLoop_f          callbackFunc;
-#      void *                    refcon;
-# } XPLMCreateFlightLoop_t;
-#
 type
     PXPLMCreateFlightLoop_t* = ptr XPLMCreateFlightLoop_t
     XPLMCreateFlightLoop_t*{.final.} = object
-        structSize: cint
-        phase: XPLMFlightLoopPhaseType
-        callbackFunc: XPLMFlightLoop_f
-        refcon: pointer
+        structSize*: cint
+        phase*: XPLMFlightLoopPhaseType
+        callbackFunc*: XPLMFlightLoop_f
+        refcon*: pointer
 
 # XPLMGetElapsedTime returns the elapsed time since the sim started up in
 # decimal seconds.
-#
-# XPLM_API float XPLMGetElapsedTime(void);
-#
 proc XPLMGetElapsedTime*(): cfloat {.cdecl, importc: "XPLMGetElapsedTime", dynlib: xplm_lib}
 
 # XPLMGetCycleNumber returns a counter starting at zero for each sim cycle
 # computed/video frame rendered.
-#
-# XPLM_API int XPLMGetCycleNumber(void);
-#
 proc XPLMGetCycleNumber*(): cint {.cdecl, importc: "XPLMGetCycleNumber", dynlib: xplm_lib}
 
 # XPLMRegisterFlightLoopCallback registers your flight loop callback.  Pass in
@@ -118,11 +93,6 @@ proc XPLMGetCycleNumber*(): cint {.cdecl, importc: "XPLMGetCycleNumber", dynlib:
 # registration time to the next callback. Pass in a negative number to indicate
 # when you will be called (e.g. pass -1 to be called at the next cylcle).
 # Pass 0 to not be called; your callback will be inactive.
-#
-# XPLM_API void XPLMRegisterFlightLoopCallback(XPLMFlightLoop_f inFlightLoop,
-#                                              float inInterval,
-#                                              void* inRefcon);
-#
 proc XPLMRegisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
                                      inInterval: cfloat,
                                      inRefcon: pointer) {.cdecl, importc: "XPLMRegisterFlightLoopCallback", dynlib: xplm_lib}
@@ -130,10 +100,6 @@ proc XPLMRegisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
 # XPLMUnregisterFlightLoopCallback unregisters your flight loop callback. Do NOT
 # call it from your flight loop callback. Once your flight loop callback is
 # unregistered, it will not be called again.
-#
-# XPLM_API void XPLMUnregisterFlightLoopCallback(XPLMFlightLoop_f inFlightLoop,
-#                                                void* inRefcon);
-#
 proc XPLMUnregisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
                                        inRefcon: pointer) {.cdecl, importc: "XPLMUnregisterFlightLoopCallback", dynlib: xplm_lib}
 
@@ -146,12 +112,6 @@ proc XPLMUnregisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
 # callback.  If  inRelativeToNow is 1, times are from the time of this call;
 # otherwise they are from the time the callback was last called (or the time
 # it was registered if it has never been called.
-#
-# XPLM_API void XPLMSetFlightLoopCallbackInterval(XPLMFlightLoop_f inFlightLoop,
-#                                                 float inInterval,
-#                                                 int inRelativeToNow,
-#                                                 void * inRefcon);
-#
 proc XPLMSetFlightLoopCallbackInterval*(inFlightLoop: XPLMFlightLoop_f,
                                         inInterval: cfloat,
                                         inRelativeToNow: cint,
@@ -160,15 +120,9 @@ proc XPLMSetFlightLoopCallbackInterval*(inFlightLoop: XPLMFlightLoop_f,
 # XPLMCreateFlightLoop creates a flight loop callback and returns its ID. The flight
 # loop callback is created using the input param struct, and is inited to be
 # unscheduled.
-#
-# XPLM_API XPLMFlightLoopID XPLMCreateFlightLoop(XPLMCreateFlightLoop_t* inParams);
-#
 proc XPLMCreateFlightLoop*(inParams: PXPLMCreateFlightLoop_t): XPLMFlightLoopID {.cdecl, importc: "XPLMCreateFlightLoop", dynlib: xplm_lib}
 
 # XPLMDestroyFlightLoop destroys a flight loop callback by ID.
-#
-# XPLM_API void XPLMDestroyFlightLoop(XPLMFlightLoopID inFlightLoopID);
-#
 proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID) {.cdecl, importc: "XPLMDestroyFlightLoop", dynlib: xplm_lib}
 
 # XPLMScheduleFlightLoop schedules a flight loop callback for future execution.
@@ -200,11 +154,6 @@ proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID) {.cdecl, importc: 
 #
 # 4. The object must be unscheduled if this routine is to be called from a
 # thread other than the main thread.
-#
-# XPLM_API void XPLMScheduleFlightLoop(XPLMFlightLoopID inFlightLoopID,
-#                                      float inInterval,
-#                                      int inRelativeToNow);
-#
 proc XPLMScheduleFlightLoop*(inFlightLoopID: XPLMFlightLoopID,
                              inInterval: cfloat,
                              inRelativeToNow: cint) {.cdecl, importc: "XPLMScheduleFlightLoop", dynlib: xplm_lib}

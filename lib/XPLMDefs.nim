@@ -29,27 +29,18 @@
 #  XPLMUtiltiies.h
 #
 #  -1 indicates no plug-in.
-#
-# typedef int XPLMPluginID;
-#
 type
   XPLMPluginID* = cint
 
 # No plugin.
-# #define XPLM_NO_PLUGIN_ID    (-1)
-#
 const
   XPLM_NO_PLUGIN_ID* = -1
 
 # X-Plane itself
-# #define XPLM_PLUGIN_XPLANE   (0)
-#
 const
   XPLM_PLUGIN_XPLANE* = 0
 
 # The current XPLM revision is 2.10 (210).
-# #define kXPLM_Version        (210)
-#
 const
   kXPLM_Version* = 210
 
@@ -68,20 +59,6 @@ const
 #  necessarily match the Macintosh user interface guidelines.  There is not
 #  yet a way for plugins to access the Macintosh control keys without using
 #  #ifdefed code.
-#
-# enum {
-#      /* The shift key is down */
-#      xplm_ShiftFlag                           = 1
-#      /* The option or alt key is down */
-#     ,xplm_OptionAltFlag                       = 2
-#      /* The control key is down* */
-#     ,xplm_ControlFlag                         = 4
-#      /* The key is being pressed down */
-#     ,xplm_DownFlag                            = 8
-#      /* The key is being released */
-#     ,xplm_UpFlag                              = 16
-# };
-#
 const
   xplm_ShiftFlag* = 1       # The shift key is down
   xplm_OptionAltFlag* = 2   # The option or alt key is down
@@ -89,8 +66,6 @@ const
   xplm_DownFlag* = 8        # The key is being pressed down
   xplm_UpFlag* = 16         # The key is being released
 
-# typedef int XPLMKeyFlags;
-#
 type
   XPLMKeyFlags* = cint
 
@@ -107,27 +82,6 @@ type
 #  punctuation; control key combinations may have no vaild ASCII and produce
 #  NULL.  To detect control-key combinations, use virtual key codes, not ASCII
 #  keys.
-#
-## define XPLM_KEY_RETURN      13
-## define XPLM_KEY_ESCAPE      27
-## define XPLM_KEY_TAB         9
-## define XPLM_KEY_DELETE      8
-## define XPLM_KEY_LEFT        28
-## define XPLM_KEY_RIGHT       29
-## define XPLM_KEY_UP          30
-## define XPLM_KEY_DOWN        31
-## define XPLM_KEY_0           48
-## define XPLM_KEY_1           49
-## define XPLM_KEY_2           50
-## define XPLM_KEY_3           51
-## define XPLM_KEY_4           52
-## define XPLM_KEY_5           53
-## define XPLM_KEY_6           54
-## define XPLM_KEY_7           55
-## define XPLM_KEY_8           56
-## define XPLM_KEY_9           57
-## define XPLM_KEY_DECIMAL     46
-#
 const
   XPLM_KEY_RETURN* = 13
   XPLM_KEY_ESCAPE* = 27
@@ -178,8 +132,6 @@ const
 #
 #  3. Do not assume that the values of these keystrokes are interchangeable
 #  with MS v-keys.
-#
-#
 const
   XPLM_VK_BACK* = 0x00000008
   XPLM_VK_TAB* = 0x00000009

@@ -64,38 +64,21 @@ import XPWidgetDefs
 # yet. If the container index is NO_PARENT, the parent widget is specified as
 # NULL. If the container index is PARAM_PARENT, the widget passed into
 # XPUCreateWidgets is used.
-#
-# typedef struct {
-#      int                       left;
-#      int                       top;
-#      int                       right;
-#      int                       bottom;
-#      int                       visible;
-#      const char *              descriptor;
-#      int                       isRoot;
-#      int                       containerIndex;
-#      XPWidgetClass             widgetClass;
-# } XPWidgetCreate_t;
-#
 type
     PXPWidgetCreate_t* = ptr XPWidgetCreate_t
     XPWidgetCreate_t*{.final.} = object
-        left: cint
-        top: cint
-        right: cint
-        bottom: cint
-        visible: cint
-        descriptor: cstring
-        isRoot: cint
-        containerIndex: cint
-        widgetClass: XPWidgetClass
+        left*: cint
+        top*: cint
+        right*: cint
+        bottom*: cint
+        visible*: cint
+        descriptor*: cstring
+        isRoot*: cint
+        containerIndex*: cint
+        widgetClass*: XPWidgetClass
 
-##define NO_PARENT -1
 const
     NO_PARENT* = -1
-
-##define PARAM_PARENT -2
-const
     PARAM_PARENT* = -2
 
 ##define WIDGET_COUNT(x)	((sizeof(x) / sizeof(XPWidgetCreate_t)))
@@ -112,11 +95,6 @@ const
 # You can also pass in a widget ID that will be used when the widget's parent
 # is listed as PARAM_PARENT; this allows you to embed widgets created with
 # XPUCreateWidgets in a widget created previously.
-#
-# WIDGET_API void XPUCreateWidgets(const XPWidgetCreate_t* inWidgetDefs,
-#                                  int inCount,
-#                                  XPWidgetID inParamParent,
-#                                  XPWidgetID* ioWidgets);
 proc XPUCreateWidgets*(inWidgetDefs: ptr XPWidgetCreate_t,
                        inCount: cint,
                        inParamParent: XPWidgetID,
@@ -124,11 +102,6 @@ proc XPUCreateWidgets*(inWidgetDefs: ptr XPWidgetCreate_t,
 
 # XPUMoveWidgetBy simply moves a widget by an amount, +x = right, +y=up,
 # without resizing the widget.
-#
-# WIDGET_API void XPUMoveWidgetBy(XPWidgetID inWidget,
-#                                 int inDeltaX,
-#                                 int inDeltaY);
-#
 proc XPUMoveWidgetBy*(inWidget: XPWidgetID, inDeltaX: cint, inDeltaY: cint) {.cdecl, importc: "XPUMoveWidgetBy", dynlib: xpwidgets_lib}
 
 #******************************************************************************
@@ -143,12 +116,6 @@ proc XPUMoveWidgetBy*(inWidget: XPWidgetID, inDeltaX: cint, inDeltaY: cint) {.cd
 # XPUFixedLayout causes the widget to maintain its children in fixed position
 # relative to itself as it is resized.  Use this on the top level 'window'
 # widget for your window.
-#
-# WIDGET_API int XPUFixedLayout(XPWidgetMessage inMessage,
-#                               XPWidgetID inWidget,
-#                               intptr_t inParam1,
-#                               intptr_t inParam2);
-#
 proc XPUFixedLayout*(inMessage: XPWidgetMessage,
                      inWidget: XPWidgetID,
                      inParam1: ptr cint,
@@ -166,13 +133,6 @@ proc XPUFixedLayout*(inMessage: XPWidgetMessage,
 # XPUSelectIfNeeded causes the widget to bring its window to the foreground if
 # it is not already. inEatClick specifies whether clicks in the background should
 # be consumed by bringin the window to the foreground.
-#
-# WIDGET_API int XPUSelectIfNeeded(XPWidgetMessage inMessage,
-#                                  XPWidgetID inWidget,
-#                                  intptr_t inParam1,
-#                                  intptr_t inParam2,
-#                                  int inEatClick);
-#
 proc XPUSelectIfNeeded*(inMessage: XPWidgetMessage,
                         inWidget: XPWidgetID,
                         inParam1: ptr cint,
@@ -181,14 +141,6 @@ proc XPUSelectIfNeeded*(inMessage: XPWidgetMessage,
 
 # XPUDefocusKeyboard causes a click in the widget to send keyboard focus back
 # to X-Plane. This stops editing of any text fields, etc.
-#
-#
-# WIDGET_API int XPUDefocusKeyboard(XPWidgetMessage inMessage,
-#                                    XPWidgetID inWidget,
-#                                    intptr_t inParam1,
-#                                    intptr_t inParam2,
-#                                    int inEatClick);
-#
 proc XPUDefocusKeyboard*(inMessage: XPWidgetMessage,
                          inWidget: XPWidgetID,
                          inParam1: ptr cint,
@@ -198,17 +150,6 @@ proc XPUDefocusKeyboard*(inMessage: XPWidgetMessage,
 # XPUDragWidget drags the widget in response to mouse clicks.  Pass in not
 # only the event, but the global coordinates of the drag region, which might
 # be a sub-region of your widget (for example, a title bar).
-#
-#
-# WIDGET_API int XPUDragWidget(XPWidgetMessage inMessage,
-#                                    XPWidgetID inWidget,
-#                                    intptr_t inParam1,
-#                                    intptr_t inParam2,
-#                                    int inLeft,
-#                                    int inTop,
-#                                    int inRight,
-#                                    int inBottom);
-#
 proc XPUDragWidget*(inMessage: XPWidgetMessage,
                     inWidget: XPWidgetID,
                     inParam1: ptr cint,

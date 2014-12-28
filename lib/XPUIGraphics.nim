@@ -50,8 +50,6 @@ const
     # A list view within a panel for scrolling file names, etc.
     xpWindow_ListView* = 5
 
-#typedef int XPWindowStyle;
-#
 type
     XPWindowStyle* = cint
 
@@ -59,13 +57,6 @@ type
 # the virtual screen in a given style.  The window is automatically scaled as
 # appropriate using a bitmap scaling technique (scaling or repeating) as
 # appropriate to the style.
-#
-# WIDGET_API void XPDrawWindow(int inX1,
-#                              int inY1,
-#                              int inX2,
-#                              int inY2,
-#                              XPWindowStyle inStyle);
-#
 proc XPDrawWindow*(inX1: cint,
                    inY1: cint,
                    inX2: cint,
@@ -74,12 +65,7 @@ proc XPDrawWindow*(inX1: cint,
 
 # XPGetWindowDefaultDimensions returns the default dimensions for a window.
 # Output is either a minimum or fixed value depending on whether the window
-# is scalable.
-#
-# WIDGET_API void XPGetWindowDefaultDimensions(XPWindowStyle inStyle,
-#                                              int* outWidth,    /* Can be NULL */
-#                                              int* outHeight);    /* Can be NULL */
-#
+# is scalable. Note, outWidth and outHeight can be NULL.
 proc XPGetWindowDefaultDimensions*(inStyle: XPWindowStyle,
                                    outWidth: ptr cint,
                                    outHeight: ptr cint) {.cdecl, importc: "XPGetWindowDefaultDimensions", dynlib: xpwidgets_lib}
@@ -205,8 +191,6 @@ const
     # none					metal
     xpElement_WindowDragBarSmooth* = 62
 
-
-# typedef int XPElementStyle;
 type
     XPElementStyle* = cint
 
@@ -215,14 +199,6 @@ type
 # the width and height do not match the preferred dimensions; it'll just look
 # ugly.  Pass inLit to see the lit version of the element; if the element
 # cannot be lit this is ignored.
-#
-# WIDGET_API void XPDrawElement(int inX1,
-#                               int inY1,
-#                               int inX2,
-#                               int inY2,
-#                               XPElementStyle inStyle,
-#                               int inLit);
-#
 proc XPDrawElement*(inX1: cint,
                     inY1: cint,
                     inX2: cint,
@@ -232,12 +208,7 @@ proc XPDrawElement*(inX1: cint,
 # XPGetElementDefaultDimensions returns the recommended or minimum dimensions
 # of a given UI element. outCanBeLit tells whether the element has both a lit
 # and unlit state.  Pass NULL to not receive any of these parameters.
-#
-# WIDGET_API void XPGetElementDefaultDimensions(XPElementStyle inStyle,
-#                                               int* outWidth,    /* Can be NULL */
-#                                               int* outHeight,    /* Can be NULL */
-#                                               int* outCanBeLit);    /* Can be NULL */
-#
+# Note, outWidth, outHeight, and outCanBeLit can be NULL.
 proc XPGetElementDefaultDimensions*(inStyle: XPElementStyle,
                                     outWidth: ptr cint,
                                     outHeight: ptr cint,
@@ -267,8 +238,6 @@ const
     # over metal		cannot be lit	cannot be rotated
     xpTrack_Progress* = 2
 
-
-# typedef int XPTrackStyle;
 type
     XPTrackStyle* = cint
 
@@ -277,17 +246,6 @@ type
 # track's minimum current and maximum values; the indicator will be
 # positioned appropriately.  You can also specify whether the track is lit or
 # not.
-#
-# WIDGET_API void XPDrawTrack(int inX1,
-#                             int inY1,
-#                             int inX2,
-#                             int inY2,
-#                             int inMin,
-#                             int inMax,
-#                             int inValue,
-#                             XPTrackStyle inTrackStyle,
-#                             int inLit);
-#
 proc XPDrawTrack*(inX1: cint,
                   inY1: cint,
                   inX2: cint,
@@ -300,11 +258,6 @@ proc XPDrawTrack*(inX1: cint,
 # XPGetTrackDefaultDimensions returns a track's default smaller dimension; all
 # tracks are scalable in the larger dimension.  It also returns whether a track
 # can be lit.
-#
-# WIDGET_API void XPGetTrackDefaultDimensions(XPTrackStyle inStyle,
-#                                             int* outWidth,
-#                                             int* outCanBeLit);
-#
 proc XPGetTrackDefaultDimensions*(inStyle: XPTrackStyle,
                                   outWidth: ptr cint,
                                   outCanBeLit: ptr cint) {.cdecl, importc: "XPGetTrackDefaultDimensions", dynlib: xpwidgets_lib}
@@ -321,22 +274,6 @@ proc XPGetTrackDefaultDimensions*(inStyle: XPTrackStyle,
 # scrollbar, which are the down button, down area (area before the thumb),
 # the thumb, and the up area and button.  For horizontal scrollers, the left
 # button decreases; for vertical scrollers, the top button decreases.
-#
-# WIDGET_API void XPGetTrackMetrics(int inX1,
-#                                   int inY1,
-#                                   int inX2,
-#                                   int inY2,
-#                                   int inMin,
-#                                   int inMax,
-#                                   int inValue,
-#                                   XPTrackStyle inTrackStyle,
-#                                   int* outIsVertical,
-#                                   int* outDownBtnSize,
-#                                   int* outDownPageSize,
-#                                   int* outThumbSize,
-#                                   int* outUpPageSize,
-#                                   int* outUpBtnSize);
-#
 proc XPGetTrackMetrics*(inX1: cint,
                         inY1: cint,
                         inX2: cint,

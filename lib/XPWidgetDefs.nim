@@ -18,9 +18,6 @@
 # Use 0 to specify "no widget".  This type is defined as wide enough to hold
 # a pointer.  You receive a widget ID when you create a new widget and then
 # use that widget ID to further refer to the widget.
-#
-# typedef void * XPWidgetID;
-#
 type
     XPWidgetID* = pointer
 
@@ -68,8 +65,6 @@ const
     # 1100 - 1199 for widget class 1, etc.
     xpProperty_UserStart* = 10000
 
-
-#typedef int XPWidgetPropertyID;
 type
   XPWidgetPropertyID* = cint
 
@@ -78,69 +73,36 @@ type
 #
 # When the mouse is clicked or dragged, a pointer to this structure is passed
 # to your widget function.
-#
-# typedef struct {
-#      int                       x;
-#      int                       y;
-#      /* Mouse Button number, left = 0 (right button not yet supported. */
-#      int                       button;
-# #if defined(XPLM200)
-#      /* Scroll wheel delta (button in this case would be the wheel axis number). */
-#      int                       delta;
-# #endif /* XPLM200 */
-# } XPMouseState_t;
-#
 type
     PXPMouseState_t* = ptr XPMouseState_t
     XPMouseState_t*{.final.} = object
-        x: cint
-        y: cint
-        button: cint
-        delta: cint
+        x*: cint
+        y*: cint
+        button*: cint
+        delta*: cint
 
 # XPKeyState_t
 #
 # When a key is pressed, a pointer to this struct is passed to your widget
 # function.
-#
-# typedef struct {
-#      /* The ASCII key that was pressed.  WARNING: this may be 0 for some non-ASCII  *
-#       * key sequences.                                                              */
-#      char                      key;
-#      /* The flags.  Make sure to check this if you only want key-downs!             */
-#      XPLMKeyFlags              flags;
-#      /* The virtual key code for the key                                            */
-#      char                      vkey;
-# } XPKeyState_t;
-#
 type
     PXPKeyState_t* = ptr XPKeyState_t
     XPKeyState_t*{.final.} = object
-        key: cchar
-        flags: cchar
-        vkey: cchar
+        key*: cchar
+        flags*: cint
+        vkey*: cchar
 
 # XPWidgetGeometryChange_t
 #
 # This structure contains the deltas for your widget's geometry when it
 # changes.
-#
-#
-# typedef struct {
-#      int                       dx;
-#      /* +Y = the widget moved up */
-#      int                       dy;
-#      int                       dwidth;
-#      int                       dheight;
-# } XPWidgetGeometryChange_t;
-#
 type
     PXPWidgetGeometryChange_t* = ptr XPWidgetGeometryChange_t
     XPWidgetGeometryChange_t*{.final.} = object
-        dx: cint
-        dy: cint
-        dwidth: cint
-        dheight: cint
+        dx*: cint
+        dy*: cint
+        dwidth*: cint
+        dheight*: cint
 
 
 # XPDispatchMode
@@ -169,24 +131,19 @@ const
     # functions.
     xpMode_Once* = 4
 
-#typedef int XPDispatchMode;
 type
     XPDispatchMode* = cint
-
 
 # XPWidgetClass
 #
 # Widget classes define predefined widget types.  A widget class basically
 # specifies from a library the widget function to be used for the widget.
 # Most widgets can be made right from classes.
-#
-# typedef int XPWidgetClass;
 type
     XPWidgetClass* = cint
 
 # An unspecified widget class.  Other widget classes are in
 # XPStandardWidgets.h
-##define xpWidgetClass_None   0
 const
     xpWidgetClass_None* = 0
 
@@ -404,7 +361,6 @@ const
     # for widget class 1, etc.  Message IDs 10,000 and beyond are for plugin use.
     xpMsg_UserStart* = 10000
 
-#typedef int XPWidgetMessage;
 type
     XPWidgetMessage* = cint
 
@@ -418,12 +374,6 @@ type
 # meaning varies with the message.  Return 1 to indicate that you have
 # processed the message, 0 to indicate that you have not.  For any message
 # that is not understood, return 0.
-#
-# typedef int (*XPWidgetFunc_t)(XPWidgetMessage inMessage,
-#                               XPWidgetID inWidget,
-#                               intptr_t inParam1,
-#                               intptr_t inParam2);
-#
 type
     XPWidgetFunc_t* = proc (inMessage: XPWidgetMessage,
                             inWidget: XPWidgetID,

@@ -33,7 +33,6 @@ import XPWidgetDefs
 const
     xpWidgetClass_MainWindow* = 1
 
-
 # Main Window Type Values
 #
 # These type values are used to control the appearance of a main window.
@@ -44,7 +43,6 @@ const
 
     # A translucent dark gray window, like the one ATC messages appear in.
     xpMainWindowStyle_Translucent* = 1
-
 
 # Main Window Properties
 #
@@ -57,7 +55,6 @@ const
     # This property specifies whether the main window has close boxes in its
     # corners.
     xpProperty_MainWindowHasCloseBoxes* = 1200
-
 
 # MainWindow Messages
 #
@@ -75,10 +72,8 @@ const
 # allow you to make these areas. Create one main window and place several
 # subwindows inside it.  Then place your controls inside the subwindows.
 #
-
 const
     xpWidgetClass_SubWindow* = 2
-
 
 # SubWindow Type Values
 #
@@ -93,8 +88,6 @@ const
 
     # A list view for scrolling lists.
     xpSubWindowStyle_ListView* = 3
-
-
 
 # SubWindow Properties
 #
@@ -126,10 +119,8 @@ const
 # will provide the correct graphic (check box or radio button) giving the
 # expected result.
 #
-
 const
     xpWidgetClass_Button* = 3
-
 
 # Button Types
 #
@@ -154,8 +145,6 @@ const
     # A small up arrow.
     xpLittleUpArrow* = 6
 
-
-
 # Button Behavior Values
 #
 # These define how the button responds to mouse clicks.
@@ -176,8 +165,6 @@ const
     # one.  You must turn off other radio buttons in a group in your code.
     xpButtonBehaviorRadioButton* = 2
 
-
-
 # Button Properties
 #
 #
@@ -193,8 +180,6 @@ const
     # This property tells whether a check box or radio button is "checked" or
     # not.  Not used for push buttons.
     xpProperty_ButtonState* = 1302
-
-
 
 # Button Messages
 #
@@ -217,8 +202,6 @@ const
     # zero or one.  This message is dispatched up the widget hierarchy.
     xpMsg_ButtonStateChanged* = 1301
 
-
-
 #******************************************************************************
 # TEXT FIELD
 # *****************************************************************************
@@ -239,11 +222,9 @@ const
 # crash x-plane.  To prevent this, wrap this object with a filter function
 # (more instructions can be found on the SDK website).
 #
-
 const
     xpWidgetClass_TextField* = 4
 
-#
 # Text Field Type Values
 #
 # These control the look of the text field.
@@ -259,7 +240,6 @@ const
 
     # A translucent edit field, dark gray.
     xpTextTranslucent* = 4
-
 
 # Text Field Properties
 #
@@ -298,8 +278,6 @@ const
     # This is the active side of the insert selection.  (Internal)
     xpProperty_ActiveEditSide* = 1408
 
-
-
 # Text Field Messages
 #
 #
@@ -310,7 +288,6 @@ const
     # sends the message up the call chain; param1 is the text field's widget ID.
     xpMsg_TextFieldChanged* = 1400
 
-
 #******************************************************************************
 # SCROLL BAR
 # *****************************************************************************
@@ -319,8 +296,9 @@ const
 # maximum and current value that is updated when the user drags it.  The
 # scroll bar sends continuous messages as it is dragged.
 #
-
-#define xpWidgetClass_ScrollBar 5
+#
+const
+    xpWidgetClass_ScrollBar* = 5
 
 # Scroll Bar Type Values
 #
@@ -334,8 +312,6 @@ const
 
     # A slider, no arrows.
     xpScrollBarTypeSlider* = 1
-
-
 
 # Scroll Bar Properties
 #
@@ -360,7 +336,6 @@ const
     # Used internally.
     xpProperty_ScrollBarSlop* = 1505
 
-
 # Scroll Bar Messages
 #
 #
@@ -368,8 +343,6 @@ const
     # The Scroll Bar sends this message when the slider position changes.  It
     # sends the message up the call chain; param1 is the Scroll Bar widget ID.
     xpMsg_ScrollBarSliderPositionChanged* = 1500
-
-
 
 #******************************************************************************
 # CAPTION
@@ -379,10 +352,8 @@ const
 # for labeling parts of a window.  It always shows its descriptor as its
 # string and is otherwise transparent.
 #
-
 const
     xpWidgetClass_Caption* = 6
-
 
 # Caption Properties
 #
@@ -396,14 +367,11 @@ const
 #******************************************************************************
 # GENERAL GRAPHICS
 # *****************************************************************************
-
 # The general graphics widget can show one of many icons available from
 # x-plane.
 #
-
 const
     xpWidgetClass_GeneralGraphics* = 7
-
 
 # General Graphics Types Values
 #
@@ -430,7 +398,6 @@ const
     xpOilPlatformSmall* = 22
     xpWayPoint* = 23
 
-
 # General Graphics Properties
 #
 #
@@ -438,14 +405,12 @@ const
     # This property controls the type of icon that is drawn.
     xpProperty_GeneralGraphicsType* = 1700
 
-
 #**************************************************************************
 # PROGRESS INDICATOR
 #**************************************************************************/
 #
 # This widget implements a progress indicator as seen when x-plane starts up.
 #
-
 const
     xpWidgetClass_Progress* = 8
 

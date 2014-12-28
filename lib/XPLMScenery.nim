@@ -52,12 +52,9 @@ const
      # the Y axis going through the queried point.
      xplm_ProbeY* = 0
 
-# typedef int XPLMProbeType;
-#
 type
      XPLMProbeType* = cint
 
-##
 # XPLMProbeResult
 #
 # Probe results - possible results from a probe query.
@@ -74,88 +71,52 @@ const
      # it is off the side of the planet?)
     xplm_ProbeMissed* = 2
 
-# typedef int XPLMProbeResult;
-#
 type
      XPLMProbeResult* = cint
 
 # An XPLMProbeRef is an opaque handle to a probe, used for querying the
 # terrain.
-#
-# typedef void * XPLMProbeRef;
-#
 type
      XPLMProbeRef* = pointer
 
 # XPLMProbeInfo_t contains the results of a probe call.  Make sure to set
 # structSize to the size of the struct before using it.
-#
-# typedef struct {
-#      # Size of structure in bytes - always set this before calling the XPLM.
-#      int structSize;
-#      # Resulting X location of the terrain point we hit, in local OpenGL
-#      # coordinates.
-#      float locationX;
-#      # Resulting Y location of the terrain point we hit, in local OpenGL
-#      # coordinates.
-#      float locationY;
-#      # Resulting Z location of the terrain point we hit, in local OpenGL
-#      # coordinates.
-#      float locationZ;
-#      # X component of the normal vector to the terrain we found.
-#      float normalX;
-#      # Y component of the normal vector to the terrain we found.
-#      float normalY;
-#      # Z component of the normal vector to the terrain we found.
-#      float normalZ;
-#      # X component of the velocity vector of the terrain we found.
-#      float velocityX;
-#      # Y component of the velocity vector of the terrain we found.
-#      float velocityY;
-#      # Z component of the velocity vector of the terrain we found.
-#      float velocityZ;
-#      # Tells if the surface we hit is water (otherwise it is land).
-#      int is_wet;
-# } XPLMProbeInfo_t;
-#
 type
     PXPLMProbeInfo_t* = ptr XPLMProbeInfo_t
     XPLMProbeInfo_t*{.final.} = object
+        # Size of structure in bytes - always set this before calling the XPLM.
         structSize: cint
+        # Resulting X location of the terrain point we hit, in local OpenGL coordinates.
         locationX: cfloat
+        # Resulting Y location of the terrain point we hit, in local OpenGL coordinates.
         locationY: cfloat
+        # Resulting Z location of the terrain point we hit, in local OpenGL coordinates.
         locationZ: cfloat
+        # X component of the normal vector to the terrain we found.
         normalX: cfloat
+        # Y component of the normal vector to the terrain we found.
         normalY: cfloat
+        # Z component of the normal vector to the terrain we found.
         normalZ: cfloat
+        # X component of the velocity vector of the terrain we found.
         velocityX: cfloat
+        # Y component of the velocity vector of the terrain we found.
         velocityY: cfloat
+        # Z component of the velocity vector of the terrain we found.
         velocityZ: cfloat
+        # Tells if the surface we hit is water (otherwise it is land).
         is_wet: cint
 
 # XPLMCreateProbe creates a new probe object of a given type and returns.
-#
-# XPLM_API XPLMProbeRef XPLMCreateProbe(XPLMProbeType inProbeType);
-#
 proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {.cdecl, importc: "XPLMCreateProbe", dynlib: xplm_lib}
 
 # XPLMDestroyProbe deallocates an existing probe object.
-#
-# XPLM_API void XPLMDestroyProbe(XPLMProbeRef inProbe);
-#
 proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {.cdecl, importc: "XPLMDestroyProbe", dynlib: xplm_lib}
 
 # XPLMProbeTerrainXYZ probes the terrain.  Pass in the XYZ coordinate of the
 # probe point, a probe object, and an XPLMProbeInfo_t struct that  has its
 # structSize member set properly.  Other fields are filled in if we hit terrain,
 # and a probe result is returned.
-#
-# XPLM_API XPLMProbeResult XPLMProbeTerrainXYZ(XPLMProbeRef inProbe,
-#                                              float inX,
-#                                              float inY,
-#                                              float inZ,
-#                                              XPLMProbeInfo_t * outInfo);
-#
 proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
                           inX: cfloat,
                           inY: cfloat,
@@ -174,42 +135,28 @@ proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
 
 # An XPLMObjectRef is a opaque handle to an .obj file that has been loaded
 # into memory.
-#
-# typedef void * XPLMObjectRef;
-#
 type
      XPLMObjectRef* = pointer
 
 # The XPLMDrawInfo_t structure contains positioning info for one object that
 # is to be drawn. Be sure to set structSize to the size of the structure for
 # future expansion.
-#
-# typedef struct {
-#      # Set this to the size of this structure!
-#      int structSize;
-#      # X location of the object in local coordinates.
-#      float x;
-#      # Y location of the object in local coordinates.
-#      float y;
-#      # Z location of the object in local coordinates.
-#      float z;
-#      # Pitch in degres to rotate the object, positive is up.
-#      float pitch;
-#      # Heading in local coordinates to rotate the object, clockwise.
-#      float heading;
-#      # Roll to rotate the object.
-#      float roll;
-# } XPLMDrawInfo_t;
-#
 type
     PXPLMDrawInfo_t* = ptr XPLMDrawInfo_t
     XPLMDrawInfo_t*{.final.} = object
+        # Set this to the size of this structure!
         structSize: cint
+        # X location of the object in local coordinates.
         x: cfloat
+        # Y location of the object in local coordinates.
         y: cfloat
+        # Z location of the object in local coordinates.
         z: cfloat
+        # Pitch in degres to rotate the object, positive is up.
         pitch: cfloat
+        # Heading in local coordinates to rotate the object, clockwise.
         heading: cfloat
+        # Roll to rotate the object.
         roll: cfloat
 
 # XPLMObjectLoaded_f
@@ -222,9 +169,6 @@ type
 # If your plugin is disabled, this callback will be delivered as soon as the
 # plugin is re-enabled.  If your plugin is unloaded before this callback is
 # ever called, the SDK will release the object handle for you.
-#
-# typedef void (*XPLMObjectLoaded_f)(XPLMObjectRef inObject, void * inRefcon);
-#
 type
      XPLMObjectLoaded_f* = proc (inObject: XPLMObjectRef, inRefcon: pointer) {.cdecl.}
 
@@ -247,9 +191,6 @@ type
 # It is important that the datarefs an object uses for animation already be
 # loaded before you load the object.  For this reason it may be necessary to
 # defer object loading until the sim has fully started.
-#
-# XPLM_API XPLMObjectRef XPLMLoadObject(const char * inPath);
-#
 proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef {.cdecl, importc: "XPLMLoadObject", dynlib: xplm_lib}
 
 # XPLMLoadObjectAsync loads an object asynchronously; control is returned to you
@@ -264,11 +205,6 @@ proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef {.cdecl, importc: "XPLMLoad
 # There is no way to cancel an asynchronous object load; you must wait for
 # the load to complete and then release the object if it is no longer
 # desired.
-#
-# XPLM_API void XPLMLoadObjectAsync(const char * inPath,
-#                                    XPLMObjectLoaded_f inCallback,
-#                                    void * inRefcon);
-#
 proc XPLMLoadObjectAsync*(inPath: cstring,
                           inCallback: XPLMObjectLoaded_f,
                           inRefcon: pointer) {.cdecl, importc: "XPLMLoadObjectAsync", dynlib: xplm_lib}
@@ -292,13 +228,6 @@ proc XPLMLoadObjectAsync*(inPath: cstring,
 # from local coordanates -- that is, an object with no rotations is drawn
 # pointing down the -Z axis and the Y axis of the object matches the local
 # coordinate Y axis.
-#
-# XPLM_API void XPLMDrawObjects(XPLMObjectRef inObject,
-#                               int inCount,
-#                               XPLMDrawInfo_t * inLocations,
-#                               int lighting,
-#                               int earth_relative);
-#
 proc XPLMDrawObjects*(inObject: XPLMObjectRef,
                       inCount: cint,
                       inLocations: ptr XPLMDrawInfo_t,
@@ -309,9 +238,6 @@ proc XPLMDrawObjects*(inObject: XPLMObjectRef,
 # Objects are reference counted: once no plugins are using an object, it is
 # purged from memory.  Make sure to call XPLMUnloadObject once for each
 # successful call to XPLMLoadObject.
-#
-# XPLM_API void XPLMUnloadObject(XPLMObjectRef inObject);
-#
 proc XPLMUnloadObject*(inObject: XPLMObjectRef) {.cdecl, importc: "XPLMUnloadObject", dynlib: xplm_lib}
 
 #******************************************************************************
@@ -327,9 +253,6 @@ proc XPLMUnloadObject*(inObject: XPLMObjectRef) {.cdecl, importc: "XPLMUnloadObj
 # An XPLMLibraryEnumerator_f is a callback you provide that is called once
 # for each library element that is located. The returned paths will be
 # relative to the X-System folder.
-#
-# typedef void (*XPLMLibraryEnumerator_f)(const char* inFilePath, void* inRef);
-#
 type
      XPLMLibraryEnumerator_f* = proc (inFilePath: cstring, inRef: pointer) {.cdecl.}
 
@@ -342,13 +265,6 @@ type
 # be used.  The library system allows for scenery packages to only provide
 # objects to certain local locations.  Only objects that are allowed at the
 # latitude/longitude you provide will be returned.
-#
-# XPLM_API int XPLMLookupObjects(const char* inPath,
-#                                float inLatitude,
-#                                float inLongitude,
-#                                XPLMLibraryEnumerator_f enumerator,
-#                                void * ref);
-#
 proc XPLMLookupObjects*(inPath: cstring,
                         inLatitude: cfloat,
                         inLongitude: cfloat,

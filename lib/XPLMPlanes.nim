@@ -20,16 +20,10 @@ import XPLMDefs
 # XPLMSetUsersAircraft changes the user's aircraft.  Note that this will reinitialize
 # the user to be on the nearest airport's first runway.  Pass in a full path
 # (hard drive and everything including the .acf extension) to the .acf file.
-#
-# XPLM_API void XPLMSetUsersAircraft(const char* inAircraftPath);
-#
 proc XPLMSetUsersAircraft*(inAircraftPath: cstring) {.cdecl, importc: "XPLMSetUsersAircraft", dynlib: xplm_lib}
 
 # XPLMPlaceUserAtAirport places the user at a given airport.  Specify the
 # airport by its ICAO code (e.g. 'KBOS').
-#
-# XPLM_API void XPLMPlaceUserAtAirport(const char* inAirportCode);
-#
 proc XPLMPlaceUserAtAirport*(inAirportCode; cstring) {.cdecl, importc: "XPLMPlaceUserAtAirport", dynlib: xplm_lib}
 
 #******************************************************************************
@@ -37,8 +31,6 @@ proc XPLMPlaceUserAtAirport*(inAirportCode; cstring) {.cdecl, importc: "XPLMPlac
 # *****************************************************************************
 #
 # The user's aircraft is always index 0.
-##define XPLM_USER_AIRCRAFT   0
-#
 const
     XPLM_USER_AIRCRAFT* = 0
 
@@ -54,57 +46,37 @@ const
 # plane has commanded (post artificial stability system if there were one)
 # and affects aelerons, rudder, etc.  It is not  necessarily related to the
 # actual position of the plane!
-#
-# typedef struct {
-#      # The size of the draw state struct.
-#      int structSize;
-#      # A ratio from [0..1] describing how far the landing gear is extended.
-#      float gearPosition;
-#      # Ratio of flap deployment, 0 = up, 1 = full deploy.
-#      float flapRatio;
-#      # Ratio of spoiler deployment, 0 = none, 1 = full deploy.
-#      float spoilerRatio;
-#      # Ratio of speed brake deployment, 0 = none, 1 = full deploy.
-#      float speedBrakeRatio;
-#      # Ratio of slat deployment, 0 = none, 1 = full deploy.
-#      float slatRatio;
-#      # Wing sweep ratio, 0 = forward, 1 = swept.
-#      float wingSweep;
-#      # Thrust power, 0 = none, 1 = full fwd, -1 = full reverse.
-#      float thrust;
-#      # Total pitch input for this plane.
-#      float yokePitch;
-#      # Total Heading input for this plane.
-#      float yokeHeading;
-#      # Total Roll input for this plane.
-#      float yokeRoll;
-# } XPLMPlaneDrawState_t;
-#
 type
     PXPLMPlaneDrawState_t* = ptr XPLMPlaneDrawState_t
     XPLMPlaneDrawState_t*{.final.} = object
-      structSize: cint
-      gearPosition: cfloat
-      flapRatio: cfloat
-      spoilerRatio: cfloat
-      speedBrakeRatio: cfloat
-      slatRatio: cfloat
-      wingSweep: cfloat
-      thrust: cfloat
-      yokePitch: cfloat
-      yokeHeading: cfloat
-      yokeRoll: cfloat
+      # The size of the draw state struct.
+      structSize*: cint
+      # A ratio from [0..1] describing how far the landing gear is extended.
+      gearPosition*: cfloat
+      # Ratio of flap deployment, 0 = up, 1 = full deploy.
+      flapRatio*: cfloat
+      # Ratio of spoiler deployment, 0 = none, 1 = full deploy.
+      spoilerRatio*: cfloat
+      # Ratio of speed brake deployment, 0 = none, 1 = full deploy.
+      speedBrakeRatio*: cfloat
+      # Ratio of slat deployment, 0 = none, 1 = full deploy.
+      slatRatio*: cfloat
+      # Wing sweep ratio, 0 = forward, 1 = swept.
+      wingSweep*: cfloat
+      # Thrust power, 0 = none, 1 = full fwd, -1 = full reverse.
+      thrust*: cfloat
+      # Total pitch input for this plane.
+      yokePitch*: cfloat
+      # Total Heading input for this plane.
+      yokeHeading*: cfloat
+      # Total Roll input for this plane.
+      yokeRoll*: cfloat
 
 # XPLMCountAircraft returns the number of aircraft X-Plane is capable of having,
 # as well as the number of aircraft that are currently active.  These numbers
 # count the user's aircraft.  It can also return the plugin that is currently
 # controlling aircraft.  In X-Plane 7, this routine reflects the number of
 # aircraft the user has enabled in the rendering options window.
-#
-# XPLM_API void XPLMCountAircraft(int* outTotalAircraft,
-#                                 int* outActiveAircraft,
-#                                 XPLMPluginID* outController);
-#
 proc XPLMCountAircraft*(outTotalAircraft: cint,
                         outActiveAircraft: cint,
                         outController: ptr XPLMPluginID) {.cdecl, importc: "XPLMCountAircraft", dynlib: xplm_lib}
@@ -113,9 +85,6 @@ proc XPLMCountAircraft*(outTotalAircraft: cint,
 # Indices are zero based, with zero being the user's aircraft.  The file name
 # should be at least 256 chars in length; the path should be at least 512 chars
 # in length.
-#
-# XPLM_API void XPLMGetNthAircraftModel(int inIndex, char* outFileName, char* outPath);
-#
 proc XPLMGetNthAircraftModel*(inIndex: cint,
                               outFileName: cstring,
                               outPath: cstring) {.cdecl, importc: "XPLMGetNthAircraftModel", dynlib: xplm_lib}
@@ -133,9 +102,6 @@ proc XPLMGetNthAircraftModel*(inIndex: cint,
 # Your airplanes available callback is called when another plugin gives up
 # access to the multiplayer planes.  Use this to wait for access to
 # multiplayer.
-#
-# typedef void (*XPLMPlanesAvailable_f)(void* inRefcon);
-#
 type
     XPLMPlanesAvailable_f* = proc (inRefcon: pointer) {.cdecl.}
 
@@ -148,44 +114,27 @@ type
 # a callback and do not receive access to the planes your callback will be
 # called when the airplanes are available. If you do receive airplane access,
 # your callback will not be called.
-#
-# XPLM_API int XPLMAcquirePlanes(char** inAircraft,    /* Can be NULL */
-#                                XPLMPlanesAvailable_f inCallback,
-#                                void* inRefcon);
-#
-proc XPLMAcquirePlanes*(inAircraft: ptr ptr cchar,
+proc XPLMAcquirePlanes*(inAircraft: ptr ptr cchar,  # Can be NULL
                         inCallback: XPLMPlanesAvailable_f,
                         inRefcon: pointer): cint {.cdecl, importc: "XPLMAcquirePlanes", dynlib: xplm_lib}
 
 # XPLMReleasePlanes releases access to the planes.  Note that if you are
 # disabled, access to planes is released for you and you must reacquire it.
-#
-# XPLM_API void XPLMReleasePlanes(void);
-#
 proc XPLMReleasePlanes*() {.cdecl, importc: "XPLMReleasePlanes", dynlib: xplm_lib}
 
 # XPLMSetActiveAircraftCount sets the number of active planes.  If you pass in
 # a number higher than the total number of planes availables, only the total
 # number of planes available is actually used.
-#
-# XPLM_API void XPLMSetActiveAircraftCount(int inCount);
-#
 proc XPLMSetActiveAircraftCount*(inCount: cint) {.cdecl, importc: "XPLMSetActiveAircraftCount", dynlib: xplm_lib}
 
 # XPLMSetAircraftModel loads an aircraft model.  It may only be called if you
 # have exclusive access to the airplane APIs.  Pass in the path of the  model
 # with the .acf extension.  The index is zero based, but you  may not pass in 0
 # (use XPLMSetUsersAircraft to load the user's aircracft).
-#
-# XPLM_API void XPLMSetAircraftModel(int inIndex, const char* inAircraftPath);
-#
 proc XPLMSetAircraftModel*(inIndex: cint, inAircraftPath: cstring) {.cdecl, importc: "XPLMSetAircraftModel", dynlib: xplm_lib}
 
 # XPLMDisableAIForPlane turns off X-Plane's AI for a given plane.  The plane
 # will continue to draw and be a real plane in X-Plane, but will not  move itself.
-#
-# XPLM_API void XPLMDisableAIForPlane(int inPlaneIndex);
-#
 proc XPLMDisableAIForPlane*(inPlaneIndex: cint) {.cdecl, importc: "XPLMDisableAIForPlane", dynlib: xplm_lib}
 
 # XPLMDrawAircraft draws an aircraft.  It can only be called from a 3-d drawing
@@ -193,17 +142,6 @@ proc XPLMDisableAIForPlane*(inPlaneIndex: cint) {.cdecl, importc: "XPLMDisableAI
 # and the orientation of the plane.  A 1 for full drawing indicates that the
 # whole plane must be drawn; a 0 indicates you only need the nav lights
 # drawn. (This saves rendering time when planes are far away.)
-#
-# XPLM_API void XPLMDrawAircraft(int inPlaneIndex,
-#                                float inX,
-#                                float inY,
-#                                float inZ,
-#                                float inPitch,
-#                                float inRoll,
-#                                float inYaw,
-#                                int inFullDraw,
-#                                XPLMPlaneDrawState_t * inDrawStateInfo);
-#
 proc XPLMDrawAircraft*(inPlaneIndex: cint,
                        inX: cfloat,
                        inY: cfloat,
@@ -224,9 +162,6 @@ proc XPLMDrawAircraft*(inPlaneIndex: cint,
 # airport; use XPLMSetUsersAircraft to be compatible.  This routine is
 # provided to do special experimentation with flight models without resetting
 # flight.
-#
-# XPLM_API void XPLMReinitUsersPlane(void);
-#
 proc XPLMReinitUsersPlane*() {.cdecl, importc: "XPLMReinitUsersPlane", dynlib: xplm_lib}
 
 
