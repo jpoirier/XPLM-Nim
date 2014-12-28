@@ -100,6 +100,9 @@ var commviewer_color: array[3, float] = [1.0, 1.0, 1.0] # RGB White
 proc DrawWindowCallback(inWindowID: XPLMWindowID, inRefcon: pointer) {.exportc: "DrawWindowCallback", dynlib.} =
     var left, right, top, bottom: cint
 
+    if inWindowID != gCommWindow:
+        return
+
     # XXX: are inWindowIDs our XPLMCreateWindow return pointers
     XPLMGetWindowGeometry(inWindowID, addr(left), addr(top), addr(right), addr(bottom))
     XPLMDrawTranslucentDarkBox(left, top, right, bottom)
@@ -159,12 +162,16 @@ proc HandleKeyCallback(inWindowID: XPLMWindowID,
                        inVirtualKey: cchar,
                        inRefcon: pointer,
                        losingFocus: cint) {.exportc: "HandleKeyCallback", dynlib.} =
-    return
+    if inWindowID != gCommWindow:
+        return
 
 var com_changed: cint = COMMS_UNCHANGED
 var MouseDownX: cint
 var MouseDownY: cint
 proc HandleMouseCallback(inWindowID: XPLMWindowID, x: cint, y: cint, inMouse: XPLMMouseStatus, inRefcon: pointer): cint {.exportc: "HandleMouseCallback", dynlib.} =
+    if inWindowID != gCommWindow:
+        return IGNORED_EVENT
+
     case inMouse:
     of xplm_MouseDown:
         # if ((x >= gCommWinPosX+WINDOW_WIDTH-8) &&
@@ -214,9 +221,9 @@ proc HandleMouseCallback(inWindowID: XPLMWindowID, x: cint, y: cint, inMouse: XP
     return PROCESSED_EVENT
 
 proc FlightLoopCallback(inElapsedSinceLastCall: cfloat,
-                         inElapsedTimeSinceLastFlightLoop: cfloat,
-                         inCounter: cint,
-                         inRefcon: pointer): cfloat {.exportc: "FlightLoopCallback", dynlib.} =
+                        inElapsedTimeSinceLastFlightLoop: cfloat,
+                        inCounter: cint,
+                        inRefcon: pointer): cfloat {.exportc: "FlightLoopCallback", dynlib.} =
     # us: int, strongAdvice = false
     # proc GC_step*(100)
     if gPluginEnabled == false:
