@@ -30,5 +30,3 @@ to set LD_LIBRARY_PATH to X-Plane's plugin folder.
 
 TODO:
 - set the proper search path for XPLM_64.so and XPWidgets_64.so.
-- review the wrapper parameters against the c function prototypes and delete
-  the prototype comments when validated
