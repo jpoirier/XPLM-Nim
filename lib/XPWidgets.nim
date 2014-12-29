@@ -7,6 +7,7 @@ elif defined(macosx):
 else:
     const xpwidgets_lib = "XPWidgets_64.so"
 
+
 import XPWidgetDefs
 
 
@@ -368,4 +369,3 @@ proc XPAddWidgetCallback*(inWidget: XPWidgetID, inNewCallback: XPWidgetFunc_t) {
 # XPGetWidgetClassFunc, given a widget class, this function returns the
 # callbacks that power that widget class.
 proc XPGetWidgetClassFunc*(inWidgetClass: XPWidgetClass): XPWidgetFunc_t {.cdecl, importc: "XPUSelectIfXPGetWidgetClassFuncNeeded", dynlib: xpwidgets_lib}
-

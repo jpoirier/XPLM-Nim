@@ -7,7 +7,9 @@ elif defined(macosx):
 else:
     const xplm_lib = "XPLM_64.so"
 
+
 import XPLMDefs
+
 
 #******************************************************************************
 # XPLM Display APIs - THEORY OF OPERATION

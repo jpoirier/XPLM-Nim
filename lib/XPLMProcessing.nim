@@ -1,13 +1,15 @@
 # See license.txt for usage.
 
 when defined(windows):
-    const xplm_lib = "XPLM_64.dll"
+    const xplm_libx = "XPLM_64.dll"
 elif defined(macosx):
     const xplm_lib = "XPLM_64.dylib"
 else:
     const xplm_lib = "XPLM_64.so"
 
+
 import XPLMDefs
+
 
 # This API allows you to get regular callbacks during the flight loop, the
 # part of X-Plane where the plane's position calculates the physics of

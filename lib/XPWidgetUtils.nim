@@ -7,7 +7,9 @@ elif defined(macosx):
 else:
     const xpwidgets_lib = "XPWidgets_64.so"
 
+
 import XPWidgetDefs
+
 
 # XPWidgetUtils - USAGE NOTES
 #

@@ -1,13 +1,15 @@
 # See license.txt for usage.
 
 when defined(windows):
-    const xplm_lib = "XPLM_64.dll"
+    const xplm_libx = "XPLM_64.dll"
 elif defined(macosx):
     const xplm_lib = "XPLM_64.dylib"
 else:
     const xplm_lib = "XPLM_64.so"
 
+
 import XPLMDefs
+
 
 # These APIs provide facilities to find and work with other plugins and
 # manage other plugins.
