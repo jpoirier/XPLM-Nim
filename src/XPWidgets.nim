@@ -1,15 +1,15 @@
 # See license.txt for usage.
 
+
 when defined(windows):
-    const xpwidgets_lib = "./Resources/plugins/XPWidgets_64.dll"
+    const xpwidgets_lib* = "./Resources/plugins/XPWidgets_64.dll"
 elif defined(macosx):
-    const xpwidgets_lib = "./Resources/plugins/XPWidgets_64.dylib"
+    const xpwidgets_lib* = "./Resources/plugins/XPWidgets_64.dylib"
 else:
-    const xpwidgets_lib = "./Resources/plugins/XPWidgets_64.so"
+    const xpwidgets_lib* = "./Resources/plugins/XPWidgets_64.so"
 
 
 import XPWidgetDefs
-
 
 # WIDGETS - THEORY OF OPERATION AND NOTES
 #
