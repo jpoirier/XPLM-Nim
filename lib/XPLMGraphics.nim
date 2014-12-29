@@ -1,11 +1,11 @@
 # See license.txt for usage.
 
 when defined(windows):
-    const xplm_libx = "XPLM_64.dll"
+    const xplm_libx = "./Resources/plugins/XPLM_64.dll"
 elif defined(macosx):
-    const xplm_lib = "XPLM_64.dylib"
+    const xplm_lib = "./Resources/plugins/XPLM_64.dylib"
 else:
-    const xplm_lib = "XPLM_64.so"
+    const xplm_lib = "./Resources/plugins/XPLM_64.so"
 
 
 import XPLMDefs

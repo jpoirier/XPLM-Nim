@@ -96,7 +96,12 @@ proc CommandHandler(inCommand: XPLMCommandRef, inPhase: XPLMCommandPhase, inRefc
 
     return IGNORED_EVENT
 
-var commviewer_color: array[3, float] = [1.0, 1.0, 1.0] # RGB White
+# template `:-/`(x: expr): expr = cast[ptr type(x[0])](addr x)
+# RGB: White [1.0, 1.0, 1.0], Lime Green [0.0, 1.0, 0.0]
+var viewer_color: array[3, cfloat]
+viewer_color[0] = 0.0
+viewer_color[1] = 1.0
+viewer_color[2] = 0.0
 proc DrawWindowCallback(inWindowID: XPLMWindowID, inRefcon: pointer) {.exportc: "DrawWindowCallback", dynlib.} =
     var left, right, top, bottom: cint
 
@@ -109,6 +114,9 @@ proc DrawWindowCallback(inWindowID: XPLMWindowID, inRefcon: pointer) {.exportc: 
 
     # printf("CommViewer, gCommWindow:%p, inWindowID:%p, left:%d, right:%d, top:%d, bottom:%d\n",
     #     gCommWindow, inWindowID, left, right, top, bottom)
+
+    # printf("CommViewer, Total:%d, Occupied:%p, Free:%d\n",
+    #     getTotalMem(), getOccupiedMem(), getFreeMem())
 
     if gPilotEdgePlugin == false:
         var id: XPLMPluginID = XPLMFindPluginBySignature(PILOTEDGE_SIG)
@@ -140,14 +148,14 @@ proc DrawWindowCallback(inWindowID: XPLMWindowID, inRefcon: pointer) {.exportc: 
         var str2: cstring = "$1\t\t\tCOM1: $2\t\t\tCOM2: $3" % [ptt_status, $a, $b]
 
         # text to window, NULL indicates no word wrap
-        XPLMDrawString(cast[ptr cfloat](addr(commviewer_color[0])),
+        XPLMDrawString(cast[ptr cfloat](addr(viewer_color)),
                        cast[cint](left+4),
                        cast[cint](top-20),
                        str1,
                        cast[ptr cint](0),
                        cast[XPLMFontID](xplmFont_Basic))
 
-        XPLMDrawString(cast[ptr cfloat](addr(commviewer_color[0])),
+        XPLMDrawString(cast[ptr cfloat](addr(viewer_color)),
                        cast[cint](left+4),
                        cast[cint](top-40),
                        str2,
