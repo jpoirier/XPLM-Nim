@@ -21,3 +21,7 @@ Copy XPLM_Test.xpl to your X-Plane plugin folder, X-Plane10/Resources/plugins.
 
 #### Detailed Usage
 View https://github.com/jpoirier/xplane-commviewer-plugin
+
+
+#### Caveats
+It's a work in progress.
