@@ -1,5 +1,6 @@
 # See license.txt for usage.
 
+
 # This file is contains the cross-platform and basic definitions for the
 # X-Plane SDK.
 #

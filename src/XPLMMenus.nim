@@ -1,16 +1,6 @@
 # See license.txt for usage.
 
 
-when defined(windows):
-    const xplm_lib* = "./Resources/plugins/XPLM_64.dll"
-elif defined(macosx):
-    const xplm_lib* = "./Resources/plugins/XPLM_64.dylib"
-else:
-    const xplm_lib* = "./Resources/plugins/XPLM_64.so"
-
-
-import XPLMDefs
-
 #******************************************************************************
 # XPLMMenus - Theory of Operation
 # *****************************************************************************

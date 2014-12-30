@@ -1,16 +1,6 @@
 # See license.txt for usage.
 
 
-when defined(windows):
-    const xpwidgets_lib* = "./Resources/plugins/XPWidgets_64.dll"
-elif defined(macosx):
-    const xpwidgets_lib* = "./Resources/plugins/XPWidgets_64.dylib"
-else:
-    const xpwidgets_lib* = "./Resources/plugins/XPWidgets_64.so"
-
-
-import XPWidgetDefs
-
 # XPWidgetUtils - USAGE NOTES
 #
 # The XPWidgetUtils library contains useful functions that make writing and

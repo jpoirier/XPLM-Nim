@@ -1,16 +1,6 @@
 # See license.txt for usage.
 
 
-when defined(windows):
-    const xplm_lib* = "./Resources/plugins/XPLM_64.dll"
-elif defined(macosx):
-    const xplm_lib* = "./Resources/plugins/XPLM_64.dylib"
-else:
-    const xplm_lib* = "./Resources/plugins/XPLM_64.so"
-
-
-import XPLMDefs
-
 # The XPLMPlanes APIs allow you to control the various aircraft in x-plane,
 # both the user's and the sim's.
 #

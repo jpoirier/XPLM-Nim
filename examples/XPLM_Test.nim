@@ -2,24 +2,7 @@
 
 {.deadCodeElim: on.}
 
-import lib/XPLMDefs
-import lib/XPLMCamera
-import lib/XPLMDataAccess
-import lib/XPLMDisplay
-import lib/XPLMGraphics
-import lib/XPLMMenus
-import lib/XPLMNavigation
-import lib/XPLMPlanes
-import lib/XPLMPlugin
-import lib/XPLMProcessing
-import lib/XPLMScenery
-import lib/XPLMUtilities
-
-import lib/XPWidgetUtils
-import lib/XPWidgets
-import lib/XPWidgetDefs
-import lib/XPUIGraphics
-import lib/XPStandardWidgets
+import xplm
 
 # Flightloop Callback Interval
 const FL_CB_INTERVAL = -1.0
