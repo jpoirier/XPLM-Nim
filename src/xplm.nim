@@ -28,19 +28,3 @@ include "XPLMUtilities.nim"
 include "XPUIGraphics.nim"
 include "XPWidgets.nim"
 include "XPWidgetUtils.nim"
-
-# import XPLMCamera
-# import XPLMDataAccess
-# import XPLMDisplay
-# import XPLMGraphics
-# import XPLMMenus
-# import XPLMNavigation
-# import XPLMPlanes
-# import XPLMPlugin
-# import XPLMProcessing
-# import XPLMScenery
-# import XPLMUtilities
-# import XPUIGraphics
-# import XPStandardWidgets
-# import XPWidgets
-# import XPWidgetUtils
