@@ -42,42 +42,42 @@ type
     PXPLMPlaneDrawState_t* = ptr XPLMPlaneDrawState_t
     XPLMPlaneDrawState_t*{.final.} = object
       # The size of the draw state struct.
-      structSize*: cint
+      structSize*: int32
       # A ratio from [0..1] describing how far the landing gear is extended.
-      gearPosition*: cfloat
+      gearPosition*: float32
       # Ratio of flap deployment, 0 = up, 1 = full deploy.
-      flapRatio*: cfloat
+      flapRatio*: float32
       # Ratio of spoiler deployment, 0 = none, 1 = full deploy.
-      spoilerRatio*: cfloat
+      spoilerRatio*: float32
       # Ratio of speed brake deployment, 0 = none, 1 = full deploy.
-      speedBrakeRatio*: cfloat
+      speedBrakeRatio*: float32
       # Ratio of slat deployment, 0 = none, 1 = full deploy.
-      slatRatio*: cfloat
+      slatRatio*: float32
       # Wing sweep ratio, 0 = forward, 1 = swept.
-      wingSweep*: cfloat
+      wingSweep*: float32
       # Thrust power, 0 = none, 1 = full fwd, -1 = full reverse.
-      thrust*: cfloat
+      thrust*: float32
       # Total pitch input for this plane.
-      yokePitch*: cfloat
+      yokePitch*: float32
       # Total Heading input for this plane.
-      yokeHeading*: cfloat
+      yokeHeading*: float32
       # Total Roll input for this plane.
-      yokeRoll*: cfloat
+      yokeRoll*: float32
 
 # XPLMCountAircraft returns the number of aircraft X-Plane is capable of having,
 # as well as the number of aircraft that are currently active.  These numbers
 # count the user's aircraft.  It can also return the plugin that is currently
 # controlling aircraft.  In X-Plane 7, this routine reflects the number of
 # aircraft the user has enabled in the rendering options window.
-proc XPLMCountAircraft*(outTotalAircraft: cint,
-                        outActiveAircraft: cint,
+proc XPLMCountAircraft*(outTotalAircraft: int32,
+                        outActiveAircraft: int32,
                         outController: ptr XPLMPluginID) {.cdecl, importc: "XPLMCountAircraft", dynlib: xplm_lib}
 
 # XPLMGetNthAircraftModel returns the aircraft model for the Nth aircraft.
 # Indices are zero based, with zero being the user's aircraft.  The file name
 # should be at least 256 chars in length; the path should be at least 512 chars
 # in length.
-proc XPLMGetNthAircraftModel*(inIndex: cint,
+proc XPLMGetNthAircraftModel*(inIndex: int32,
                               outFileName: cstring,
                               outPath: cstring) {.cdecl, importc: "XPLMGetNthAircraftModel", dynlib: xplm_lib}
 
@@ -106,9 +106,9 @@ type
 # a callback and do not receive access to the planes your callback will be
 # called when the airplanes are available. If you do receive airplane access,
 # your callback will not be called.
-proc XPLMAcquirePlanes*(inAircraft: ptr ptr cchar,  # Can be NULL
+proc XPLMAcquirePlanes*(inAircraft: cstringArray,  # (cstringArray -> char**) Can be NULL
                         inCallback: XPLMPlanesAvailable_f,
-                        inRefcon: pointer): cint {.cdecl, importc: "XPLMAcquirePlanes", dynlib: xplm_lib}
+                        inRefcon: pointer): int32 {.cdecl, importc: "XPLMAcquirePlanes", dynlib: xplm_lib}
 
 # XPLMReleasePlanes releases access to the planes.  Note that if you are
 # disabled, access to planes is released for you and you must reacquire it.
@@ -117,31 +117,31 @@ proc XPLMReleasePlanes*() {.cdecl, importc: "XPLMReleasePlanes", dynlib: xplm_li
 # XPLMSetActiveAircraftCount sets the number of active planes.  If you pass in
 # a number higher than the total number of planes availables, only the total
 # number of planes available is actually used.
-proc XPLMSetActiveAircraftCount*(inCount: cint) {.cdecl, importc: "XPLMSetActiveAircraftCount", dynlib: xplm_lib}
+proc XPLMSetActiveAircraftCount*(inCount: int32) {.cdecl, importc: "XPLMSetActiveAircraftCount", dynlib: xplm_lib}
 
 # XPLMSetAircraftModel loads an aircraft model.  It may only be called if you
 # have exclusive access to the airplane APIs.  Pass in the path of the  model
 # with the .acf extension.  The index is zero based, but you  may not pass in 0
 # (use XPLMSetUsersAircraft to load the user's aircracft).
-proc XPLMSetAircraftModel*(inIndex: cint, inAircraftPath: cstring) {.cdecl, importc: "XPLMSetAircraftModel", dynlib: xplm_lib}
+proc XPLMSetAircraftModel*(inIndex: int32, inAircraftPath: cstring) {.cdecl, importc: "XPLMSetAircraftModel", dynlib: xplm_lib}
 
 # XPLMDisableAIForPlane turns off X-Plane's AI for a given plane.  The plane
 # will continue to draw and be a real plane in X-Plane, but will not  move itself.
-proc XPLMDisableAIForPlane*(inPlaneIndex: cint) {.cdecl, importc: "XPLMDisableAIForPlane", dynlib: xplm_lib}
+proc XPLMDisableAIForPlane*(inPlaneIndex: int32) {.cdecl, importc: "XPLMDisableAIForPlane", dynlib: xplm_lib}
 
 # XPLMDrawAircraft draws an aircraft.  It can only be called from a 3-d drawing
 # callback.  Pass in the position of the plane in OpenGL local coordinates
 # and the orientation of the plane.  A 1 for full drawing indicates that the
 # whole plane must be drawn; a 0 indicates you only need the nav lights
 # drawn. (This saves rendering time when planes are far away.)
-proc XPLMDrawAircraft*(inPlaneIndex: cint,
-                       inX: cfloat,
-                       inY: cfloat,
-                       inZ: cfloat,
-                       inPitch: cfloat,
-                       inRoll: cfloat,
-                       inYaw: cfloat,
-                       inFullDraw: cint,
+proc XPLMDrawAircraft*(inPlaneIndex: int32,
+                       inX: float32,
+                       inY: float32,
+                       inZ: float32,
+                       inPitch: float32,
+                       inRoll: float32,
+                       inYaw: float32,
+                       inFullDraw: int32,
                        inDrawStateInfo: PXPLMPlaneDrawState_t) {.cdecl, importc: "XPLMDrawAircraft", dynlib: xplm_lib}
 
 # XPLMReinitUsersPlane recomputes the derived flight model data from the aircraft

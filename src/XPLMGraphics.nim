@@ -57,7 +57,7 @@ const
     xplm_Tex_AircraftLiteMap* = 2
 
 type
-    XPLMTextureID* = cint
+    XPLMTextureID* = int32
 
 # XPLMSetGraphicsState changes OpenGL's graphics state in a number of ways:
 #
@@ -98,13 +98,13 @@ type
 # WARNING: Any routine that performs drawing (e.g. XPLMDrawString or widget
 # code) may change X-Plane's state.  Always set state before drawing after
 # unknown code has executed.
-proc XPLMSetGraphicsState*(inEnableFog: cint,
-                           inNumberTexUnits: cint,
-                           inEnableLighting: cint,
-                           inEnableAlphaTesting: cint,
-                           inEnableAlphaBlending: cint,
-                           inEnableDepthTesting: cint,
-                           inEnableDepthWriting: cint) {.cdecl, importc: "XPLMSetGraphicsState", dynlib: xplm_lib}
+proc XPLMSetGraphicsState*(inEnableFog: int32,
+                           inNumberTexUnits: int32,
+                           inEnableLighting: int32,
+                           inEnableAlphaTesting: int32,
+                           inEnableAlphaBlending: int32,
+                           inEnableDepthTesting: int32,
+                           inEnableDepthWriting: int32) {.cdecl, importc: "XPLMSetGraphicsState", dynlib: xplm_lib}
 
 # XPLMBindTexture2d changes what texture is bound to the 2d texturing target.
 # This routine caches the current 2d texture across all texturing units in
@@ -119,7 +119,7 @@ proc XPLMSetGraphicsState*(inEnableFog: cint,
 # units.  (This number may increase in future versions of x-plane.)
 #
 # Use this routine instead of glBindTexture(GL_TEXTURE_2D, ....);
-proc XPLMBindTexture2d*(inTextureNum: cint, inTextureUnit; cint) {.cdecl, importc: "XPLMBindTexture2d", dynlib: xplm_lib}
+proc XPLMBindTexture2d*(inTextureNum: int32, inTextureUnit; int32) {.cdecl, importc: "XPLMBindTexture2d", dynlib: xplm_lib}
 
 # XPLMGenerateTextureNumbers generates unused texture numbers that a plug-in
 # can use to safely bind textures. Use this routine instead of glGenTextures;
@@ -129,7 +129,7 @@ proc XPLMBindTexture2d*(inTextureNum: cint, inTextureUnit; cint) {.cdecl, import
 # file as the plane flies might then cause X-Plane to use this texture ID.
 # X-Plane will then  overwrite the plug-ins texture.  This routine returns
 # texture IDs that are out of X-Plane's usage range.
-proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr cint, inCount: cint) {.cdecl, importc: "XPLMGenerateTextureNumbers", dynlib: xplm_lib}
+proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr int32, inCount: int32) {.cdecl, importc: "XPLMGenerateTextureNumbers", dynlib: xplm_lib}
 
 # XPLMGetTexture returns the OpenGL texture enumeration of an X-Plane texture
 # based on a  generic identifying code.  For example, you can get the texture
@@ -140,18 +140,18 @@ proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr cint, inCount: cint) {.cdecl
 #
 # OPEN ISSUE: We really need a way to make sure X-Plane loads this texture if
 # it isn't around, or at least a way to find out whether it is loaded or not.
-proc XPLMGetTexture*(inTexture: XPLMTextureID): cint {.cdecl, importc: "XPLMGetTexture", dynlib: xplm_lib}
+proc XPLMGetTexture*(inTexture: XPLMTextureID): int32 {.cdecl, importc: "XPLMGetTexture", dynlib: xplm_lib}
 
 # XPLMWorldToLocal translates coordinates from latitude, longitude, and altitude
 # to local scene coordinates. Latitude and longitude are in decimal degrees,
 # and altitude is in meters MSL (mean sea level).  The XYZ coordinates are in
 # meters in the local OpenGL coordinate system.
-proc XPLMWorldToLocal*(inLatitude: cdouble,
-                       inLongitude: cdouble,
-                       inAltitude: cdouble,
-                       outX: ptr cdouble,
-                       outY: ptr cdouble,
-                       outZ: ptr cdouble) {.cdecl, importc: "XPLMWorldToLocal", dynlib: xplm_lib}
+proc XPLMWorldToLocal*(inLatitude: float64,
+                       inLongitude: float64,
+                       inAltitude: float64,
+                       outX: ptr float64,
+                       outY: ptr float64,
+                       outZ: ptr float64) {.cdecl, importc: "XPLMWorldToLocal", dynlib: xplm_lib}
 
 # XPLMLocalToWorld translates a local coordinate triplet back into latitude,
 # longitude, and altitude.  Latitude and longitude are in decimal degrees,
@@ -160,20 +160,20 @@ proc XPLMWorldToLocal*(inLatitude: cdouble,
 #
 # NOTE: world coordinates are less precise than local coordinates; you should
 # try to avoid round tripping from local to world and back.
-proc XPLMLocalToWorld*(inX: cdouble,
-                       inY: cdouble,
-                       inZ: cdouble,
-                       outLatitude: ptr cdouble,
-                       outLongitude: ptr cdouble,
-                       outAltitude: ptr cdouble) {.cdecl, importc: "XPLMLocalToWorld", dynlib: xplm_lib}
+proc XPLMLocalToWorld*(inX: float64,
+                       inY: float64,
+                       inZ: float64,
+                       outLatitude: ptr float64,
+                       outLongitude: ptr float64,
+                       outAltitude: ptr float64) {.cdecl, importc: "XPLMLocalToWorld", dynlib: xplm_lib}
 
 # XPLMDrawTranslucentDarkBox draws a translucent dark box, partially obscuring
 # parts of the screen but making text easy to read.  This is the same graphics
 # primitive used by X-Plane to show text files and ATC info.
-proc XPLMDrawTranslucentDarkBox*(inLeft: cint,
-                                 inTop: cint,
-                                 inRight: cint,
-                                 inBottom: cint) {.cdecl, importc: "XPLMDrawTranslucentDarkBox", dynlib: xplm_lib}
+proc XPLMDrawTranslucentDarkBox*(inLeft: int32,
+                                 inTop: int32,
+                                 inRight: int32,
+                                 inBottom: int32) {.cdecl, importc: "XPLMDrawTranslucentDarkBox", dynlib: xplm_lib}
 
 #******************************************************************************
 # X-PLANE TEXT
@@ -216,7 +216,7 @@ type
         xplmFont_Proportional       # Deprecated, do not use.
 
 type
-    XPLMFontID* = cint
+    XPLMFontID* = int32
 
 # XPLMDrawString draws a NULL termianted string in a given font.  Pass in the
 # lower left pixel that the character is to be drawn onto.  Also pass the
@@ -224,11 +224,11 @@ type
 # all drawn characters. The color to draw in is specified as a pointer to an
 # array of three floating point colors, representing RGB intensities from 0.0
 # to 1.0.
-proc XPLMDrawString*(inColorRGB: ptr cfloat,
-                     inXOffset: cint,
-                     inYOffset: cint,
+proc XPLMDrawString*(inColorRGB: ptr float32,
+                     inXOffset: int32,
+                     inYOffset: int32,
                      inChar: cstring,
-                     inWordWrapWidth: ptr cint,  # Can be NULL
+                     inWordWrapWidth: ptr int32,  # Can be NULL
                      inFontID: XPLMFontID) {.cdecl, importc: "XPLMDrawString", dynlib: xplm_lib}
 
 # XPLMDrawNumber draws a number similar to the digit editing fields in
@@ -237,13 +237,13 @@ proc XPLMDrawString*(inColorRGB: ptr cfloat,
 # integer and how many decimal digits to show and  whether to show a sign, as
 # well as a character set. This routine returns the xOffset plus width of the
 # string drawn.
-proc XPLMDrawNumber*(inColorRGB: ptr cfloat,
-                     inXOffset: cint,
-                     inYOffset: cint,
-                     inValue: cdouble,
-                     inDigits: cint,
-                     inDecimals: cint,
-                     inShowSign: cint,
+proc XPLMDrawNumber*(inColorRGB: ptr float32,
+                     inXOffset: int32,
+                     inYOffset: int32,
+                     inValue: float64,
+                     inDigits: int32,
+                     inDecimals: int32,
+                     inShowSign: int32,
                      inFontID: XPLMFontID) {.cdecl, importc: "XPLMDrawNumber", dynlib: xplm_lib}
 
 # XPLMGetFontDimensions returns the width and height of a character in a given
@@ -251,13 +251,13 @@ proc XPLMDrawNumber*(inColorRGB: ptr cfloat,
 # if you don't need a given field.  Note that for a proportional font the width
 # will be an arbitrary, hopefully average width.
 proc XPLMGetFontDimensions*(inFontID: XPLMFontID,
-                            outCharWidth: ptr cint,
-                            outCharHeight: ptr cint,
-                            outDigitsOnly: ptr cint) {.cdecl, importc: "XPLMGetFontDimensions", dynlib: xplm_lib}
+                            outCharWidth: ptr int32,
+                            outCharHeight: ptr int32,
+                            outDigitsOnly: ptr int32) {.cdecl, importc: "XPLMGetFontDimensions", dynlib: xplm_lib}
 
 # XPLMMeasureString returns the width in pixels of a string using a given font.
 # The string is passed as a pointer plus length (and does not need to be null
 # terminated); this is used to allow for measuring substrings. The return
 # value is floating point; it is possible that future font drawing may allow
 # for fractional pixels.
-proc XPLMMeasureString*(inFontID; XPLMFontID, inChar: cstring, inNumChars: cint) {.cdecl, importc: "XPLMMeasureString", dynlib: xplm_lib}
+proc XPLMMeasureString*(inFontID; XPLMFontID, inChar: cstring, inNumChars: int32) {.cdecl, importc: "XPLMMeasureString", dynlib: xplm_lib}

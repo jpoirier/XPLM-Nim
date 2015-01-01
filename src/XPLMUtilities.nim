@@ -113,10 +113,8 @@ type
           xplm_key_tranID
           xplm_key_ma
 
-#typedef int XPLMCommandKeyID;
-#
 type
-     XPLMCommandKeyID* = cint
+     XPLMCommandKeyID* = int32
 
 
 # XPLMCommandButtonID are enumerations for all of the t*hings you can do with
@@ -222,10 +220,8 @@ type
           xplm_joy_lanlights
           xplm_joy_max
 
-# typedef int XPLMCommandButtonID;
-#
 type
-     XPLMCommandButtonID* = cint
+     XPLMCommandButtonID* = int32
 
 # XPLMHostApplicationID
 #
@@ -247,10 +243,8 @@ type
           xplm_Host_YoungsMod
           xplm_Host_XAuto
 
-# typedef int XPLMHostApplicationID;
-#
 type
-     XPLMHostApplicationID* = cint
+     XPLMHostApplicationID* = int32
 
 # XPLMLanguageCode enums define what language the sim is running in.  These
 # enumerations do not imply that the sim can or does run in all of these languages;
@@ -271,10 +265,8 @@ type
           xplm_Language_Japanese
           xplm_Language_Chinese
 
-# typedef int XPLMLanguageCode;
-#
 type
-     XPLMLanguageCode* = cint
+     XPLMLanguageCode* = int32
 
 # XPLMDataFileType enums define types of data files you can load or unload
 # using the SDK.
@@ -287,10 +279,8 @@ const
      # A situation movie (.smo) file, which replays a past flight.
      xplm_DataFile_ReplayMovie* = 2
 
-# typedef int XPLMDataFileType;
-#
 type
-     XPLMDataFileType* = cint
+     XPLMDataFileType* = int32
 
 # XPLMError_f is an XPLM error callback is a function that you provide to
 # receive debugging information from the plugin SDK.  See XPLMSetErrorCallback
@@ -309,7 +299,7 @@ type
 #
 # WARNING: This function will be deprecated; do not use it.  Instead use
 # XPLMCommandKeyStroke.
-proc XPLMSimulateKeyPress*(inKeyType: cint, inKey: cint) {.cdecl, importc: "XPLMSimulateKeyPress", dynlib: xplm_lib}
+proc XPLMSimulateKeyPress*(inKeyType: int32, inKey: int32) {.cdecl, importc: "XPLMSimulateKeyPress", dynlib: xplm_lib}
 
 # XPLMSpeakString displays the string in a translucent overlay over the current
 # display and also speaks the string if text-to-speech is enabled.  The
@@ -337,7 +327,7 @@ proc XPLMCommandButtonRelease*(inButton: XPLMCommandButtonID) {.cdecl, importc: 
 # returns a human-readable string describing the character.  This routine is provided
 # for showing users what keyboard mappings they have set up.  The string may
 # read 'unknown' or be a blank or NULL string if the virtual key is unknown.
-proc XPLMGetVirtualKeyDescription*(inVirtualKey: cchar): cstring {.cdecl, importc: "XPLMGetVirtualKeyDescription", dynlib: xplm_lib}
+proc XPLMGetVirtualKeyDescription*(inVirtualKey: int8): cstring {.cdecl, importc: "XPLMGetVirtualKeyDescription", dynlib: xplm_lib}
 
 #******************************************************************************
 # X-PLANE MISC
@@ -412,13 +402,13 @@ proc XPLMExtractFileAndPath*(inFullPath: cstring): cstring {.cdecl, importc: "XP
 # directories.  If X-Plane 6 compatibility is needed, use your own code to
 # iterate directories.
 proc XPLMGetDirectoryContents*(inDirectoryPath: cstring,
-                               inFirstReturn: cint,
+                               inFirstReturn: int32,
                                outFileNames: cstring,
-                               inFileNameBufSize: cint,
-                               outIndices: ptr ptr cchar,
-                               inIndexCount: cint,
-                               outTotalFiles: ptr cint,
-                               outReturnedFiles: ptr cint): cint {.cdecl, importc: "XPLMGetDirectoryContents", dynlib: xplm_lib}
+                               inFileNameBufSize: int32,
+                               outIndices: cstringArray,  # cstringArray -> char**
+                               inIndexCount: int32,
+                               outTotalFiles: ptr int32,
+                               outReturnedFiles: ptr int32): int32 {.cdecl, importc: "XPLMGetDirectoryContents", dynlib: xplm_lib}
 
 # XPLMInitialized returns 1 if X-Plane has properly initialized the plug-in
 # system. If this routine returns 0, many XPLM functions will not work.
@@ -428,7 +418,7 @@ proc XPLMGetDirectoryContents*(inDirectoryPath: cstring,
 #
 # WARNING: This function is generally not needed and may be deprecated in the
 # future.
-proc XPLMInitialized*(): cint {.cdecl, importc: "XPLMInitialized", dynlib: xplm_lib}
+proc XPLMInitialized*(): int32 {.cdecl, importc: "XPLMInitialized", dynlib: xplm_lib}
 
 # XPLMGetVersions returns the revision of both X-Plane and the XPLM DLL.  All
 # versions are three-digit decimal numbers (e.g. 606 for version 6.06 of
@@ -437,8 +427,8 @@ proc XPLMInitialized*(): cint {.cdecl, importc: "XPLMInitialized", dynlib: xplm_
 #
 # The most common use of this routine is to special-case around x-plane
 # version-specific behavior.
-proc XPLMGetVersions*(outXPlaneVersion: ptr cint,
-                      outXPLMVersion: ptr cint,
+proc XPLMGetVersions*(outXPlaneVersion: ptr int32,
+                      outXPLMVersion: ptr int32,
                       outHostID: ptr XPLMHostApplicationID) {.cdecl, importc: "XPLMGetVersions", dynlib: xplm_lib}
 
 # XPLMGetLanguage returns the langauge the sim is running in.
@@ -473,11 +463,11 @@ proc XPLMFindSymbol*(inString: cstring): pointer {.cdecl, importc: "XPLMFindSymb
 # XPLMLoadDataFile loads a data file of a given type.  Paths must be relative
 # to the X-System folder. To clear the replay, pass a NULL file name (this is
 # only valid with replay movies, not sit files).
-proc XPLMLoadDataFile*(inFileType: XPLMDataFileType, inFilePath: cstring): cint {.cdecl, importc: "XPLMLoadDataFile", dynlib: xplm_lib}
+proc XPLMLoadDataFile*(inFileType: XPLMDataFileType, inFilePath: cstring): int32 {.cdecl, importc: "XPLMLoadDataFile", dynlib: xplm_lib}
 
 # XPLMSaveDataFile saves the current situation or replay; paths are relative to
 # the X-System folder.
-proc XPLMSaveDataFile*(inFileType: XPLMDataFileType, inFilePath: cstring): cint {.cdecl, importc: "XPLMSaveDataFile", dynlib: xplm_lib}
+proc XPLMSaveDataFile*(inFileType: XPLMDataFileType, inFilePath: cstring): int32 {.cdecl, importc: "XPLMSaveDataFile", dynlib: xplm_lib}
 
 #******************************************************************************
 # X-PLANE COMMAND MANAGEMENT
@@ -507,10 +497,8 @@ const
      # The command has ended.
      xplm_CommandEnd* = 2
 
-# typedef int XPLMCommandPhase;
-#
 type
-     XPLMCommandPhase* = cint
+     XPLMCommandPhase* = int32
 
 # XPLMCommandRef is a command ref is an opaque identifier for an X-Plane command.
 # Command references stay the same for the life of your plugin but not between
@@ -520,8 +508,6 @@ type
 # Note that a command is not "owned" by a particular plugin.  Since many
 # plugins may participate in a command's execution, the command does not go
 # away if the plugin that created it is unloaded.
-#
-# typedef void* XPLMCommandRef;
 #
 type
      XPLMCommandRef* = pointer
@@ -538,7 +524,7 @@ type
 # continue to other plugins and X-Plane, or 0 to halt  processing,
 # potentially bypassing X-Plane code.
 type
-     XPLMCommandCallback_f* = proc (inCommand: XPLMCommandRef, inPhase: XPLMCommandPhase, inRefcon: pointer): cint {.cdecl.}
+     XPLMCommandCallback_f* = proc (inCommand: XPLMCommandRef, inPhase: XPLMCommandPhase, inRefcon: pointer): int32 {.cdecl.}
 
 # XPLMFindCommand looks up a command by name, and returns its command
 # reference or NULL if the command does not exist.
@@ -586,14 +572,14 @@ proc XPLMCreateCommand*(inName: cstring, inDescription: cstring): XPLMCommandRef
 # before and after a command.)
 proc XPLMRegisterCommandHandler*(inComand: XPLMCommandRef,
                                  inHandler: XPLMCommandCallback_f,
-                                 inBefore: cint,
+                                 inBefore: int32,
                                  inRefcon: pointer) {.cdecl, importc: "XPLMRegisterCommandHandler", dynlib: xplm_lib}
 
 # XPLMUnregisterCommandHandler removes a command callback registered with
 # XPLMRegisterCommandHandler.
 proc XPLMUnregisterCommandHandler*(inComand: XPLMCommandRef,
                                    inHandler: XPLMCommandCallback_f,
-                                   inBefore: cint,
+                                   inBefore: int32,
                                    inRefcon: pointer) {.cdecl, importc: "XPLMUnregisterCommandHandler", dynlib: xplm_lib}
 
 

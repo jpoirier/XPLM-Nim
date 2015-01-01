@@ -66,7 +66,7 @@ const
     xpProperty_UserStart* = 10000
 
 type
-  XPWidgetPropertyID* = cint
+  XPWidgetPropertyID* = int32
 
 
 # XPMouseState_t
@@ -76,10 +76,10 @@ type
 type
     PXPMouseState_t* = ptr XPMouseState_t
     XPMouseState_t*{.final.} = object
-        x*: cint
-        y*: cint
-        button*: cint
-        delta*: cint
+        x*: int32
+        y*: int32
+        button*: int32
+        delta*: int32
 
 # XPKeyState_t
 #
@@ -88,9 +88,9 @@ type
 type
     PXPKeyState_t* = ptr XPKeyState_t
     XPKeyState_t*{.final.} = object
-        key*: cchar
-        flags*: cint
-        vkey*: cchar
+        key*: int8
+        flags*: int32
+        vkey*: int8
 
 # XPWidgetGeometryChange_t
 #
@@ -99,10 +99,10 @@ type
 type
     PXPWidgetGeometryChange_t* = ptr XPWidgetGeometryChange_t
     XPWidgetGeometryChange_t*{.final.} = object
-        dx*: cint
-        dy*: cint
-        dwidth*: cint
-        dheight*: cint
+        dx*: int32
+        dy*: int32
+        dwidth*: int32
+        dheight*: int32
 
 
 # XPDispatchMode
@@ -132,7 +132,7 @@ const
     xpMode_Once* = 4
 
 type
-    XPDispatchMode* = cint
+    XPDispatchMode* = int32
 
 # XPWidgetClass
 #
@@ -140,7 +140,7 @@ type
 # specifies from a library the widget function to be used for the widget.
 # Most widgets can be made right from classes.
 type
-    XPWidgetClass* = cint
+    XPWidgetClass* = int32
 
 # An unspecified widget class.  Other widget classes are in
 # XPStandardWidgets.h
@@ -362,7 +362,7 @@ const
     xpMsg_UserStart* = 10000
 
 type
-    XPWidgetMessage* = cint
+    XPWidgetMessage* = int32
 
 #******************************************************************************
 # WIDGET CALLBACK FUNCTION
@@ -377,6 +377,6 @@ type
 type
     XPWidgetFunc_t* = proc (inMessage: XPWidgetMessage,
                             inWidget: XPWidgetID,
-                            inParam1: ptr cint,
-                            inParam2: ptr cint): cint {.cdecl.}
+                            inParam1: ptr int32,
+                            inParam2: ptr int32): int32 {.cdecl.}
 

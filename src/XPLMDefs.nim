@@ -31,7 +31,7 @@
 #
 #  -1 indicates no plug-in.
 type
-  XPLMPluginID* = cint
+  XPLMPluginID* = int32
 
 # No plugin.
 const
@@ -68,7 +68,7 @@ const
   xplm_UpFlag* = 16         # The key is being released
 
 type
-  XPLMKeyFlags* = cint
+  XPLMKeyFlags* = int32
 
 #******************************************************************************
 #  ASCII CONTROL KEY CODES

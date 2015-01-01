@@ -28,7 +28,7 @@ const
      xplm_FlightLoop_Phase_AfterFlightModel* = 1
 
 type
-     XPLMFlightLoopPhaseType* = cint
+     XPLMFlightLoopPhaseType* = int32
 
 # XPLMFlightLoopID is an opaque identifier for a flight loop callback.  You can
 # use this identifier to easily track and remove your callbacks, or to use the
@@ -55,10 +55,10 @@ type
 #
 # The reference constant you passed to your loop is passed back to you.
 type
-    XPLMFlightLoop_f* = proc (inElapsedSinceLastCall: cfloat,
-                              inElapsedTimeSinceLastFlightLoop: cfloat,
-                              inCounter: cint,
-                              inRefcon: pointer): cfloat {.cdecl.}
+    XPLMFlightLoop_f* = proc (inElapsedSinceLastCall: float32,
+                              inElapsedTimeSinceLastFlightLoop: float32,
+                              inCounter: int32,
+                              inRefcon: pointer): float32 {.cdecl.}
 
 # XPLMCreateFlightLoop_t contains the parameters to create a new flight loop
 # callback.  The strsucture can be expanded in future SDKs - always set
@@ -66,18 +66,18 @@ type
 type
     PXPLMCreateFlightLoop_t* = ptr XPLMCreateFlightLoop_t
     XPLMCreateFlightLoop_t*{.final.} = object
-        structSize*: cint
+        structSize*: int32
         phase*: XPLMFlightLoopPhaseType
         callbackFunc*: XPLMFlightLoop_f
         refcon*: pointer
 
 # XPLMGetElapsedTime returns the elapsed time since the sim started up in
 # decimal seconds.
-proc XPLMGetElapsedTime*(): cfloat {.cdecl, importc: "XPLMGetElapsedTime", dynlib: xplm_lib}
+proc XPLMGetElapsedTime*(): float32 {.cdecl, importc: "XPLMGetElapsedTime", dynlib: xplm_lib}
 
 # XPLMGetCycleNumber returns a counter starting at zero for each sim cycle
 # computed/video frame rendered.
-proc XPLMGetCycleNumber*(): cint {.cdecl, importc: "XPLMGetCycleNumber", dynlib: xplm_lib}
+proc XPLMGetCycleNumber*(): int32 {.cdecl, importc: "XPLMGetCycleNumber", dynlib: xplm_lib}
 
 # XPLMRegisterFlightLoopCallback registers your flight loop callback.  Pass in
 # a pointer to a flight loop function and a refcon.  inInterval defines when
@@ -86,7 +86,7 @@ proc XPLMGetCycleNumber*(): cint {.cdecl, importc: "XPLMGetCycleNumber", dynlib:
 # when you will be called (e.g. pass -1 to be called at the next cylcle).
 # Pass 0 to not be called; your callback will be inactive.
 proc XPLMRegisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
-                                     inInterval: cfloat,
+                                     inInterval: float32,
                                      inRefcon: pointer) {.cdecl, importc: "XPLMRegisterFlightLoopCallback", dynlib: xplm_lib}
 
 # XPLMUnregisterFlightLoopCallback unregisters your flight loop callback. Do NOT
@@ -105,8 +105,8 @@ proc XPLMUnregisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
 # otherwise they are from the time the callback was last called (or the time
 # it was registered if it has never been called.
 proc XPLMSetFlightLoopCallbackInterval*(inFlightLoop: XPLMFlightLoop_f,
-                                        inInterval: cfloat,
-                                        inRelativeToNow: cint,
+                                        inInterval: float32,
+                                        inRelativeToNow: int32,
                                         inRefcon: pointer) {.cdecl, importc: "XPLMSetFlightLoopCallbackInterval", dynlib: xplm_lib}
 
 # XPLMCreateFlightLoop creates a flight loop callback and returns its ID. The flight
@@ -147,6 +147,6 @@ proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID) {.cdecl, importc: 
 # 4. The object must be unscheduled if this routine is to be called from a
 # thread other than the main thread.
 proc XPLMScheduleFlightLoop*(inFlightLoopID: XPLMFlightLoopID,
-                             inInterval: cfloat,
-                             inRelativeToNow: cint) {.cdecl, importc: "XPLMScheduleFlightLoop", dynlib: xplm_lib}
+                             inInterval: float32,
+                             inRelativeToNow: int32) {.cdecl, importc: "XPLMScheduleFlightLoop", dynlib: xplm_lib}
 

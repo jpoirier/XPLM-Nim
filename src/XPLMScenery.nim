@@ -44,7 +44,7 @@ const
      xplm_ProbeY* = 0
 
 type
-     XPLMProbeType* = cint
+     XPLMProbeType* = int32
 
 # XPLMProbeResult
 #
@@ -63,7 +63,7 @@ const
     xplm_ProbeMissed* = 2
 
 type
-     XPLMProbeResult* = cint
+     XPLMProbeResult* = int32
 
 # An XPLMProbeRef is an opaque handle to a probe, used for querying the
 # terrain.
@@ -76,27 +76,27 @@ type
     PXPLMProbeInfo_t* = ptr XPLMProbeInfo_t
     XPLMProbeInfo_t*{.final.} = object
         # Size of structure in bytes - always set this before calling the XPLM.
-        structSize: cint
+        structSize: int32
         # Resulting X location of the terrain point we hit, in local OpenGL coordinates.
-        locationX: cfloat
+        locationX: float32
         # Resulting Y location of the terrain point we hit, in local OpenGL coordinates.
-        locationY: cfloat
+        locationY: float32
         # Resulting Z location of the terrain point we hit, in local OpenGL coordinates.
-        locationZ: cfloat
+        locationZ: float32
         # X component of the normal vector to the terrain we found.
-        normalX: cfloat
+        normalX: float32
         # Y component of the normal vector to the terrain we found.
-        normalY: cfloat
+        normalY: float32
         # Z component of the normal vector to the terrain we found.
-        normalZ: cfloat
+        normalZ: float32
         # X component of the velocity vector of the terrain we found.
-        velocityX: cfloat
+        velocityX: float32
         # Y component of the velocity vector of the terrain we found.
-        velocityY: cfloat
+        velocityY: float32
         # Z component of the velocity vector of the terrain we found.
-        velocityZ: cfloat
+        velocityZ: float32
         # Tells if the surface we hit is water (otherwise it is land).
-        is_wet: cint
+        is_wet: int32
 
 # XPLMCreateProbe creates a new probe object of a given type and returns.
 proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {.cdecl, importc: "XPLMCreateProbe", dynlib: xplm_lib}
@@ -109,10 +109,10 @@ proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {.cdecl, importc: "XPLMDestroyProb
 # structSize member set properly.  Other fields are filled in if we hit terrain,
 # and a probe result is returned.
 proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
-                          inX: cfloat,
-                          inY: cfloat,
-                          inZ: cfloat,
-                          outInfo: ptr XPLMProbeInfo_t): XPLMProbeResult {.cdecl, importc: "XPLMProbeTerrainXYZ", dynlib: xplm_lib}
+                          inX: float32,
+                          inY: float32,
+                          inZ: float32,
+                          outInfo: PXPLMProbeInfo_t): XPLMProbeResult {.cdecl, importc: "XPLMProbeTerrainXYZ", dynlib: xplm_lib}
 
 #******************************************************************************
 # Object Drawing
@@ -136,19 +136,19 @@ type
     PXPLMDrawInfo_t* = ptr XPLMDrawInfo_t
     XPLMDrawInfo_t*{.final.} = object
         # Set this to the size of this structure!
-        structSize: cint
+        structSize: int32
         # X location of the object in local coordinates.
-        x: cfloat
+        x: float32
         # Y location of the object in local coordinates.
-        y: cfloat
+        y: float32
         # Z location of the object in local coordinates.
-        z: cfloat
+        z: float32
         # Pitch in degres to rotate the object, positive is up.
-        pitch: cfloat
+        pitch: float32
         # Heading in local coordinates to rotate the object, clockwise.
-        heading: cfloat
+        heading: float32
         # Roll to rotate the object.
-        roll: cfloat
+        roll: float32
 
 # XPLMObjectLoaded_f
 #
@@ -220,10 +220,10 @@ proc XPLMLoadObjectAsync*(inPath: cstring,
 # pointing down the -Z axis and the Y axis of the object matches the local
 # coordinate Y axis.
 proc XPLMDrawObjects*(inObject: XPLMObjectRef,
-                      inCount: cint,
-                      inLocations: ptr XPLMDrawInfo_t,
-                      lighting: cint,
-                      earth_relative: cint) {.cdecl, importc: "XPLMDrawObjects", dynlib: xplm_lib}
+                      inCount: int32,
+                      inLocations: PXPLMDrawInfo_t,
+                      lighting: int32,
+                      earth_relative: int32) {.cdecl, importc: "XPLMDrawObjects", dynlib: xplm_lib}
 
 # XPLMUnloadObject marks an object as no longer being used by your plugin.
 # Objects are reference counted: once no plugins are using an object, it is
@@ -257,8 +257,8 @@ type
 # objects to certain local locations.  Only objects that are allowed at the
 # latitude/longitude you provide will be returned.
 proc XPLMLookupObjects*(inPath: cstring,
-                        inLatitude: cfloat,
-                        inLongitude: cfloat,
+                        inLatitude: float32,
+                        inLongitude: float32,
                         enumerator: XPLMLibraryEnumerator_f,
-                        rref: pointer): cint {.cdecl, importc: "XPLMLookupObjects", dynlib: xplm_lib}
+                        rref: pointer): int32 {.cdecl, importc: "XPLMLookupObjects", dynlib: xplm_lib}
 

@@ -48,7 +48,7 @@ const
     xplm_ControlCameraForever* = 2
 
 type
-    XPLMCameraControlDuration* = cint
+    XPLMCameraControlDuration* = int32
 
 # XPLMCameraPosition_t
 #
@@ -61,13 +61,13 @@ type
 type
     PXPLMCameraPosition_t* = ptr XPLMCameraPosition_t
     XPLMCameraPosition_t*{.final.} = object
-        x*: cfloat
-        y*: cfloat
-        z*: cfloat
-        pitch*: cfloat
-        heading*: cfloat
-        roll*: cfloat
-        zoom*: cfloat
+        x*: float
+        y*: float
+        z*: float
+        pitch*: float
+        heading*: float
+        roll*: float
+        zoom*: float
 
 # XPLMCameraControl provides continuous control over
 # the camera.  You are passed in a structure in which to put the new camera
@@ -80,8 +80,8 @@ type
 # called with inIsLosingControl set to 1 and ioCameraPosition NULL.
 type
     XPLMCameraControl_f* = proc (outCameraPosition: PXPLMCameraPosition_t,
-                                 inIsLosingControl: cint,
-                                 inRefcon: pointer): cint {.cdecl.}
+                                 inIsLosingControl: int32,
+                                 inRefcon: pointer): int32 {.cdecl.}
 
 # XPLMControlCamera repositions the camera on the next drawing cycle.  You must
 # pass a non-null control function.  Specify in inHowLong how long you'd like
@@ -103,7 +103,7 @@ proc XPLMDontControlCamera*() {.cdecl, importc: "XPLMDontControlCamera", dynlib:
 # if it is not.  If it is and you pass in a pointer to a camera control duration,
 # the current control duration will be returned.
 proc XPLMIsCameraBeingControlled*(outCameraControlDuration: ptr XPLMCameraControlDuration):
-                        cint {.cdecl, importc: "XPLMIsCameraBeingControlled", dynlib: xplm_lib}
+                        int32 {.cdecl, importc: "XPLMIsCameraBeingControlled", dynlib: xplm_lib}
 
 # XPLMReadCameraPosition reads the current camera position.
 proc XPLMReadCameraPosition*(outCameraPosition: PXPLMCameraPosition_t)

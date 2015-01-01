@@ -59,14 +59,14 @@
 type
     PXPWidgetCreate_t* = ptr XPWidgetCreate_t
     XPWidgetCreate_t*{.final.} = object
-        left*: cint
-        top*: cint
-        right*: cint
-        bottom*: cint
-        visible*: cint
+        left*: int32
+        top*: int32
+        right*: int32
+        bottom*: int32
+        visible*: int32
         descriptor*: cstring
-        isRoot*: cint
-        containerIndex*: cint
+        isRoot*: int32
+        containerIndex*: int32
         widgetClass*: XPWidgetClass
 
 const
@@ -87,14 +87,14 @@ const
 # You can also pass in a widget ID that will be used when the widget's parent
 # is listed as PARAM_PARENT; this allows you to embed widgets created with
 # XPUCreateWidgets in a widget created previously.
-proc XPUCreateWidgets*(inWidgetDefs: ptr XPWidgetCreate_t,
-                       inCount: cint,
+proc XPUCreateWidgets*(inWidgetDefs: PXPWidgetCreate_t,
+                       inCount: int32,
                        inParamParent: XPWidgetID,
                        ioWidgets: ptr XPWidgetID) {.cdecl, importc: "XPUCreateWidgets", dynlib: xpwidgets_lib}
 
 # XPUMoveWidgetBy simply moves a widget by an amount, +x = right, +y=up,
 # without resizing the widget.
-proc XPUMoveWidgetBy*(inWidget: XPWidgetID, inDeltaX: cint, inDeltaY: cint) {.cdecl, importc: "XPUMoveWidgetBy", dynlib: xpwidgets_lib}
+proc XPUMoveWidgetBy*(inWidget: XPWidgetID, inDeltaX: int32, inDeltaY: int32) {.cdecl, importc: "XPUMoveWidgetBy", dynlib: xpwidgets_lib}
 
 #******************************************************************************
 # LAYOUT MANAGERS
@@ -110,8 +110,8 @@ proc XPUMoveWidgetBy*(inWidget: XPWidgetID, inDeltaX: cint, inDeltaY: cint) {.cd
 # widget for your window.
 proc XPUFixedLayout*(inMessage: XPWidgetMessage,
                      inWidget: XPWidgetID,
-                     inParam1: ptr cint,
-                     inParam2: ptr cint): cint {.cdecl, importc: "XPUFixedLayout", dynlib: xpwidgets_lib}
+                     inParam1: ptr int32,
+                     inParam2: ptr int32): int32 {.cdecl, importc: "XPUFixedLayout", dynlib: xpwidgets_lib}
 
 #******************************************************************************
 # WIDGET PROC BEHAVIORS
@@ -127,27 +127,27 @@ proc XPUFixedLayout*(inMessage: XPWidgetMessage,
 # be consumed by bringin the window to the foreground.
 proc XPUSelectIfNeeded*(inMessage: XPWidgetMessage,
                         inWidget: XPWidgetID,
-                        inParam1: ptr cint,
-                        inParam2: ptr cint,
-                        inEatClick: cint): cint {.cdecl, importc: "XPUSelectIfNeeded", dynlib: xpwidgets_lib}
+                        inParam1: ptr int32,
+                        inParam2: ptr int32,
+                        inEatClick: int32): int32 {.cdecl, importc: "XPUSelectIfNeeded", dynlib: xpwidgets_lib}
 
 # XPUDefocusKeyboard causes a click in the widget to send keyboard focus back
 # to X-Plane. This stops editing of any text fields, etc.
 proc XPUDefocusKeyboard*(inMessage: XPWidgetMessage,
                          inWidget: XPWidgetID,
-                         inParam1: ptr cint,
-                         inParam2: ptr cint,
-                         inEatClick: cint): cint {.cdecl, importc: "XPUDefocusKeyboard", dynlib: xpwidgets_lib}
+                         inParam1: ptr int32,
+                         inParam2: ptr int32,
+                         inEatClick: int32): int32 {.cdecl, importc: "XPUDefocusKeyboard", dynlib: xpwidgets_lib}
 
 # XPUDragWidget drags the widget in response to mouse clicks.  Pass in not
 # only the event, but the global coordinates of the drag region, which might
 # be a sub-region of your widget (for example, a title bar).
 proc XPUDragWidget*(inMessage: XPWidgetMessage,
                     inWidget: XPWidgetID,
-                    inParam1: ptr cint,
-                    inParam2: ptr cint,
-                    inLeft: cint,
-                    inTop: cint,
-                    inRight: cint,
-                    inBottom: cint): cint {.cdecl, importc: "XPUDragWidget", dynlib: xpwidgets_lib}
+                    inParam1: ptr int32,
+                    inParam2: ptr int32,
+                    inLeft: int32,
+                    inTop: int32,
+                    inRight: int32,
+                    inBottom: int32): int32 {.cdecl, importc: "XPUDragWidget", dynlib: xpwidgets_lib}
 
