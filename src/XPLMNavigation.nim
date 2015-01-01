@@ -44,7 +44,7 @@ const
     xplm_Nav_LatLon* = 2048
 
 type
-    XPLMNavType* = int32
+    XPLMNavType* = int
 
 # XPLMNavRef is an iterator into the navigation database.  The navigation
 # database is essentially an array, but it is not necessarily densely
@@ -59,7 +59,7 @@ type
 # typedef int XPLMNavRef;
 #
 type
-    XPLMNavRef* = int32
+    XPLMNavRef* = int
 
 const
     XPLM_NAV_NOT_FOUND* = -1
@@ -124,7 +124,7 @@ proc XPLMFindNavAid*(inNameFragment: cstring,
                      inIDFragment: cstring,
                      inLat: ptr float32,
                      inLon: ptr float32,
-                     inFrequency: ptr int32,
+                     inFrequency: ptr int,
                      inType: XPLMNavType): XPLMNavRef {.cdecl, importc: "XPLMFindNavAid", dynlib: xplm_lib}
 
 # XPLMGetNavAidInfo returns information about a navaid.  Any non-null field is
@@ -147,7 +147,7 @@ proc XPLMGetNavAidInfo*(inRef: XPLMNavRef,
                         outLatitude: ptr float32,
                         outLongitude: ptr float32,
                         outHeight: ptr float32,
-                        outFrequency: ptr int32,
+                        outFrequency: ptr int,
                         outHeading: ptr float32,
                         outID: cstring,
                         outName: cstring,
@@ -168,20 +168,20 @@ proc XPLMGetNavAidInfo*(inRef: XPLMNavRef,
 #
 
 # XPLMCountFMSEntries returns the number of entries in the FMS.
-proc XPLMCountFMSEntries*(): int32 {.cdecl, importc: "XPLMCountFMSEntries", dynlib: xplm_lib}
+proc XPLMCountFMSEntries*(): int {.cdecl, importc: "XPLMCountFMSEntries", dynlib: xplm_lib}
 
 
 # XPLMGetDisplayedFMSEntry returns the index of the entry the pilot is viewing.
-proc XPLMGetDisplayedFMSEntry*(): int32 {.cdecl, importc: "XPLMGetDisplayedFMSEntry", dynlib: xplm_lib}
+proc XPLMGetDisplayedFMSEntry*(): int {.cdecl, importc: "XPLMGetDisplayedFMSEntry", dynlib: xplm_lib}
 
 # XPLMGetDestinationFMSEntry returns the index of the entry the FMS is flying to.
-proc XPLMGetDestinationFMSEntry*(): int32 {.cdecl, importc: "XPLMGetDestinationFMSEntry", dynlib: xplm_lib}
+proc XPLMGetDestinationFMSEntry*(): int {.cdecl, importc: "XPLMGetDestinationFMSEntry", dynlib: xplm_lib}
 
 # XPLMSetDisplayedFMSEntry changes which entry the FMS is showing to the index specified.
-proc XPLMSetDisplayedFMSEntry*(inIndex: int32) {.cdecl, importc: "XPLMSetDisplayedFMSEntry", dynlib: xplm_lib}
+proc XPLMSetDisplayedFMSEntry*(inIndex: int) {.cdecl, importc: "XPLMSetDisplayedFMSEntry", dynlib: xplm_lib}
 
 # XPLMSetDestinationFMSEntry changes which entry the FMS is flying the aircraft toward.
-proc XPLMSetDestinationFMSEntry*(inIndex: int32) {.cdecl, importc: "XPLMSetDestinationFMSEntry", dynlib: xplm_lib}
+proc XPLMSetDestinationFMSEntry*(inIndex: int) {.cdecl, importc: "XPLMSetDestinationFMSEntry", dynlib: xplm_lib}
 
 # XPLMGetFMSEntryInfo returns information about a given FMS entry.  A reference
 # to a navaid can be returned allowing you to find additional information (such
@@ -190,11 +190,11 @@ proc XPLMSetDestinationFMSEntry*(inIndex: int32) {.cdecl, importc: "XPLMSetDesti
 # but the navaid cannot be looked up (and the reference will be
 # XPLM_NAV_NOT_FOUND. FMS name entry buffers should be at least 256 chars in
 # length.
-proc XPLMGetFMSEntryInfo*(inIndex: int32,
+proc XPLMGetFMSEntryInfo*(inIndex: int,
                           outType: ptr XPLMNavType,
                           outID: cstring,
                           outRef: ptr XPLMNavRef,
-                          outAltitude: ptr int32,
+                          outAltitude: ptr int,
                           outLat: ptr float32,
                           outLon: ptr float32) {.cdecl, importc: "XPLMGetFMSEntryInfo", dynlib: xplm_lib}
 
@@ -202,20 +202,20 @@ proc XPLMGetFMSEntryInfo*(inIndex: int32,
 # passed in and the altitude specified.  Use this only for airports, fixes,
 # and radio-beacon navaids.  Currently of radio beacons, the FMS can only
 # support VORs and NDBs. Use the routines below to clear or fly to a lat/lon.
-proc XPLMSetFMSEntryInfo*(inIndex: int32,
+proc XPLMSetFMSEntryInfo*(inIndex: int,
                           inRef: XPLMNavRef,
-                          inAltitude: int32) {.cdecl, importc: "XPLMSetFMSEntryInfo", dynlib: xplm_lib}
+                          inAltitude: int) {.cdecl, importc: "XPLMSetFMSEntryInfo", dynlib: xplm_lib}
 
 # XPLMSetFMSEntryLatLon changes the entry in the FMS to a lat/lon entry with
 # the given coordinates.
-proc XPLMSetFMSEntryLatLon*(inIndex: int32,
+proc XPLMSetFMSEntryLatLon*(inIndex: int,
                             inLat: float32,
                             inLon: float32,
-                            inAltitude: int32) {.cdecl, importc: "XPLMSetFMSEntryLatLon", dynlib: xplm_lib}
+                            inAltitude: int) {.cdecl, importc: "XPLMSetFMSEntryLatLon", dynlib: xplm_lib}
 
 # XPLMClearFMSEntry clears the given entry, potentially shortening the flight
 # plan.
-proc XPLMClearFMSEntry*(inIndex: int32) {.cdecl, importc: "XPLMClearFMSEntry", dynlib: xplm_lib}
+proc XPLMClearFMSEntry*(inIndex: int) {.cdecl, importc: "XPLMClearFMSEntry", dynlib: xplm_lib}
 
 
 #******************************************************************************

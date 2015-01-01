@@ -105,13 +105,13 @@
 # are always called. So it is possible to have whole chains of widgets that
 # are simply not called.   You can preconstruct widget trees and then place
 # them into root widgets later to activate them if you wish.
-proc XPCreateWidget*(inLeft: int32,
-                     inTop: int32,
-                     inRight: int32,
-                     inBottom: int32,
-                     inVisible: int32,
+proc XPCreateWidget*(inLeft: int,
+                     inTop: int,
+                     inRight: int,
+                     inBottom: int,
+                     inVisible: int,
                      inDescriptor: cstring,
-                     inIsRoot: int32,
+                     inIsRoot: int,
                      inContainer: XPWidgetID,
                      inClass: XPWidgetClass): XPWidgetID {.cdecl, importc: "XPCreateWidget", dynlib: xpwidgets_lib}
 
@@ -120,13 +120,13 @@ proc XPCreateWidget*(inLeft: int32,
 # widget.  Use this function to define a custom widget.  All parameters are
 # the same as XPCreateWidget, except that the widget class has been replaced
 # with the widget function.
-proc XPCreateCustomWidget*(inLeft: int32,
-                            inTop: int32,
-                            inRight: int32,
-                            inBottom: int32,
-                            inVisible: int32,
+proc XPCreateCustomWidget*(inLeft: int,
+                            inTop: int,
+                            inRight: int,
+                            inBottom: int,
+                            inVisible: int,
                             inDescriptor: cstring,
-                            inIsRoot: int32,
+                            inIsRoot: int,
                             inContainer: XPWidgetID,
                             inCallback: XPWidgetFunc_t): XPWidgetID {.cdecl, importc: "XPCreateCustomWidget", dynlib: xpwidgets_lib}
 
@@ -136,7 +136,7 @@ proc XPCreateCustomWidget*(inLeft: int32,
 # children will be destroyed with the inDestroyChildren flag set to 1, so the
 # destruction will recurse down the  widget tree.)  If you pass 0 for this
 # flag, the child widgets will simply end up with their parent set to 0.
-proc XPDestroyWidget*(inWidget: XPWidgetID, inDestroyChildren: int32) {.cdecl, importc: "XPDestroyWidget", dynlib: xpwidgets_lib}
+proc XPDestroyWidget*(inWidget: XPWidgetID, inDestroyChildren: int) {.cdecl, importc: "XPDestroyWidget", dynlib: xpwidgets_lib}
 
 # XPSendMessageToWidget sends any message to a widget. You should probably not
 # go around simulating the predefined messages that the widgets library defines
@@ -153,8 +153,8 @@ proc XPDestroyWidget*(inWidget: XPWidgetID, inDestroyChildren: int32) {.cdecl, i
 proc XPSendMessageToWidget*(inWidget: XPWidgetID,
                             inMessage: XPWidgetMessage,
                             inMode: XPDispatchMode,
-                            inParam1: ptr int32,
-                            inParam2: ptr int32): int32 {.cdecl, importc: "XPSendMessageToWidget", dynlib: xpwidgets_lib}
+                            inParam1: ptr int,
+                            inParam2: ptr int): int {.cdecl, importc: "XPSendMessageToWidget", dynlib: xpwidgets_lib}
 
 #******************************************************************************
 # WIDGET POSITIONING AND VISIBILITY
@@ -177,13 +177,13 @@ proc XPPlaceWidgetWithin*(inSubWidget: XPWidgetID,
                           inContainer: XPWidgetID) {.cdecl, importc: "XPPlaceWidgetWithin", dynlib: xpwidgets_lib}
 
 # XPCountChildWidgets returns the number of widgets another widget contains.
-proc XPCountChildWidgets*(inWidget: XPWidgetID): int32 {.cdecl, importc: "XPCountChildWidgets", dynlib: xpwidgets_lib}
+proc XPCountChildWidgets*(inWidget: XPWidgetID): int {.cdecl, importc: "XPCountChildWidgets", dynlib: xpwidgets_lib}
 
 # XPGetNthChildWidget returns the widget ID of a child widget by index. Indexes
 # are 0 based, from 0 to one minus the number of widgets in the parent,
 # inclusive.  If the index is invalid, 0 is returned.
 proc XPGetNthChildWidget*(inWidget: XPWidgetID,
-                          inIndex: int32): XPWidgetID {.cdecl, importc: "XPGetNthChildWidget", dynlib: xpwidgets_lib}
+                          inIndex: int): XPWidgetID {.cdecl, importc: "XPGetNthChildWidget", dynlib: xpwidgets_lib}
 
 # XPGetParentWidget returns the parent of a widget, or 0 if the widget has no
 # parent.   Root widgets never have parents and therefore always return 0.
@@ -201,7 +201,7 @@ proc XPHideWidget*(inWidget: XPWidgetID) {.cdecl, importc: "XPHideWidget", dynli
 # XPIsWidgetVisible returns 1 if a widget is visible, 0 if it is not.  Note
 # that this routine takes into consideration whether a parent is invisible. Use
 # this routine to tell if the user can see the widget.
-proc XPIsWidgetVisible*(inWidget: XPWidgetID): int32 {.cdecl, importc: "XPIsWidgetVisible", dynlib: xpwidgets_lib}
+proc XPIsWidgetVisible*(inWidget: XPWidgetID): int {.cdecl, importc: "XPIsWidgetVisible", dynlib: xpwidgets_lib}
 
 # XPFindRootWidget returns the Widget ID of the root widget that contains the
 # passed in widget or NULL if the passed in widget is not in a rooted
@@ -218,23 +218,23 @@ proc XPBringRootWidgetToFront*(inWidget: XPWidgetID) {.cdecl, importc: "XPBringR
 # XPIsWidgetInFront returns true if this widget's hierarchy is the front most
 # hierarchy. It returns false if the widget's hierarchy is not in front, or
 # if the widget is not in a rooted hierarchy.
-proc XPIsWidgetInFront*(inWidget: XPWidgetID): int32 {.cdecl, importc: "XPIsWidgetInFront", dynlib: xpwidgets_lib}
+proc XPIsWidgetInFront*(inWidget: XPWidgetID): int {.cdecl, importc: "XPIsWidgetInFront", dynlib: xpwidgets_lib}
 
 # XPGetWidgetGeometry returns the bounding box of a widget in global coordinates.
 # Pass NULL for any parameter you are not interested in.
 # Note outLeft, outTop, outRight, and outBottom can be NULL
 proc XPGetWidgetGeometry*(inWidget: XPWidgetID,
-                          outLeft: ptr int32,
-                          outTop: ptr int32,
-                          outRight: ptr int32,
-                          outBottom: ptr int32) {.cdecl, importc: "XPGetWidgetGeometry", dynlib: xpwidgets_lib}
+                          outLeft: ptr int,
+                          outTop: ptr int,
+                          outRight: ptr int,
+                          outBottom: ptr int) {.cdecl, importc: "XPGetWidgetGeometry", dynlib: xpwidgets_lib}
 
 # XPSetWidgetGeometry changes the bounding box of a widget.
 proc XPSetWidgetGeometry*(inWidget: XPWidgetID,
-                          outLeft: ptr int32,
-                          outTop: ptr int32,
-                          outRight: ptr int32,
-                          outBottom: ptr int32) {.cdecl, importc: "XPSetWidgetGeometry", dynlib: xpwidgets_lib}
+                          outLeft: ptr int,
+                          outTop: ptr int,
+                          outRight: ptr int,
+                          outBottom: ptr int) {.cdecl, importc: "XPSetWidgetGeometry", dynlib: xpwidgets_lib}
 
 # XPGetWidgetForLocation, given a widget and a location, this routine returns
 # the widget ID of the child of that widget that owns that location.  If
@@ -250,10 +250,10 @@ proc XPSetWidgetGeometry*(inWidget: XPWidgetID,
 # geometry.  The  parent geometry limits the child's eligibility for mouse
 # location.
 proc XPGetWidgetForLocation*(inContainer: XPWidgetID,
-                             inXOffset: int32,
-                             inYOffset: int32,
-                             inRecursive: int32,
-                             inVisibleOnly: int32): XPWidgetID {.cdecl, importc: "XPGetWidgetForLocation", dynlib: xpwidgets_lib}
+                             inXOffset: int,
+                             inYOffset: int,
+                             inRecursive: int,
+                             inVisibleOnly: int): XPWidgetID {.cdecl, importc: "XPGetWidgetForLocation", dynlib: xpwidgets_lib}
 
 # XPGetWidgetExposedGeometry returns the bounds of the area of a widget that is
 # completely within its parent widgets.  Since a widget's bounding box can be
@@ -264,10 +264,10 @@ proc XPGetWidgetForLocation*(inContainer: XPWidgetID,
 # keep frame rates up, although you could use it internally.
 # Note outLeft, outTop, outRight, and outBottom can be NULL
 proc XPGetWidgetExposedGeometry*(inWidget: XPWidgetID,
-                                 outLeft: ptr int32,
-                                 outTop: ptr int32,
-                                 outRight: ptr int32,
-                                 outBottom: ptr int32) {.cdecl, importc: "XPGetWidgetExposedGeometry", dynlib: xpwidgets_lib}
+                                 outLeft: ptr int,
+                                 outTop: ptr int,
+                                 outRight: ptr int,
+                                 outBottom: ptr int) {.cdecl, importc: "XPGetWidgetExposedGeometry", dynlib: xpwidgets_lib}
 
 #******************************************************************************
 # ACCESSING WIDGET DATA
@@ -293,13 +293,13 @@ proc XPSetWidgetDescriptor*(inWidget: XPWidgetID, inDescriptor: cstring) {.cdecl
 # terminated (this routine has 'strncpy' semantics).
 proc XPGetWidgetDescriptor*(inWidget: XPWidgetID,
                             outDescriptor: cstring,
-                            inMaxDescLength: int32): int32 {.cdecl, importc: "XPGetWidgetDescriptor", dynlib: xpwidgets_lib}
+                            inMaxDescLength: int): int {.cdecl, importc: "XPGetWidgetDescriptor", dynlib: xpwidgets_lib}
 
 # XPSetWidgetProperty sets a widget's property.  Properties are arbitrary values
 # associated by a widget by ID.
 proc XPSetWidgetProperty*(inWidget: XPWidgetID,
                           inProperty: XPWidgetPropertyID,
-                          inValue: ptr int32) {.cdecl, importc: "XPSetWidgetProperty", dynlib: xpwidgets_lib}
+                          inValue: ptr int) {.cdecl, importc: "XPSetWidgetProperty", dynlib: xpwidgets_lib}
 
 # XPGetWidgetProperty returns the value of a widget's property, or 0 if the
 # property is not defined.  If you need to know whether the property is defined,
@@ -308,7 +308,7 @@ proc XPSetWidgetProperty*(inWidget: XPWidgetID,
 # information.
 proc XPGetWidgetProperty*(inWidget: XPWidgetID,
                           inProperty: XPWidgetPropertyID,
-                          inExists: ptr int32): ptr int32 {.cdecl, importc: "XPGetWidgetProperty", dynlib: xpwidgets_lib}
+                          inExists: ptr int): ptr int {.cdecl, importc: "XPGetWidgetProperty", dynlib: xpwidgets_lib}
 
 #******************************************************************************
 # KEYBOARD MANAGEMENT

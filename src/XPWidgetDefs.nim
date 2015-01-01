@@ -66,7 +66,7 @@ const
     xpProperty_UserStart* = 10000
 
 type
-  XPWidgetPropertyID* = int32
+  XPWidgetPropertyID* = int
 
 
 # XPMouseState_t
@@ -76,10 +76,10 @@ type
 type
     PXPMouseState_t* = ptr XPMouseState_t
     XPMouseState_t*{.final.} = object
-        x*: int32
-        y*: int32
-        button*: int32
-        delta*: int32
+        x*: int
+        y*: int
+        button*: int
+        delta*: int
 
 # XPKeyState_t
 #
@@ -89,7 +89,7 @@ type
     PXPKeyState_t* = ptr XPKeyState_t
     XPKeyState_t*{.final.} = object
         key*: int8
-        flags*: int32
+        flags*: int
         vkey*: int8
 
 # XPWidgetGeometryChange_t
@@ -99,10 +99,10 @@ type
 type
     PXPWidgetGeometryChange_t* = ptr XPWidgetGeometryChange_t
     XPWidgetGeometryChange_t*{.final.} = object
-        dx*: int32
-        dy*: int32
-        dwidth*: int32
-        dheight*: int32
+        dx*: int
+        dy*: int
+        dwidth*: int
+        dheight*: int
 
 
 # XPDispatchMode
@@ -132,7 +132,7 @@ const
     xpMode_Once* = 4
 
 type
-    XPDispatchMode* = int32
+    XPDispatchMode* = int
 
 # XPWidgetClass
 #
@@ -140,7 +140,7 @@ type
 # specifies from a library the widget function to be used for the widget.
 # Most widgets can be made right from classes.
 type
-    XPWidgetClass* = int32
+    XPWidgetClass* = int
 
 # An unspecified widget class.  Other widget classes are in
 # XPStandardWidgets.h
@@ -362,7 +362,7 @@ const
     xpMsg_UserStart* = 10000
 
 type
-    XPWidgetMessage* = int32
+    XPWidgetMessage* = int
 
 #******************************************************************************
 # WIDGET CALLBACK FUNCTION
@@ -377,6 +377,6 @@ type
 type
     XPWidgetFunc_t* = proc (inMessage: XPWidgetMessage,
                             inWidget: XPWidgetID,
-                            inParam1: ptr int32,
-                            inParam2: ptr int32): int32 {.cdecl.}
+                            inParam1: ptr int,
+                            inParam2: ptr int): int {.cdecl.}
 

@@ -42,24 +42,24 @@ const
     xpWindow_ListView* = 5
 
 type
-    XPWindowStyle* = int32
+    XPWindowStyle* = int
 
 # XPDrawWindow draws a window of the given dimensions at the given offset on
 # the virtual screen in a given style.  The window is automatically scaled as
 # appropriate using a bitmap scaling technique (scaling or repeating) as
 # appropriate to the style.
-proc XPDrawWindow*(inX1: int32,
-                   inY1: int32,
-                   inX2: int32,
-                   inY2: int32,
+proc XPDrawWindow*(inX1: int,
+                   inY1: int,
+                   inX2: int,
+                   inY2: int,
                    inStyle: XPWindowStyle) {.cdecl, importc: "XPDrawWindow", dynlib: xpwidgets_lib}
 
 # XPGetWindowDefaultDimensions returns the default dimensions for a window.
 # Output is either a minimum or fixed value depending on whether the window
 # is scalable. Note, outWidth and outHeight can be NULL.
 proc XPGetWindowDefaultDimensions*(inStyle: XPWindowStyle,
-                                   outWidth: ptr int32,
-                                   outHeight: ptr int32) {.cdecl, importc: "XPGetWindowDefaultDimensions", dynlib: xpwidgets_lib}
+                                   outWidth: ptr int,
+                                   outHeight: ptr int) {.cdecl, importc: "XPGetWindowDefaultDimensions", dynlib: xpwidgets_lib}
 
 # XPElementStyle
 #
@@ -183,27 +183,27 @@ const
     xpElement_WindowDragBarSmooth* = 62
 
 type
-    XPElementStyle* = int32
+    XPElementStyle* = int
 
 # XPDrawElement draws a given element at an offset on the virtual screen in
 # set dimensions. EVEN if the element is not scalable, it will be scaled if
 # the width and height do not match the preferred dimensions; it'll just look
 # ugly.  Pass inLit to see the lit version of the element; if the element
 # cannot be lit this is ignored.
-proc XPDrawElement*(inX1: int32,
-                    inY1: int32,
-                    inX2: int32,
-                    inY2: int32,
-                    inStyle: XPElementStyle, inLit: int32) {.cdecl, importc: "XPDrawElement", dynlib: xpwidgets_lib}
+proc XPDrawElement*(inX1: int,
+                    inY1: int,
+                    inX2: int,
+                    inY2: int,
+                    inStyle: XPElementStyle, inLit: int) {.cdecl, importc: "XPDrawElement", dynlib: xpwidgets_lib}
 
 # XPGetElementDefaultDimensions returns the recommended or minimum dimensions
 # of a given UI element. outCanBeLit tells whether the element has both a lit
 # and unlit state.  Pass NULL to not receive any of these parameters.
 # Note, outWidth, outHeight, and outCanBeLit can be NULL.
 proc XPGetElementDefaultDimensions*(inStyle: XPElementStyle,
-                                    outWidth: ptr int32,
-                                    outHeight: ptr int32,
-                                    outCanBeLit: ptr int32) {.cdecl, importc: "XPGetElementDefaultDimensions", dynlib: xpwidgets_lib}
+                                    outWidth: ptr int,
+                                    outHeight: ptr int,
+                                    outCanBeLit: ptr int) {.cdecl, importc: "XPGetElementDefaultDimensions", dynlib: xpwidgets_lib}
 
 # XPTrackStyle
 #
@@ -230,28 +230,28 @@ const
     xpTrack_Progress* = 2
 
 type
-    XPTrackStyle* = int32
+    XPTrackStyle* = int
 
 # XPDrawTrack draws a track.  You pass in the track dimensions and size; the
 # track picks the optimal orientation for these dimensions.  Pass in the
 # track's minimum current and maximum values; the indicator will be
 # positioned appropriately.  You can also specify whether the track is lit or
 # not.
-proc XPDrawTrack*(inX1: int32,
-                  inY1: int32,
-                  inX2: int32,
-                  inY2: int32,
-                  inMin: int32,
-                  inMax: int32,
-                  inValue: int32,
-                  inTrackStyle: XPTrackStyle, inLit: int32) {.cdecl, importc: "XPDrawTrack", dynlib: xpwidgets_lib}
+proc XPDrawTrack*(inX1: int,
+                  inY1: int,
+                  inX2: int,
+                  inY2: int,
+                  inMin: int,
+                  inMax: int,
+                  inValue: int,
+                  inTrackStyle: XPTrackStyle, inLit: int) {.cdecl, importc: "XPDrawTrack", dynlib: xpwidgets_lib}
 
 # XPGetTrackDefaultDimensions returns a track's default smaller dimension; all
 # tracks are scalable in the larger dimension.  It also returns whether a track
 # can be lit.
 proc XPGetTrackDefaultDimensions*(inStyle: XPTrackStyle,
-                                  outWidth: ptr int32,
-                                  outCanBeLit: ptr int32) {.cdecl, importc: "XPGetTrackDefaultDimensions", dynlib: xpwidgets_lib}
+                                  outWidth: ptr int,
+                                  outCanBeLit: ptr int) {.cdecl, importc: "XPGetTrackDefaultDimensions", dynlib: xpwidgets_lib}
 
 # XPGetTrackMetrics returns the metrics of a track.  If you want to write UI code
 # to manipulate a track, this routine helps you know where the mouse
@@ -265,18 +265,18 @@ proc XPGetTrackDefaultDimensions*(inStyle: XPTrackStyle,
 # scrollbar, which are the down button, down area (area before the thumb),
 # the thumb, and the up area and button.  For horizontal scrollers, the left
 # button decreases; for vertical scrollers, the top button decreases.
-proc XPGetTrackMetrics*(inX1: int32,
-                        inY1: int32,
-                        inX2: int32,
-                        inY2: int32,
-                        inMin: int32,
-                        inMax: int32,
-                        inValue: int32,
+proc XPGetTrackMetrics*(inX1: int,
+                        inY1: int,
+                        inX2: int,
+                        inY2: int,
+                        inMin: int,
+                        inMax: int,
+                        inValue: int,
                         inTrackStyle: XPTrackStyle,
-                        outIsVertical: ptr int32,
-                        outDownBtnSize: ptr int32,
-                        outDownPageSize: ptr int32,
-                        outThumbSize: ptr int32,
-                        outUpPageSize: ptr int32,
-                        outUpBtnSize: ptr int32) {.cdecl, importc: "XPGetTrackMetrics", dynlib: xpwidgets_lib}
+                        outIsVertical: ptr int,
+                        outDownBtnSize: ptr int,
+                        outDownPageSize: ptr int,
+                        outThumbSize: ptr int,
+                        outUpPageSize: ptr int,
+                        outUpBtnSize: ptr int) {.cdecl, importc: "XPGetTrackMetrics", dynlib: xpwidgets_lib}
 

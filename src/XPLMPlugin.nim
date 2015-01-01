@@ -21,12 +21,12 @@ proc XPLMGetMyID*(): XPLMPluginID {.cdecl, importc: "XPLMGetMyID", dynlib: xplm_
 
 # XPLMCountPlugins returns the total number of plug-ins that are loaded, both
 # disabled and enabled.
-proc XPLMCountPlugins*(): int32 {.cdecl, importc: "XPLMCountPlugins", dynlib: xplm_lib}
+proc XPLMCountPlugins*(): int {.cdecl, importc: "XPLMCountPlugins", dynlib: xplm_lib}
 
 # XPLMGetNthPlugin returns the ID of a plug-in by index.  Index is 0 based from 0
 # to XPLMCountPlugins-1, inclusive. Plugins may be returned in any arbitrary
 # order.
-proc XPLMGetNthPlugin*(inIndex: int32): XPLMPluginID {.cdecl, importc: "XPLMGetNthPlugin", dynlib: xplm_lib}
+proc XPLMGetNthPlugin*(inIndex: int): XPLMPluginID {.cdecl, importc: "XPLMGetNthPlugin", dynlib: xplm_lib}
 
 # XPLMFindPluginByPath returns the plug-in ID of the plug-in whose file exists
 # at the passed in absolute file system path.  XPLM_NO_PLUGIN_ID is returned
@@ -65,13 +65,13 @@ proc XPLMGetPluginInfo*(inPlugin: XPLMPluginID,
 #
 
 # XPLMIsPluginEnabled returns whether the specified plug-in is enabled for running.
-proc XPLMIsPluginEnabled*(inPluginID: XPLMPluginID): int32 {.cdecl, importc: "XPLMIsPluginEnabled", dynlib: xplm_lib}
+proc XPLMIsPluginEnabled*(inPluginID: XPLMPluginID): int {.cdecl, importc: "XPLMIsPluginEnabled", dynlib: xplm_lib}
 
 # XPLMEnablePlugin enables a plug-in if it is not already enabled.  It returns 1
 # if the plugin was enabled or successfully enables itself, 0 if it does not.
 # Plugins may fail to enable (for example, if resources cannot be acquired)
 # by returning 0 from their XPluginEnable callback.
-proc XPLMEnablePlugin*(inPluginID: XPLMPluginID): int32 {.cdecl, importc: "XPLMEnablePlugin", dynlib: xplm_lib}
+proc XPLMEnablePlugin*(inPluginID: XPLMPluginID): int {.cdecl, importc: "XPLMEnablePlugin", dynlib: xplm_lib}
 
 # XPLMDisablePlugin disableds an enabled plug-in.
 proc XPLMDisablePlugin*(inPluginID: XPLMPluginID) {.cdecl, importc: "XPLMDisablePlugin", dynlib: xplm_lib}
@@ -158,7 +158,7 @@ const
 # XPLM_NO_PLUGIN_ID to broadcast to all plug-ins.  Only enabled plug-ins with
 # a message receive function receive the message.
 proc XPLMSendMessageToPlugin*(inPlugin: XPLMPluginID,
-                              inMessage: int32,
+                              inMessage: int,
                               inParam: pointer) {.cdecl, importc: "XPLMSendMessageToPlugin", dynlib: xplm_lib}
 
 #******************************************************************************
@@ -184,17 +184,17 @@ type
 
 # XPLMHasFeature returns 1 if the given installation of X-Plane supports a
 # feature, 0 if it does not.
-proc XPLMHasFeature*(inFeature: cstring): int32 {.cdecl, importc: "XPLMHasFeature", dynlib: xplm_lib}
+proc XPLMHasFeature*(inFeature: cstring): int {.cdecl, importc: "XPLMHasFeature", dynlib: xplm_lib}
 
 # XPLMIsFeatureEnabled returns 1 if a feature is currently enabled for your
 # plugin, or 0 if it is not enabled.  It is an error to call this routine with
 # an unsupported feature.
-proc XPLMIsFeatureEnabled*(inFeature: cstring): int32 {.cdecl, importc: "XPLMIsFeatureEnabled", dynlib: xplm_lib}
+proc XPLMIsFeatureEnabled*(inFeature: cstring): int {.cdecl, importc: "XPLMIsFeatureEnabled", dynlib: xplm_lib}
 
 # XPLMEnableFeature enables or disables a feature for your plugin.  This will
 # change the running behavior of X-Plane and your plugin in some way,
 # depending on the feature.
-proc XPLMEnableFeature*(inFeature: cstring, inEnable: int32) {.cdecl, importc: "XPLMEnableFeature", dynlib: xplm_lib}
+proc XPLMEnableFeature*(inFeature: cstring, inEnable: int) {.cdecl, importc: "XPLMEnableFeature", dynlib: xplm_lib}
 
 # XPLMEnumerateFeatures calls your enumerator callback once for each feature
 # that this running version of X-Plane supports. Use this routine to determine

@@ -53,22 +53,22 @@ var
     gPTT_On = false
     gPluginEnabled = false
     gCommWindow: XPLMWindowID
-    gCommWinPosX: int32
-    gCommWinPosY: int32
-    gLastMouseX: int32
-    gLastMouseY: int32
+    gCommWinPosX: int
+    gCommWinPosY: int
+    gLastMouseX: int
+    gLastMouseY: int
     gPilotEdgePlugin = false
     gPlaneLoaded = false
 
 # proc printf(formatstr: cstring) {.importc: "printf", varargs, header: "<stdio.h>".}
 
-proc CommandHandler(inCommand: XPLMCommandRef, inPhase: XPLMCommandPhase, inRefcon: pointer): int32 {.exportc: "CommandHandler", dynlib.} =
+proc CommandHandler(inCommand: XPLMCommandRef, inPhase: XPLMCommandPhase, inRefcon: pointer): int {.exportc: "CommandHandler", dynlib.} =
     # if ((gFlCbCnt % PANEL_CHECK_INTERVAL) == 0) {
     # }
     # if (!gPluginEnabled) {
     #   return IGNORED_EVENT;
     # }
-    case cast[int32](inRefcon):
+    case cast[int](inRefcon):
     of CMD_CONTACT_ATC:
         case inPhase:
         of xplm_CommandBegin, xplm_CommandContinue:
@@ -84,12 +84,9 @@ proc CommandHandler(inCommand: XPLMCommandRef, inPhase: XPLMCommandPhase, inRefc
 # template `CPtr.`(x: expr): expr = cast[ptr type(x[0])](addr x)
 # template `:-/`(x: expr): expr = cast[ptr type(x[0])](addr x)
 # RGB: White [1.0, 1.0, 1.0], Lime Green [0.0, 1.0, 0.0]
-var viewer_color: array[0..2, float32]
-viewer_color[0] = 0.0
-viewer_color[1] = 1.0
-viewer_color[2] = 0.0
+var viewer_color: array[0..2, float32] = [float32(0.0), float32(1.0), float32(0.0)]
 proc DrawWindowCallback(inWindowID: XPLMWindowID, inRefcon: pointer) {.exportc: "DrawWindowCallback", dynlib.} =
-    var left, right, top, bottom: int32
+    var left, right, top, bottom: int
 
     if inWindowID != gCommWindow:
         return
@@ -119,9 +116,9 @@ proc DrawWindowCallback(inWindowID: XPLMWindowID, inRefcon: pointer) {.exportc: 
         var connected: string
         var ptt_status: string
 
-        rx_status = if cast[bool](if cast[bool](pilotedge_rx_status_dataref): XPLMGetDatai(pilotedge_rx_status_dataref) else: 0): "1" else: "0";
-        tx_status = if cast[bool](if cast[bool](pilotedge_tx_status_dataref): XPLMGetDatai(pilotedge_tx_status_dataref) else: 0): "1" else: "0";
-        connected = if cast[bool](if cast[bool](pilotedge_connected_dataref): XPLMGetDatai(pilotedge_connected_dataref) else: 0): "YES" else: "NO "
+        rx_status = if (if cast[bool](pilotedge_rx_status_dataref): cast[bool](XPLMGetDatai(pilotedge_rx_status_dataref)) else: false): "1" else: "0";
+        tx_status = if (if cast[bool](pilotedge_tx_status_dataref): cast[bool](XPLMGetDatai(pilotedge_tx_status_dataref)) else: false): "1" else: "0";
+        connected = if (if cast[bool](pilotedge_connected_dataref): cast[bool](XPLMGetDatai(pilotedge_connected_dataref)) else: false): "YES" else: "NO "
         ptt_status = if gPTT_On: "PTT: ON " else: "PTT: OFF"
 
         # printf("CommViewer, rx_status:%d, tx_status:%d, connected:%s, ptt_status:%s\n",
@@ -129,8 +126,8 @@ proc DrawWindowCallback(inWindowID: XPLMWindowID, inRefcon: pointer) {.exportc: 
 
         var str1: cstring = "[PilotEdge] Connected: $1 \t\t\tTX: $2\t\t\tRX: $3" % [connected, tx_status, rx_status]
 
-        var a: int32 = XPLMGetDatai(audio_selection_com1_dataref)
-        var b: int32 = XPLMGetDatai(audio_selection_com2_dataref)
+        var a: int = XPLMGetDatai(audio_selection_com1_dataref)
+        var b: int = XPLMGetDatai(audio_selection_com2_dataref)
         var str2: cstring = "$1\t\t\tCOM1: $2\t\t\tCOM2: $3" % [ptt_status, $a, $b]
 
         # text to window, NULL indicates no word wrap
@@ -138,14 +135,14 @@ proc DrawWindowCallback(inWindowID: XPLMWindowID, inRefcon: pointer) {.exportc: 
                        left+4,
                        top-20,
                        str1,
-                       cast[ptr int32](0),
+                       cast[ptr int](0),
                        cast[XPLMFontID](xplmFont_Basic))
 
         XPLMDrawString(addr(viewer_color[0]),
                        left+4,
                        top-40,
                        str2,
-                       cast[ptr int32](0),
+                       cast[ptr int](0),
                        cast[XPLMFontID](xplmFont_Basic))
     else: discard
 
@@ -154,13 +151,13 @@ proc HandleKeyCallback(inWindowID: XPLMWindowID,
                        inFlags: XPLMKeyFlags,
                        inVirtualKey: int8,
                        inRefcon: pointer,
-                       losingFocus: int32) {.exportc: "HandleKeyCallback", dynlib.} =
+                       losingFocus: int) {.exportc: "HandleKeyCallback", dynlib.} =
     if inWindowID != gCommWindow:
         return
 
-var com_changed: int32 = COMMS_UNCHANGED
-var MouseDownX, MouseDownY: int32
-proc HandleMouseCallback(inWindowID: XPLMWindowID, x, y: int32, inMouse: XPLMMouseStatus, inRefcon: pointer): int32 {.exportc: "HandleMouseCallback", dynlib.} =
+var com_changed: int = COMMS_UNCHANGED
+var MouseDownX, MouseDownY: int
+proc HandleMouseCallback(inWindowID: XPLMWindowID, x, y: int, inMouse: XPLMMouseStatus, inRefcon: pointer): int {.exportc: "HandleMouseCallback", dynlib.} =
     if inWindowID != gCommWindow:
         return IGNORED_EVENT
 
@@ -189,8 +186,8 @@ proc HandleMouseCallback(inWindowID: XPLMWindowID, x, y: int32, inMouse: XPLMMou
         gLastMouseY = y
     of xplm_MouseUp:
         if MouseDownX == x or MouseDownY == y:
-            var com1: int32 = XPLMGetDatai(audio_selection_com1_dataref)
-            var com2: int32 = XPLMGetDatai(audio_selection_com2_dataref)
+            var com1: int = XPLMGetDatai(audio_selection_com1_dataref)
+            var com2: int = XPLMGetDatai(audio_selection_com2_dataref)
 
             if com1 != 0 and com2 != 0 and com_changed != 0:
                 case com_changed:
@@ -213,14 +210,14 @@ proc HandleMouseCallback(inWindowID: XPLMWindowID, x, y: int32, inMouse: XPLMMou
     return PROCESSED_EVENT
 
 proc FlightLoopCallback(inElapsedSinceLastCall, inElapsedTimeSinceLastFlightLoop: float32,
-                        inCounter: int32, inRefcon: pointer): float32 {.exportc: "FlightLoopCallback", dynlib.} =
+                        inCounter: int, inRefcon: pointer): float32 {.exportc: "FlightLoopCallback", dynlib.} =
     # us: int, strongAdvice = false
     # proc GC_step*(100)
     if gPluginEnabled == false:
         discard
     return 1.0
 
-proc XPluginStart(outName, outSig, outDesc: ptr int8): int32 {.exportc: "XPluginStart", dynlib.} =
+proc XPluginStart(outName, outSig, outDesc: ptr cstring): int {.exportc: "XPluginStart", dynlib.} =
     var name: cstring = "CommViewer"
     var sig: cstring = "jdp.comm.viewer"
     var desc: cstring = "CommViewer Plugin."
@@ -235,15 +232,15 @@ proc XPluginStart(outName, outSig, outDesc: ptr int8): int32 {.exportc: "XPlugin
     var cmd_ref: XPLMCommandRef = XPLMCreateCommand(CONTACT_ATC_REF_STR, CONTACT_ATC_STR)
     XPLMRegisterCommandHandler(cmd_ref,
                                cast[XPLMCommandCallback_f](CommandHandler),
-                               cast[int32](CMD_HNDLR_EPILOG),
+                               CMD_HNDLR_EPILOG,
                                cast[pointer](CMD_CONTACT_ATC))
 
-    # XPLMRegisterFlightLoopCallback(cast[XPLMFlightLoop_f](XFlightLoopCallback), cfloat(FL_CB_INTERVAL), pointer(nil))
+    # XPLMRegisterFlightLoopCallback(cast[XPLMFlightLoop_f](XFlightLoopCallback), float32(FL_CB_INTERVAL), pointer(nil))
 
     panel_visible_win_t_dataref = XPLMFindDataRef(PANEL_VISIBLE_WIN_T_STR)
 
     gCommWinPosX = 0
-    gCommWinPosY = cast[int32](toInt(XPLMGetDataf(panel_visible_win_t_dataref) - 200.0))
+    gCommWinPosY = toInt(XPLMGetDataf(panel_visible_win_t_dataref) - 200.0)
     gCommWindow = XPLMCreateWindow(gCommWinPosX,  # left
                                    gCommWinPosY,  # top
                                    gCommWinPosX+WINDOW_WIDTH,  # right
@@ -274,12 +271,12 @@ proc XPluginDisable() {.exportc: "XPluginDisable", dynlib.} =
     gPluginEnabled = false
     XPLMDebugString("CommViewer Plugin: XPluginDisable\n")
 
-proc XPluginEnable(): int32 {.exportc: "XPluginEnable", dynlib.} =
+proc XPluginEnable(): int {.exportc: "XPluginEnable", dynlib.} =
     gPluginEnabled = true
     XPLMDebugString("CommViewer Plugin: XPluginEnable\n")
     return PROCESSED_EVENT
 
-proc XPluginReceiveMessage(inFrom: XPLMPluginID, inMsg: int32, inParam: pointer) {.exportc: "XPluginReceiveMessage", dynlib.} =
+proc XPluginReceiveMessage(inFrom: XPLMPluginID, inMsg: int, inParam: pointer) {.exportc: "XPluginReceiveMessage", dynlib.} =
     if inFrom == XPLM_PLUGIN_XPLANE:
         # size_t inparam = reinterpret_cast<size_t>(inParam);
         case inMsg:
