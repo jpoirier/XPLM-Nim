@@ -28,23 +28,21 @@
 # FMS. It will not exist in the database, and cannot be programmed into the
 # FMS. Querying the FMS for navaids will return it.  Use
 # XPLMSetFMSEntryLatLon to set a lat/lon waypoint.
-const
-    xplm_Nav_Unknown* = 0
-    xplm_Nav_Airport* = 1
-    xplm_Nav_NDB* = 2
-    xplm_Nav_VOR* = 4
-    xplm_Nav_ILS* = 8
-    xplm_Nav_Localizer* = 16
-    xplm_Nav_GlideSlope* = 32
-    xplm_Nav_OuterMarker* = 64
-    xplm_Nav_MiddleMarker* = 128
-    xplm_Nav_InnerMarker* = 256
-    xplm_Nav_Fix* = 512
-    xplm_Nav_DME* = 1024
-    xplm_Nav_LatLon* = 2048
-
 type
-    XPLMNavType* = int
+    XPLMNavType* = enum
+      xplm_Nav_Unknown = 0
+      xplm_Nav_Airport = 1
+      xplm_Nav_NDB = 2
+      xplm_Nav_VOR = 4
+      xplm_Nav_ILS = 8
+      xplm_Nav_Localizer = 16
+      xplm_Nav_GlideSlope = 32
+      xplm_Nav_OuterMarker = 64
+      xplm_Nav_MiddleMarker = 128
+      xplm_Nav_InnerMarker = 256
+      xplm_Nav_Fix = 512
+      xplm_Nav_DME = 1024
+      xplm_Nav_LatLon = 2048
 
 # XPLMNavRef is an iterator into the navigation database.  The navigation
 # database is essentially an array, but it is not necessarily densely

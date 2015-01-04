@@ -23,18 +23,16 @@
 # 'checking' in x-plane actually appears as a light which may or may not be
 # lit.  So there are  three possible states.
 #
-const
-    # there is no symbol to the left of the menu item.
-    xplm_Menu_NoCheck* = 0
-
-    # the menu has a mark next to it that is unmarked (not lit).
-    xplm_Menu_Unchecked* = 1
-
-    # the menu has a mark next to it that is checked (lit).
-    xplm_Menu_Checked* = 2
-
 type
-    XPLMMenuCheck* = int
+    XPLMMenuCheck* = enum
+        # there is no symbol to the left of the menu item.
+        xplm_Menu_NoCheck = 0
+
+        # the menu has a mark next to it that is unmarked (not lit).
+        xplm_Menu_Unchecked = 1
+
+        # the menu has a mark next to it that is checked (lit).
+        xplm_Menu_Checked = 2
 
 # XPLMMenuID
 #

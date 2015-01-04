@@ -20,15 +20,13 @@
 # You can register a flight loop callback to run either before or after the
 # flight model is integrated by X-Plane.
 #
-const
-     # Your callback runs before X-Plane integrates the flight model.
-     xplm_FlightLoop_Phase_BeforeFlightModel* = 0
-
-     # Your callback runs after X-Plane integrates the flight model.
-     xplm_FlightLoop_Phase_AfterFlightModel* = 1
-
 type
-     XPLMFlightLoopPhaseType* = int
+    XPLMFlightLoopPhaseType* {.size: sizeof(int).} = enum
+        # Your callback runs before X-Plane integrates the flight model.
+        xplm_FlightLoop_Phase_BeforeFlightModel = 0
+
+        # Your callback runs after X-Plane integrates the flight model.
+        xplm_FlightLoop_Phase_AfterFlightModel = 1
 
 # XPLMFlightLoopID is an opaque identifier for a flight loop callback.  You can
 # use this identifier to easily track and remove your callbacks, or to use the

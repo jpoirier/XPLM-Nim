@@ -85,25 +85,23 @@
 # use of these codes, consult Austin and/or be prepared to revise your code
 # as X-Plane evolves.
 #
-const
-    xplm_Phase_FirstScene* = 0
-    xplm_Phase_Terrain* = 5
-    xplm_Phase_Airports* = 10
-    xplm_Phase_Vectors* = 15
-    xplm_Phase_Objects* = 20
-    xplm_Phase_Airplanes* = 25
-    xplm_Phase_LastScene* = 30
-    xplm_Phase_FirstCockpit* = 35
-    xplm_Phase_Panel* = 40
-    xplm_Phase_Gauges* = 45
-    xplm_Phase_Window* = 50
-    xplm_Phase_LastCockpit* = 55
-    xplm_Phase_LocalMap3D* = 100
-    xplm_Phase_LocalMap2D* = 101
-    xplm_Phase_LocalMapProfile* = 102
-
 type
-    XPLMDrawingPhase* = int
+    XPLMDrawingPhase* {.size: sizeof(int).} = enum
+      xplm_Phase_FirstScene = 0
+      xplm_Phase_Terrain = 5
+      xplm_Phase_Airports = 10
+      xplm_Phase_Vectors = 15
+      xplm_Phase_Objects = 20
+      xplm_Phase_Airplanes = 25
+      xplm_Phase_LastScene = 30
+      xplm_Phase_FirstCockpit = 35
+      xplm_Phase_Panel = 40
+      xplm_Phase_Gauges = 45
+      xplm_Phase_Window = 50
+      xplm_Phase_LastCockpit = 55
+      xplm_Phase_LocalMap3D = 100
+      xplm_Phase_LocalMap2D = 101
+      xplm_Phase_LocalMapProfile = 102
 
 
 # XPLMDrawCallback_f is the prototype for a low level drawing callback.  You
@@ -202,27 +200,23 @@ proc XPLMUnregisterKeySniffer*(inCallback: XPLMKeySniffer_f,
 # the mouse up message.  All of these messages will be directed to the same
 # window.
 #
-const
-    xplm_MouseDown* = 1
-    xplm_MouseDrag* = 2
-    xplm_MouseUp* = 3
-
 type
-    XPLMMouseStatus* = int
+    XPLMMouseStatus* {.size: sizeof(int).} = enum
+      xplm_MouseDown = 1
+      xplm_MouseDrag = 2
+      xplm_MouseUp = 3
 
 # XPLMCursorStatus
 #
 # XPLMCursorStatus describes how you would like X-Plane to manage the cursor.
 # See XPLMHandleCursor_f for more info.
 #
-const
-    xplm_CursorDefault* = 0
-    xplm_CursorHidden* = 1
-    xplm_CursorArrow* = 2
-    xplm_CursorCustom* = 3
-
 type
-    XPLMCursorStatus* = int
+    XPLMCursorStatus* {.size: sizeof(int).} = enum
+      xplm_CursorDefault = 0
+      xplm_CursorHidden = 1
+      xplm_CursorArrow = 2
+      xplm_CursorCustom = 3
 
 # XPLMWindowID is an opaque identifier for a window.  You use it to control
 # your window. When you create a window, you will specify callbacks to handle

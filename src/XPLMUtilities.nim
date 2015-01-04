@@ -16,8 +16,8 @@
 # using these  enumerations.
 #
 type
-     XPLMCommandKeyIDEnums* = enum
-          xplm_key_pause
+     XPLMCommandKeyID* {.size: sizeof(int).} = enum
+          xplm_key_pause = 0
           xplm_key_revthrust
           xplm_key_jettison
           xplm_key_brakesreg
@@ -113,18 +113,14 @@ type
           xplm_key_tranID
           xplm_key_ma
 
-type
-     XPLMCommandKeyID* = int
-
-
 # XPLMCommandButtonID are enumerations for all of the t*hings you can do with
 # a joystick button in X-Plane.  They currently match the buttons menu in the
 # equipment setup dialog, but these enums will be stable even if they change in
 # X-Plane.
 #
 type
-     XPLMCommandButtonIDEnums* = enum
-          xplm_joy_nothing
+     XPLMCommandButtonID* {.size: sizeof(int).} = enum
+          xplm_joy_nothing = 0
           xplm_joy_start_all
           xplm_joy_start_0
           xplm_joy_start_1
@@ -220,9 +216,6 @@ type
           xplm_joy_lanlights
           xplm_joy_max
 
-type
-     XPLMCommandButtonID* = int
-
 # XPLMHostApplicationID
 #
 # The plug-in system is based on Austin's cross-platform OpenGL framework and
@@ -233,7 +226,7 @@ type
 # under.
 #
 type
-     XPLMHostApplicationIDEnums* = enum
+     XPLMHostApplicationID* {.size: sizeof(int).} = enum
           xplm_Host_Unknown
           xplm_Host_XPlane
           xplm_Host_PlaneMaker
@@ -243,16 +236,13 @@ type
           xplm_Host_YoungsMod
           xplm_Host_XAuto
 
-type
-     XPLMHostApplicationID* = int
-
 # XPLMLanguageCode enums define what language the sim is running in.  These
 # enumerations do not imply that the sim can or does run in all of these languages;
 # they simply provide a known encoding in the event that a given sim version is
 # localized to a certain language.
 #
 type
-     XPLMLanguageCodeEnums* = enum
+     XPLMLanguageCode* {.size: sizeof(int).} = enum
           xplm_Language_Unknown
           xplm_Language_English
           xplm_Language_French
@@ -265,22 +255,17 @@ type
           xplm_Language_Japanese
           xplm_Language_Chinese
 
-type
-     XPLMLanguageCode* = int
-
 # XPLMDataFileType enums define types of data files you can load or unload
 # using the SDK.
 #
-const
-     # A situation (.sit) file, which starts off a flight in a given
-     # configuration.
-     xplm_DataFile_Situation* = 1
-
-     # A situation movie (.smo) file, which replays a past flight.
-     xplm_DataFile_ReplayMovie* = 2
-
 type
-     XPLMDataFileType* = int
+     XPLMDataFileType* {.size: sizeof(int).} = enum
+          # A situation (.sit) file, which starts off a flight in a given
+          # configuration.
+          xplm_DataFile_Situation = 1
+
+          # A situation movie (.smo) file, which replays a past flight.
+          xplm_DataFile_ReplayMovie = 2
 
 # XPLMError_f is an XPLM error callback is a function that you provide to
 # receive debugging information from the plugin SDK.  See XPLMSetErrorCallback
@@ -487,18 +472,16 @@ proc XPLMSaveDataFile*(inFileType: XPLMDataFileType, inFilePath: cstring): int {
 #
 # The phases of a command.
 #
-const
-     # The command is being started.
-     xplm_CommandBegin* = 0
-
-     # The command is continuing to execute.
-     xplm_CommandContinue* = 1
-
-     # The command has ended.
-     xplm_CommandEnd* = 2
-
 type
-     XPLMCommandPhase* = int
+     XPLMCommandPhase* {.size: sizeof(int).} = enum
+          # The command is being started.
+          xplm_CommandBegin = 0
+
+          # The command is continuing to execute.
+          xplm_CommandContinue = 1
+
+          # The command has ended.
+          xplm_CommandEnd = 2
 
 # XPLMCommandRef is a command ref is an opaque identifier for an X-Plane command.
 # Command references stay the same for the life of your plugin but not between

@@ -76,7 +76,7 @@ type
 #
 # Data types each take a bit field, so sets of data types may be formed.
 type
-    XPLMDataTypeIDEnums* = enum
+    XPLMDataTypeID* {.size: sizeof(int).} = enum
         #  Data of a type the current XPLM doesn't do.
         xplmType_Unknown
         # A single 4-byte integer, native endian.
@@ -91,10 +91,6 @@ type
         xplmType_IntArray
         # A variable block of data.
         xplmType_Data
-
-type
-    XPLMDataTypeID* = int
-
 
 # XPLMFindDataRef looks up the actual opaque XPLMDataRef that you use to read
 # and write the data. The string names for datarefs are published on the x-plane

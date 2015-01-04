@@ -46,18 +46,16 @@
 # XPLM Texture IDs name well-known textures in the sim for you to use. This
 # allows you to recycle textures from X-Plane, saving VRAM.
 #
-const
-    # The bitmap that contains window outlines, button outlines, fonts, etc.
-    xplm_Tex_GeneralInterface* = 0
-
-    # The exterior paint for the user's aircraft (daytime).
-    xplm_Tex_AircraftPaint* = 1
-
-    # The exterior light map for the user's aircraft.
-    xplm_Tex_AircraftLiteMap* = 2
-
 type
-    XPLMTextureID* = int
+    XPLMTextureID* {.size: sizeof(int).} = enum
+      # The bitmap that contains window outlines, button outlines, fonts, etc.
+      xplm_Tex_GeneralInterface = 0
+
+      # The exterior paint for the user's aircraft (daytime).
+      xplm_Tex_AircraftPaint = 1
+
+      # The exterior light map for the user's aircraft.
+      xplm_Tex_AircraftLiteMap = 2
 
 # XPLMSetGraphicsState changes OpenGL's graphics state in a number of ways:
 #
@@ -193,7 +191,7 @@ proc XPLMDrawTranslucentDarkBox*(inLeft: int,
 # you want to.
 #
 type
-    XPLMFontIDEnums* = enum
+    XPLMFontID* = enum
         # Mono-spaced font for user interface.
         xplmFont_Basic
         xplmFont_Menus              # Deprecated, do not use.
@@ -214,9 +212,6 @@ type
         xplmFont_SmallRound         # Deprecated, do not use.
         xplmFont_Menus_Localized    # Deprecated, do not use.
         xplmFont_Proportional       # Deprecated, do not use.
-
-type
-    XPLMFontID* = int
 
 # XPLMDrawString draws a NULL termianted string in a given font.  Pass in the
 # lower left pixel that the character is to be drawn onto.  Also pass the

@@ -60,15 +60,13 @@ const
 #  necessarily match the Macintosh user interface guidelines.  There is not
 #  yet a way for plugins to access the Macintosh control keys without using
 #  #ifdefed code.
-const
-  xplm_ShiftFlag* = 1       # The shift key is down
-  xplm_OptionAltFlag* = 2   # The option or alt key is down
-  xplm_ControlFlag* = 4     # The control key is down
-  xplm_DownFlag* = 8        # The key is being pressed down
-  xplm_UpFlag* = 16         # The key is being released
-
 type
-  XPLMKeyFlags* = int
+    XPLMKeyFlags* {.size: sizeof(int).} = enum
+        xplm_ShiftFlag = 1       # The shift key is down
+        xplm_OptionAltFlag = 2   # The option or alt key is down
+        xplm_ControlFlag = 4     # The control key is down
+        xplm_DownFlag = 8        # The key is being pressed down
+        xplm_UpFlag = 16         # The key is being released
 
 #******************************************************************************
 #  ASCII CONTROL KEY CODES

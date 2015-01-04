@@ -39,16 +39,14 @@
 #
 # This enumeration states how long you want to retain control of the camera.
 # You can retain it indefinitely or until the user selects a new view.
-const
-    # Control the camera until the user picks a new view.
-    xplm_ControlCameraUntilViewChanges* = 1
-
-    # Control the camera until your plugin is disabled or another plugin
-    # forcably takes control.
-    xplm_ControlCameraForever* = 2
-
 type
-    XPLMCameraControlDuration* = int
+    XPLMCameraControlDuration* {.size: sizeof(int).} = enum
+        # Control the camera until the user picks a new view.
+        xplm_ControlCameraUntilViewChanges = 1
+
+        # Control the camera until your plugin is disabled or another plugin
+        # forcably takes control.
+        xplm_ControlCameraForever = 2
 
 # XPLMCameraPosition_t
 #

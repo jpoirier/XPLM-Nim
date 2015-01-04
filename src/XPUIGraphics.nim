@@ -25,24 +25,22 @@
 # rescaled in x-plane 6 because it has both a repeating pattern and a
 # gradient in one element.  All other elements can be rescaled.
 #
-const
-    # An LCD screen that shows help.
-    xpWindow_Help* = 0
-
-    # A dialog box window.
-    xpWindow_MainWindow* = 1
-
-    # A panel or frame within a dialog box window.
-    xpWindow_SubWindow* = 2
-
-    # An LCD screen within a panel to hold text displays.
-    xpWindow_Screen* = 4
-
-    # A list view within a panel for scrolling file names, etc.
-    xpWindow_ListView* = 5
-
 type
-    XPWindowStyle* = int
+    XPWindowStyle* {.size: sizeof(int).} = enum
+        # An LCD screen that shows help.
+        xpWindow_Help = 0
+
+        # A dialog box window.
+        xpWindow_MainWindow = 1
+
+        # A panel or frame within a dialog box window.
+        xpWindow_SubWindow = 2
+
+        # An LCD screen within a panel to hold text displays.
+        xpWindow_Screen = 4
+
+        # A list view within a panel for scrolling file names, etc.
+        xpWindow_ListView = 5
 
 # XPDrawWindow draws a window of the given dimensions at the given offset on
 # the virtual screen in a given style.  The window is automatically scaled as
@@ -71,119 +69,82 @@ proc XPGetWindowDefaultDimensions*(inStyle: XPWindowStyle,
 # In x-plane 6 some elements must be drawn over metal.  Some are scalable and
 # some are not.  Any element can be drawn anywhere in x-plane 7.
 #
-# Scalable Axis			Required Background
+#       Scalable Axis			Required Background
 #
-const
-    # x						metal
-    xpElement_TextField* = 6
-
-    # none					metal
-    xpElement_CheckBox* = 9
-
-    # none					metal
-    xpElement_CheckBoxLit* = 10
-
-    # none					window header
-    xpElement_WindowCloseBox* = 14
-
-    # none					window header
-    xpElement_WindowCloseBoxPressed* = 15
-
-    # x					metal
-    xpElement_PushButton* = 16
-
-    # x					metal
-    xpElement_PushButtonLit* = 17
-
-    # none					any
-    xpElement_OilPlatform* = 24
-
-    # none					any
-    xpElement_OilPlatformSmall* = 25
-
-    # none					any
-    xpElement_Ship* = 26
-
-    # none					any
-    xpElement_ILSGlideScope* = 27
-
-    # none					any
-    xpElement_MarkerLeft* = 28
-
-    # none					any
-    xpElement_Airport* = 29
-
-    # none					any
-    xpElement_Waypoint* = 30
-
-    # none					any
-    xpElement_NDB* = 31
-
-    # none					any
-    xpElement_VOR* = 32
-
-    # none					any
-    xpElement_RadioTower* = 33
-
-    # none					any
-    xpElement_AircraftCarrier* = 34
-
-    # none					any
-    xpElement_Fire* = 35
-
-    # none					any
-    xpElement_MarkerRight* = 36
-
-    # none					any
-    xpElement_CustomObject* = 37
-
-    # none					any
-    xpElement_CoolingTower* = 38
-
-    # none					any
-    xpElement_SmokeStack* = 39
-
-    # none					any
-    xpElement_Building* = 40
-
-    # none					any
-    xpElement_PowerLine* = 41
-
-    # none					metal
-    xpElement_CopyButtons* = 45
-
-    # none					metal
-    xpElement_CopyButtonsWithEditingGrid* = 46
-
-    # x, y					metal
-    xpElement_EditingGrid* = 47
-
-    # THIS CAN PROBABLY BE REMOVED
-    xpElement_ScrollBar* = 48
-
-    # none					any
-    xpElement_VORWithCompassRose* = 49
-
-    # none					metal
-    xpElement_Zoomer* = 51
-
-    # x, y					metal
-    xpElement_TextFieldMiddle* = 52
-
-    # none					metal
-    xpElement_LittleDownArrow* = 53
-
-    # none					metal
-    xpElement_LittleUpArrow* = 54
-
-    # none					metal
-    xpElement_WindowDragBar* = 61
-
-    # none					metal
-    xpElement_WindowDragBarSmooth* = 62
-
 type
-    XPElementStyle* = int
+    XPElementStyle* {.size: sizeof(int).} = enum
+        # x						metal
+        xpElement_TextField = 6
+        # none					metal
+        xpElement_CheckBox = 9
+        # none					metal
+        xpElement_CheckBoxLit = 10
+        # none					window header
+        xpElement_WindowCloseBox = 14
+        # none					window header
+        xpElement_WindowCloseBoxPressed = 15
+        # x					    metal
+        xpElement_PushButton = 16
+        # x					    metal
+        xpElement_PushButtonLit = 17
+        # none					any
+        xpElement_OilPlatform = 24
+        # none					any
+        xpElement_OilPlatformSmall = 25
+        # none					any
+        xpElement_Ship = 26
+        # none					any
+        xpElement_ILSGlideScope = 27
+        # none					any
+        xpElement_MarkerLeft = 28
+        # none					any
+        xpElement_Airport = 29
+        # none					any
+        xpElement_Waypoint = 30
+        # none					any
+        xpElement_NDB = 31
+        # none					any
+        xpElement_VOR = 32
+        # none					any
+        xpElement_RadioTower = 33
+        # none					any
+        xpElement_AircraftCarrier = 34
+        # none					any
+        xpElement_Fire = 35
+        # none					any
+        xpElement_MarkerRight = 36
+        # none					any
+        xpElement_CustomObject = 37
+        # none					any
+        xpElement_CoolingTower = 38
+        # none					any
+        xpElement_SmokeStack = 39
+        # none					any
+        xpElement_Building = 40
+        # none					any
+        xpElement_PowerLine = 41
+        # none					metal
+        xpElement_CopyButtons = 45
+        # none					metal
+        xpElement_CopyButtonsWithEditingGrid = 46
+        # x, y					metal
+        xpElement_EditingGrid = 47
+        # THIS CAN PROBABLY BE REMOVED
+        xpElement_ScrollBar = 48
+        # none					any
+        xpElement_VORWithCompassRose = 49
+        # none					metal
+        xpElement_Zoomer = 51
+        # x, y					metal
+        xpElement_TextFieldMiddle = 52
+        # none					metal
+        xpElement_LittleDownArrow = 53
+        # none					metal
+        xpElement_LittleUpArrow = 54
+        # none					metal
+        xpElement_WindowDragBar = 61
+        # none					metal
+        xpElement_WindowDragBarSmooth = 62
 
 # XPDrawElement draws a given element at an offset on the virtual screen in
 # set dimensions. EVEN if the element is not scalable, it will be scaled if
@@ -219,18 +180,16 @@ proc XPGetElementDefaultDimensions*(inStyle: XPElementStyle,
 # slid. Progress - this is a progress indicator showing how a long task is
 # going.
 #
-const
-    # not over metal	can be lit		can be rotated
-    xpTrack_ScrollBar* = 0
-
-    # over metal		can be lit		can be rotated
-    xpTrack_Slider* = 1
-
-    # over metal		cannot be lit	cannot be rotated
-    xpTrack_Progress* = 2
-
 type
-    XPTrackStyle* = int
+    XPTrackStyle* {.size: sizeof(int).} = enum
+        # not over metal	can be lit		can be rotated
+        xpTrack_ScrollBar = 0
+
+        # over metal		can be lit		can be rotated
+        xpTrack_Slider = 1
+
+        # over metal		cannot be lit	cannot be rotated
+        xpTrack_Progress = 2
 
 # XPDrawTrack draws a track.  You pass in the track dimensions and size; the
 # track picks the optimal orientation for these dimensions.  Pass in the

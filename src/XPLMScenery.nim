@@ -38,32 +38,28 @@
 # different algorithm.  (Only one type of probe is provided right now, but
 # future APIs will expose more flexible or poewrful or useful probes.
 #
-const
-     # The Y probe gives you the location of the tallest physical scenery along
-     # the Y axis going through the queried point.
-     xplm_ProbeY* = 0
-
 type
-     XPLMProbeType* = int
+    XPLMProbeType* {.size: sizeof(int).} = enum
+        # The Y probe gives you the location of the tallest physical scenery along
+        # the Y axis going through the queried point.
+        xplm_ProbeY = 0
 
 # XPLMProbeResult
 #
 # Probe results - possible results from a probe query.
 #
-const
-    # The probe hit terrain and returned valid values.
-    xplm_ProbeHitTerrain* = 0
-
-     # An error in the API call.  Either the probe struct size is bad, or the
-     # probe is invalid or the type is mismatched for the specific query call.
-    xplm_ProbeError* = 1
-
-     # The probe call succeeded but there is no terrain under this point (perhaps
-     # it is off the side of the planet?)
-    xplm_ProbeMissed* = 2
-
 type
-     XPLMProbeResult* = int
+    XPLMProbeResult* {.size: sizeof(int).} = enum
+        # The probe hit terrain and returned valid values.
+        xplm_ProbeHitTerrain = 0
+
+         # An error in the API call.  Either the probe struct size is bad, or the
+         # probe is invalid or the type is mismatched for the specific query call.
+        xplm_ProbeError = 1
+
+         # The probe call succeeded but there is no terrain under this point (perhaps
+         # it is off the side of the planet?)
+        xplm_ProbeMissed = 2
 
 # An XPLMProbeRef is an opaque handle to a probe, used for querying the
 # terrain.
