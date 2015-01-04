@@ -6,7 +6,7 @@ Based on X-Plane SDK Release 2.1.3 11/14/13 (http://www.xsquawkbox.net/xpsdk/).
 #### XPLM wrapper installation
 
 	Using Nimble:
-		$ nimble install xplm
+		$ nimble install XPLM-Nim
 
 	Or cloning the git repo locally:
 		$ git clone git@github.com:jpoirier/XPLM-Nim.git
