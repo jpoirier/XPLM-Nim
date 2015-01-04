@@ -1,6 +1,6 @@
 [Package]
 name          = "xplm"
-version       = "0.2.1"
+version       = "0.2.2"
 author        = "Joseph Poirier"
 description   = "X-Plane XPLM SDK bindings."
 license       = "BSD"
