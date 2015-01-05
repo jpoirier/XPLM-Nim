@@ -95,10 +95,10 @@ type
         is_wet: int
 
 # XPLMCreateProbe creates a new probe object of a given type and returns.
-proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {.cdecl, importc: "XPLMCreateProbe", dynlib: xplm_lib}
+proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {.cdecl, importc: "XPLMCreateProbe", dynlib: xplm_lib.}
 
 # XPLMDestroyProbe deallocates an existing probe object.
-proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {.cdecl, importc: "XPLMDestroyProbe", dynlib: xplm_lib}
+proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {.cdecl, importc: "XPLMDestroyProbe", dynlib: xplm_lib.}
 
 # XPLMProbeTerrainXYZ probes the terrain.  Pass in the XYZ coordinate of the
 # probe point, a probe object, and an XPLMProbeInfo_t struct that  has its
@@ -108,7 +108,7 @@ proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
                           inX: float32,
                           inY: float32,
                           inZ: float32,
-                          outInfo: PXPLMProbeInfo_t): XPLMProbeResult {.cdecl, importc: "XPLMProbeTerrainXYZ", dynlib: xplm_lib}
+                          outInfo: PXPLMProbeInfo_t): XPLMProbeResult {.cdecl, importc: "XPLMProbeTerrainXYZ", dynlib: xplm_lib.}
 
 #******************************************************************************
 # Object Drawing
@@ -178,7 +178,7 @@ type
 # It is important that the datarefs an object uses for animation already be
 # loaded before you load the object.  For this reason it may be necessary to
 # defer object loading until the sim has fully started.
-proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef {.cdecl, importc: "XPLMLoadObject", dynlib: xplm_lib}
+proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef {.cdecl, importc: "XPLMLoadObject", dynlib: xplm_lib.}
 
 # XPLMLoadObjectAsync loads an object asynchronously; control is returned to you
 # immediately while X-Plane loads the object.  The sim will not stop flying
@@ -194,7 +194,7 @@ proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef {.cdecl, importc: "XPLMLoad
 # desired.
 proc XPLMLoadObjectAsync*(inPath: cstring,
                           inCallback: XPLMObjectLoaded_f,
-                          inRefcon: pointer) {.cdecl, importc: "XPLMLoadObjectAsync", dynlib: xplm_lib}
+                          inRefcon: pointer) {.cdecl, importc: "XPLMLoadObjectAsync", dynlib: xplm_lib.}
 
 # XPLMDrawObjects draws an object from an OBJ file one or more times.  You
 # pass in the object and an array of  XPLMDrawInfo_t structs, one for each
@@ -219,13 +219,13 @@ proc XPLMDrawObjects*(inObject: XPLMObjectRef,
                       inCount: int,
                       inLocations: PXPLMDrawInfo_t,
                       lighting: int,
-                      earth_relative: int) {.cdecl, importc: "XPLMDrawObjects", dynlib: xplm_lib}
+                      earth_relative: int) {.cdecl, importc: "XPLMDrawObjects", dynlib: xplm_lib.}
 
 # XPLMUnloadObject marks an object as no longer being used by your plugin.
 # Objects are reference counted: once no plugins are using an object, it is
 # purged from memory.  Make sure to call XPLMUnloadObject once for each
 # successful call to XPLMLoadObject.
-proc XPLMUnloadObject*(inObject: XPLMObjectRef) {.cdecl, importc: "XPLMUnloadObject", dynlib: xplm_lib}
+proc XPLMUnloadObject*(inObject: XPLMObjectRef) {.cdecl, importc: "XPLMUnloadObject", dynlib: xplm_lib.}
 
 #******************************************************************************
 # Library Access
@@ -256,5 +256,5 @@ proc XPLMLookupObjects*(inPath: cstring,
                         inLatitude: float32,
                         inLongitude: float32,
                         enumerator: XPLMLibraryEnumerator_f,
-                        rref: pointer): int {.cdecl, importc: "XPLMLookupObjects", dynlib: xplm_lib}
+                        rref: pointer): int {.cdecl, importc: "XPLMLookupObjects", dynlib: xplm_lib.}
 

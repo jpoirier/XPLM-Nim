@@ -34,7 +34,7 @@ type
 # your own property IDs as well.
 #
 type
-    XPWidgetPropertyID* {.size: sizeof(int).} = enum
+    XPWidgetPropertyID* {.size: sizeof(int)} = enum
         # A window's refcon is an opaque value used by client code to find
         # other data based on it.
         xpProperty_Refcon = 0
@@ -371,5 +371,5 @@ type
     XPWidgetFunc_t* = proc (inMessage: XPWidgetMessage,
                             inWidget: XPWidgetID,
                             inParam1: ptr int,
-                            inParam2: ptr int): int {.cdecl.}
+                            inParam2: ptr int): int {.cdecl}
 

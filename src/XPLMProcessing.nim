@@ -71,11 +71,11 @@ type
 
 # XPLMGetElapsedTime returns the elapsed time since the sim started up in
 # decimal seconds.
-proc XPLMGetElapsedTime*(): float32 {.cdecl, importc: "XPLMGetElapsedTime", dynlib: xplm_lib}
+proc XPLMGetElapsedTime*(): float32 {.cdecl, importc: "XPLMGetElapsedTime", dynlib: xplm_lib.}
 
 # XPLMGetCycleNumber returns a counter starting at zero for each sim cycle
 # computed/video frame rendered.
-proc XPLMGetCycleNumber*(): int {.cdecl, importc: "XPLMGetCycleNumber", dynlib: xplm_lib}
+proc XPLMGetCycleNumber*(): int {.cdecl, importc: "XPLMGetCycleNumber", dynlib: xplm_lib.}
 
 # XPLMRegisterFlightLoopCallback registers your flight loop callback.  Pass in
 # a pointer to a flight loop function and a refcon.  inInterval defines when
@@ -85,13 +85,13 @@ proc XPLMGetCycleNumber*(): int {.cdecl, importc: "XPLMGetCycleNumber", dynlib: 
 # Pass 0 to not be called; your callback will be inactive.
 proc XPLMRegisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
                                      inInterval: float32,
-                                     inRefcon: pointer) {.cdecl, importc: "XPLMRegisterFlightLoopCallback", dynlib: xplm_lib}
+                                     inRefcon: pointer) {.cdecl, importc: "XPLMRegisterFlightLoopCallback", dynlib: xplm_lib.}
 
 # XPLMUnregisterFlightLoopCallback unregisters your flight loop callback. Do NOT
 # call it from your flight loop callback. Once your flight loop callback is
 # unregistered, it will not be called again.
 proc XPLMUnregisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
-                                       inRefcon: pointer) {.cdecl, importc: "XPLMUnregisterFlightLoopCallback", dynlib: xplm_lib}
+                                       inRefcon: pointer) {.cdecl, importc: "XPLMUnregisterFlightLoopCallback", dynlib: xplm_lib.}
 
 # XPLMSetFlightLoopCallbackInterval sets when a callback will be called. Do NOT
 # call it from your callback; use the return value of the callback to change
@@ -105,15 +105,15 @@ proc XPLMUnregisterFlightLoopCallback*(inFlightLoop: XPLMFlightLoop_f,
 proc XPLMSetFlightLoopCallbackInterval*(inFlightLoop: XPLMFlightLoop_f,
                                         inInterval: float32,
                                         inRelativeToNow: int,
-                                        inRefcon: pointer) {.cdecl, importc: "XPLMSetFlightLoopCallbackInterval", dynlib: xplm_lib}
+                                        inRefcon: pointer) {.cdecl, importc: "XPLMSetFlightLoopCallbackInterval", dynlib: xplm_lib.}
 
 # XPLMCreateFlightLoop creates a flight loop callback and returns its ID. The flight
 # loop callback is created using the input param struct, and is inited to be
 # unscheduled.
-proc XPLMCreateFlightLoop*(inParams: PXPLMCreateFlightLoop_t): XPLMFlightLoopID {.cdecl, importc: "XPLMCreateFlightLoop", dynlib: xplm_lib}
+proc XPLMCreateFlightLoop*(inParams: PXPLMCreateFlightLoop_t): XPLMFlightLoopID {.cdecl, importc: "XPLMCreateFlightLoop", dynlib: xplm_lib.}
 
 # XPLMDestroyFlightLoop destroys a flight loop callback by ID.
-proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID) {.cdecl, importc: "XPLMDestroyFlightLoop", dynlib: xplm_lib}
+proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID) {.cdecl, importc: "XPLMDestroyFlightLoop", dynlib: xplm_lib.}
 
 # XPLMScheduleFlightLoop schedules a flight loop callback for future execution.
 # If inInterval is negative, it is run in  a certain number of frames based on
@@ -146,5 +146,5 @@ proc XPLMDestroyFlightLoop*(inFlightLoopID: XPLMFlightLoopID) {.cdecl, importc: 
 # thread other than the main thread.
 proc XPLMScheduleFlightLoop*(inFlightLoopID: XPLMFlightLoopID,
                              inInterval: float32,
-                             inRelativeToNow: int) {.cdecl, importc: "XPLMScheduleFlightLoop", dynlib: xplm_lib}
+                             inRelativeToNow: int) {.cdecl, importc: "XPLMScheduleFlightLoop", dynlib: xplm_lib.}
 

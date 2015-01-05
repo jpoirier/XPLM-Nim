@@ -90,11 +90,11 @@ const
 proc XPUCreateWidgets*(inWidgetDefs: PXPWidgetCreate_t,
                        inCount: int,
                        inParamParent: XPWidgetID,
-                       ioWidgets: ptr XPWidgetID) {.cdecl, importc: "XPUCreateWidgets", dynlib: xpwidgets_lib}
+                       ioWidgets: ptr XPWidgetID) {.cdecl, importc: "XPUCreateWidgets", dynlib: xpwidgets_lib.}
 
 # XPUMoveWidgetBy simply moves a widget by an amount, +x = right, +y=up,
 # without resizing the widget.
-proc XPUMoveWidgetBy*(inWidget: XPWidgetID, inDeltaX: int, inDeltaY: int) {.cdecl, importc: "XPUMoveWidgetBy", dynlib: xpwidgets_lib}
+proc XPUMoveWidgetBy*(inWidget: XPWidgetID, inDeltaX: int, inDeltaY: int) {.cdecl, importc: "XPUMoveWidgetBy", dynlib: xpwidgets_lib.}
 
 #******************************************************************************
 # LAYOUT MANAGERS
@@ -111,7 +111,7 @@ proc XPUMoveWidgetBy*(inWidget: XPWidgetID, inDeltaX: int, inDeltaY: int) {.cdec
 proc XPUFixedLayout*(inMessage: XPWidgetMessage,
                      inWidget: XPWidgetID,
                      inParam1: ptr int,
-                     inParam2: ptr int): int {.cdecl, importc: "XPUFixedLayout", dynlib: xpwidgets_lib}
+                     inParam2: ptr int): int {.cdecl, importc: "XPUFixedLayout", dynlib: xpwidgets_lib.}
 
 #******************************************************************************
 # WIDGET PROC BEHAVIORS
@@ -129,7 +129,7 @@ proc XPUSelectIfNeeded*(inMessage: XPWidgetMessage,
                         inWidget: XPWidgetID,
                         inParam1: ptr int,
                         inParam2: ptr int,
-                        inEatClick: int): int {.cdecl, importc: "XPUSelectIfNeeded", dynlib: xpwidgets_lib}
+                        inEatClick: int): int {.cdecl, importc: "XPUSelectIfNeeded", dynlib: xpwidgets_lib.}
 
 # XPUDefocusKeyboard causes a click in the widget to send keyboard focus back
 # to X-Plane. This stops editing of any text fields, etc.
@@ -137,7 +137,7 @@ proc XPUDefocusKeyboard*(inMessage: XPWidgetMessage,
                          inWidget: XPWidgetID,
                          inParam1: ptr int,
                          inParam2: ptr int,
-                         inEatClick: int): int {.cdecl, importc: "XPUDefocusKeyboard", dynlib: xpwidgets_lib}
+                         inEatClick: int): int {.cdecl, importc: "XPUDefocusKeyboard", dynlib: xpwidgets_lib.}
 
 # XPUDragWidget drags the widget in response to mouse clicks.  Pass in not
 # only the event, but the global coordinates of the drag region, which might
@@ -149,5 +149,5 @@ proc XPUDragWidget*(inMessage: XPWidgetMessage,
                     inLeft: int,
                     inTop: int,
                     inRight: int,
-                    inBottom: int): int {.cdecl, importc: "XPUDragWidget", dynlib: xpwidgets_lib}
+                    inBottom: int): int {.cdecl, importc: "XPUDragWidget", dynlib: xpwidgets_lib.}
 

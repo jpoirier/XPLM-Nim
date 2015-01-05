@@ -50,14 +50,14 @@ proc XPDrawWindow*(inX1: int,
                    inY1: int,
                    inX2: int,
                    inY2: int,
-                   inStyle: XPWindowStyle) {.cdecl, importc: "XPDrawWindow", dynlib: xpwidgets_lib}
+                   inStyle: XPWindowStyle) {.cdecl, importc: "XPDrawWindow", dynlib: xpwidgets_lib.}
 
 # XPGetWindowDefaultDimensions returns the default dimensions for a window.
 # Output is either a minimum or fixed value depending on whether the window
 # is scalable. Note, outWidth and outHeight can be NULL.
 proc XPGetWindowDefaultDimensions*(inStyle: XPWindowStyle,
                                    outWidth: ptr int,
-                                   outHeight: ptr int) {.cdecl, importc: "XPGetWindowDefaultDimensions", dynlib: xpwidgets_lib}
+                                   outHeight: ptr int) {.cdecl, importc: "XPGetWindowDefaultDimensions", dynlib: xpwidgets_lib.}
 
 # XPElementStyle
 #
@@ -155,7 +155,7 @@ proc XPDrawElement*(inX1: int,
                     inY1: int,
                     inX2: int,
                     inY2: int,
-                    inStyle: XPElementStyle, inLit: int) {.cdecl, importc: "XPDrawElement", dynlib: xpwidgets_lib}
+                    inStyle: XPElementStyle, inLit: int) {.cdecl, importc: "XPDrawElement", dynlib: xpwidgets_lib.}
 
 # XPGetElementDefaultDimensions returns the recommended or minimum dimensions
 # of a given UI element. outCanBeLit tells whether the element has both a lit
@@ -164,7 +164,7 @@ proc XPDrawElement*(inX1: int,
 proc XPGetElementDefaultDimensions*(inStyle: XPElementStyle,
                                     outWidth: ptr int,
                                     outHeight: ptr int,
-                                    outCanBeLit: ptr int) {.cdecl, importc: "XPGetElementDefaultDimensions", dynlib: xpwidgets_lib}
+                                    outCanBeLit: ptr int) {.cdecl, importc: "XPGetElementDefaultDimensions", dynlib: xpwidgets_lib.}
 
 # XPTrackStyle
 #
@@ -203,14 +203,14 @@ proc XPDrawTrack*(inX1: int,
                   inMin: int,
                   inMax: int,
                   inValue: int,
-                  inTrackStyle: XPTrackStyle, inLit: int) {.cdecl, importc: "XPDrawTrack", dynlib: xpwidgets_lib}
+                  inTrackStyle: XPTrackStyle, inLit: int) {.cdecl, importc: "XPDrawTrack", dynlib: xpwidgets_lib.}
 
 # XPGetTrackDefaultDimensions returns a track's default smaller dimension; all
 # tracks are scalable in the larger dimension.  It also returns whether a track
 # can be lit.
 proc XPGetTrackDefaultDimensions*(inStyle: XPTrackStyle,
                                   outWidth: ptr int,
-                                  outCanBeLit: ptr int) {.cdecl, importc: "XPGetTrackDefaultDimensions", dynlib: xpwidgets_lib}
+                                  outCanBeLit: ptr int) {.cdecl, importc: "XPGetTrackDefaultDimensions", dynlib: xpwidgets_lib.}
 
 # XPGetTrackMetrics returns the metrics of a track.  If you want to write UI code
 # to manipulate a track, this routine helps you know where the mouse
@@ -237,5 +237,5 @@ proc XPGetTrackMetrics*(inX1: int,
                         outDownPageSize: ptr int,
                         outThumbSize: ptr int,
                         outUpPageSize: ptr int,
-                        outUpBtnSize: ptr int) {.cdecl, importc: "XPGetTrackMetrics", dynlib: xpwidgets_lib}
+                        outUpBtnSize: ptr int) {.cdecl, importc: "XPGetTrackMetrics", dynlib: xpwidgets_lib.}
 

@@ -86,7 +86,7 @@ type
 # control  (indefinitely or until a key is pressed).
 proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration,
                         inControlFunc: XPLMCameraControl_f,
-                        inRefcon: pointer) {.cdecl, importc: "XPLMControlCamera", dynlib: xplm_lib}
+                        inRefcon: pointer) {.cdecl, importc: "XPLMControlCamera", dynlib: xplm_lib.}
 
 # XPLMDontControlCamera stops you from controlling the camera.  If you have a
 # camera control function, it will not be called with an inIsLosingControl flag.
@@ -94,15 +94,15 @@ proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration,
 #
 # For maximum compatibility you should not use this routine unless you are in
 # posession of the camera.
-proc XPLMDontControlCamera*() {.cdecl, importc: "XPLMDontControlCamera", dynlib: xplm_lib}
+proc XPLMDontControlCamera*() {.cdecl, importc: "XPLMDontControlCamera", dynlib: xplm_lib.}
 
 
 # XPLMIsCameraBeingControlled returns 1 if the camera is being controlled, zero
 # if it is not.  If it is and you pass in a pointer to a camera control duration,
 # the current control duration will be returned.
 proc XPLMIsCameraBeingControlled*(outCameraControlDuration: ptr XPLMCameraControlDuration):
-                        int {.cdecl, importc: "XPLMIsCameraBeingControlled", dynlib: xplm_lib}
+                        int {.cdecl, importc: "XPLMIsCameraBeingControlled", dynlib: xplm_lib.}
 
 # XPLMReadCameraPosition reads the current camera position.
 proc XPLMReadCameraPosition*(outCameraPosition: PXPLMCameraPosition_t)
-                                {.cdecl, importc: "XPLMReadCameraPosition", dynlib: xplm_lib}
+                                {.cdecl, importc: "XPLMReadCameraPosition", dynlib: xplm_lib.}

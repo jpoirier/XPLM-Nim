@@ -12,11 +12,11 @@
 # XPLMSetUsersAircraft changes the user's aircraft.  Note that this will reinitialize
 # the user to be on the nearest airport's first runway.  Pass in a full path
 # (hard drive and everything including the .acf extension) to the .acf file.
-proc XPLMSetUsersAircraft*(inAircraftPath: cstring) {.cdecl, importc: "XPLMSetUsersAircraft", dynlib: xplm_lib}
+proc XPLMSetUsersAircraft*(inAircraftPath: cstring) {.cdecl, importc: "XPLMSetUsersAircraft", dynlib: xplm_lib.}
 
 # XPLMPlaceUserAtAirport places the user at a given airport.  Specify the
 # airport by its ICAO code (e.g. 'KBOS').
-proc XPLMPlaceUserAtAirport*(inAirportCode; cstring) {.cdecl, importc: "XPLMPlaceUserAtAirport", dynlib: xplm_lib}
+proc XPLMPlaceUserAtAirport*(inAirportCode; cstring) {.cdecl, importc: "XPLMPlaceUserAtAirport", dynlib: xplm_lib.}
 
 #******************************************************************************
 # GLOBAL AIRCRAFT ACCESS
@@ -71,7 +71,7 @@ type
 # aircraft the user has enabled in the rendering options window.
 proc XPLMCountAircraft*(outTotalAircraft: int,
                         outActiveAircraft: int,
-                        outController: ptr XPLMPluginID) {.cdecl, importc: "XPLMCountAircraft", dynlib: xplm_lib}
+                        outController: ptr XPLMPluginID) {.cdecl, importc: "XPLMCountAircraft", dynlib: xplm_lib.}
 
 # XPLMGetNthAircraftModel returns the aircraft model for the Nth aircraft.
 # Indices are zero based, with zero being the user's aircraft.  The file name
@@ -79,7 +79,7 @@ proc XPLMCountAircraft*(outTotalAircraft: int,
 # in length.
 proc XPLMGetNthAircraftModel*(inIndex: int,
                               outFileName: cstring,
-                              outPath: cstring) {.cdecl, importc: "XPLMGetNthAircraftModel", dynlib: xplm_lib}
+                              outPath: cstring) {.cdecl, importc: "XPLMGetNthAircraftModel", dynlib: xplm_lib.}
 
 #******************************************************************************
 # EXCLUSIVE AIRCRAFT ACCESS
@@ -108,26 +108,26 @@ type
 # your callback will not be called.
 proc XPLMAcquirePlanes*(inAircraft: cstringArray,  # (cstringArray -> char**) Can be NULL
                         inCallback: XPLMPlanesAvailable_f,
-                        inRefcon: pointer): int {.cdecl, importc: "XPLMAcquirePlanes", dynlib: xplm_lib}
+                        inRefcon: pointer): int {.cdecl, importc: "XPLMAcquirePlanes", dynlib: xplm_lib.}
 
 # XPLMReleasePlanes releases access to the planes.  Note that if you are
 # disabled, access to planes is released for you and you must reacquire it.
-proc XPLMReleasePlanes*() {.cdecl, importc: "XPLMReleasePlanes", dynlib: xplm_lib}
+proc XPLMReleasePlanes*() {.cdecl, importc: "XPLMReleasePlanes", dynlib: xplm_lib.}
 
 # XPLMSetActiveAircraftCount sets the number of active planes.  If you pass in
 # a number higher than the total number of planes availables, only the total
 # number of planes available is actually used.
-proc XPLMSetActiveAircraftCount*(inCount: int) {.cdecl, importc: "XPLMSetActiveAircraftCount", dynlib: xplm_lib}
+proc XPLMSetActiveAircraftCount*(inCount: int) {.cdecl, importc: "XPLMSetActiveAircraftCount", dynlib: xplm_lib.}
 
 # XPLMSetAircraftModel loads an aircraft model.  It may only be called if you
 # have exclusive access to the airplane APIs.  Pass in the path of the  model
 # with the .acf extension.  The index is zero based, but you  may not pass in 0
 # (use XPLMSetUsersAircraft to load the user's aircracft).
-proc XPLMSetAircraftModel*(inIndex: int, inAircraftPath: cstring) {.cdecl, importc: "XPLMSetAircraftModel", dynlib: xplm_lib}
+proc XPLMSetAircraftModel*(inIndex: int, inAircraftPath: cstring) {.cdecl, importc: "XPLMSetAircraftModel", dynlib: xplm_lib.}
 
 # XPLMDisableAIForPlane turns off X-Plane's AI for a given plane.  The plane
 # will continue to draw and be a real plane in X-Plane, but will not  move itself.
-proc XPLMDisableAIForPlane*(inPlaneIndex: int) {.cdecl, importc: "XPLMDisableAIForPlane", dynlib: xplm_lib}
+proc XPLMDisableAIForPlane*(inPlaneIndex: int) {.cdecl, importc: "XPLMDisableAIForPlane", dynlib: xplm_lib.}
 
 # XPLMDrawAircraft draws an aircraft.  It can only be called from a 3-d drawing
 # callback.  Pass in the position of the plane in OpenGL local coordinates
@@ -142,7 +142,7 @@ proc XPLMDrawAircraft*(inPlaneIndex: int,
                        inRoll: float32,
                        inYaw: float32,
                        inFullDraw: int,
-                       inDrawStateInfo: PXPLMPlaneDrawState_t) {.cdecl, importc: "XPLMDrawAircraft", dynlib: xplm_lib}
+                       inDrawStateInfo: PXPLMPlaneDrawState_t) {.cdecl, importc: "XPLMDrawAircraft", dynlib: xplm_lib.}
 
 # XPLMReinitUsersPlane recomputes the derived flight model data from the aircraft
 # structure in memory.  If you have used the data access layer to modify the
@@ -154,6 +154,6 @@ proc XPLMDrawAircraft*(inPlaneIndex: int,
 # airport; use XPLMSetUsersAircraft to be compatible.  This routine is
 # provided to do special experimentation with flight models without resetting
 # flight.
-proc XPLMReinitUsersPlane*() {.cdecl, importc: "XPLMReinitUsersPlane", dynlib: xplm_lib}
+proc XPLMReinitUsersPlane*() {.cdecl, importc: "XPLMReinitUsersPlane", dynlib: xplm_lib.}
 
 
