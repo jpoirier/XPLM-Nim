@@ -24,7 +24,7 @@
 # lit.  So there are  three possible states.
 #
 type
-    XPLMMenuCheck* = enum
+    XPLMMenuCheck* {.size: sizeof(int).} = enum
         # there is no symbol to the left of the menu item.
         xplm_Menu_NoCheck = 0
 

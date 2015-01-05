@@ -29,7 +29,7 @@
 # FMS. Querying the FMS for navaids will return it.  Use
 # XPLMSetFMSEntryLatLon to set a lat/lon waypoint.
 type
-    XPLMNavType* = enum
+    XPLMNavType* {.size: sizeof(int).} = enum
       xplm_Nav_Unknown = 0
       xplm_Nav_Airport = 1
       xplm_Nav_NDB = 2

@@ -191,7 +191,7 @@ proc XPLMDrawTranslucentDarkBox*(inLeft: int,
 # you want to.
 #
 type
-    XPLMFontID* = enum
+    XPLMFontID* {.size: sizeof(int).}  = enum
         # Mono-spaced font for user interface.
         xplmFont_Basic
         xplmFont_Menus              # Deprecated, do not use.
