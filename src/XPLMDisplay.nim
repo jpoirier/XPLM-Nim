@@ -458,9 +458,9 @@ proc XPLMGetNthHotKey*(inIndex: int): XPLMHotKeyID {.cdecl, importc: "XPLMGetNth
 # parameter you don't want info about.  The description should be at least 512
 # chars long.
 proc XPLMGetHotKeyInfo*(inHotKey: XPLMHotKeyID,
-                        outVirtualKey: cstring,
+                        outVirtualKey: ptr cstring,
                         outFlags: ptr XPLMKeyFlags,
-                        outDescription: cstring,
+                        outDescription: ptr cstring,
                         outPlugin: ptr XPLMPluginID) {.cdecl, importc: "XPLMGetHotKeyInfo", dynlib: xplm_lib.}
 
 # XPLMSetHotKeyCombination remaps a hot keys keystrokes.  You may remap

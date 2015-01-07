@@ -51,10 +51,10 @@ proc XPLMFindPluginBySignature*(inSignature: cstring): XPLMPluginID {.cdecl, imp
 # human-readable description of this plug-in.
 # Note, outName, outFilePath, outSignature, and outDescription can be NULL.
 proc XPLMGetPluginInfo*(inPlugin: XPLMPluginID,
-                        outName: cstring,
-                        outFilePath,: cstring,
-                        outSignature: cstring,
-                        outDescription: cstring) {.cdecl, importc: "XPLMGetPluginInfo", dynlib: xplm_lib.}
+                        outName: ptr cstring,
+                        outFilePath,: ptr cstring,
+                        outSignature: ptr cstring,
+                        outDescription: ptr cstring) {.cdecl, importc: "XPLMGetPluginInfo", dynlib: xplm_lib.}
 
 #******************************************************************************
 # ENABLING/DISABLING PLUG-INS

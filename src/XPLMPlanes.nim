@@ -78,8 +78,8 @@ proc XPLMCountAircraft*(outTotalAircraft: int,
 # should be at least 256 chars in length; the path should be at least 512 chars
 # in length.
 proc XPLMGetNthAircraftModel*(inIndex: int,
-                              outFileName: cstring,
-                              outPath: cstring) {.cdecl, importc: "XPLMGetNthAircraftModel", dynlib: xplm_lib.}
+                              outFileName: ptr cstring,
+                              outPath: ptr cstring) {.cdecl, importc: "XPLMGetNthAircraftModel", dynlib: xplm_lib.}
 
 #******************************************************************************
 # EXCLUSIVE AIRCRAFT ACCESS

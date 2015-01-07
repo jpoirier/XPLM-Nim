@@ -147,9 +147,9 @@ proc XPLMGetNavAidInfo*(inRef: XPLMNavRef,
                         outHeight: ptr float32,
                         outFrequency: ptr int,
                         outHeading: ptr float32,
-                        outID: cstring,
-                        outName: cstring,
-                        outReg: cstring) {.cdecl, importc: "XPLMGetNavAidInfo", dynlib: xplm_lib.}
+                        outID: ptr cstring,
+                        outName: ptr cstring,
+                        outReg: ptr cstring) {.cdecl, importc: "XPLMGetNavAidInfo", dynlib: xplm_lib.}
 
 
 #******************************************************************************
@@ -190,7 +190,7 @@ proc XPLMSetDestinationFMSEntry*(inIndex: int) {.cdecl, importc: "XPLMSetDestina
 # length.
 proc XPLMGetFMSEntryInfo*(inIndex: int,
                           outType: ptr XPLMNavType,
-                          outID: cstring,
+                          outID: ptr cstring,
                           outRef: ptr XPLMNavRef,
                           outAltitude: ptr int,
                           outLat: ptr float32,

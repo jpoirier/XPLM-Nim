@@ -110,7 +110,7 @@ proc XPCreateWidget*(inLeft: int,
                      inRight: int,
                      inBottom: int,
                      inVisible: int,
-                     inDescriptor: cstring,
+                     inDescriptor: ptr cstring,
                      inIsRoot: int,
                      inContainer: XPWidgetID,
                      inClass: XPWidgetClass): XPWidgetID {.cdecl, importc: "XPCreateWidget", dynlib: xpwidgets_lib.}
@@ -125,7 +125,7 @@ proc XPCreateCustomWidget*(inLeft: int,
                             inRight: int,
                             inBottom: int,
                             inVisible: int,
-                            inDescriptor: cstring,
+                            inDescriptor: ptr cstring,
                             inIsRoot: int,
                             inContainer: XPWidgetID,
                             inCallback: XPWidgetFunc_t): XPWidgetID {.cdecl, importc: "XPCreateCustomWidget", dynlib: xpwidgets_lib.}
@@ -282,7 +282,7 @@ proc XPGetWidgetExposedGeometry*(inWidget: XPWidgetID,
 # the text varies from widget to widget, but this API provides a universal
 # and convenient way to get at it.  While not all UI widgets need their
 # descriptor, many do.
-proc XPSetWidgetDescriptor*(inWidget: XPWidgetID, inDescriptor: cstring) {.cdecl, importc: "XPSetWidgetDescriptor", dynlib: xpwidgets_lib.}
+proc XPSetWidgetDescriptor*(inWidget: XPWidgetID, inDescriptor: ptr cstring) {.cdecl, importc: "XPSetWidgetDescriptor", dynlib: xpwidgets_lib.}
 
 # XPGetWidgetDescriptor returns the widget's descriptor.  Pass in the length of
 # the buffer you are going to receive the descriptor in.  The descriptor will be
@@ -292,7 +292,7 @@ proc XPSetWidgetDescriptor*(inWidget: XPWidgetID, inDescriptor: cstring) {.cdecl
 # descriptor exceeds your buffer length, the buffer will not be null
 # terminated (this routine has 'strncpy' semantics).
 proc XPGetWidgetDescriptor*(inWidget: XPWidgetID,
-                            outDescriptor: cstring,
+                            outDescriptor: ptr cstring,
                             inMaxDescLength: int): int {.cdecl, importc: "XPGetWidgetDescriptor", dynlib: xpwidgets_lib.}
 
 # XPSetWidgetProperty sets a widget's property.  Properties are arbitrary values

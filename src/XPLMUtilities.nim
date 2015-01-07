@@ -328,12 +328,12 @@ proc XPLMReloadScenery*() {.cdecl, importc: "XPLMReloadScenery", dynlib: xplm_li
 # XPLMGetSystemPath returns the full path to the X-System folder.  Note that this
 # is a directory path, so it ends in a trailing : or /.  The buffer you pass
 # should be at least 512 characters long.
-proc XPLMGetSystemPath*(outSystemPath: cstring) {.cdecl, importc: "XPLMGetSystemPath", dynlib: xplm_lib.}
+proc XPLMGetSystemPath*(outSystemPath: ptr cstring) {.cdecl, importc: "XPLMGetSystemPath", dynlib: xplm_lib.}
 
 # XPLMGetPrefsPath returns a full path to the proper directory to store
 # preferences in. It ends in a : or /.  The buffer you pass should be at
 # least 512 characters long.
-proc XPLMGetPrefsPath*(outPrefsPath: cstring) {.cdecl, importc: "XPLMGetPrefsPath", dynlib: xplm_lib.}
+proc XPLMGetPrefsPath*(outPrefsPath: ptr cstring) {.cdecl, importc: "XPLMGetPrefsPath", dynlib: xplm_lib.}
 
 # XPLMGetDirectorySeparator returns a string with one char and a null terminator
 # that is the directory separator for the current platform.  This allows you to
@@ -388,9 +388,9 @@ proc XPLMExtractFileAndPath*(inFullPath: cstring): cstring {.cdecl, importc: "XP
 # iterate directories.
 proc XPLMGetDirectoryContents*(inDirectoryPath: cstring,
                                inFirstReturn: int,
-                               outFileNames: cstring,
+                               outFileNames: ptr cstring,
                                inFileNameBufSize: int,
-                               outIndices: cstringArray,  # cstringArray -> char**
+                               outIndices: ptr cstringArray,  # cstringArray -> char**
                                inIndexCount: int,
                                outTotalFiles: ptr int,
                                outReturnedFiles: ptr int): int {.cdecl, importc: "XPLMGetDirectoryContents", dynlib: xplm_lib.}
