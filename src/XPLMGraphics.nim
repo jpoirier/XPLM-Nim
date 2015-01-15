@@ -47,15 +47,15 @@
 # allows you to recycle textures from X-Plane, saving VRAM.
 #
 type
-    XPLMTextureID* {.size: sizeof(int).} = enum
-      # The bitmap that contains window outlines, button outlines, fonts, etc.
-      xplm_Tex_GeneralInterface = 0
+  XPLMTextureID* {.size: sizeof(int).} = enum
+    # The bitmap that contains window outlines, button outlines, fonts, etc.
+    xplm_Tex_GeneralInterface = 0
 
-      # The exterior paint for the user's aircraft (daytime).
-      xplm_Tex_AircraftPaint = 1
+    # The exterior paint for the user's aircraft (daytime).
+    xplm_Tex_AircraftPaint = 1
 
-      # The exterior light map for the user's aircraft.
-      xplm_Tex_AircraftLiteMap = 2
+    # The exterior light map for the user's aircraft.
+    xplm_Tex_AircraftLiteMap = 2
 
 # XPLMSetGraphicsState changes OpenGL's graphics state in a number of ways:
 #
@@ -102,7 +102,8 @@ proc XPLMSetGraphicsState*(inEnableFog: int,
                            inEnableAlphaTesting: int,
                            inEnableAlphaBlending: int,
                            inEnableDepthTesting: int,
-                           inEnableDepthWriting: int) {.cdecl, importc: "XPLMSetGraphicsState", dynlib: xplm_lib.}
+                           inEnableDepthWriting: int)
+                    {.cdecl, importc: "XPLMSetGraphicsState", dynlib: xplm_lib.}
 
 # XPLMBindTexture2d changes what texture is bound to the 2d texturing target.
 # This routine caches the current 2d texture across all texturing units in
@@ -117,7 +118,8 @@ proc XPLMSetGraphicsState*(inEnableFog: int,
 # units.  (This number may increase in future versions of x-plane.)
 #
 # Use this routine instead of glBindTexture(GL_TEXTURE_2D, ....);
-proc XPLMBindTexture2d*(inTextureNum: int, inTextureUnit; int) {.cdecl, importc: "XPLMBindTexture2d", dynlib: xplm_lib.}
+proc XPLMBindTexture2d*(inTextureNum: int, inTextureUnit; int)
+                      {.cdecl, importc: "XPLMBindTexture2d", dynlib: xplm_lib.}
 
 # XPLMGenerateTextureNumbers generates unused texture numbers that a plug-in
 # can use to safely bind textures. Use this routine instead of glGenTextures;
@@ -127,7 +129,8 @@ proc XPLMBindTexture2d*(inTextureNum: int, inTextureUnit; int) {.cdecl, importc:
 # file as the plane flies might then cause X-Plane to use this texture ID.
 # X-Plane will then  overwrite the plug-ins texture.  This routine returns
 # texture IDs that are out of X-Plane's usage range.
-proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr int, inCount: int) {.cdecl, importc: "XPLMGenerateTextureNumbers", dynlib: xplm_lib.}
+proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr int, inCount: int)
+              {.cdecl, importc: "XPLMGenerateTextureNumbers", dynlib: xplm_lib.}
 
 # XPLMGetTexture returns the OpenGL texture enumeration of an X-Plane texture
 # based on a  generic identifying code.  For example, you can get the texture
@@ -138,7 +141,8 @@ proc XPLMGenerateTextureNumbers*(outTextureIDs: ptr int, inCount: int) {.cdecl, 
 #
 # OPEN ISSUE: We really need a way to make sure X-Plane loads this texture if
 # it isn't around, or at least a way to find out whether it is loaded or not.
-proc XPLMGetTexture*(inTexture: XPLMTextureID): int {.cdecl, importc: "XPLMGetTexture", dynlib: xplm_lib.}
+proc XPLMGetTexture*(inTexture: XPLMTextureID): int
+                          {.cdecl, importc: "XPLMGetTexture", dynlib: xplm_lib.}
 
 # XPLMWorldToLocal translates coordinates from latitude, longitude, and altitude
 # to local scene coordinates. Latitude and longitude are in decimal degrees,
@@ -149,7 +153,8 @@ proc XPLMWorldToLocal*(inLatitude: float64,
                        inAltitude: float64,
                        outX: ptr float64,
                        outY: ptr float64,
-                       outZ: ptr float64) {.cdecl, importc: "XPLMWorldToLocal", dynlib: xplm_lib.}
+                       outZ: ptr float64)
+                        {.cdecl, importc: "XPLMWorldToLocal", dynlib: xplm_lib.}
 
 # XPLMLocalToWorld translates a local coordinate triplet back into latitude,
 # longitude, and altitude.  Latitude and longitude are in decimal degrees,
@@ -163,7 +168,8 @@ proc XPLMLocalToWorld*(inX: float64,
                        inZ: float64,
                        outLatitude: ptr float64,
                        outLongitude: ptr float64,
-                       outAltitude: ptr float64) {.cdecl, importc: "XPLMLocalToWorld", dynlib: xplm_lib.}
+                       outAltitude: ptr float64)
+                        {.cdecl, importc: "XPLMLocalToWorld", dynlib: xplm_lib.}
 
 # XPLMDrawTranslucentDarkBox draws a translucent dark box, partially obscuring
 # parts of the screen but making text easy to read.  This is the same graphics
@@ -171,7 +177,8 @@ proc XPLMLocalToWorld*(inX: float64,
 proc XPLMDrawTranslucentDarkBox*(inLeft: int,
                                  inTop: int,
                                  inRight: int,
-                                 inBottom: int) {.cdecl, importc: "XPLMDrawTranslucentDarkBox", dynlib: xplm_lib.}
+                                 inBottom: int)
+              {.cdecl, importc: "XPLMDrawTranslucentDarkBox", dynlib: xplm_lib.}
 
 #******************************************************************************
 # X-PLANE TEXT
@@ -191,27 +198,27 @@ proc XPLMDrawTranslucentDarkBox*(inLeft: int,
 # you want to.
 #
 type
-    XPLMFontID* {.size: sizeof(int).}  = enum
-        # Mono-spaced font for user interface.
-        xplmFont_Basic
-        xplmFont_Menus              # Deprecated, do not use.
-        xplmFont_Metal              # Deprecated, do not use.
-        xplmFont_Led                # Deprecated, do not use.
-        xplmFont_LedWide            # Deprecated, do not use.
-        xplmFont_PanelHUD           # Deprecated, do not use.
-        xplmFont_PanelEFIS          # Deprecated, do not use.
-        xplmFont_PanelGPS           # Deprecated, do not use.
-        xplmFont_RadiosGA           # Deprecated, do not use.
-        xplmFont_RadiosBC           # Deprecated, do not use.
-        xplmFont_RadiosHM           # Deprecated, do not use.
-        xplmFont_RadiosGANarrow     # Deprecated, do not use.
-        xplmFont_RadiosBCNarrow     # Deprecated, do not use.
-        xplmFont_RadiosHMNarrow     # Deprecated, do not use.
-        xplmFont_Timer              # Deprecated, do not use.
-        xplmFont_FullRound          # Deprecated, do not use.
-        xplmFont_SmallRound         # Deprecated, do not use.
-        xplmFont_Menus_Localized    # Deprecated, do not use.
-        xplmFont_Proportional       # Deprecated, do not use.
+  XPLMFontID* {.size: sizeof(int).}  = enum
+    # Mono-spaced font for user interface.
+    xplmFont_Basic
+    xplmFont_Menus              # Deprecated, do not use.
+    xplmFont_Metal              # Deprecated, do not use.
+    xplmFont_Led                # Deprecated, do not use.
+    xplmFont_LedWide            # Deprecated, do not use.
+    xplmFont_PanelHUD           # Deprecated, do not use.
+    xplmFont_PanelEFIS          # Deprecated, do not use.
+    xplmFont_PanelGPS           # Deprecated, do not use.
+    xplmFont_RadiosGA           # Deprecated, do not use.
+    xplmFont_RadiosBC           # Deprecated, do not use.
+    xplmFont_RadiosHM           # Deprecated, do not use.
+    xplmFont_RadiosGANarrow     # Deprecated, do not use.
+    xplmFont_RadiosBCNarrow     # Deprecated, do not use.
+    xplmFont_RadiosHMNarrow     # Deprecated, do not use.
+    xplmFont_Timer              # Deprecated, do not use.
+    xplmFont_FullRound          # Deprecated, do not use.
+    xplmFont_SmallRound         # Deprecated, do not use.
+    xplmFont_Menus_Localized    # Deprecated, do not use.
+    xplmFont_Proportional       # Deprecated, do not use.
 
 # XPLMDrawString draws a NULL termianted string in a given font.  Pass in the
 # lower left pixel that the character is to be drawn onto.  Also pass the
@@ -224,7 +231,8 @@ proc XPLMDrawString*(inColorRGB: ptr float32,
                      inYOffset: int,
                      inChar: cstring,
                      inWordWrapWidth: ptr int,  # Can be NULL
-                     inFontID: XPLMFontID) {.cdecl, importc: "XPLMDrawString", dynlib: xplm_lib.}
+                     inFontID: XPLMFontID)
+                      {.cdecl, importc: "XPLMDrawString", dynlib: xplm_lib.}
 
 # XPLMDrawNumber draws a number similar to the digit editing fields in
 # PlaneMaker and data output display in X-Plane.  Pass in a color, a
@@ -239,7 +247,8 @@ proc XPLMDrawNumber*(inColorRGB: ptr float32,
                      inDigits: int,
                      inDecimals: int,
                      inShowSign: int,
-                     inFontID: XPLMFontID) {.cdecl, importc: "XPLMDrawNumber", dynlib: xplm_lib.}
+                     inFontID: XPLMFontID)
+                      {.cdecl, importc: "XPLMDrawNumber", dynlib: xplm_lib.}
 
 # XPLMGetFontDimensions returns the width and height of a character in a given
 # font. It also tells you if the font only supports numeric digits.  Pass NULL
@@ -248,11 +257,13 @@ proc XPLMDrawNumber*(inColorRGB: ptr float32,
 proc XPLMGetFontDimensions*(inFontID: XPLMFontID,
                             outCharWidth: ptr int,
                             outCharHeight: ptr int,
-                            outDigitsOnly: ptr int) {.cdecl, importc: "XPLMGetFontDimensions", dynlib: xplm_lib.}
+                            outDigitsOnly: ptr int)
+                  {.cdecl, importc: "XPLMGetFontDimensions", dynlib: xplm_lib.}
 
 # XPLMMeasureString returns the width in pixels of a string using a given font.
 # The string is passed as a pointer plus length (and does not need to be null
 # terminated); this is used to allow for measuring substrings. The return
 # value is floating point; it is possible that future font drawing may allow
 # for fractional pixels.
-proc XPLMMeasureString*(inFontID; XPLMFontID, inChar: cstring, inNumChars: int) {.cdecl, importc: "XPLMMeasureString", dynlib: xplm_lib.}
+proc XPLMMeasureString*(inFontID; XPLMFontID, inChar: cstring, inNumChars: int)
+                      {.cdecl, importc: "XPLMMeasureString", dynlib: xplm_lib.}

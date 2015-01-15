@@ -65,7 +65,7 @@
 # the lifetime of your plugin.  You never hard code these values; you always
 # get them from XPLMFindDataRef.
 type
-    XPLMDataRef* = pointer
+  XPLMDataRef* = pointer
 
 # XPLMDataTypeID
 #
@@ -76,21 +76,21 @@ type
 #
 # Data types each take a bit field, so sets of data types may be formed.
 type
-    XPLMDataTypeID* {.size: sizeof(int).} = enum
-        #  Data of a type the current XPLM doesn't do.
-        xplmType_Unknown
-        # A single 4-byte integer, native endian.
-        xplmType_Int
-        # A single 4-byte float, native endian.
-        xplmType_Float
-        # A single 8-byte double, native endian.
-        xplmType_Double
-        # An array of 4-byte floats, native endian.
-        xplmType_FloatArray
-        # An array of 4-byte integers, native endian.
-        xplmType_IntArray
-        # A variable block of data.
-        xplmType_Data
+  XPLMDataTypeID* {.size: sizeof(int).} = enum
+    #  Data of a type the current XPLM doesn't do.
+    xplmType_Unknown
+    # A single 4-byte integer, native endian.
+    xplmType_Int
+    # A single 4-byte float, native endian.
+    xplmType_Float
+    # A single 8-byte double, native endian.
+    xplmType_Double
+    # An array of 4-byte floats, native endian.
+    xplmType_FloatArray
+    # An array of 4-byte integers, native endian.
+    xplmType_IntArray
+    # A variable block of data.
+    xplmType_Data
 
 # XPLMFindDataRef looks up the actual opaque XPLMDataRef that you use to read
 # and write the data. The string names for datarefs are published on the x-plane
@@ -101,11 +101,13 @@ type
 # NOTE: this function is relatively expensive; save the XPLMDataRef this
 # function returns for future use.  Do not look up your data ref by string
 # every time you need to read or write it.
-proc XPLMFindDataRef*(inDataRefName: cstring): XPLMDataRef {.cdecl, importc: "XPLMFindDataRef", dynlib: xplm_lib.}
+proc XPLMFindDataRef*(inDataRefName: cstring): XPLMDataRef
+                      {.cdecl, importc: "XPLMFindDataRef", dynlib: xplm_lib.}
 
 # XPLMCanWriteDataRef returns true if you can successfully set
 # the data, false otherwise.  Some datarefs are read-only.
-proc XPLMCanWriteDataRef*(inDataRef: XPLMDataRef): int {.cdecl, importc: "XPLMCanWriteDataRef", dynlib: xplm_lib.}
+proc XPLMCanWriteDataRef*(inDataRef: XPLMDataRef): int
+                    {.cdecl, importc: "XPLMCanWriteDataRef", dynlib: xplm_lib.}
 
 # WARNING: XPLMIsDataRefGood is deprecated and should not be used. Datarefs are
 # valid until plugins are reloaded or the sim quits.  Plugins sharing
@@ -117,11 +119,13 @@ proc XPLMCanWriteDataRef*(inDataRef: XPLMDataRef): int {.cdecl, importc: "XPLMCa
 # false, you should refind the data ref from its original string.  Calling an
 # accessor function on a bad data ref will return a default value, typically
 # 0 or 0-length data.
-proc XPLMIsDataRefGood*(inDataRef: XPLMDataRef): int {.cdecl, importc: "XPLMIsDataRefGood", dynlib: xplm_lib.}
+proc XPLMIsDataRefGood*(inDataRef: XPLMDataRef): int
+                      {.cdecl, importc: "XPLMIsDataRefGood", dynlib: xplm_lib.}
 
 # XPLMGetDataRefTypes returns the types of the data ref for accessor use.  If a data
 # ref is available in multiple data types, they will all be returned.
-proc XPLMGetDataRefTypes*(inDataRef: XPLMDataRef): XPLMDataTypeID {.cdecl, importc: "XPLMGetDataRefTypes", dynlib: xplm_lib.}
+proc XPLMGetDataRefTypes*(inDataRef: XPLMDataRef): XPLMDataTypeID
+                    {.cdecl, importc: "XPLMGetDataRefTypes", dynlib: xplm_lib.}
 
 #******************************************************************************
 # Data Accessors
@@ -146,32 +150,38 @@ proc XPLMGetDataRefTypes*(inDataRef: XPLMDataRef): XPLMDataTypeID {.cdecl, impor
 # XPLMGetDatai reads an integer data ref and return its value. The return value
 # is the dataref value or 0 if the dataref is invalid/NULL or the plugin is
 # disabled.
-proc XPLMGetDatai*(inDataRef: XPLMDataRef): int {.cdecl, importc: "XPLMGetDatai", dynlib: xplm_lib.}
+proc XPLMGetDatai*(inDataRef: XPLMDataRef): int
+                  {.cdecl, importc: "XPLMGetDatai", dynlib: xplm_lib.}
 
 # XPLMSetDatai writes a new value to an integer data ref.   This routine is a
 # no-op if the plugin publishing the dataref is disabled, the dataref is invalid,
 # or the dataref is not writable.
-proc XPLMSetDatai*(inDataRef: XPLMDataRef, inValue: int) {.cdecl, importc: "XPLMSetDatai", dynlib: xplm_lib.}
+proc XPLMSetDatai*(inDataRef: XPLMDataRef, inValue: int)
+                  {.cdecl, importc: "XPLMSetDatai", dynlib: xplm_lib.}
 
 # XPLMGetDataf reads a single precision floating point dataref and return its
 # value. The return value is the dataref value or 0.0 if the dataref is invalid/NULL
 # or the plugin is disabled.
-proc XPLMGetDataf*(inDataRef: XPLMDataRef): float32 {.cdecl, importc: "XPLMGetDataf", dynlib: xplm_lib.}
+proc XPLMGetDataf*(inDataRef: XPLMDataRef): float32
+                  {.cdecl, importc: "XPLMGetDataf", dynlib: xplm_lib.}
 
 # XPLMSetDataf writes a new value to a single precision floating point data ref.
 # This routine is a no-op if the plugin publishing the dataref is disabled, the
 # dataref is invalid, or the dataref is not writable.
-proc XPLMSetDataf*(inDataRef: XPLMDataRef, inValue: float32) {.cdecl, importc: "XPLMSetDataf", dynlib: xplm_lib.}
+proc XPLMSetDataf*(inDataRef: XPLMDataRef, inValue: float32)
+                  {.cdecl, importc: "XPLMSetDataf", dynlib: xplm_lib.}
 
 # XPLMGetDatad reads a double precision floating point dataref and return its
 # value. The return value is the dataref value or 0.0 if the dataref is invalid/NULL
 # or the plugin is disabled.
-proc XPLMGetDatad*(inDataRef: XPLMDataRef): cdouble {.cdecl, importc: "XPLMGetDatad", dynlib: xplm_lib.}
+proc XPLMGetDatad*(inDataRef: XPLMDataRef): cdouble
+                  {.cdecl, importc: "XPLMGetDatad", dynlib: xplm_lib.}
 
 # XPLMSetDatad writes a new value to a double precision floating point data ref.
 # rThis outine is a no-op if the plugin publishing the dataref is disabled, the
 # dataref is invalid, or the dataref is not writable.
-proc XPLMSetDatad*(inDataRef: XPLMDataRef, inValue: cdouble) {.cdecl, importc: "XPLMSetDatad", dynlib: xplm_lib.}
+proc XPLMSetDatad*(inDataRef: XPLMDataRef, inValue: cdouble)
+                  {.cdecl, importc: "XPLMSetDatad", dynlib: xplm_lib.}
 
 # XPLMGetDatavi reads a part of an integer array dataref.  If you pass NULL for
 # outVaules, the routine will return the size of the array, ignoring inOffset
@@ -190,7 +200,8 @@ proc XPLMSetDatad*(inDataRef: XPLMDataRef, inValue: cdouble) {.cdecl, importc: "
 proc XPLMGetDatavi*(inDataRef: XPLMDataRef,
                     outValues: ptr int,
                     inOffset: int,
-                    inMax: int): int {.cdecl, importc: "XPLMGetDatavi", dynlib: xplm_lib.}
+                    inMax: int): int
+                    {.cdecl, importc: "XPLMGetDatavi", dynlib: xplm_lib.}
 
 # XPLMSetDatavi writes part or all of an integer array dataref.  The values
 # passed by inValues are written into the dataref starting at  inOffset.  Up to
@@ -204,7 +215,8 @@ proc XPLMGetDatavi*(inDataRef: XPLMDataRef,
 proc XPLMSetDatavi*(inDataRef: XPLMDataRef,
                     inValues: ptr int,
                     inoffset: int,
-                    inCount: int) {.cdecl, importc: "XPLMSetDatavi", dynlib: xplm_lib.}
+                    inCount: int)
+                    {.cdecl, importc: "XPLMSetDatavi", dynlib: xplm_lib.}
 
 # XPLMGetDatavf reads a part of a single precision floating point array dataref.
 # If you pass NULL for outVaules, the routine will return the size of the array,
@@ -222,7 +234,8 @@ proc XPLMSetDatavi*(inDataRef: XPLMDataRef,
 proc XPLMGetDatavf*(inDataRef: XPLMDataRef,
                     outValues: ptr float32,
                     inOffset: int,
-                    inMax: int): int {.cdecl, importc: "XPLMGetDatavf", dynlib: xplm_lib.}
+                    inMax: int): int
+                    {.cdecl, importc: "XPLMGetDatavf", dynlib: xplm_lib.}
 
 # XPLMSetDatavf writes part or all of a single precision floating point array
 # dataref. The values passed by inValues are written into the dataref starting
@@ -236,7 +249,8 @@ proc XPLMGetDatavf*(inDataRef: XPLMDataRef,
 proc XPLMSetDatavf*(inDataRef: XPLMDataRef,
                     inValues: ptr float32,
                     inoffset: int,
-                    inCount: int) {.cdecl, importc: "XPLMSetDatavf", dynlib: xplm_lib.}
+                    inCount: int)
+                    {.cdecl, importc: "XPLMSetDatavf", dynlib: xplm_lib.}
 
 # XPLMGetDatab reads a part of a byte array dataref.  If you pass NULL for
 # outVaules, the routine will return the size of the array, ignoring inOffset
@@ -254,7 +268,8 @@ proc XPLMSetDatavf*(inDataRef: XPLMDataRef,
 proc XPLMGetDatab*(inDataRef: XPLMDataRef,
                    outValue: pointer,
                    inOffset: int,
-                   inMaxBytes: int): int {.cdecl, importc: "XPLMGetDatab", dynlib: xplm_lib.}
+                   inMaxBytes: int): int
+                  {.cdecl, importc: "XPLMGetDatab", dynlib: xplm_lib.}
 
 # XPLMSetDatab writes part or all of a byte array dataref.  The values passed
 # by inValues are written into the dataref starting at  inOffset.  Up to inCount
@@ -268,7 +283,8 @@ proc XPLMGetDatab*(inDataRef: XPLMDataRef,
 proc XPLMSetDatab*(inDataRef: XPLMDataRef,
                    inValue: pointer,
                    inOffset: int,
-                   inLength: int) {.cdecl, importc: "XPLMSetDatab", dynlib: xplm_lib.}
+                   inLength: int)
+                  {.cdecl, importc: "XPLMSetDatab", dynlib: xplm_lib.}
 
 #******************************************************************************
 # Publishing Plugin Data
@@ -356,7 +372,8 @@ proc XPLMRegisterDataAccessor*(inDataName: cstring,
 # final shutdown (when your XPluginStop routine is called).  This allows
 # other plugins to find your data reference once and use it for their entire
 # time of operation.
-proc XPLMUnregisterDataAccessor*(inDataRef: XPLMDataRef) {.cdecl, importc: "XPLMUnregisterDataAccessor", dynlib: xplm_lib.}
+proc XPLMUnregisterDataAccessor*(inDataRef: XPLMDataRef)
+              {.cdecl, importc: "XPLMUnregisterDataAccessor", dynlib: xplm_lib.}
 
 
 #******************************************************************************
@@ -423,7 +440,8 @@ type
 proc XPLMShareData*(inDataName: cstring,
                     inDataType: XPLMDataTypeID,
                     inNotificationFunc: XPLMDataChanged_f,
-                    inNotificationRefcon: pointer): int {.cdecl, importc: "XPLMShareData", dynlib: xplm_lib.}
+                    inNotificationRefcon: pointer): int
+                    {.cdecl, importc: "XPLMShareData", dynlib: xplm_lib.}
 
 # XPLMUnshareData removes your notification function for shared data.  Call it
 # when done with  the data to stop receiving change notifications.  Arguments
@@ -432,6 +450,7 @@ proc XPLMShareData*(inDataName: cstring,
 proc XPLMUnshareData*(inDataName: cstring,
                       inDataType: XPLMDataTypeID,
                       inNotificationFunc: XPLMDataChanged_f,
-                      inNotificationRefcon: pointer): int {.cdecl, importc: "XPLMUnshareData", dynlib: xplm_lib.}
+                      inNotificationRefcon: pointer): int
+                      {.cdecl, importc: "XPLMUnshareData", dynlib: xplm_lib.}
 
 

@@ -39,66 +39,68 @@
 # future APIs will expose more flexible or poewrful or useful probes.
 #
 type
-    XPLMProbeType* {.size: sizeof(int).} = enum
-        # The Y probe gives you the location of the tallest physical scenery along
-        # the Y axis going through the queried point.
-        xplm_ProbeY = 0
+  XPLMProbeType* {.size: sizeof(int).} = enum
+    # The Y probe gives you the location of the tallest physical scenery along
+    # the Y axis going through the queried point.
+    xplm_ProbeY = 0
 
 # XPLMProbeResult
 #
 # Probe results - possible results from a probe query.
 #
 type
-    XPLMProbeResult* {.size: sizeof(int).} = enum
-        # The probe hit terrain and returned valid values.
-        xplm_ProbeHitTerrain = 0
+  XPLMProbeResult* {.size: sizeof(int).} = enum
+    # The probe hit terrain and returned valid values.
+    xplm_ProbeHitTerrain = 0
 
-         # An error in the API call.  Either the probe struct size is bad, or the
-         # probe is invalid or the type is mismatched for the specific query call.
-        xplm_ProbeError = 1
+     # An error in the API call.  Either the probe struct size is bad, or the
+     # probe is invalid or the type is mismatched for the specific query call.
+    xplm_ProbeError = 1
 
-         # The probe call succeeded but there is no terrain under this point (perhaps
-         # it is off the side of the planet?)
-        xplm_ProbeMissed = 2
+     # The probe call succeeded but there is no terrain under this point (perhaps
+     # it is off the side of the planet?)
+    xplm_ProbeMissed = 2
 
 # An XPLMProbeRef is an opaque handle to a probe, used for querying the
 # terrain.
 type
-     XPLMProbeRef* = pointer
+  XPLMProbeRef* = pointer
 
 # XPLMProbeInfo_t contains the results of a probe call.  Make sure to set
 # structSize to the size of the struct before using it.
 type
-    PXPLMProbeInfo_t* = ptr XPLMProbeInfo_t
-    XPLMProbeInfo_t*{.final.} = object
-        # Size of structure in bytes - always set this before calling the XPLM.
-        structSize: int
-        # Resulting X location of the terrain point we hit, in local OpenGL coordinates.
-        locationX: float32
-        # Resulting Y location of the terrain point we hit, in local OpenGL coordinates.
-        locationY: float32
-        # Resulting Z location of the terrain point we hit, in local OpenGL coordinates.
-        locationZ: float32
-        # X component of the normal vector to the terrain we found.
-        normalX: float32
-        # Y component of the normal vector to the terrain we found.
-        normalY: float32
-        # Z component of the normal vector to the terrain we found.
-        normalZ: float32
-        # X component of the velocity vector of the terrain we found.
-        velocityX: float32
-        # Y component of the velocity vector of the terrain we found.
-        velocityY: float32
-        # Z component of the velocity vector of the terrain we found.
-        velocityZ: float32
-        # Tells if the surface we hit is water (otherwise it is land).
-        is_wet: int
+  PXPLMProbeInfo_t* = ptr XPLMProbeInfo_t
+  XPLMProbeInfo_t*{.final.} = object
+    # Size of structure in bytes - always set this before calling the XPLM.
+    structSize: int
+    # Resulting X location of the terrain point we hit, in local OpenGL coordinates.
+    locationX: float32
+    # Resulting Y location of the terrain point we hit, in local OpenGL coordinates.
+    locationY: float32
+    # Resulting Z location of the terrain point we hit, in local OpenGL coordinates.
+    locationZ: float32
+    # X component of the normal vector to the terrain we found.
+    normalX: float32
+    # Y component of the normal vector to the terrain we found.
+    normalY: float32
+    # Z component of the normal vector to the terrain we found.
+    normalZ: float32
+    # X component of the velocity vector of the terrain we found.
+    velocityX: float32
+    # Y component of the velocity vector of the terrain we found.
+    velocityY: float32
+    # Z component of the velocity vector of the terrain we found.
+    velocityZ: float32
+    # Tells if the surface we hit is water (otherwise it is land).
+    is_wet: int
 
 # XPLMCreateProbe creates a new probe object of a given type and returns.
-proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef {.cdecl, importc: "XPLMCreateProbe", dynlib: xplm_lib.}
+proc XPLMCreateProbe*(inProbeType: XPLMProbeType): XPLMProbeRef
+                        {.cdecl, importc: "XPLMCreateProbe", dynlib: xplm_lib.}
 
 # XPLMDestroyProbe deallocates an existing probe object.
-proc XPLMDestroyProbe*(inProbe: XPLMProbeRef) {.cdecl, importc: "XPLMDestroyProbe", dynlib: xplm_lib.}
+proc XPLMDestroyProbe*(inProbe: XPLMProbeRef)
+                      {.cdecl, importc: "XPLMDestroyProbe", dynlib: xplm_lib.}
 
 # XPLMProbeTerrainXYZ probes the terrain.  Pass in the XYZ coordinate of the
 # probe point, a probe object, and an XPLMProbeInfo_t struct that  has its
@@ -108,7 +110,8 @@ proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
                           inX: float32,
                           inY: float32,
                           inZ: float32,
-                          outInfo: PXPLMProbeInfo_t): XPLMProbeResult {.cdecl, importc: "XPLMProbeTerrainXYZ", dynlib: xplm_lib.}
+                          outInfo: PXPLMProbeInfo_t): XPLMProbeResult
+                    {.cdecl, importc: "XPLMProbeTerrainXYZ", dynlib: xplm_lib.}
 
 #******************************************************************************
 # Object Drawing
@@ -123,28 +126,28 @@ proc XPLMProbeTerrainXYZ*(inProbe: XPLMProbeRef,
 # An XPLMObjectRef is a opaque handle to an .obj file that has been loaded
 # into memory.
 type
-     XPLMObjectRef* = pointer
+  XPLMObjectRef* = pointer
 
 # The XPLMDrawInfo_t structure contains positioning info for one object that
 # is to be drawn. Be sure to set structSize to the size of the structure for
 # future expansion.
 type
-    PXPLMDrawInfo_t* = ptr XPLMDrawInfo_t
-    XPLMDrawInfo_t*{.final.} = object
-        # Set this to the size of this structure!
-        structSize: int
-        # X location of the object in local coordinates.
-        x: float32
-        # Y location of the object in local coordinates.
-        y: float32
-        # Z location of the object in local coordinates.
-        z: float32
-        # Pitch in degres to rotate the object, positive is up.
-        pitch: float32
-        # Heading in local coordinates to rotate the object, clockwise.
-        heading: float32
-        # Roll to rotate the object.
-        roll: float32
+  PXPLMDrawInfo_t* = ptr XPLMDrawInfo_t
+  XPLMDrawInfo_t*{.final.} = object
+    # Set this to the size of this structure!
+    structSize: int
+    # X location of the object in local coordinates.
+    x: float32
+    # Y location of the object in local coordinates.
+    y: float32
+    # Z location of the object in local coordinates.
+    z: float32
+    # Pitch in degres to rotate the object, positive is up.
+    pitch: float32
+    # Heading in local coordinates to rotate the object, clockwise.
+    heading: float32
+    # Roll to rotate the object.
+    roll: float32
 
 # XPLMObjectLoaded_f
 #
@@ -178,7 +181,8 @@ type
 # It is important that the datarefs an object uses for animation already be
 # loaded before you load the object.  For this reason it may be necessary to
 # defer object loading until the sim has fully started.
-proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef {.cdecl, importc: "XPLMLoadObject", dynlib: xplm_lib.}
+proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef
+                          {.cdecl, importc: "XPLMLoadObject", dynlib: xplm_lib.}
 
 # XPLMLoadObjectAsync loads an object asynchronously; control is returned to you
 # immediately while X-Plane loads the object.  The sim will not stop flying
@@ -194,7 +198,8 @@ proc XPLMLoadObject*(inPath: cstring): XPLMObjectRef {.cdecl, importc: "XPLMLoad
 # desired.
 proc XPLMLoadObjectAsync*(inPath: cstring,
                           inCallback: XPLMObjectLoaded_f,
-                          inRefcon: pointer) {.cdecl, importc: "XPLMLoadObjectAsync", dynlib: xplm_lib.}
+                          inRefcon: pointer)
+                    {.cdecl, importc: "XPLMLoadObjectAsync", dynlib: xplm_lib.}
 
 # XPLMDrawObjects draws an object from an OBJ file one or more times.  You
 # pass in the object and an array of  XPLMDrawInfo_t structs, one for each
@@ -219,13 +224,15 @@ proc XPLMDrawObjects*(inObject: XPLMObjectRef,
                       inCount: int,
                       inLocations: PXPLMDrawInfo_t,
                       lighting: int,
-                      earth_relative: int) {.cdecl, importc: "XPLMDrawObjects", dynlib: xplm_lib.}
+                      earth_relative: int)
+                      {.cdecl, importc: "XPLMDrawObjects", dynlib: xplm_lib.}
 
 # XPLMUnloadObject marks an object as no longer being used by your plugin.
 # Objects are reference counted: once no plugins are using an object, it is
 # purged from memory.  Make sure to call XPLMUnloadObject once for each
 # successful call to XPLMLoadObject.
-proc XPLMUnloadObject*(inObject: XPLMObjectRef) {.cdecl, importc: "XPLMUnloadObject", dynlib: xplm_lib.}
+proc XPLMUnloadObject*(inObject: XPLMObjectRef)
+                      {.cdecl, importc: "XPLMUnloadObject", dynlib: xplm_lib.}
 
 #******************************************************************************
 # Library Access
@@ -256,5 +263,6 @@ proc XPLMLookupObjects*(inPath: cstring,
                         inLatitude: float32,
                         inLongitude: float32,
                         enumerator: XPLMLibraryEnumerator_f,
-                        rref: pointer): int {.cdecl, importc: "XPLMLookupObjects", dynlib: xplm_lib.}
+                        rref: pointer): int
+                      {.cdecl, importc: "XPLMLookupObjects", dynlib: xplm_lib.}
 

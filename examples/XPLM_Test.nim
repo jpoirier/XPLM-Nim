@@ -10,13 +10,15 @@ import xplm
 proc XFlightLoopCallback(inElapsedSinceLastCall: float32,
                          inElapsedTimeSinceLastFlightLoop: float32,
                          inCounter: int,
-                         inRefcon: pointer): float32 {.exportc: "XFlightLoopCallback", dynlib.} =
+                         inRefcon: pointer): float32
+                        {.exportc: "XFlightLoopCallback", dynlib.} =
     XPLMDebugString("-- RadioPanelFlightLoopCallback called...\n")
     # us: int, strongAdvice = false
     # proc GC_step*(100)
     return 1.0
 
-proc XPluginStart(outName, outSig, outDesc: ptr cstring): int {.exportc: "XPluginStart", dynlib.} =
+proc XPluginStart(outName, outSig, outDesc: ptr cstring): int
+                                        {.exportc: "XPluginStart", dynlib.} =
     var name: cstring = "XPLM-Nim_Test"
     var sig: cstring = "xplm.nim.test"
     var desc: cstring = "XPLM-Nim Test Plugin"
@@ -43,6 +45,7 @@ proc XPluginEnable(): int {.exportc: "XPluginEnable", dynlib.} =
     XPLMDebugString("-- XPluginEnable called...\n")
     return 1
 
-proc XPluginReceiveMessage(inFrom: int, inMsg: int, inParam: pointer) {.exportc: "XPluginReceiveMessage", dynlib.} =
+proc XPluginReceiveMessage(inFrom: int, inMsg: int, inParam: pointer)
+                                {.exportc: "XPluginReceiveMessage", dynlib.} =
     XPLMDebugString("-- XPluginReceiveMessage called...\n")
 

@@ -26,21 +26,21 @@
 # gradient in one element.  All other elements can be rescaled.
 #
 type
-    XPWindowStyle* {.size: sizeof(int).} = enum
-        # An LCD screen that shows help.
-        xpWindow_Help = 0
+  XPWindowStyle* {.size: sizeof(int).} = enum
+    # An LCD screen that shows help.
+    xpWindow_Help = 0
 
-        # A dialog box window.
-        xpWindow_MainWindow = 1
+    # A dialog box window.
+    xpWindow_MainWindow = 1
 
-        # A panel or frame within a dialog box window.
-        xpWindow_SubWindow = 2
+    # A panel or frame within a dialog box window.
+    xpWindow_SubWindow = 2
 
-        # An LCD screen within a panel to hold text displays.
-        xpWindow_Screen = 4
+    # An LCD screen within a panel to hold text displays.
+    xpWindow_Screen = 4
 
-        # A list view within a panel for scrolling file names, etc.
-        xpWindow_ListView = 5
+    # A list view within a panel for scrolling file names, etc.
+    xpWindow_ListView = 5
 
 # XPDrawWindow draws a window of the given dimensions at the given offset on
 # the virtual screen in a given style.  The window is automatically scaled as
@@ -50,14 +50,16 @@ proc XPDrawWindow*(inX1: int,
                    inY1: int,
                    inX2: int,
                    inY2: int,
-                   inStyle: XPWindowStyle) {.cdecl, importc: "XPDrawWindow", dynlib: xpwidgets_lib.}
+                   inStyle: XPWindowStyle)
+                  {.cdecl, importc: "XPDrawWindow", dynlib: xpwidgets_lib.}
 
 # XPGetWindowDefaultDimensions returns the default dimensions for a window.
 # Output is either a minimum or fixed value depending on whether the window
 # is scalable. Note, outWidth and outHeight can be NULL.
 proc XPGetWindowDefaultDimensions*(inStyle: XPWindowStyle,
                                    outWidth: ptr int,
-                                   outHeight: ptr int) {.cdecl, importc: "XPGetWindowDefaultDimensions", dynlib: xpwidgets_lib.}
+                                   outHeight: ptr int)
+      {.cdecl, importc: "XPGetWindowDefaultDimensions", dynlib: xpwidgets_lib.}
 
 # XPElementStyle
 #
@@ -72,79 +74,79 @@ proc XPGetWindowDefaultDimensions*(inStyle: XPWindowStyle,
 #       Scalable Axis			Required Background
 #
 type
-    XPElementStyle* {.size: sizeof(int).} = enum
-        # x						metal
-        xpElement_TextField = 6
-        # none					metal
-        xpElement_CheckBox = 9
-        # none					metal
-        xpElement_CheckBoxLit = 10
-        # none					window header
-        xpElement_WindowCloseBox = 14
-        # none					window header
-        xpElement_WindowCloseBoxPressed = 15
-        # x					    metal
-        xpElement_PushButton = 16
-        # x					    metal
-        xpElement_PushButtonLit = 17
-        # none					any
-        xpElement_OilPlatform = 24
-        # none					any
-        xpElement_OilPlatformSmall = 25
-        # none					any
-        xpElement_Ship = 26
-        # none					any
-        xpElement_ILSGlideScope = 27
-        # none					any
-        xpElement_MarkerLeft = 28
-        # none					any
-        xpElement_Airport = 29
-        # none					any
-        xpElement_Waypoint = 30
-        # none					any
-        xpElement_NDB = 31
-        # none					any
-        xpElement_VOR = 32
-        # none					any
-        xpElement_RadioTower = 33
-        # none					any
-        xpElement_AircraftCarrier = 34
-        # none					any
-        xpElement_Fire = 35
-        # none					any
-        xpElement_MarkerRight = 36
-        # none					any
-        xpElement_CustomObject = 37
-        # none					any
-        xpElement_CoolingTower = 38
-        # none					any
-        xpElement_SmokeStack = 39
-        # none					any
-        xpElement_Building = 40
-        # none					any
-        xpElement_PowerLine = 41
-        # none					metal
-        xpElement_CopyButtons = 45
-        # none					metal
-        xpElement_CopyButtonsWithEditingGrid = 46
-        # x, y					metal
-        xpElement_EditingGrid = 47
-        # THIS CAN PROBABLY BE REMOVED
-        xpElement_ScrollBar = 48
-        # none					any
-        xpElement_VORWithCompassRose = 49
-        # none					metal
-        xpElement_Zoomer = 51
-        # x, y					metal
-        xpElement_TextFieldMiddle = 52
-        # none					metal
-        xpElement_LittleDownArrow = 53
-        # none					metal
-        xpElement_LittleUpArrow = 54
-        # none					metal
-        xpElement_WindowDragBar = 61
-        # none					metal
-        xpElement_WindowDragBarSmooth = 62
+  XPElementStyle* {.size: sizeof(int).} = enum
+    # x						metal
+    xpElement_TextField = 6
+    # none					metal
+    xpElement_CheckBox = 9
+    # none					metal
+    xpElement_CheckBoxLit = 10
+    # none					window header
+    xpElement_WindowCloseBox = 14
+    # none					window header
+    xpElement_WindowCloseBoxPressed = 15
+    # x					    metal
+    xpElement_PushButton = 16
+    # x					    metal
+    xpElement_PushButtonLit = 17
+    # none					any
+    xpElement_OilPlatform = 24
+    # none					any
+    xpElement_OilPlatformSmall = 25
+    # none					any
+    xpElement_Ship = 26
+    # none					any
+    xpElement_ILSGlideScope = 27
+    # none					any
+    xpElement_MarkerLeft = 28
+    # none					any
+    xpElement_Airport = 29
+    # none					any
+    xpElement_Waypoint = 30
+    # none					any
+    xpElement_NDB = 31
+    # none					any
+    xpElement_VOR = 32
+    # none					any
+    xpElement_RadioTower = 33
+    # none					any
+    xpElement_AircraftCarrier = 34
+    # none					any
+    xpElement_Fire = 35
+    # none					any
+    xpElement_MarkerRight = 36
+    # none					any
+    xpElement_CustomObject = 37
+    # none					any
+    xpElement_CoolingTower = 38
+    # none					any
+    xpElement_SmokeStack = 39
+    # none					any
+    xpElement_Building = 40
+    # none					any
+    xpElement_PowerLine = 41
+    # none					metal
+    xpElement_CopyButtons = 45
+    # none					metal
+    xpElement_CopyButtonsWithEditingGrid = 46
+    # x, y					metal
+    xpElement_EditingGrid = 47
+    # THIS CAN PROBABLY BE REMOVED
+    xpElement_ScrollBar = 48
+    # none					any
+    xpElement_VORWithCompassRose = 49
+    # none					metal
+    xpElement_Zoomer = 51
+    # x, y					metal
+    xpElement_TextFieldMiddle = 52
+    # none					metal
+    xpElement_LittleDownArrow = 53
+    # none					metal
+    xpElement_LittleUpArrow = 54
+    # none					metal
+    xpElement_WindowDragBar = 61
+    # none					metal
+    xpElement_WindowDragBarSmooth = 62
 
 # XPDrawElement draws a given element at an offset on the virtual screen in
 # set dimensions. EVEN if the element is not scalable, it will be scaled if
@@ -155,7 +157,8 @@ proc XPDrawElement*(inX1: int,
                     inY1: int,
                     inX2: int,
                     inY2: int,
-                    inStyle: XPElementStyle, inLit: int) {.cdecl, importc: "XPDrawElement", dynlib: xpwidgets_lib.}
+                    inStyle: XPElementStyle, inLit: int)
+                    {.cdecl, importc: "XPDrawElement", dynlib: xpwidgets_lib.}
 
 # XPGetElementDefaultDimensions returns the recommended or minimum dimensions
 # of a given UI element. outCanBeLit tells whether the element has both a lit
@@ -164,7 +167,8 @@ proc XPDrawElement*(inX1: int,
 proc XPGetElementDefaultDimensions*(inStyle: XPElementStyle,
                                     outWidth: ptr int,
                                     outHeight: ptr int,
-                                    outCanBeLit: ptr int) {.cdecl, importc: "XPGetElementDefaultDimensions", dynlib: xpwidgets_lib.}
+                                    outCanBeLit: ptr int)
+    {.cdecl, importc: "XPGetElementDefaultDimensions", dynlib: xpwidgets_lib.}
 
 # XPTrackStyle
 #
@@ -181,15 +185,15 @@ proc XPGetElementDefaultDimensions*(inStyle: XPElementStyle,
 # going.
 #
 type
-    XPTrackStyle* {.size: sizeof(int).} = enum
-        # not over metal	can be lit		can be rotated
-        xpTrack_ScrollBar = 0
+  XPTrackStyle* {.size: sizeof(int).} = enum
+    # not over metal	can be lit		can be rotated
+    xpTrack_ScrollBar = 0
 
-        # over metal		can be lit		can be rotated
-        xpTrack_Slider = 1
+    # over metal		can be lit		can be rotated
+    xpTrack_Slider = 1
 
-        # over metal		cannot be lit	cannot be rotated
-        xpTrack_Progress = 2
+    # over metal		cannot be lit	cannot be rotated
+    xpTrack_Progress = 2
 
 # XPDrawTrack draws a track.  You pass in the track dimensions and size; the
 # track picks the optimal orientation for these dimensions.  Pass in the
@@ -203,14 +207,16 @@ proc XPDrawTrack*(inX1: int,
                   inMin: int,
                   inMax: int,
                   inValue: int,
-                  inTrackStyle: XPTrackStyle, inLit: int) {.cdecl, importc: "XPDrawTrack", dynlib: xpwidgets_lib.}
+                  inTrackStyle: XPTrackStyle, inLit: int)
+                  {.cdecl, importc: "XPDrawTrack", dynlib: xpwidgets_lib.}
 
 # XPGetTrackDefaultDimensions returns a track's default smaller dimension; all
 # tracks are scalable in the larger dimension.  It also returns whether a track
 # can be lit.
 proc XPGetTrackDefaultDimensions*(inStyle: XPTrackStyle,
                                   outWidth: ptr int,
-                                  outCanBeLit: ptr int) {.cdecl, importc: "XPGetTrackDefaultDimensions", dynlib: xpwidgets_lib.}
+                                  outCanBeLit: ptr int)
+        {.cdecl, importc: "XPGetTrackDefaultDimensions", dynlib: xpwidgets_lib.}
 
 # XPGetTrackMetrics returns the metrics of a track.  If you want to write UI code
 # to manipulate a track, this routine helps you know where the mouse
@@ -237,5 +243,6 @@ proc XPGetTrackMetrics*(inX1: int,
                         outDownPageSize: ptr int,
                         outThumbSize: ptr int,
                         outUpPageSize: ptr int,
-                        outUpBtnSize: ptr int) {.cdecl, importc: "XPGetTrackMetrics", dynlib: xpwidgets_lib.}
+                        outUpBtnSize: ptr int)
+                  {.cdecl, importc: "XPGetTrackMetrics", dynlib: xpwidgets_lib.}
 

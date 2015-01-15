@@ -1,14 +1,14 @@
 # See license.txt for usage.
 
 when defined(windows):
-    const xplm_lib = "./Resources/plugins/XPLM_64.dll"
-    const xpwidgets_lib = "./Resources/plugins/XPWidgets_64.dll"
+  const xplm_lib = "./Resources/plugins/XPLM_64.dll"
+  const xpwidgets_lib = "./Resources/plugins/XPWidgets_64.dll"
 elif defined(macosx):
-    const xplm_lib = "./Resources/plugins/XPLM_64.dylib"
-    const xpwidgets_lib = "./Resources/plugins/XPWidgets_64.dylib"
+  const xplm_lib = "./Resources/plugins/XPLM_64.dylib"
+  const xpwidgets_lib = "./Resources/plugins/XPWidgets_64.dylib"
 else:
-    const xplm_lib = "./Resources/plugins/XPLM_64.so"
-    const xpwidgets_lib = "./Resources/plugins/XPWidgets_64.so"
+  const xplm_lib = "./Resources/plugins/XPLM_64.so"
+  const xpwidgets_lib = "./Resources/plugins/XPWidgets_64.so"
 
 include "XPLMDefs.nim"
 include "XPWidgetDefs.nim"

@@ -40,13 +40,13 @@
 # This enumeration states how long you want to retain control of the camera.
 # You can retain it indefinitely or until the user selects a new view.
 type
-    XPLMCameraControlDuration* {.size: sizeof(int).} = enum
-        # Control the camera until the user picks a new view.
-        xplm_ControlCameraUntilViewChanges = 1
+  XPLMCameraControlDuration* {.size: sizeof(int).} = enum
+    # Control the camera until the user picks a new view.
+    xplm_ControlCameraUntilViewChanges = 1
 
-        # Control the camera until your plugin is disabled or another plugin
-        # forcably takes control.
-        xplm_ControlCameraForever = 2
+    # Control the camera until your plugin is disabled or another plugin
+    # forcably takes control.
+    xplm_ControlCameraForever = 2
 
 # XPLMCameraPosition_t
 #
@@ -57,15 +57,15 @@ type
 # all in degrees. Zoom is a zoom factor, with 1.0 meaning normal zoom and 2.0
 # magnifying by 2x (objects appear larger).
 type
-    PXPLMCameraPosition_t* = ptr XPLMCameraPosition_t
-    XPLMCameraPosition_t*{.final.} = object
-        x*: float32
-        y*: float32
-        z*: float32
-        pitch*: float32
-        heading*: float32
-        roll*: float32
-        zoom*: float32
+  PXPLMCameraPosition_t* = ptr XPLMCameraPosition_t
+  XPLMCameraPosition_t*{.final.} = object
+    x*: float32
+    y*: float32
+    z*: float32
+    pitch*: float32
+    heading*: float32
+    roll*: float32
+    zoom*: float32
 
 # XPLMCameraControl provides continuous control over
 # the camera.  You are passed in a structure in which to put the new camera
@@ -77,16 +77,17 @@ type
 # If X-Plane is taking camera control away from you, this function will be
 # called with inIsLosingControl set to 1 and ioCameraPosition NULL.
 type
-    XPLMCameraControl_f* = proc (outCameraPosition: PXPLMCameraPosition_t,
-                                 inIsLosingControl: int,
-                                 inRefcon: pointer): int {.cdecl.}
+  XPLMCameraControl_f* = proc (outCameraPosition: PXPLMCameraPosition_t,
+                               inIsLosingControl: int,
+                               inRefcon: pointer): int {.cdecl.}
 
 # XPLMControlCamera repositions the camera on the next drawing cycle.  You must
 # pass a non-null control function.  Specify in inHowLong how long you'd like
 # control  (indefinitely or until a key is pressed).
 proc XPLMControlCamera*(inHowLong: XPLMCameraControlDuration,
                         inControlFunc: XPLMCameraControl_f,
-                        inRefcon: pointer) {.cdecl, importc: "XPLMControlCamera", dynlib: xplm_lib.}
+                        inRefcon: pointer)
+                        {.cdecl, importc: "XPLMControlCamera", dynlib: xplm_lib.}
 
 # XPLMDontControlCamera stops you from controlling the camera.  If you have a
 # camera control function, it will not be called with an inIsLosingControl flag.
@@ -105,4 +106,4 @@ proc XPLMIsCameraBeingControlled*(outCameraControlDuration: ptr XPLMCameraContro
 
 # XPLMReadCameraPosition reads the current camera position.
 proc XPLMReadCameraPosition*(outCameraPosition: PXPLMCameraPosition_t)
-                                {.cdecl, importc: "XPLMReadCameraPosition", dynlib: xplm_lib.}
+                            {.cdecl, importc: "XPLMReadCameraPosition", dynlib: xplm_lib.}
